@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('agama');
             $table->string('statusKawin');
             $table->string('pekerjaan');
+            $table->string('no_rt');
             $table->unsignedBigInteger('id_keluarga')->nullable();
             $table->foreign('id_keluarga')->references('id')->on('keluarga')->onDelete('cascade');
             $table->timestamps();

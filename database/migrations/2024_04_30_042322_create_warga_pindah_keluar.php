@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('warga_pindah_keluar', function (Blueprint $table) {
             $table->unsignedBigInteger('id_penduduk');
             $table->foreign('id_penduduk')->references('id')->on('penduduk')->onDelete('cascade');
-            $table->unsignedBigInteger('id_rt');
-            $table->foreign('id_rt')->references('id')->on('rt')->onDelete('cascade');
             $table->string('alamat_tujuan');
             $table->date('tanggal_pindah');
             $table->timestamps();

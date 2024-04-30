@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('jenis_surat');
             $table->date('tanggal_surat');
             $table->foreignId('id_penduduk')->constrained('penduduk');
-            $table->foreignId('id_rt')->constrained('rt');
             $table->string('keterangan');
             $table->timestamps();
         });

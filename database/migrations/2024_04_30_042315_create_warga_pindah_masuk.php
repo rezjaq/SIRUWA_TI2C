@@ -22,10 +22,9 @@ return new class extends Migration
             $table->string('agama');
             $table->string('statusKawin');
             $table->string('pekerjaan');
-            $table->unsignedBigInteger('id_rt');
-            $table->foreign('id_rt')->references('id')->on('rt')->onDelete('cascade');
             $table->string('alamat_asal');
             $table->date('tanggal_pindah');
+            $table->string('no_rt');
             $table->timestamps();
         });
     }

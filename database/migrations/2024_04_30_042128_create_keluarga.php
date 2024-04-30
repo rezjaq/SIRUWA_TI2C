@@ -17,8 +17,7 @@ return new class extends Migration
             $table->string('nomor_nik');
             $table->string('alamat');
             $table->string('no_rumah');
-            $table->unsignedBigInteger('id_rt')->nullable();
-            $table->foreign('id_rt')->references('id')->on('rt')->onDelete('cascade');
+            $table->string('no_rt');
             $table->timestamps();
         });
     }

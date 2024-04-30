@@ -15,9 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('alamat');
+            $table->string('no_rt');
             $table->string('no_telepon')->nullable();
-            $table->unsignedBigInteger('id_rt');
-            $table->foreign('id_rt')->references('id')->on('rt')->onDelete('cascade');
             $table->text('keperluan')->nullable();
             $table->timestamps();
         });

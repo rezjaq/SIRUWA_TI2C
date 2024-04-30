@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('pengajuan_bansos', function (Blueprint $table) {
             $table->id();
-            $table->string('judul');
-            $table->text('isi');
-            $table->date('tanggal');
-            $table->unsignedBigInteger('id_rt');
-            $table->foreign('id_rt')->references('id')->on('rt')->onDelete('cascade');
-            $table->string('status pengumuman');
+            $table->unsignedBigInteger('id_penduduk');
+            $table->foreign('id_penduduk')->references('id')->on('penduduk')->onDelete('cascade');
+            $table->decimal('pendapatan_1bln', 10, 2);
+            $table->string('sktm')->nullable();
+            $table->string('status_pengajuan');
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

@@ -16,8 +16,6 @@ return new class extends Migration
             $table->string('judul');
             $table->text('isi');
             $table->date('tanggal');
-            $table->unsignedBigInteger('id_rt');
-            $table->foreign('id_rt')->references('id')->on('rt')->onDelete('cascade');
             $table->string('status pengumuman');
             $table->timestamps();
         });
