@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('warga_pindah_keluar', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_penduduk');
-            $table->foreign('id_penduduk')->references('id')->on('penduduk')->onDelete('cascade');
+            $table->id('id_wargaPindahKeluar');
+            $table->string('nik_warga');
+            $table->foreign('nik_warga')->references('nik')->on('warga')->onDelete('cascade');
             $table->string('alamat_tujuan');
             $table->date('tanggal_pindah');
             $table->timestamps();

@@ -12,10 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('surat', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_surat');
             $table->string('jenis_surat');
             $table->date('tanggal_surat');
-            $table->foreignId('id_penduduk')->constrained('penduduk');
+            $table->string('nik_warga');
+            $table->foreign('nik_warga')->references('nik')->on('warga')->onDelete('cascade');
             $table->string('keterangan');
             $table->timestamps();
         });

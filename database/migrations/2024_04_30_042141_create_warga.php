@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('penduduk', function (Blueprint $table) {
-            $table->id();
+        Schema::create('warga', function (Blueprint $table) {
+            $table->string('nik')->primary();
             $table->string('nama');
-            $table->string('nik')->unique();
             $table->string('password');
             $table->string('level');
             $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
@@ -26,7 +25,7 @@ return new class extends Migration
             $table->string('pekerjaan');
             $table->string('no_rt');
             $table->unsignedBigInteger('id_keluarga')->nullable();
-            $table->foreign('id_keluarga')->references('id')->on('keluarga')->onDelete('cascade');
+            $table->foreign('id_keluarga')->references('id_keluarga')->on('keluarga')->onDelete('cascade');
             $table->timestamps();
         });
     }
