@@ -8,11 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Warga extends Model
 {
     use HasFactory;
-    protected $table = 'penduduk';
+
+    protected $table = 'warga';
+
+    protected $primaryKey = 'nik';
 
     protected $fillable = [
-        'nama',
         'nik',
+        'nama',
         'password',
         'level',
         'jenis_kelamin',
