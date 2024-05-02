@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Home Page or Landing Page
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/pengajuan-surat', function () {
+    return view('pengajuan_surat.surat');
 });
