@@ -5,6 +5,7 @@ use App\Http\Controllers\RTController;
 use App\Http\Controllers\RWController;
 use App\Http\Controllers\WargaController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SuratController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 
 // Home Page or Landing Page
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/pengajuan-surat', [SuratController::class, 'warga_tetap'])->name('pengajuan-surat');
+Route::get('/pengajuan-surat-pindah', [SuratController::class, 'warga_pindah'])->name('pengajuan-surat-pindah');
 Route::get('/pengajuan-surat', function () {
     return view('pengajuan_surat.surat');
 });
@@ -48,3 +51,4 @@ Route::get('/warga', function () {
 //         Route::resource('warga', WargaController::class);
 //     });
 // });
+
