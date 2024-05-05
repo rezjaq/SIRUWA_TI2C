@@ -5,7 +5,6 @@
         "This file is @generated automatically"
     ],
     "content-hash": "6220991b00b2051988db9ed43e0ef6a7",
-    "content-hash": "a5e587af66df05d6a57013c70a6458f4",
     "packages": [
         {
             "name": "brick/math",
@@ -1598,6 +1597,25 @@
                 "phpstan/phpstan-strict-rules": "^0.12",
                 "phpunit/php-invoker": "^3.1",
                 "phpunit/phpunit": "^9.4"
+            },
+            "support": {
+                "issues": "https://github.com/lcobucci/jwt/issues",
+                "source": "https://github.com/lcobucci/jwt/tree/4.0.4"
+            },
+            "authors": [
+                {
+                    "name": "Luís Cobucci",
+                    "email": "lcobucci@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A simple library to work with JSON Web Token and JSON Web Signature",
+            "keywords": [
+                "JWS",
+                "jwt"
+            ]
+        },
+        {
             "name": "laravel/ui",
             "version": "v4.5.1",
             "source": {
@@ -1627,7 +1645,6 @@
             "extra": {
                 "branch-alias": {
                     "dev-master": "4.0-dev"
-                    "dev-master": "4.x-dev"
                 },
                 "laravel": {
                     "providers": [
@@ -1637,7 +1654,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Lcobucci\\JWT\\": "src"
+                    "Lcobucci\\JWT\\": "src",
                     "Laravel\\Ui\\": "src/",
                     "Illuminate\\Foundation\\Auth\\": "auth-backend/"
                 }
@@ -1646,22 +1663,6 @@
             "license": [
                 "BSD-3-Clause"
             ],
-            "authors": [
-                {
-                    "name": "Luís Cobucci",
-                    "email": "lcobucci@gmail.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A simple library to work with JSON Web Token and JSON Web Signature",
-            "keywords": [
-                "JWS",
-                "jwt"
-            ],
-            "support": {
-                "issues": "https://github.com/lcobucci/jwt/issues",
-                "source": "https://github.com/lcobucci/jwt/tree/4.0.4"
-            },
             "funding": [
                 {
                     "url": "https://github.com/lcobucci",
@@ -1672,9 +1673,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2021-09-28T19:18:28+00:00"
-                "MIT"
-            ],
+            "time": "2021-09-28T19:18:28+00:00",
             "authors": [
                 {
                     "name": "Taylor Otwell",
@@ -1688,8 +1687,7 @@
             ],
             "support": {
                 "source": "https://github.com/laravel/ui/tree/v4.5.1"
-            },
-            "time": "2024-03-21T18:12:29+00:00"
+            }        
         },
         {
             "name": "league/commonmark",

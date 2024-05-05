@@ -42,8 +42,8 @@
           <li><a class="nav-link scrollto" href="#about">Berita</a></li>
           <li><a class="nav-link scrollto" href="#upcoming-events">Kegiatan</a></li>
           <li><a class="nav-link scrollto" href="#portfolio">Dokumentasi</a></li>
-          <li><a class="nav-link scrollto" href="#team">Team</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          <li><a class="nav-link scrollto" href="#team">UMKM</a></li>
+          {{-- <li><a class="nav-link scrollto" href="#contact"></a></li> --}}
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -60,7 +60,7 @@
           <h1>Sistem Informasi Rukun Warga</h1>
           <h2>SIRUWA adalah platform bantu untuk penyaluran informasi dan administrasi di wilayah RW. 02 Kelurahan Candirenggo, Kecamatan Singosari</h2>
           <div class="d-flex justify-content-center justify-content-lg-start">
-            <a href="#about" class="btn-get-started scrollto">Get Started</a>
+            <a href="{{route('login')}}" class="btn-get-started scrollto">Get Started</a>
           </div>
         </div>
         <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">

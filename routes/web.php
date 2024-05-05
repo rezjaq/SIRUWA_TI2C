@@ -3,7 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RTController;
 use App\Http\Controllers\RWController;
-use App\Http\Controllers\WargaController;
+use App\Http\Controllers\Guest\WargaController as GuestWargaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SuratController;
 use Illuminate\Support\Facades\Route;
@@ -21,23 +21,36 @@ use Illuminate\Support\Facades\Route;
 
 // Home Page or Landing Page
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/pengajuan-surat', [SuratController::class, 'warga_tetap'])->name('pengajuan-surat');
-Route::get('/pengajuan-surat-pindah', [SuratController::class, 'warga_pindah'])->name('pengajuan-surat-pindah');
-Route::get('/pengajuan-surat', function () {
-    return view('pengajuan_surat.surat');
+Route::group(['prefix' => 'surat'], function () {
+    Route::get('/surat-pindah', [SuratController::class, 'warga_pindah'])->name('surat-pindah');
+    Route::get('/surat-tetap', [SuratController::class, 'warga_tetap'])->name('surat-tetap');
 });
+
+
+
+//login
 Route::get('login', [AuthController::class, 'index'])->name('login');
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/RW', function () {
-    return view('RW');
+
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::group(['middleware' => ['cek_login:warga']], function () {
+        Route::resource('warga', GuestWargaController::class, 'warga.index');
+    });
 });
-Route::get('/RT', function () {
-    return view('RT');
+Route::group(['middleware' => ['auth']], function () {
+    Route::group(['middleware' => ['cek_login:RT']], function () {
+        Route::resource('RT', RTController::class);
+    });
 });
-Route::get('/warga', function () {
-    return view('warga');
+Route::group(['middleware' => ['auth']], function () {
+    Route::group(['middleware' => ['cek_login:RW']], function () {
+        Route::resource('RW', RWController::class);
+    });
 });
+
+
 
 // -- Digunakan jika menggunakan password enkripsi.
 // Route::group(['middleware' => 'auth'], function () {
@@ -52,3 +65,7 @@ Route::get('/warga', function () {
 //     });
 // });
 
+// menu warga
+// Route::get('/warga1', function () {
+//     return view('warga.index');
+// });
