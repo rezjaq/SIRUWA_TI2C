@@ -8,53 +8,64 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $user = Auth::user();
 
         if ($user) {
-
             if ($user->level == 'RW') {
                 return redirect()->intended('RW');
             } else if ($user->level == 'RT') {
                 return redirect()->intended('RT');
-            }else if ($user->level == 'warga') {
+            } else if ($user->level == 'warga') {
                 return redirect()->intended('warga');
             }
-
         }
         return view('login');
     }
 
-    public function proses_login(Request $request) {
+    public function proses_login(Request $request)
+    {
         $request->validate([
             'nik' => 'required',
             'password' => 'required'
         ]);
 
-        $credential = $request->only('nik', 'password');
-        $user = Warga::where('nik', $request->nik)->first();
+        $user = Warga::where('nik', $request->nik)->where('password', $request->password)->first();
+
         if ($user) {
-            // Bandingkan password tanpa enkripsi
-            if ($user->password == $request->password) {
-                if ($user->level == 'RW') {
-                    return redirect()->intended('RW');
-                } else if ($user->level == 'RT') {
-                    return redirect()->intended('RT');
-                } else if ($user->level == 'warga') {
-                    return redirect()->intended('warga');
-                }
-                
-                return redirect()->intended('/');
+            Auth::login($user);
+
+            if ($user->level == 'RW') {
+                return redirect()->intended('RW');
+            } else if ($user->level == 'RT') {
+                return redirect()->intended('RT');
+            } else if ($user->level == 'warga') {
+                return redirect()->intended('warga');
             }
+
+            return redirect()->intended('/');
         }
-        
+
         return redirect('login')
             ->withInput()
             ->withErrors(['login_gagal' => 'Pastikan kembali username dan password yang dimasukkan sudah benar']);
     }
-    
+
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('login');
+    }
+
     // -- MEnggunakan password enkripsi
-    
+
     // public function proses_login(Request $request) {
     //     $request->validate([
     //         'nik' => 'required',
@@ -72,22 +83,13 @@ class AuthController extends Controller
     //         }else if ($user->level == 'warga') {
     //             return redirect()->intended('warga');
     //         }
-            
+
     //         return redirect()->intended('/');
 
     //     }
-        
+
     //     return redirect('login')
     //         ->withInput()
     //         ->withErrors(['login_gagal' => 'Pastikan kembali username dan password yang dimasukkan sudah benar']);
     // }
-    
-
-    public function logout(Request $request) {
-        $request->session()->flush();
-
-        Auth::logout();
-
-        return redirect('login');
-    }
 }
