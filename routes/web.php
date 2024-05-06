@@ -91,10 +91,6 @@ Route::get('/kegiatan/{kegiatan}/edit', [KegiatanController::class, 'edit'])->na
 Route::put('/kegiatan/{kegiatan}', [KegiatanController::class, 'update'])->name('kegiatan.update');
 Route::delete('/kegiatan/{kegiatan}', [KegiatanController::class, 'destroy'])->name('kegiatan.destroy');
 
-// menu warga
-// Route::get('/warga1', function () {
-//     return view('warga.index');
-// });
 
 // Home Page or Landing Page
 Route::get('/landing', [HomeController::class, 'index'])->name('home');
