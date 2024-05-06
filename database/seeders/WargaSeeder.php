@@ -13,6 +13,7 @@ class WargaSeeder extends Seeder
      */
     public function run(): void
     {
+        //sebagai contoh user yang digunakan untuk login
         Warga::create([
             'nik' => '111111',
             'nama' => 'Sukijan',
