@@ -22,6 +22,8 @@
     <link rel="stylesheet" href="{{asset('asset/css/style.css')}}">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{{asset('asset/images/favicon.png')}}" />
+
+    @stack('css')
 </head>
 
 <body>
@@ -63,6 +65,7 @@
     <!-- Custom js for this page -->
     <script src="{{asset('asset/js/dashboard.js')}}"></script>
     <!-- End custom js for this page -->
+    @stack('js')
 </body>
 
 </html>

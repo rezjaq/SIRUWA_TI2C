@@ -1,11 +1,76 @@
-{{-- @extends('layouts.template') --}}
+@extends('layouts.template');
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="{{asset('asset/css/surat-tetap.css')}}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .book {
+            width: 176mm; /* Ukuran kertas B5 */
+            height: 250mm; /* Ukuran kertas B5 */
+            padding: 10mm; /* Padding yang lebih kecil untuk kertas B5 */
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .page {
+            margin: 0 auto;
+        }
+
+        .catatan-lampiran {
+            position: absolute;
+            bottom: 70px; /* Penyesuaian posisi catatan lampiran */
+            left: 0;
+            width: 50%;
+        }
+
+        .keterangan-penyelesaian {
+            margin-bottom: 0;
+        }
+
+        .div-ketua {
+            margin-top: 2mm;
+            float: right;
+            width: 80mm;
+            text-align: center ;
+            line-height: 1.5;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        th {
+            text-align: left; /* Mengatur teks di dalam th menjadi rata kiri */
+            font-weight: normal;
+        }
+
+        input[type="text"] {
+            width: 100%; /* Mengisi seluruh lebar sel */
+            box-sizing: border-box; /* Menghitung padding dan border ke dalam total lebar */
+        }
+
+        p {
+            margin: 0; /* Menghilangkan margin bawaan untuk paragraf */
+        }
+
+        ol {
+            margin-top: 0; /* Menghilangkan margin atas untuk daftar terurut */
+        }
+
+        /* Menyesuaikan lebar div dengan ukuran kertas B5 */
+        .div-ketua,
+        .catatan-lampiran {
+            width: 50%; /* Menjadi setengah dari lebar kontainer */
+        }
+    </style>
 </head>
 
 <body>
@@ -64,27 +129,27 @@
                 <tr>
                     <th>- Nama</th>
                     <td>:</td>
-                    <td><input class="warga-tetap" type="text" name="nama" required></td>
+                    <td><input type="text" name="nama" required></td>
                 </tr>
                 <tr>
                     <th>- Tempat/Tgl. Lahir</th>
                     <td>:</td>
-                    <td><input class="warga-tetap" type="text" name="tempat_tgl_lahir" required></td>
+                    <td><input type="text" name="tempat_tgl_lahir" required></td>
                 </tr>
                 <tr>
                     <th>- Kebangsaan</th>
                     <td>:</td>
-                    <td><input class="warga-tetap" type="text" name="kebangsaan" required></td>
+                    <td><input type="text" name="kebangsaan" required></td>
                 </tr>
                 <tr>
                     <th>- Agama</th>
                     <td>:</td>
-                    <td><input class="warga-tetap" type="text" name="agama" required></td>
+                    <td><input type="text" name="agama" required></td>
                 </tr>
                 <tr>
                     <th>- Pekerjaan</th>
                     <td>:</td>
-                    <td><input class="warga-tetap" type="text" name="pekerjaan" required></td>
+                    <td><input type="text" name="pekerjaan" required></td>
                 </tr>
                 <tr>
                     <th>- Status Perkawinan</th>
@@ -103,95 +168,60 @@
                 <tr>
                     <th>- Pendidikan Terakhir</th>
                     <td>:</td>
-                    <td><input class="warga-tetap" type="text" name="pendidikan_terakhir" required></td>
+                    <td><input type="text" name="pendidikan_terakhir" required></td>
                 </tr>
                 <tr>
                     <th>- No. KTP</th>
                     <td>:</td>
-                    <td><input class="warga-tetap" type="text" name="no_ktp" required></td>
+                    <td><input type="text" name="no_ktp" required></td>
                 </tr>
                 <tr>
                     <th>- No. KSK</th>
                     <td>:</td>
-                    <td><input class="warga-tetap" type="text" name="no_ksk" required></td>
+                    <td><input type="text" name="no_ksk" required></td>
                 </tr>
                 <tr>
                     <th>- Alamat</th>
                     <td>:</td>
-                    <td><input class="warga-tetap" name="alamat" required></td>
+                    <td><input type="text" name="alamat" required></td>
                 </tr>
             </table>
-            
-            <p style="margin-bottom: 0;">Kepada yang bersangkutan mohon dibantu dilayani surat</p>
-            <table>
-                <tr>
-                    <td>
-                        <label style="font-weight: normal;">
-                            <input type="checkbox" id="ktp" name="surat" value="Kartu Tanda Penduduk (KTP)"> Kartu Tanda Penduduk (KTP)
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label style="font-weight: normal;">
-                            <input type="checkbox" id="ksk" name="surat" value="Kartu Susunan Keluarga (KSK)"> Kartu Susunan Keluarga (KSK)
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label style="font-weight: normal;">
-                            <input type="checkbox" id="pindah" name="surat" value="Surat Keterangan Pindah Tempat Tinggal"> Surat Keterangan Pindah Tempat Tinggal
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label style="font-weight: normal;">
-                            <input type="checkbox" id="bepergian" name="surat" value="Surat Keterangan Bepergian ke"> Surat Keterangan Bepergian ke <input type="text"> selama <input type="text">
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label style="font-weight: normal;">
-                            <input type="checkbox" id="lainnya" name="surat" value="Surat Keterangan"> Surat Keterangan <input type="text">
-                        </label>
-                    </td>
-                </tr>
-            </table>
+
+            <p>Kepada yang bersangkutan mohon dibantu dilayani surat <br>Surat Keterangan Pindah Tempat Tinggal <br> Demikian untuk menjadikan periksa dan mohon penyelesaiannya</p>
 
             <p class="keterangan-penyelesaian">Demikian untuk menjadikan periksa dan mohon penyelesainnya</p>
             <div class="div-ketua">
-                <div style="width: 80mm;">
+                <div>
                     <p id="ketua-rw"></p>
-                    <p style="margin-bottom: 5mm;">Ketua Rukun Tetangga (RT)</p>
-                    <p style="margin-top: 25mm;">(.................................................)</p>
-                </div>
-            </div>
-            
-            <div class="div-ketua">
-                <div style="width: 80mm;">
-                    <p id="ketua-rw"></p>
-                    <p>Ketua Rukun Warga (RW) 02</p>
-                    <p style="margin-top: 25mm;">(.................................................)</p>
+                    <p>Ketua Rukun Tetangga (RT)</p>
+                    <p style="margin-top: 25mm;">
+                    <p>(.................................................)</p>
                 </div>
             </div>
 
-            <div style="margin-top: 10mm; float: left;" class="catatan-lampiran">
-                <h3 style="margin-bottom: 0;">Catatan:</h3>
+            <div class="div-ketua">
+                <div>
+                    <p id="ketua-rw"></p>
+                    <p>Ketua Rukun Warga (RW) 02</p>
+                    <p style="margin-top: 25mm;">
+                    <p>(.................................................)</p>
+                </div>
+            </div>
+
+            <div class="catatan-lampiran">
+                <h3>Catatan:</h3>
                 <p style="margin-top: 0; margin-bottom: 0;">Harap dilampiri</p>
-                <ol style="margin-top: 0;">
+                <ol>
                     <li>FOTOCOPY KARTU SUSUNAN KELUARGA</li>
                     <li>FOTOCOPY KTP</li>
                     <li>PBB</li>
                 </ol>
             </div>
-            
-            
+
         </div>
     </div>
 
 </body>
 
 </html>
+@endsection
