@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id('id_kegiatan');
             $table->string('nama_kegiatan');
             $table->date('tanggal_kegiatan');
-            $table->time('waktu_kegiatan');
+            $table->time('waktu_mulai');
+            $table->time('waktu_selesai')->nullable();
             $table->string('lokasi_kegiatan');
             $table->text('deskripsi')->nullable();
+            $table->string('foto')->nullable();
             $table->string('status_kegiatan');
             $table->timestamps();
         });
