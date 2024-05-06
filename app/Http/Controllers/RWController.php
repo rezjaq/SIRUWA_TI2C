@@ -8,6 +8,6 @@ class RWController extends Controller
 {
     public function index()
     {
-        return view('RW');
+        return view('rw.index');
     }
 }
