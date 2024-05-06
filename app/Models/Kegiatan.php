@@ -16,9 +16,11 @@ class Kegiatan extends Model
     protected $fillable = [
         'nama_kegiatan',
         'tanggal_kegiatan',
-        'waktu_kegiatan',
+        'waktu_mulai',
+        'waktu_selesai',
         'lokasi_kegiatan',
         'deskripsi',
+        'foto',
         'status_kegiatan',
     ];
 }
