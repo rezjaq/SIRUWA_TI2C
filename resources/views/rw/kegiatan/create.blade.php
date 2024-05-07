@@ -1,6 +1,4 @@
-<!-- resources/views/kegiatan/create.blade.php -->
-
-@extends('layouts.app')
+@extends('template-admin.template')
 
 @section('content')
     <div class="container">
@@ -43,6 +41,8 @@
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
+            <!-- Tombol Kembali -->
+            <a href="{{ route('kegiatan.index') }}" class="btn btn-secondary">Kembali</a>
         </form>
     </div>
 @endsection
