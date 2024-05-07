@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('template-admin.template')
 
 @section('content')
     <div class="container">
-        <h1>Daftar Pengumuman</h1>
+        {{-- <h1>Daftar Pengumuman</h1> --}}
         <table class="table">
             <thead>
                 <tr>

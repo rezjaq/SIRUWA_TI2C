@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('template-admin.template')
 
 @section('content')
     <div class="container">
-        <h1>Edit Kegiatan</h1>
+        {{-- <h1>Edit Kegiatan</h1> --}}
         <form action="{{ route('kegiatan.update', $kegiatan->id_kegiatan) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
