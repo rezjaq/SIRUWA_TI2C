@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Warga;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -662,7 +661,9 @@ class WargaSeeder extends Seeder
             'id_keluarga' => '3525020410160003', // ID Keluarga yang terkait
         ],
     ];
-
         DB::table('warga')->insert($data);
     }
 }
+
+
+        

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('alamat');
             $table->string('no_rt');
             $table->timestamps();
+            //no rumah saya hilangkan
         });
     }
 

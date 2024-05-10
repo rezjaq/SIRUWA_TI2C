@@ -109,4 +109,5 @@ class KeluargaSeeder extends Seeder
         ];
         DB::table('keluarga')->insert($data);
     }
+
 }
