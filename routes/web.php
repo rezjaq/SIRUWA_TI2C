@@ -2,13 +2,14 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RTController;
-use App\Http\Controllers\RWController;
+use App\Http\Controllers\RW\DashboardRwController as RwDashboardController;
 use App\Http\Controllers\Guest\DashboardWargaController as GuestDashboardWargaController;
 use App\Http\Controllers\Guest\PengajuanSuratController as GuestPengajuanSuratController;
 use App\Http\Controllers\Guest\BantuanSosial as GuestBantuanSosialController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KegiatanController;
-use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\RW\PengumumanController as RwPengumumanController;
+use App\Http\Controllers\RW\KegiatanController as RwKegiatanController;
 use App\Http\Controllers\SuratController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,17 +47,37 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     // Rute untuk RT
-    Route::group(['middleware' => ['cek_login:RT']], function () {
-        Route::resource('RT', RTController::class);
-    });
+    // Route::group(['middleware' => ['cek_login:RT']], function () {
+    //     Route::resource('RT', RTController::class);
+    // });
 
     // Rute untuk RW
     Route::group(['middleware' => ['cek_login:RW']], function () {
-        Route::resource('RW', RWController::class);
+        Route::get('/RW', [RwDashboardController::class, 'index'])->name('dashboard-rw');
+
+        Route::prefix('/pengumuman')->group(function () {
+            Route::get('/', [RwPengumumanController::class, 'index'])->name('pengumuman');
+            Route::post('/list', [RwPengumumanController::class, 'list'])->name('pengumuman.list');
+            Route::get('/create', [RwPengumumanController::class, 'create'])->name('pengumuman.create');
+            Route::post('/store', [RwPengumumanController::class, 'store'])->name('pengumuman.store');
+            Route::get('/{id}', [RwPengumumanController::class, 'show'])->name('pengumuman.show');
+            Route::get('/{id}/edit', [RwPengumumanController::class, 'edit'])->name('pengumuman.edit');
+            Route::put('/{id}/update', [RwPengumumanController::class, 'update'])->name('pengumuman.update');
+            Route::delete('/{id}', [RwPengumumanController::class, 'destroy'])->name('pengumuman.destroy');
+        });
+
+        Route::prefix('/kegiatan')->group(function () {
+            Route::get('/', [RwKegiatanController::class, 'index'])->name('kegiatan.index');
+            Route::post('/list', [RwKegiatanController::class, 'list'])->name('kegiatan.list');
+            Route::get('/create', [RwKegiatanController::class, 'create'])->name('kegiatan.create');
+            Route::post('/store', [RwKegiatanController::class, 'store'])->name('kegiatan.store');
+            Route::get('/{id}', [RwKegiatanController::class, 'show'])->name('kegiatan.show');
+            Route::get('/{id}/edit', [RwKegiatanController::class, 'edit'])->name('kegiatan.edit');
+            Route::put('/{id}/update', [RwKegiatanController::class, 'update'])->name('kegiatan.update');
+            Route::delete('/{id}', [RwKegiatanController::class, 'destroy'])->name('kegiatan.destroy');
+        });
     });
 });
-
-
 
 
 // -- Digunakan jika menggunakan password enkripsi.
@@ -73,25 +94,10 @@ Route::group(['middleware' => ['auth']], function () {
 // });
 
 
-// rute admin pengumuman
-Route::get('/pengumuman', [PengumumanController::class, 'index'])->name('pengumuman');
-Route::get('/pengumuman/create', [PengumumanController::class, 'create'])->name('pengumuman.create');
-Route::get('/pengumuman/{id}', [PengumumanController::class, 'show'])->name('pengumuman.show');
-Route::post('/pengumuman/store', [PengumumanController::class, 'store'])->name('pengumuman.store');
-Route::get('/pengumuman/edit/{id}', [PengumumanController::class, 'edit'])->name('pengumuman.edit');
-Route::put('/pengumuman/update/{id}', [PengumumanController::class, 'update'])->name('pengumuman.update');
-Route::delete('/pengumuman/{id}', [PengumumanController::class, 'destroy'])->name('pengumuman.destroy');
 
-//rute admin kegiatan
-Route::get('/kegiatan', [KegiatanController::class, 'index'])->name('kegiatan.index');
-Route::get('/kegiatan/create', [KegiatanController::class, 'create'])->name('kegiatan.create');
-Route::post('/kegiatan', [KegiatanController::class, 'store'])->name('kegiatan.store');
-Route::get('/kegiatan/{kegiatan}', [KegiatanController::class, 'show'])->name('kegiatan.show');
-Route::get('/kegiatan/{kegiatan}/edit', [KegiatanController::class, 'edit'])->name('kegiatan.edit');
-Route::put('/kegiatan/{kegiatan}', [KegiatanController::class, 'update'])->name('kegiatan.update');
-Route::delete('/kegiatan/{kegiatan}', [KegiatanController::class, 'destroy'])->name('kegiatan.destroy');
+
 
 
 // Home Page or Landing Page
-Route::get('/landing', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
