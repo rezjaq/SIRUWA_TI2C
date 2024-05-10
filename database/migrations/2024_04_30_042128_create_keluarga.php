@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('nama_kepala_keluarga');
             $table->string('nomor_nik');
             $table->string('alamat');
-            $table->string('no_rumah');
             $table->string('no_rt');
             $table->timestamps();
+            //no rumah saya hilangkan
         });
     }
 
