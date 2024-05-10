@@ -19,6 +19,6 @@ class DashboardRwController extends Controller
 
         $activeMenu = 'dashboard';
 
-        return view('RW.dashboard', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('rw.dashboard', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
 }

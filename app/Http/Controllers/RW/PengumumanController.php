@@ -24,7 +24,7 @@ class PengumumanController extends Controller
 
         $pengumuman = Pengumuman::all();
 
-        return view('RW.pengumuman.pengumuman', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu], compact('pengumuman'));
+        return view('rw.pengumuman.pengumuman', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu], compact('pengumuman'));
     }
 
     public function list(Request $request)
@@ -51,7 +51,7 @@ class PengumumanController extends Controller
             'title' => 'Menu Pengumuman',
         ];
         $activeMenu = 'pengumuman';
-        return view('RW.pengumuman.create', ['activeMenu' => $activeMenu, 'breadcrumb' => $breadcrumb]);
+        return view('rw.pengumuman.create', ['activeMenu' => $activeMenu, 'breadcrumb' => $breadcrumb]);
     }
 
 
@@ -95,7 +95,7 @@ class PengumumanController extends Controller
 
         $activeMenu = 'pengumuman';
 
-        return view('RW.pengumuman.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'pengumuman' => $pengumuman, 'activeMenu' => $activeMenu], compact('pengumuman'));
+        return view('rw.pengumuman.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'pengumuman' => $pengumuman, 'activeMenu' => $activeMenu], compact('pengumuman'));
     }
 
 

@@ -23,7 +23,7 @@ class KegiatanController extends Controller
 
         $kegiatans = Kegiatan::all();
 
-        return view('RW.kegiatan.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu], compact('kegiatans'));
+        return view('rw.kegiatan.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu], compact('kegiatans'));
     }
 
     public function list()
@@ -49,7 +49,7 @@ class KegiatanController extends Controller
             'title' => 'Menu Kegiatan',
         ];
         $activeMenu = 'kegiatan';
-        return view('RW.kegiatan.create', ['activeMenu' => $activeMenu, 'breadcrumb' => $breadcrumb]);
+        return view('rw.kegiatan.create', ['activeMenu' => $activeMenu, 'breadcrumb' => $breadcrumb]);
     }
 
     public function store(Request $request)
@@ -100,7 +100,7 @@ class KegiatanController extends Controller
 
         $kegiatan = Kegiatan::findOrFail($id);
 
-        return view('RW.kegiatan.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'kegiatan' => $kegiatan, 'activeMenu' => $activeMenu], compact('kegiatan'));
+        return view('rw.kegiatan.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'kegiatan' => $kegiatan, 'activeMenu' => $activeMenu], compact('kegiatan'));
     }
 
     public function edit($id)
@@ -113,7 +113,7 @@ class KegiatanController extends Controller
 
         $kegiatan = Kegiatan::findOrFail($id);
 
-        return view('RW.kegiatan.edit', ['activeMenu' => $activeMenu, 'breadcrumb' => $breadcrumb], compact('kegiatan'));
+        return view('rw.kegiatan.edit', ['activeMenu' => $activeMenu, 'breadcrumb' => $breadcrumb], compact('kegiatan'));
     }
 
     public function update(Request $request, $id)
