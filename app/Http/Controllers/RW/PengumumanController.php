@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Pengumuman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\Facades\DataTables;
 
 class PengumumanController extends Controller
 {
@@ -25,6 +26,24 @@ class PengumumanController extends Controller
 
         return view('RW.pengumuman.pengumuman', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu], compact('pengumuman'));
     }
+
+    public function list(Request $request)
+    {
+        $pengumuman = Pengumuman::select('id_pengumuman', 'judul', 'isi', 'tanggal', 'foto', 'status_pengumuman');
+
+        return DataTables::of($pengumuman)
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($pengumuman) {
+                $btn = '<a href="' . url('/pengumuman/' . $pengumuman->id_pengumuman) . '" class="btn btn-primary btn-sm mr-1 mb-2" style="width: 40px; height: 40px; margin-right: 5px;"><i class="fas fa-eye"></i></a>';
+                $btn .= '<a href="' . url('/pengumuman/' . $pengumuman->id_pengumuman . '/edit') . '" class="btn btn-warning btn-sm mr-1 mb-2" style="width: 40px; height: 40px; margin-right: 5px;"><i class="fas fa-edit"></i></a>';
+                $btn .= '<form class="d-inline-block" method="POST" action="' . url('/pengumuman/' . $pengumuman->id_pengumuman) . '">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm mb-2" style="width: 40px; height: 40px; margin-right: 5px;" onclick="return confirm(\'Apakah Anda Yakin Menghapus Data Ini? \');"><i class="fas fa-trash-alt"></i></button></form>';
+                return $btn;
+            })
+            ->rawColumns(['aksi'])
+            ->make(true);
+    }
+
+
 
     public function create()
     {
@@ -83,12 +102,19 @@ class PengumumanController extends Controller
     public function edit($id)
     {
         $pengumuman = Pengumuman::findOrFail($id);
+
         $breadcrumb = (object) [
-            'title' => 'Detail Pengumuman',
-            'list' => ['Home', 'Pengumuman', 'Detail']
+            'title' => 'Edit Pengumuman',
+            'list' => ['Home', 'Pengumuman', 'Edit']
         ];
+
+        $page = (object) [
+            'title' => 'Edit Pengumuman'
+        ];
+
         $activeMenu = 'pengumuman';
-        return view('RW.pengumuman.edit', ['activeMenu' => $activeMenu, 'breadcrumb' => $breadcrumb], compact('pengumuman'));
+
+        return view('RW.pengumuman.edit', ['activeMenu' => $activeMenu, 'breadcrumb' => $breadcrumb, 'page' => $page], compact('pengumuman'));
     }
 
     public function update(Request $request, $id)
