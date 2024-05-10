@@ -64,3 +64,5 @@ class WargaSeeder extends Seeder
         DB::table('warga')->insert($data);
     }
 }
+
+        

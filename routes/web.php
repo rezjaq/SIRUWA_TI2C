@@ -94,6 +94,26 @@ Route::group(['middleware' => ['auth']], function () {
 // });
 
 
+
+// rute admin pengumuman
+Route::get('/pengumuman', [PengumumanController::class, 'index'])->name('pengumuman');
+Route::get('/pengumuman/create', [PengumumanController::class, 'create'])->name('pengumuman.create');
+Route::get('/pengumuman/{id}', [PengumumanController::class, 'show'])->name('pengumuman.show');
+Route::post('/pengumuman/store', [PengumumanController::class, 'store'])->name('pengumuman.store');
+Route::get('/pengumuman/edit/{id}', [PengumumanController::class, 'edit'])->name('pengumuman.edit');
+Route::put('/pengumuman/update/{id}', [PengumumanController::class, 'update'])->name('pengumuman.update');
+Route::delete('/pengumuman/{id}', [PengumumanController::class, 'destroy'])->name('pengumuman.destroy');
+
+//rute admin kegiatan
+Route::get('/kegiatan', [KegiatanController::class, 'index'])->name('kegiatan.index');
+Route::get('/kegiatan/create', [KegiatanController::class, 'create'])->name('kegiatan.create');
+Route::post('/kegiatan', [KegiatanController::class, 'store'])->name('kegiatan.store');
+Route::get('/kegiatan/{kegiatan}', [KegiatanController::class, 'show'])->name('kegiatan.show');
+Route::get('/kegiatan/{kegiatan}/edit', [KegiatanController::class, 'edit'])->name('kegiatan.edit');
+Route::put('/kegiatan/{kegiatan}', [KegiatanController::class, 'update'])->name('kegiatan.update');
+Route::delete('/kegiatan/{kegiatan}', [KegiatanController::class, 'destroy'])->name('kegiatan.destroy');
+
+
 // Home Page or Landing Page
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
