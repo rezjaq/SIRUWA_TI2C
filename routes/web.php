@@ -54,28 +54,30 @@ Route::group(['middleware' => ['auth']], function () {
     // Rute untuk RW
     Route::group(['middleware' => ['cek_login:RW']], function () {
         Route::get('/RW', [RwDashboardController::class, 'index'])->name('dashboard-rw');
+
         Route::prefix('/pengumuman')->group(function () {
             Route::get('/', [RwPengumumanController::class, 'index'])->name('pengumuman');
+            Route::post('/list', [RwPengumumanController::class, 'list'])->name('pengumuman.list');
             Route::get('/create', [RwPengumumanController::class, 'create'])->name('pengumuman.create');
             Route::post('/store', [RwPengumumanController::class, 'store'])->name('pengumuman.store');
             Route::get('/{id}', [RwPengumumanController::class, 'show'])->name('pengumuman.show');
-            Route::get('/edit/{id}', [RwPengumumanController::class, 'edit'])->name('pengumuman.edit');
-            Route::put('/update/{id}', [RwPengumumanController::class, 'update'])->name('pengumuman.update');
+            Route::get('/{id}/edit', [RwPengumumanController::class, 'edit'])->name('pengumuman.edit');
+            Route::put('/{id}/update', [RwPengumumanController::class, 'update'])->name('pengumuman.update');
             Route::delete('/{id}', [RwPengumumanController::class, 'destroy'])->name('pengumuman.destroy');
         });
+
         Route::prefix('/kegiatan')->group(function () {
             Route::get('/', [RwKegiatanController::class, 'index'])->name('kegiatan.index');
+            Route::post('/list', [RwKegiatanController::class, 'list'])->name('kegiatan.list');
             Route::get('/create', [RwKegiatanController::class, 'create'])->name('kegiatan.create');
             Route::post('/store', [RwKegiatanController::class, 'store'])->name('kegiatan.store');
             Route::get('/{id}', [RwKegiatanController::class, 'show'])->name('kegiatan.show');
-            Route::get('/edit/{id}', [RwKegiatanController::class, 'edit'])->name('kegiatan.edit');
-            Route::put('/update/{id}', [RwKegiatanController::class, 'update'])->name('kegiatan.update');
+            Route::get('/{id}/edit', [RwKegiatanController::class, 'edit'])->name('kegiatan.edit');
+            Route::put('/{id}/update', [RwKegiatanController::class, 'update'])->name('kegiatan.update');
             Route::delete('/{id}', [RwKegiatanController::class, 'destroy'])->name('kegiatan.destroy');
         });
     });
 });
-
-
 
 
 // -- Digunakan jika menggunakan password enkripsi.
