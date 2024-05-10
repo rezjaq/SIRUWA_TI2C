@@ -114,7 +114,7 @@ class PengumumanController extends Controller
 
         $activeMenu = 'pengumuman';
 
-        return view('RW.pengumuman.edit', ['activeMenu' => $activeMenu, 'breadcrumb' => $breadcrumb, 'page' => $page], compact('pengumuman'));
+        return view('rw.pengumuman.edit', ['activeMenu' => $activeMenu, 'breadcrumb' => $breadcrumb, 'page' => $page], compact('pengumuman'));
     }
 
     public function update(Request $request, $id)
