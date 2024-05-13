@@ -10,6 +10,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\RW\PengumumanController as RwPengumumanController;
 use App\Http\Controllers\RW\KegiatanController as RwKegiatanController;
+use App\Http\Controllers\RW\KeluargaController as RwKeluargaController;
+use App\Http\Controllers\RW\WargaController as RwWargaController;
 use App\Http\Controllers\SuratController;
 use Illuminate\Support\Facades\Route;
 
@@ -76,6 +78,31 @@ Route::group(['middleware' => ['auth']], function () {
             Route::put('/{id}/update', [RwKegiatanController::class, 'update'])->name('kegiatan.update');
             Route::delete('/{id}', [RwKegiatanController::class, 'destroy'])->name('kegiatan.destroy');
         });
+
+        Route::prefix('/keluarga')->group(function () {
+            Route::get('/', [RwKeluargaController::class, 'index'])->name('keluarga.index');
+            Route::post('/list', [RwKeluargaController::class, 'list'])->name('keluarga.list');
+            Route::get('/create', [RwKeluargaController::class, 'create'])->name('keluarga.create');
+            Route::post('/store', [RwKeluargaController::class, 'store'])->name('keluarga.store');
+            Route::get('/{id}', [RwKeluargaController::class, 'show'])->name('keluarga.show');
+            Route::get('/{id}/edit', [RwKeluargaController::class, 'edit'])->name('keluarga.edit');
+            Route::put('/{id}/update', [RwKeluargaController::class, 'update'])->name('keluarga.update');
+            Route::delete('/{id}', [RwKeluargaController::class, 'destroy'])->name('keluarga.destroy');
+        });
+
+        Route::prefix('/warga')->group(function () {
+            Route::get('/', [RwWargaController::class, 'index'])->name('warga.index');
+            Route::post('/list', [RwWargaController::class, 'list'])->name('warga.list');
+            Route::get('/create', [RwWargaController::class, 'create'])->name('warga.create');
+            Route::post('/store', [RwWargaController::class, 'store'])->name('warga.store');
+            Route::get('/{id}', [RwWargaController::class, 'show'])->name('warga.show');
+            Route::get('/{id}/edit', [RwWargaController::class, 'edit'])->name('warga.edit');
+            Route::put('/{id}/update', [RwWargaController::class, 'update'])->name('warga.update');
+            Route::delete('/{id}', [RwWargaController::class, 'destroy'])->name('warga.destroy');
+        });
+
+        
+        
     });
 });
 

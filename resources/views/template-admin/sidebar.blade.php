@@ -7,6 +7,18 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{ url('/keluarga') }}" class="nav-link {{ ($activeMenu == 'keluarga') ? 'active' : '' }}">
+                <span class="menu-title">keluarga</span>
+                <i class="mdi mdi-credit-card-multiple menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ url('/warga') }}" class="nav-link {{ ($activeMenu == 'warga') ? 'active' : '' }}">
+                <span class="menu-title">warga</span>
+                <i class="mdi mdi-credit-card-multiple menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{ url('/pengumuman') }}" class="nav-link {{ ($activeMenu == 'pengumuman') ? 'active' : '' }}">
                 <span class="menu-title">Pengumuman</span>
                 <i class="mdi mdi-credit-card-multiple menu-icon"></i>

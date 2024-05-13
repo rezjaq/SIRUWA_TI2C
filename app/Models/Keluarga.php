@@ -17,7 +17,6 @@ class Keluarga extends Model
         'nama_kepala_keluarga',
         'nomor_nik',
         'alamat',
-        'no_rumah',
         'no_rt',
     ];
 }
