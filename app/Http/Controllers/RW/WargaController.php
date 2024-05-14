@@ -24,7 +24,7 @@ class WargaController extends Controller
 
         $wargas = Warga::all();
 
-        return view('rw.warga.index', compact('breadcrumb', 'page', 'activeMenu', 'wargas'));
+        return view('rw.Warga.index', compact('breadcrumb', 'page', 'activeMenu', 'wargas'));
     }
 
     public function list()
@@ -44,56 +44,56 @@ class WargaController extends Controller
     }
 
     public function create()
-{
-    $breadcrumb = (object) [
-        'title' => 'Tambah Warga',
-    ];
-    $activeMenu = 'warga';
+    {
+        $breadcrumb = (object) [
+            'title' => 'Tambah Warga',
+        ];
+        $activeMenu = 'warga';
 
-    // Mendapatkan daftar keluarga yang sudah ada
-    $keluargas = Keluarga::all();
+        // Mendapatkan daftar keluarga yang sudah ada
+        $keluargas = Keluarga::all();
 
-    return view('rw.warga.create', compact('breadcrumb', 'activeMenu', 'keluargas'));
-}
+        return view('rw.Warga.create', compact('breadcrumb', 'activeMenu', 'keluargas'));
+    }
 
 
-public function store(Request $request)
-{
-    // Validasi input
-    $request->validate([
-        'nik' => 'required|unique:warga,nik',
-        'nama' => 'required',
-        'jenis_kelamin' => 'required',
-        'tanggal_lahir' => 'required|date',
-        'alamat' => 'required',
-        'no_telepon' => 'required',
-        'agama' => 'required',
-        'statusKawin' => 'required',
-        'pekerjaan' => 'required',
-        'no_rt' => 'required',
-        'password' => 'required|min:6',
-        'id_keluarga' => 'required|exists:keluarga,id_keluarga'
+    public function store(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'nik' => 'required|unique:warga,nik',
+            'nama' => 'required',
+            'jenis_kelamin' => 'required',
+            'tanggal_lahir' => 'required|date',
+            'alamat' => 'required',
+            'no_telepon' => 'required',
+            'agama' => 'required',
+            'statusKawin' => 'required',
+            'pekerjaan' => 'required',
+            'no_rt' => 'required',
+            'password' => 'required|min:6',
+            'id_keluarga' => 'required|exists:keluarga,id_keluarga'
 
-    ]);
+        ]);
 
-    // Simpan data warga baru
-    $warga = Warga::create([
-        'nik' => $request->nik,
-        'nama' => $request->nama,
-        'jenis_kelamin' => $request->jenis_kelamin,
-        'tanggal_lahir' => $request->tanggal_lahir,
-        'alamat' => $request->alamat,
-        'no_telepon' => $request->no_telepon,
-        'agama' => $request->agama,
-        'statusKawin' => $request->statusKawin,
-        'pekerjaan' => $request->pekerjaan,
-        'no_rt' => $request->no_rt,
-        'password' => bcrypt($request->password),
-        'id_keluarga' => $request->id_keluarga 
-    ]);
+        // Simpan data warga baru
+        $warga = Warga::create([
+            'nik' => $request->nik,
+            'nama' => $request->nama,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'alamat' => $request->alamat,
+            'no_telepon' => $request->no_telepon,
+            'agama' => $request->agama,
+            'statusKawin' => $request->statusKawin,
+            'pekerjaan' => $request->pekerjaan,
+            'no_rt' => $request->no_rt,
+            'password' => bcrypt($request->password),
+            'id_keluarga' => $request->id_keluarga
+        ]);
 
-    return redirect()->route('warga.index')->with('success', 'Warga berhasil ditambahkan.');
-}
+        return redirect()->route('warga.index')->with('success', 'Warga berhasil ditambahkan.');
+    }
 
 
     public function show($nik)
@@ -107,7 +107,7 @@ public function store(Request $request)
 
         $warga = Warga::findOrFail($nik);
 
-        return view('rw.warga.show', compact('breadcrumb', 'activeMenu', 'warga'));
+        return view('rw.Warga.show', compact('breadcrumb', 'activeMenu', 'warga'));
     }
 
     public function edit($nik)
@@ -120,7 +120,7 @@ public function store(Request $request)
 
         $warga = Warga::findOrFail($nik);
 
-        return view('rw.warga.edit', compact('breadcrumb', 'activeMenu', 'warga'));
+        return view('rw.Warga.edit', compact('breadcrumb', 'activeMenu', 'warga'));
     }
 
     public function update(Request $request, $nik)

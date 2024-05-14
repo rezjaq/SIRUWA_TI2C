@@ -90,7 +90,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::delete('/{id}', [RwKeluargaController::class, 'destroy'])->name('keluarga.destroy');
         });
 
-        Route::prefix('/warga')->group(function () {
+        Route::prefix('/Warga')->group(function () {
             Route::get('/', [RwWargaController::class, 'index'])->name('warga.index');
             Route::post('/list', [RwWargaController::class, 'list'])->name('warga.list');
             Route::get('/create', [RwWargaController::class, 'create'])->name('warga.create');
@@ -101,8 +101,8 @@ Route::group(['middleware' => ['auth']], function () {
             Route::delete('/{id}', [RwWargaController::class, 'destroy'])->name('warga.destroy');
         });
 
-        
-        
+
+
     });
 });
 
