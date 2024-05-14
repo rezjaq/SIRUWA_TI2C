@@ -90,15 +90,15 @@ Route::group(['middleware' => ['auth']], function () {
             Route::delete('/{id}', [RwKeluargaController::class, 'destroy'])->name('keluarga.destroy');
         });
 
-        Route::prefix('/Warga')->group(function () {
-            Route::get('/', [RwWargaController::class, 'index'])->name('warga.index');
-            Route::post('/list', [RwWargaController::class, 'list'])->name('warga.list');
-            Route::get('/create', [RwWargaController::class, 'create'])->name('warga.create');
-            Route::post('/store', [RwWargaController::class, 'store'])->name('warga.store');
-            Route::get('/{id}', [RwWargaController::class, 'show'])->name('warga.show');
-            Route::get('/{id}/edit', [RwWargaController::class, 'edit'])->name('warga.edit');
-            Route::put('/{id}/update', [RwWargaController::class, 'update'])->name('warga.update');
-            Route::delete('/{id}', [RwWargaController::class, 'destroy'])->name('warga.destroy');
+        Route::prefix('/warga')->group(function () {
+            Route::get('/', [RwWargaController::class, 'index'])->name('Warga.index');
+            Route::post('/list', [RwWargaController::class, 'list'])->name('Warga.list');
+            Route::get('/create', [RwWargaController::class, 'create'])->name('Warga.create');
+            Route::post('/store', [RwWargaController::class, 'store'])->name('Warga.store');
+            Route::get('/{id}', [RwWargaController::class, 'show'])->name('Warga.show');
+            Route::get('/{id}/edit', [RwWargaController::class, 'edit'])->name('Warga.edit');
+            Route::put('/{id}/update', [RwWargaController::class, 'update'])->name('Warga.update');
+            Route::delete('/{id}', [RwWargaController::class, 'destroy'])->name('Warga.destroy');
         });
 
 

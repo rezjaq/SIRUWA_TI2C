@@ -13,7 +13,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ url('/warga') }}" class="nav-link {{ ($activeMenu == 'warga') ? 'active' : '' }}">
+            <a href="{{ url('/warga') }}" class="nav-link {{ ($activeMenu == 'Warga') ? 'active' : '' }}">
                 <span class="menu-title">warga</span>
                 <i class="mdi mdi-credit-card-multiple menu-icon"></i>
             </a>

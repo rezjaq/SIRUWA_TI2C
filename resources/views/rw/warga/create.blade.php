@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-body">
                     <h1 class="card-title">Tambah Data Warga</h1>
-                    <form action="{{ route('warga.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('Warga.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="nama" class="col-sm-2 col-form-label">Nama Kepala Keluarga</label>
@@ -42,7 +42,7 @@
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Submit</button>
                             <!-- Tombol Kembali -->
-                            <a href="{{ route('warga.index') }}" class="btn btn-secondary" style="background-color: #6c757d; border-color: #6c757d;">Kembali</a>
+                            <a href="{{ route('Warga.index') }}" class="btn btn-secondary" style="background-color: #6c757d; border-color: #6c757d;">Kembali</a>
                         </div>
                     </form>
                 </div>

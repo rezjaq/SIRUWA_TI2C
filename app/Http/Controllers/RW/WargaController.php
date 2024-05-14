@@ -20,11 +20,11 @@ class WargaController extends Controller
             'title' => 'Mengelola Warga'
         ];
 
-        $activeMenu = 'warga';
+        $activeMenu = 'Warga';
 
         $wargas = Warga::all();
 
-        return view('rw.Warga.index', compact('breadcrumb', 'page', 'activeMenu', 'wargas'));
+        return view('RW.Warga.index', compact('breadcrumb', 'page', 'activeMenu', 'wargas'));
     }
 
     public function list()
@@ -34,9 +34,9 @@ class WargaController extends Controller
         return DataTables::of($warga)
             ->addIndexColumn()
             ->addColumn('aksi', function ($warga) {
-                $btn = '<a href="' . route('warga.show', $warga->nik) . '" class="btn btn-primary btn-sm mr-1" style="width: 40px; height: 40px; margin-right: 5px;"><i class="fas fa-eye"></i></a>';
-                $btn .= '<a href="' . route('warga.edit', $warga->nik) . '" class="btn btn-warning btn-sm mr-1" style="width: 40px; height: 40px; margin-right: 5px;"><i class="fas fa-edit"></i></a>';
-                $btn .= '<form class="d-inline-block" method="POST" action="' . route('warga.destroy', $warga->nik) . '">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" style="width: 40px; height: 40px; margin-right: 5px;" onclick="return confirm(\'Apakah Anda Yakin Menghapus Data Ini? \');"><i class="fas fa-trash-alt"></i></button></form>';
+                $btn = '<a href="' . route('Warga.show', $warga->nik) . '" class="btn btn-primary btn-sm mr-1" style="width: 40px; height: 40px; margin-right: 5px;"><i class="fas fa-eye"></i></a>';
+                $btn .= '<a href="' . route('Warga.edit', $warga->nik) . '" class="btn btn-warning btn-sm mr-1" style="width: 40px; height: 40px; margin-right: 5px;"><i class="fas fa-edit"></i></a>';
+                $btn .= '<form class="d-inline-block" method="POST" action="' . route('Warga.destroy', $warga->nik) . '">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" style="width: 40px; height: 40px; margin-right: 5px;" onclick="return confirm(\'Apakah Anda Yakin Menghapus Data Ini? \');"><i class="fas fa-trash-alt"></i></button></form>';
                 return $btn;
             })
             ->rawColumns(['aksi'])
@@ -53,7 +53,7 @@ class WargaController extends Controller
         // Mendapatkan daftar keluarga yang sudah ada
         $keluargas = Keluarga::all();
 
-        return view('rw.Warga.create', compact('breadcrumb', 'activeMenu', 'keluargas'));
+        return view('RW.Warga.create', compact('breadcrumb', 'activeMenu', 'keluargas'));
     }
 
 
@@ -92,7 +92,7 @@ class WargaController extends Controller
             'id_keluarga' => $request->id_keluarga
         ]);
 
-        return redirect()->route('warga.index')->with('success', 'Warga berhasil ditambahkan.');
+        return redirect()->route('Warga.index')->with('success', 'Warga berhasil ditambahkan.');
     }
 
 
@@ -103,11 +103,11 @@ class WargaController extends Controller
             'list' => ['Home', 'Warga', 'Detail']
         ];
 
-        $activeMenu = 'warga';
+        $activeMenu = 'Warga';
 
         $warga = Warga::findOrFail($nik);
 
-        return view('rw.Warga.show', compact('breadcrumb', 'activeMenu', 'warga'));
+        return view('RW.Warga.show', compact('breadcrumb', 'activeMenu', 'warga'));
     }
 
     public function edit($nik)
@@ -116,11 +116,11 @@ class WargaController extends Controller
             'title' => 'Edit Warga',
             'list' => ['Home', 'Warga', 'Edit']
         ];
-        $activeMenu = 'warga';
+        $activeMenu = 'Warga';
 
         $warga = Warga::findOrFail($nik);
 
-        return view('rw.Warga.edit', compact('breadcrumb', 'activeMenu', 'warga'));
+        return view('RW.Warga.edit', compact('breadcrumb', 'activeMenu', 'warga'));
     }
 
     public function update(Request $request, $nik)
@@ -159,7 +159,7 @@ class WargaController extends Controller
         $warga->save();
 
         // Redirect ke halaman daftar warga dengan pesan sukses
-        return redirect()->route('warga.index')->with('success', 'Warga berhasil diperbarui.');
+        return redirect()->route('Warga.index')->with('success', 'Warga berhasil diperbarui.');
     }
 
     public function destroy($nik)
@@ -168,6 +168,6 @@ class WargaController extends Controller
 
         $warga->delete();
 
-        return redirect()->route('warga.index')->with('success', 'Warga berhasil dihapus.');
+        return redirect()->route('Warga.index')->with('success', 'Warga berhasil dihapus.');
     }
 }

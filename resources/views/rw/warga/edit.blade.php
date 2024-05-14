@@ -16,7 +16,7 @@
         <a href="{{ route('warga.index') }}" class="btn btn-sm btn-secondary" style="background-color: #6c757d; border-color: #6c757d;"><i class="fas fa-arrow-left"></i> Kembali</a>
         @else
         <div class="container mt-4">
-            <form method="POST" action="{{ route('warga.update', $warga->nik) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('Warga.update', $warga->nik) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="form-group row">
@@ -85,7 +85,7 @@
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Submit</button>
                     <!-- Tombol Kembali -->
-                    <a href="{{ route('warga.index') }}" class="btn btn-secondary" style="background-color: #6c757d; border-color: #6c757d;">Kembali</a>
+                    <a href="{{ route('Warga.index') }}" class="btn btn-secondary" style="background-color: #6c757d; border-color: #6c757d;">Kembali</a>
                 </div>
             </form>
         </div>

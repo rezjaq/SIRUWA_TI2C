@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <!-- Tombol kembali -->
-                <a href="{{ route('warga.index') }}" class="btn btn-secondary">Kembali</a>
+                <a href="{{ route('Warga.index') }}" class="btn btn-secondary">Kembali</a>
             </div>
         </div>
     </div>

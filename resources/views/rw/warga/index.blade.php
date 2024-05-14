@@ -6,7 +6,7 @@
         <h3 class="card-title">{{ $page->title }}</h3>
         <div class="card-tools">
             <!-- Tombol untuk pindah ke halaman tambah data warga -->
-            <a href="{{ route('warga.create') }}" class="btn btn-success btn-sm">
+            <a href="{{ route('Warga.create') }}" class="btn btn-success btn-sm">
                 <i class="fas fa-plus"></i> Tambah Warga
             </a>
         </div>
@@ -78,7 +78,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                "url": "{{ route('warga.list') }}",
+                "url": "{{ route('Warga.list') }}",
                 "dataType": "json",
                 "type": "POST",
                 "data": {
