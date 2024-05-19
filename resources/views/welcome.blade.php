@@ -260,7 +260,6 @@
       </section>
     {{-- Kegiatan --}}
 
-
     {{-- dokumentasi --}}
     <br>
     <section id="foto" class="section-foto parallax">
