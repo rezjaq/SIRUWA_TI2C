@@ -7,19 +7,8 @@ use Illuminate\Http\Request;
 
 class DashboardWargaController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $breadcrumb = (object) [
-            'title' => 'Dashboard',
-            // 'list' => ['Home', 'Dashboard']
-        ];
-
-        $page = (object) [
-            'title' => 'Dashboard Menu Warga'
-        ];
-
-        $activeMenu = 'dashboard';
-
-        return view('warga.dashboard', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('warga.dashboard');
     }
 }

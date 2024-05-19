@@ -11,14 +11,12 @@ class BantuanSosial extends Controller
     {
         $breadcrumb = (object) [
             'title' => 'Bantuan Sosial',
+            'list' => ['Home', 'Bantuan Sosial'] // List diubah menjadi array
         ];
 
-        $page = (object) [
-            'title' => 'Menu Program Bantuan Sosial'
-        ];
+        $activeMenu = 'bansos';
 
-        $activeMenu = 'bantuan_sosial';
 
-        return view('warga.bansos', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('warga.bansos', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
     }
 }
