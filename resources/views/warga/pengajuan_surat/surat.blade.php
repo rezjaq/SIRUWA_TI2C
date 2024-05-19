@@ -1,17 +1,6 @@
-@extends('layouts.template')
+@extends('layouts.app')
 @section('content')
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="{{asset('asset/css/surat-tetap.css')}}">
-</head>
-
-<body>
-    <div class="book">
+    <div class="book mb-5" style="margin-bottom: ">
         <div class="page" id="result">
             <table>
                 <tr>
@@ -193,8 +182,74 @@
             
         </div>
     </div>
-
-</body>
-
-</html>
 @endsection
+
+@push('css')
+    <style>
+        
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .book {
+            width: 176mm; /* Ukuran kertas B5 */
+            height: 250mm; /* Ukuran kertas B5 */
+            padding: 10mm; /* Padding yang lebih kecil untuk kertas B5 */
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .page {
+            margin: 0 auto;
+        }
+
+        .catatan-lampiran {
+            position: absolute;
+            bottom: 70px; /* Penyesuaian posisi catatan lampiran */
+            left: 0;
+            width: 50%;
+        }
+
+        .keterangan-penyelesaian {
+            margin-bottom: 0;
+        }
+
+        .div-ketua {
+            margin-top: 2mm;
+            float: right;
+            width: 80mm;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        th {
+            text-align: left; /* Mengatur teks di dalam th menjadi rata kiri */
+            font-weight: normal;
+        }
+
+        input[class="warga-tetap"] {
+            width: 100%; /* Mengisi seluruh lebar sel */
+            box-sizing: border-box; /* Menghitung padding dan border ke dalam total lebar */
+        }
+
+        p {
+            margin: 0; /* Menghilangkan margin bawaan untuk paragraf */
+        }
+
+        ol {
+            margin-top: 0; /* Menghilangkan margin atas untuk daftar terurut */
+        }
+
+        /* Menyesuaikan lebar div dengan ukuran kertas B5 */
+        .div-ketua,
+        .catatan-lampiran {
+            width: 50%; /* Menjadi setengah dari lebar kontainer */
+        }
+
+    </style>
+@endpush
