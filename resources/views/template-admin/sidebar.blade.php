@@ -1,9 +1,21 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item">
-            <a href="{{ url('/') }}" class="nav-link {{ ($activeMenu == 'dashboard') ? 'active' : '' }}">
+            <a href="{{ url('/RW') }}" class="nav-link {{ ($activeMenu == 'dashboard') ? 'active' : '' }}">
                 <span class="menu-title">Dashboard</span>
                 <i class="mdi mdi-home menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ url('/keluarga') }}" class="nav-link {{ ($activeMenu == 'keluarga') ? 'active' : '' }}">
+                <span class="menu-title">keluarga</span>
+                <i class="mdi mdi-credit-card-multiple menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ url('/warga') }}" class="nav-link {{ ($activeMenu == 'Warga') ? 'active' : '' }}">
+                <span class="menu-title">warga</span>
+                <i class="mdi mdi-credit-card-multiple menu-icon"></i>
             </a>
         </li>
         <li class="nav-item">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\RW;
 use App\Http\Controllers\Controller;
 use App\Models\Kegiatan;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class KegiatanController extends Controller
 {
@@ -24,6 +25,23 @@ class KegiatanController extends Controller
 
         return view('rw.kegiatan.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu], compact('kegiatans'));
     }
+
+    public function list()
+    {
+        $kegiatan = Kegiatan::select('id_kegiatan', 'nama_kegiatan', 'tanggal_kegiatan', 'waktu_mulai', 'waktu_selesai', 'lokasi_kegiatan', 'deskripsi', 'foto', 'status_kegiatan');
+
+        return DataTables::of($kegiatan)
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($kegiatan) {
+                $btn = '<a href="' . url('/kegiatan/' . $kegiatan->id_kegiatan) . '" class="btn btn-primary btn-sm mr-1" style="width: 40px; height: 40px; margin-right: 5px;"><i class="fas fa-eye"></i></a>';
+                $btn .= '<a href="' . url('/kegiatan/' . $kegiatan->id_kegiatan . '/edit') . '" class="btn btn-warning btn-sm mr-1" style="width: 40px; height: 40px; margin-right: 5px;"><i class="fas fa-edit"></i></a>';
+                $btn .= '<form class="d-inline-block" method="POST" action="' . url('/kegiatan/' . $kegiatan->id_kegiatan) . '">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" style="width: 40px; height: 40px; margin-right: 5px;" onclick="return confirm(\'Apakah Anda Yakin Menghapus Data Ini? \');"><i class="fas fa-trash-alt"></i></button></form>';
+                return $btn;
+            })
+            ->rawColumns(['aksi'])
+            ->make(true);
+    }
+
 
     public function create()
     {

@@ -11428,19 +11428,19 @@ textarea.is-invalid.tt-hint, .select2-container--default .select2-selection--sin
 
 .btn-primary {
   --bs-btn-color: #000;
-  --bs-btn-bg: #b66dff;
-  --bs-btn-border-color: #b66dff;
+  --bs-btn-bg: #EDA321;
+  --bs-btn-border-color: #EDA321;
   --bs-btn-hover-color: #000;
-  --bs-btn-hover-bg: #c183ff;
-  --bs-btn-hover-border-color: #bd7cff;
+  --bs-btn-hover-bg: #EDA321;
+  --bs-btn-hover-border-color: #EDA321;
   --bs-btn-focus-shadow-rgb: 155, 93, 217;
   --bs-btn-active-color: #000;
-  --bs-btn-active-bg: #c58aff;
-  --bs-btn-active-border-color: #bd7cff;
+  --bs-btn-active-bg: #EDA321;
+  --bs-btn-active-border-color: #EDA321;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #000;
-  --bs-btn-disabled-bg: #b66dff;
-  --bs-btn-disabled-border-color: #b66dff;
+  --bs-btn-disabled-bg: #EDA321;
+  --bs-btn-disabled-border-color: #EDA321;
 }
 
 .btn-secondary {
@@ -11462,19 +11462,19 @@ textarea.is-invalid.tt-hint, .select2-container--default .select2-selection--sin
 
 .btn-success {
   --bs-btn-color: #000;
-  --bs-btn-bg: #1bcfb4;
-  --bs-btn-border-color: #1bcfb4;
+  --bs-btn-bg: #03774A;
+  --bs-btn-border-color: #03774A;
   --bs-btn-hover-color: #000;
-  --bs-btn-hover-bg: #3dd6bf;
-  --bs-btn-hover-border-color: #32d4bc;
+  --bs-btn-hover-bg: #03774A;
+  --bs-btn-hover-border-color: #03774A;
   --bs-btn-focus-shadow-rgb: 23, 176, 153;
   --bs-btn-active-color: #000;
-  --bs-btn-active-bg: #49d9c3;
-  --bs-btn-active-border-color: #32d4bc;
+  --bs-btn-active-bg: #03774A;
+  --bs-btn-active-border-color: #03774A;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #000;
-  --bs-btn-disabled-bg: #1bcfb4;
-  --bs-btn-disabled-border-color: #1bcfb4;
+  --bs-btn-disabled-bg: #03774A;
+  --bs-btn-disabled-border-color: #03774A;
 }
 
 .btn-info {
@@ -11513,19 +11513,19 @@ textarea.is-invalid.tt-hint, .select2-container--default .select2-selection--sin
 
 .btn-danger {
   --bs-btn-color: #000;
-  --bs-btn-bg: #fe7c96;
-  --bs-btn-border-color: #fe7c96;
+  --bs-btn-bg: #E85624;
+  --bs-btn-border-color: #E85624;
   --bs-btn-hover-color: #000;
-  --bs-btn-hover-bg: #fe90a6;
-  --bs-btn-hover-border-color: #fe89a1;
+  --bs-btn-hover-bg: #E85624;
+  --bs-btn-hover-border-color: #E85624;
   --bs-btn-focus-shadow-rgb: 216, 105, 128;
   --bs-btn-active-color: #000;
-  --bs-btn-active-bg: #fe96ab;
-  --bs-btn-active-border-color: #fe89a1;
+  --bs-btn-active-bg: #E85624;
+  --bs-btn-active-border-color: #E85624;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #000;
-  --bs-btn-disabled-bg: #fe7c96;
-  --bs-btn-disabled-border-color: #fe7c96;
+  --bs-btn-disabled-bg: #E85624;
+  --bs-btn-disabled-border-color: #E85624;
 }
 
 .btn-light {
@@ -12035,7 +12035,7 @@ textarea.is-invalid.tt-hint, .select2-container--default .select2-selection--sin
   text-align: inherit;
   text-decoration: none;
   white-space: nowrap;
-  background-color: transparent;
+  background-color: #03774A;
   border: 0;
   border-radius: var(--bs-dropdown-item-border-radius, 0);
 }
@@ -21210,7 +21210,7 @@ code {
 }
 
 .bg-gradient-primary {
-  background: linear-gradient(to right, #da8cff, #9a55ff) !important;
+  background: linear-gradient(to right, #90D995, #03774A) !important;
 }
 
 .bg-gradient-secondary {
@@ -25743,11 +25743,11 @@ dl li {
   background: #ffffff;
 }
 .sidebar .nav .nav-item.active > .nav-link .menu-title {
-  color: #b66dff;
+  color: #03774A;
   font-family: "ubuntu-medium", sans-serif;
 }
 .sidebar .nav .nav-item.active > .nav-link i {
-  color: #b66dff;
+  color: #03774A;
 }
 .sidebar .nav .nav-item:hover {
   background: #fcfcfc;
@@ -25837,7 +25837,7 @@ dl li {
   right: 0;
 }
 .sidebar .nav.sub-menu .nav-item .nav-link.active {
-  color: #b66dff;
+  color: #03774A;
   background: transparent;
 }
 .sidebar .nav.sub-menu .nav-item .nav-link:hover {
@@ -26284,7 +26284,7 @@ dl li {
 }
 
 .content-wrapper {
-  background: #80808080;
+  background: #EBE8DF;
   padding: 2.75rem 2.25rem;
   width: 100%;
   -webkit-flex-grow: 1;

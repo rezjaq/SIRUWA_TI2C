@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('isi');
             $table->date('tanggal');
             $table->string('foto')->nullable();
-            $table->string('status_pengumuman');
+            $table->enum('status_pengumuman', ['Aktif', 'Non Aktif']);
             $table->timestamps();
         });
     }

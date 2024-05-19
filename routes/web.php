@@ -10,8 +10,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\RW\PengumumanController as RwPengumumanController;
 use App\Http\Controllers\RW\KegiatanController as RwKegiatanController;
+use App\Http\Controllers\RW\KeluargaController as RwKeluargaController;
+use App\Http\Controllers\RW\WargaController as RwWargaController;
 use App\Http\Controllers\SuratController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +30,9 @@ use Illuminate\Support\Facades\Route;
 
 //login
 Route::get('login', [AuthController::class, 'index'])->name('login');
+Route::get('/check-login', function () {
+    return response()->json(['logged_in' => Auth::check()]);
+});
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -38,12 +44,11 @@ Route::group(['middleware' => ['auth']], function () {
     // Rute untuk Warga
     Route::group(['middleware' => ['cek_login:warga']], function () {
         Route::get('/warga', [GuestDashboardWargaController::class, 'index'])->name('dashboard-warga');
-        Route::get('/', [GuestDashboardWargaController::class, 'index']);
         Route::prefix('pengajuan_surat')->group(function () {
             Route::get('/surat-tetap', [GuestPengajuanSuratController::class, 'suratTetap'])->name('warga-tetap');
             Route::get('/surat-pindah', [GuestPengajuanSuratController::class, 'suratPindah'])->name('warga-pindah');
         });
-        Route::get('/bansos', [GuestBantuanSosialController::class, 'index']);
+        Route::get('/bansos', [GuestBantuanSosialController::class, 'index'])->name('bansos');
     });
 
     // Rute untuk RT
@@ -54,28 +59,55 @@ Route::group(['middleware' => ['auth']], function () {
     // Rute untuk RW
     Route::group(['middleware' => ['cek_login:RW']], function () {
         Route::get('/RW', [RwDashboardController::class, 'index'])->name('dashboard-rw');
+
         Route::prefix('/pengumuman')->group(function () {
             Route::get('/', [RwPengumumanController::class, 'index'])->name('pengumuman');
+            Route::post('/list', [RwPengumumanController::class, 'list'])->name('pengumuman.list');
             Route::get('/create', [RwPengumumanController::class, 'create'])->name('pengumuman.create');
             Route::post('/store', [RwPengumumanController::class, 'store'])->name('pengumuman.store');
             Route::get('/{id}', [RwPengumumanController::class, 'show'])->name('pengumuman.show');
-            Route::get('/edit/{id}', [RwPengumumanController::class, 'edit'])->name('pengumuman.edit');
-            Route::put('/update/{id}', [RwPengumumanController::class, 'update'])->name('pengumuman.update');
+            Route::get('/{id}/edit', [RwPengumumanController::class, 'edit'])->name('pengumuman.edit');
+            Route::put('/{id}/update', [RwPengumumanController::class, 'update'])->name('pengumuman.update');
             Route::delete('/{id}', [RwPengumumanController::class, 'destroy'])->name('pengumuman.destroy');
         });
+
         Route::prefix('/kegiatan')->group(function () {
             Route::get('/', [RwKegiatanController::class, 'index'])->name('kegiatan.index');
+            Route::post('/list', [RwKegiatanController::class, 'list'])->name('kegiatan.list');
             Route::get('/create', [RwKegiatanController::class, 'create'])->name('kegiatan.create');
             Route::post('/store', [RwKegiatanController::class, 'store'])->name('kegiatan.store');
             Route::get('/{id}', [RwKegiatanController::class, 'show'])->name('kegiatan.show');
-            Route::get('/edit/{id}', [RwKegiatanController::class, 'edit'])->name('kegiatan.edit');
-            Route::put('/update/{id}', [RwKegiatanController::class, 'update'])->name('kegiatan.update');
+            Route::get('/{id}/edit', [RwKegiatanController::class, 'edit'])->name('kegiatan.edit');
+            Route::put('/{id}/update', [RwKegiatanController::class, 'update'])->name('kegiatan.update');
             Route::delete('/{id}', [RwKegiatanController::class, 'destroy'])->name('kegiatan.destroy');
         });
+
+        Route::prefix('/keluarga')->group(function () {
+            Route::get('/', [RwKeluargaController::class, 'index'])->name('keluarga.index');
+            Route::post('/list', [RwKeluargaController::class, 'list'])->name('keluarga.list');
+            Route::get('/create', [RwKeluargaController::class, 'create'])->name('keluarga.create');
+            Route::post('/store', [RwKeluargaController::class, 'store'])->name('keluarga.store');
+            Route::get('/{id}', [RwKeluargaController::class, 'show'])->name('keluarga.show');
+            Route::get('/{id}/edit', [RwKeluargaController::class, 'edit'])->name('keluarga.edit');
+            Route::put('/{id}/update', [RwKeluargaController::class, 'update'])->name('keluarga.update');
+            Route::delete('/{id}', [RwKeluargaController::class, 'destroy'])->name('keluarga.destroy');
+        });
+
+        Route::prefix('/Warga')->group(function () {
+            Route::get('/', [RwWargaController::class, 'index'])->name('Warga.index');
+            Route::post('/list', [RwWargaController::class, 'list'])->name('Warga.list');
+            Route::get('/create', [RwWargaController::class, 'create'])->name('Warga.create');
+            Route::post('/store', [RwWargaController::class, 'store'])->name('Warga.store');
+            Route::get('/{id}', [RwWargaController::class, 'show'])->name('Warga.show');
+            Route::get('/{id}/edit', [RwWargaController::class, 'edit'])->name('Warga.edit');
+            Route::put('/{id}/update', [RwWargaController::class, 'update'])->name('Warga.update');
+            Route::delete('/{id}', [RwWargaController::class, 'destroy'])->name('Warga.destroy');
+        });
+
+
+
     });
 });
-
-
 
 
 // -- Digunakan jika menggunakan password enkripsi.
@@ -92,7 +124,9 @@ Route::group(['middleware' => ['auth']], function () {
 // });
 
 
-
+Route::get('/berita', function () {
+    return view('berita.berita');
+});
 
 
 

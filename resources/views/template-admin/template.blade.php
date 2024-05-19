@@ -2,27 +2,20 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>SIRUWA</title>
-    <!-- plugins:css -->
+    <link rel="shortcut icon" href="{{asset('assets/icon/favicon.ico')}}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('asset/vendors/mdi/css/materialdesignicons.min.css')}}">
     <link rel="stylesheet" href="{{asset('asset/vendors/ti-icons/css/themify-icons.css')}}">
     <link rel="stylesheet" href="{{asset('asset/vendors/css/vendor.bundle.base.css')}}">
     <link rel="stylesheet" href="{{asset('asset/vendors/font-awesome/css/font-awesome.min.css')}}">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
     <link rel="stylesheet" href="{{asset('asset/vendors/font-awesome/css/font-awesome.min.css')}}" />
     <link rel="stylesheet" href="{{asset('asset/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css')}}">
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
     <link rel="stylesheet" href="{{asset('asset/css/style.css')}}">
-    <!-- End layout styles -->
     <link rel="shortcut icon" href="{{asset('asset/images/favicon.png')}}" />
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     @stack('css')
 </head>
 
@@ -49,7 +42,10 @@
     </div>
     <!-- container-scroller -->
     <!-- plugins:js -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{asset('asset/vendors/js/vendor.bundle.base.js')}}"></script>
+    <!-- DataTables JS CDN -->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <script src="{{asset('asset/vendors/chart.js/chart.umd.js')}}"></script>

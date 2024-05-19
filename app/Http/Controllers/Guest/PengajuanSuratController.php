@@ -12,12 +12,12 @@ class PengajuanSuratController extends Controller
     {
         $breadcrumb = (object) [
             'title' => 'Pengajuan Surat',
+            'list' => ['Home', 'Pengajuan Surat'] // Example breadcrumb list
         ];
 
-        $activeMenu = 'warga_tetap'; // Sesuaikan dengan nilai yang sesuai
-
-        return view('warga.pengajuan_surat.surat', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        return view('warga.pengajuan_surat.surat', ['breadcrumb' => $breadcrumb]);
     }
+
 
 
 
@@ -27,7 +27,7 @@ class PengajuanSuratController extends Controller
             'title' => 'Pengajuan Surat',
         ];
 
-        $activeMenu = 'warga_pindah'; // Sesuaikan dengan nilai yang sesuai
+        $activeMenu = 'warga_pindah';
 
         return view('warga.pengajuan_surat.surat-pindah', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
     }
