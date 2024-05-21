@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/stylee.css')}}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
 </head>
 <body>
 
@@ -17,7 +18,7 @@
         <div class="container">
             <a class="navbar-brand" href="#">
                 <!-- Logo -->
-                <img src="{{asset('assets/img/siruwa.jpg')}}" height="55" width="55" alt="">
+                <img src="{{asset('assets/img/siruwa.png')}}" height="55" width="55" alt="">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -311,19 +312,16 @@
                         <h5 class="fw-bold mb-4">Navigasi</h5>
                         <ul class="nav flex-column">
                             <li class="nav-item mb-2">
-                                <a href="" class="nav-link p-0 text-muted">Isian</a>
+                                <a href="#" class="nav-link p-0 text-muted">Beranda</a>
                             </li>
                             <li class="nav-item mb-2">
-                                <a href="" class="nav-link p-0 text-muted">Isian</a>
+                                <a href="#berita" class="nav-link p-0 text-muted">Berita</a>
                             </li>
                             <li class="nav-item mb-2">
-                                <a href="" class="nav-link p-0 text-muted">Isian</a>
+                                <a href="#upcoming-events" class="nav-link p-0 text-muted">Kegiatan</a>
                             </li>
                             <li class="nav-item mb-2">
-                                <a href="" class="nav-link p-0 text-muted">Isian</a>
-                            </li>
-                            <li class="nav-item mb-2">
-                                <a href="" class="nav-link p-0 text-muted">Isian</a>
+                                <a href="#foto" class="nav-link p-0 text-muted">Dokumentasi</a>
                             </li>
                         </ul>
                     </div>
@@ -334,6 +332,7 @@
                         <div class="d-flex">
                             <a href="" target="_blank" class="text-decoration-none text-dark">
                                 <img src="{{asset('assets/icon/ig.ico')}}" height="30" width="30" class="me-3" alt="Instagram Icon">
+                                <a href="https://www.instagram.com/nggadungan?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="nav-link p-0 text-muted">nggadungan</a>
                             </a>
                         </div>
                     </div>
@@ -343,13 +342,13 @@
                         <h5 class="font-inter fw-bold mb-4">Kontak</h5>
                         <ul class="nav flex-column">
                             <li class="nav-item mb-2">
-                                <a href="mailto:rw02@gmail.com" class="nav-link p-0 text-muted">rw02@gmail.com</a>
+                                <a href="mailto:katosi.onggojoyo@gmail.com" class="nav-link p-0 text-muted">katosi.onggojoyo@gmail.com</a>
                             </li>
                             <li class="nav-item mb-2">
-                                <a href="tel:082-xxx-xxx" class="nav-link p-0 text-muted">082-xxx-xxx</a>
+                                <a href="tel:082-xxx-xxx" class="nav-link p-0 text-muted">082222222222</a>
                             </li>
                             <li class="nav-item mb-2">
-                                <a href="tel:085-xxx-xxx" class="nav-link p-0 text-muted">085-xxx-xxx</a>
+                                <a href="tel:085-xxx-xxx" class="nav-link p-0 text-muted">085555555555</a>
                             </li>
                         </ul>
                     </div>
@@ -357,7 +356,7 @@
                     {{-- kolom 4 Alamat --}}
                     <div class="col-12 col-md-3 mb-4">
                         <h5 class="font-inter fw-bold mb-4">Alamat Desa</h5>
-                        <p class="text-muted">JL. Onggo Joyo No.31 Candirenggo Kec. Singosari, Kabupaten Malang, Jawa Timur</p>
+                        <p class="text-muted">RW. 02 Kelurahan Candirenggo Kec. Singosari, Kabupaten Malang, Jawa Timur</p>
                     </div>
                 </div>
             </footer>
