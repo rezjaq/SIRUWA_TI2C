@@ -9,7 +9,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <p class="card-text"><strong>Nomor NIK:</strong> {{ $keluarga->nomor_nik }}</p>
+                        <p class="card-text"><strong>Nomor NIK:</strong> {{ $keluarga->no_kk }}</p>
                         <p class="card-text"><strong>Alamat:</strong> {{ $keluarga->alamat }}</p>
                         <p class="card-text"><strong>No. RT:</strong> {{ $keluarga->no_rt }}</p>
                     </div>
