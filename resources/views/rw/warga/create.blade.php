@@ -10,24 +10,61 @@
                     <form action="{{ route('Warga.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <label for="nama" class="col-sm-2 col-form-label">Nama Kepala Keluarga</label>
+                            <label for="nik" class="col-sm-2 col-form-label">NIK</label>
+                            <input type="text" class="form-control" id="nik" name="nik" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nama" class="col-sm-2 col-form-label">Nama</label>
                             <input type="text" class="form-control" id="nama" name="nama" required>
                         </div>
                         <div class="form-group">
-                            <label for="nomor_nik" class="col-sm-2 col-form-label">Nomor Kartu Keluarga</label>
-                            <input type="text" class="form-control" id="nomor_nik" name="nomor_nik" required>
+                            <label for="password" class="col-sm-2 col-form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="level" class="col-sm-2 col-form-label">Level</label>
+                            <select class="form-control" id="level" name="level" required>
+                                <option value="">Pilih Level</option>
+                                <option value="RW">RW</option>
+                                <option value="RT">RT</option>
+                                <option value="Warga">Warga</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="jenis_kelamin" class="col-sm-2 col-form-label">Jenis Kelamin</label>
+                            <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
+                                <option value="">Pilih Jenis Kelamin</option>
+                                <option value="Laki-laki">Laki-laki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tanggal_lahir" class="col-sm-2 col-form-label">Tanggal Lahir</label>
+                            <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" required>
                         </div>
                         <div class="form-group">
                             <label for="alamat" class="col-sm-2 col-form-label">Alamat</label>
                             <input type="text" class="form-control" id="alamat" name="alamat" required>
                         </div>
                         <div class="form-group">
-                            <label for="no_rt" class="col-sm-2 col-form-label">Nomor RT</label>
-                            <input type="text" class="form-control" id="no_rt" name="no_rt">
+                            <label for="no_telepon" class="col-sm-2 col-form-label">No. Telepon</label>
+                            <input type="text" class="form-control" id="no_telepon" name="no_telepon" placeholder="Opsional">
                         </div>
                         <div class="form-group">
-                            <label for="password" class="col-sm-2 col-form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
+                            <label for="agama" class="col-sm-2 col-form-label">Agama</label>
+                            <input type="text" class="form-control" id="agama" name="agama" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="statusKawin" class="col-sm-2 col-form-label">Status Kawin</label>
+                            <input type="text" class="form-control" id="statusKawin" name="statusKawin" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pekerjaan" class="col-sm-2 col-form-label">Pekerjaan</label>
+                            <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="no_rt" class="col-sm-2 col-form-label">Nomor RT</label>
+                            <input type="text" class="form-control" id="no_rt" name="no_rt" required>
                         </div>
                         <div class="form-group">
                             <label for="id_keluarga" class="col-sm-2 col-form-label">Pilih Keluarga</label>
@@ -38,7 +75,6 @@
                                 @endforeach
                             </select>
                         </div>
-                        
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Submit</button>
                             <!-- Tombol Kembali -->

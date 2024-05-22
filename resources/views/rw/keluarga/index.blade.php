@@ -96,8 +96,8 @@
                     searchable: true
                 },
                 {
-                    data: "nomor_nik",
-                    name: "nomor_nik",
+                    data: "no_kk",
+                    name: "no_kk",
                     className: "",
                     orderable: false,
                     searchable: true

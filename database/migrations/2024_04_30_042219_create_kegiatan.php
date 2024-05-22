@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('lokasi_kegiatan');
             $table->text('deskripsi')->nullable();
             $table->string('foto')->nullable();
-            $table->enum('status_kegiatan', ['Aktif', 'Non Aktif']);
+            $table->string('status_kegiatan');
+            // $table->enum('status_kegiatan', ['Aktif', 'Non Aktif']);
             $table->timestamps();
         });
     }

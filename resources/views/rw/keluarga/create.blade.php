@@ -15,7 +15,7 @@
                         </div>
                         <div class="form-group">
                             <label for="tanggal_kegiatan" lass="col-sm-2 col-form-label">Nomor Kartu Keluarga</label>
-                            <input type="text" class="form-control" id="nomor_nik" name="nomor_nik" required>
+                            <input type="text" class="form-control" id="no_kk" name="no_kk" required>
                         </div>
                         <div class="form-group">
                             <label for="waktu_mulai" lass="col-sm-2 col-form-label">alamat</label>

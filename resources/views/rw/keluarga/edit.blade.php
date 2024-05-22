@@ -26,9 +26,9 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="nomor_nik" class="col-sm-2 col-form-label">Nomor Kartu Keluarga</label>
+                    <label for="no_kk" class="col-sm-2 col-form-label">Nomor Kartu Keluarga</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="nomor_nik" name="nomor_nik" value="{{ $keluarga->nomor_nik }}">
+                        <input type="text" class="form-control" id="no_kk" name="no_kk" value="{{ $keluarga->no_kk }}">
                     </div>
                 </div>
                 <div class="form-group row">
