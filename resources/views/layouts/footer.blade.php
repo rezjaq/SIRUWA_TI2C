@@ -1,6 +1,7 @@
-<footer class="footer">
-    <div class="d-sm-flex justify-content-center justify-content-sm-between">
-        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block"><strong><span>&copy; Copyright 2024 SIRUWA | Sistem Informasi Rukun Warga</span></strong></span>
-    </div>
-</footer>
-
+  {{-- footer --}}
+    <footer id="footer-bottom" class="text-white py-3">
+        <div class="container text-center">
+            &copy; Copyright <strong><span>2024 SIRUWA | Sistem Informasi Rukun Warga</span></strong>
+        </div>
+    </footer>
+{{-- footer --}}

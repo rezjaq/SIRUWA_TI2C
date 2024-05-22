@@ -19,6 +19,7 @@ use App\Http\Controllers\RW\KeluargaController as RwKeluargaController;
 use App\Http\Controllers\RW\WargaController as RwWargaController;
 use App\Http\Controllers\SuratController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,9 @@ use Illuminate\Support\Facades\Route;
 
 //login
 Route::get('login', [AuthController::class, 'index'])->name('login');
+Route::get('/check-login', function () {
+    return response()->json(['logged_in' => Auth::check()]);
+});
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -45,12 +49,11 @@ Route::group(['middleware' => ['auth']], function () {
     // Rute untuk Warga
     Route::group(['middleware' => ['cek_login:warga']], function () {
         Route::get('/warga', [GuestDashboardWargaController::class, 'index'])->name('dashboard-warga');
-        Route::get('/', [GuestDashboardWargaController::class, 'index']);
         Route::prefix('pengajuan_surat')->group(function () {
             Route::get('/surat-tetap', [GuestPengajuanSuratController::class, 'suratTetap'])->name('warga-tetap');
             Route::get('/surat-pindah', [GuestPengajuanSuratController::class, 'suratPindah'])->name('warga-pindah');
         });
-        Route::get('/bansos', [GuestBantuanSosialController::class, 'index']);
+        Route::get('/bansos', [GuestBantuanSosialController::class, 'index'])->name('bansos');
     });
 
     // Rute untuk RT
@@ -150,7 +153,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::delete('/{id}', [RwKeluargaController::class, 'destroy'])->name('keluarga.destroy');
         });
 
-        Route::prefix('/warga')->group(function () {
+        Route::prefix('/Warga')->group(function () {
             Route::get('/', [RwWargaController::class, 'index'])->name('Warga.index');
             Route::post('/list', [RwWargaController::class, 'list'])->name('Warga.list');
             Route::get('/create', [RwWargaController::class, 'create'])->name('Warga.create');
@@ -178,7 +181,9 @@ Route::group(['middleware' => ['auth']], function () {
 // });
 
 
-
+Route::get('/berita', function () {
+    return view('berita.berita');
+});
 
 
 

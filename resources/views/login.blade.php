@@ -7,7 +7,8 @@
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{asset('asset/css/style.css')}}">
+    <link rel="shortcut icon" href="{{ asset('assets/icon/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ asset('asset/css/style.css') }}">
     <title>Page Login</title>
 </head>
 <body>
@@ -21,6 +22,16 @@
                     </div>
                     <div class="login-wrapper my-auto">
                         <h1 class="login-title">Sign in</h1>
+                        @if (session('warning'))
+                            <div class="alert alert-warning">
+                                {{ session('warning') }}
+                            </div>
+                        @endif
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                         <form action="{{ url('proses_login') }}" method="post">
                             @csrf
                             <div class="form-group">
@@ -70,7 +81,7 @@
                         <h2>SIRUWA</h2>
                         <p>A place where you belong</p>
                     </div>
-                    <img src="{{asset('asset/images/page-login.jpg')}}" alt="login image" class="login-img">
+                    <img src="{{ asset('asset/images/page-login.jpg') }}" alt="login image" class="login-img">
                 </div>
             </div>
         </div>
