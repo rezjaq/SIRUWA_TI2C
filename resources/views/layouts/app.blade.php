@@ -45,8 +45,7 @@
         </div>
 
 
-        <!-- Content -->
-                
+        <!-- Content -->  
         <div class="container-fluid my-4 content-below-hero" style="padding-top: 80px;">
             <div class="row">
                 <div class="col-12">

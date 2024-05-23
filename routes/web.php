@@ -10,6 +10,7 @@ use App\Http\Controllers\RT\PengaduanController as RTPengaduanController;
 use App\Http\Controllers\Guest\DashboardWargaController as GuestDashboardWargaController;
 use App\Http\Controllers\Guest\PengajuanSuratController as GuestPengajuanSuratController;
 use App\Http\Controllers\Guest\BantuanSosial as GuestBantuanSosialController;
+use App\Http\Controllers\Guest\DataDiriController as GuestDataDiriController;
 use App\Http\Controllers\Guest\umkm as GuestUmkmController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KegiatanController;
@@ -55,6 +56,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/surat-pindah', [GuestPengajuanSuratController::class, 'suratPindah'])->name('warga-pindah');
         });
         Route::get('/bansos', [GuestBantuanSosialController::class, 'index'])->name('bansos');
+        Route::get('/data-diri', [GuestDataDiriController::class, 'index'])->name('data-diri');
     });
 
     // Rute untuk RT
@@ -154,7 +156,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::delete('/{id}', [RwKeluargaController::class, 'destroy'])->name('keluarga.destroy');
         });
 
-        Route::prefix('/Warga')->group(function () {
+        Route::prefix('/citizen')->group(function () {
             Route::get('/', [RwWargaController::class, 'index'])->name('Warga.index');
             Route::post('/list', [RwWargaController::class, 'list'])->name('Warga.list');
             Route::get('/create', [RwWargaController::class, 'create'])->name('Warga.create');

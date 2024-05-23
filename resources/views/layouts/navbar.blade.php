@@ -1,5 +1,5 @@
 {{-- navbar --}}
-<nav class="navbar navbar-expand-lg navbar-dark py-2 fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark py-2 fixed-top" segmen>
     <div class="container">
         <a class="navbar-brand" href="#">
             <!-- Logo -->
