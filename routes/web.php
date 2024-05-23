@@ -10,6 +10,7 @@ use App\Http\Controllers\RT\PengaduanController as RTPengaduanController;
 use App\Http\Controllers\Guest\DashboardWargaController as GuestDashboardWargaController;
 use App\Http\Controllers\Guest\PengajuanSuratController as GuestPengajuanSuratController;
 use App\Http\Controllers\Guest\BantuanSosial as GuestBantuanSosialController;
+use App\Http\Controllers\Guest\umkm as GuestUmkmController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\RW\DashboardRwController as RwDashboardController;
@@ -185,6 +186,7 @@ Route::get('/berita', function () {
     return view('berita.berita');
 });
 
+Route::get('umkm', [GuestUmkmController::class, 'index']);
 
 
 // Home Page or Landing Page
