@@ -3,7 +3,7 @@
     <div class="container">
         <a class="navbar-brand" href="#">
             <!-- Logo -->
-            <img src="{{ asset('assets/img/siruwa.jpg') }}" height="55" width="55" alt="">
+            <img src="{{ asset('assets/img/siruwa.png') }}" height="55" width="55" alt="">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
