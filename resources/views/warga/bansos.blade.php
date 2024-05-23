@@ -38,3 +38,15 @@
     </div>
 </section>
 @endsection 
+
+@push('css')
+    <style>
+
+    </style>
+@endpush
+
+@push('js')
+    <script>
+        
+    </script>
+@endpush

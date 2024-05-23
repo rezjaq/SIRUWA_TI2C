@@ -29,6 +29,6 @@ class PengajuanSuratController extends Controller
 
         $activeMenu = 'warga_pindah';
 
-        return view('warga.pengajuan_surat.surat-pindah', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        return view('warga.pengajuan_surat.surat-pindah', ['breadcrumb' => $breadcrumb]);
     }
 }

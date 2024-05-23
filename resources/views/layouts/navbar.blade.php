@@ -1,5 +1,5 @@
 {{-- navbar --}}
-<nav class="navbar navbar-expand-lg navbar-dark py-2 fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark py-2 fixed-top" segmen>
     <div class="container">
         <a class="navbar-brand" href="#">
             <!-- Logo -->
@@ -23,7 +23,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" {{ ($activeMenu == 'bansos') ? 'active' : '' }}>
+                    <a class="nav-link dropdown-toggle" href="#" id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Bansos
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="bansosDropdown">

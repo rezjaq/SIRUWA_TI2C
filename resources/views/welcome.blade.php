@@ -55,92 +55,57 @@
         </div>
     </section>
 
+    {{-- program --}}
     <section id="program" class="mt-4">
-        <div class="container fade-up">
-            <div class="row g-3 justify-content-center">
-                <div class="col-lg-3">
-                    <div class="dropdown">
-                        <a class="text-decoration-none dropdown-toggle" href="#" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="bg-green rounded-3 shadow p-4 d-flex justify-content-between align-items-center hover-effect">
-                                <div>
-                                    <h5 class="mb-0 text-white">Pengajuan Surat</h5>
-                                </div>
-                                <img src="{{ asset('assets/icon/2.png') }}" height="65" width="65" alt="" class="img-fluid ms-3">
-                            </div>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item check-login" href="{{ route('warga-tetap') }}">Surat Warga Tetap</a></li>
-                            <li><a class="dropdown-item check-login" href="{{ route('warga-pindah') }}">Surat Warga Pindahan</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <a href="{{ route('bansos') }}" class="text-decoration-none check-login">
-                        <div class="bg-green rounded-3 shadow p-4 d-flex justify-content-between align-items-center hover-effect">
-                            <div>
-                                <h5 class="mb-0 text-white">Bantuan Sosial</h5>
-                            </div>
-                            <img src="{{ asset('assets/icon/5.png') }}" height="65" width="65" alt="" class="img-fluid ms-3">
-                        </div>
+        <div class="program-container fade-up">
+            <div class="program-baris-ikon">
+                <div class="program-ikon dropdown">
+                    <a href="#" class="dropdown-toggle text-decoration-none" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="{{ asset('assets/icon/2.png') }}" alt="Pengajuan Surat">
+                        <div class="program-title">Pengajuan Surat</div>
                     </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item check-login" href="{{ route('warga-tetap') }}">Surat Warga Tetap</a></li>
+                        <li><a class="dropdown-item check-login" href="{{ route('warga-pindah') }}">Surat Warga Pindahan</a></li>
+                    </ul>
                 </div>
-                <div class="col-lg-3">
-                    <a href="{{ route('warga-tetap') }}" class="text-decoration-none check-login">
-                        <div class="bg-green rounded-3 shadow p-4 d-flex justify-content-between align-items-center hover-effect">
-                            <div>
-                                <h5 class="mb-0 text-white">Pengaduan Warga</h5>
-                            </div>
-                            <img src="{{ asset('assets/icon/3.png') }}" height="65" width="65" alt="" class="img-fluid ms-3">
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3">
-                    <a href="{{ route('warga-tetap') }}" class="text-decoration-none check-login">
-                        <div class="bg-green rounded-3 shadow p-4 d-flex justify-content-between align-items-center hover-effect">
-                            <div>
-                                <h5 class="mb-0 text-white">UMKM Warga</h5>
-                            </div>
-                            <img src="{{ asset('assets/icon/4.png') }}" height="65" width="65" alt="" class="img-fluid ms-3">
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="row g-3 justify-content-center mt-4">
-                <div class="col-lg-3">
-                    <a href="{{ route('warga-tetap') }}" class="text-decoration-none check-login">
-                        <div class="bg-green rounded-3 shadow p-4 d-flex justify-content-between align-items-center hover-effect">
-                            <div>
-                                <h5 class="mb-0 text-white">Denah Rumah Warga</h5>
-                            </div>
-                            <img src="{{ asset('assets/icon/map.png') }}" height="65" width="65" alt="" class="img-fluid ms-3">
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3">
-                    <a href="{{ route('warga-tetap') }}" class="text-decoration-none check-login">
-                        <div class="bg-green rounded-3 shadow p-4 d-flex justify-content-between align-items-center hover-effect">
-                            <div>
-                                <h5 class="mb-0 text-white">Pengajuan Bansos</h5>
-                            </div>
-                            <img src="{{ asset('assets/icon/bansos.png') }}" height="65" width="65" alt="" class="img-fluid ms-3">
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3">
-                    <a href="{{ route('warga-tetap') }}" class="text-decoration-none check-login">
-                        <div class="bg-green rounded-3 shadow p-4 d-flex justify-content-between align-items-center hover-effect">
-                            <div>
-                                <h5 class="mb-0 text-white">Penerima Bansos</h5>
-                            </div>
-                            <img src="{{ asset('assets/icon/penerima.png') }}" height="65" width="65" alt="" class="img-fluid ms-3">
-                        </div>
-                    </a>
-                </div>
+                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Denah Rumah Warga">
+                    <img src="{{ asset('assets/icon/map.png') }}" alt="Denah Rumah Warga">
+                    <div class="program-title">Denah Rumah Warga</div>
+                </a>
+                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Pengaduan Warga">
+                    <img src="{{ asset('assets/icon/3.png') }}" alt="Pengaduan Warga">
+                    <div class="program-title">Pengaduan Warga</div>
+                </a>
+                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="UMKM Warga">
+                    <img src="{{ asset('assets/icon/4.png') }}" alt="UMKM Warga">
+                    <div class="program-title">UMKM Warga</div>
+                </a>
+                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Bantuan Sosial">
+                    <img src="{{ asset('assets/icon/5.png') }}" alt="Bantuan Sosial">
+                    <div class="program-title">Bantuan Sosial</div>
+                </a>
+                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Pengajuan Bansos">
+                    <img src="{{ asset('assets/icon/bansos.png') }}" alt="Pengajuan Bansos">
+                    <div class="program-title">Pengajuan Bansos</div>
+                </a>
+                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Penerima Bansos" >
+                    <img src="{{ asset('assets/icon/penerima.png') }}" alt="Penerima Bansos">
+                    <div class="program-title">Penerima Bansos</div>
+                </a>
+                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Data Diri" >
+                    <img src="{{ asset('assets/icon/penerima.png') }}" alt="Data Diri">
+                    <div class="program-title">Data Diri</div>
+                </a>
             </div>
         </div>
     </section>
-    
 
+
+    
+    
+    
+    <br><br>
     {{-- berita --}}
     <section id="berita">
         <div class="container py-5 fade-up">
