@@ -1,11 +1,25 @@
-
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sistem Informasi Rukun Warga</title>
+    <link rel="shortcut icon" href="{{asset('assets/icon/favicon.ico')}}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{asset('assets/css/stylee.css')}}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
 
       {{-- navbar --}}
-    <nav class="navbar navbar-expand-lg navbar-dark py-2 fixed-top">
+      <nav class="navbar navbar-expand-lg navbar-dark py-3 fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">
                 <!-- Logo -->
-                <img src="{{ asset('assets/img/siruwa.jpg') }}" height="55" width="55" alt="">
+                <img src="{{asset('assets/img/siruwa.png')}}" height="55" width="55" alt="">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -13,51 +27,24 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ route('dashboard-warga') }}">Beranda</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="pengajuanDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Pengajuan
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="pengajuanDropdown">
-                            <li><a class="dropdown-item" href="#">Warga Pindahan</a></li>
-                            <li><a class="dropdown-item" href="#">Warga Asli</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Bansos
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="bansosDropdown">
-                            <li><a class="dropdown-item" href="#">Jenis Bansos</a></li>
-                            <li><a class="dropdown-item" href="#">Pengajuan</a></li>
-                            <li><a class="dropdown-item" href="#">Daftar Penerima Bansos</a></li>
-                        </ul>
+                        <a class="nav-link active" aria-current="page" href="#">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Denah Rumah Warga</a>
+                        <a class="nav-link" href="#berita">Berita</a>
+                    </li>
+                        <a class="nav-link" href="#upcoming-events">Kegiatan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pengaduan</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">UMKM</a>
+                        <a class="nav-link" href="#foto">Dokumentasi</a>
                     </li>
                 </ul>
-                @auth
-                    <div class="d-flex">
-                        <a href="{{ route('logout') }}" class="btn btn-success">Logout</a>
-                    </div>
-                @else
-                    <div class="d-flex">
-                        <a href="{{ route('login') }}" class="btn btn-success">Login</a>
-                    </div>
-                @endauth
+                <div class="d-flex">
+                    <a href="{{ route('login') }}" class="btn btn-success">Login</a>
+                </div>                
             </div>
         </div>
-    </nav>
+      </nav>
     {{-- navbar --}}
-
 
     <section id="hero" class="px-0">
         <div class="overlay"></div>
@@ -70,6 +57,7 @@
         </div>
     </section>
 
+    {{-- program --}}
     <section id="program" class="mt-4">
         <div class="program-container fade-up">
             <div class="program-baris-ikon">
@@ -115,8 +103,11 @@
         </div>
     </section>
 
-    
 
+    
+    
+    
+    <br><br>
     {{-- berita --}}
     <section id="berita">
         <div class="container py-5 fade-up">
@@ -236,7 +227,6 @@
       </section>
     {{-- Kegiatan --}}
 
-
     {{-- dokumentasi --}}
     <br>
     <section id="foto" class="section-foto parallax">
@@ -288,19 +278,16 @@
                         <h5 class="fw-bold mb-4">Navigasi</h5>
                         <ul class="nav flex-column">
                             <li class="nav-item mb-2">
-                                <a href="" class="nav-link p-0 text-muted">Isian</a>
+                                <a href="#" class="nav-link p-0 text-muted">Beranda</a>
                             </li>
                             <li class="nav-item mb-2">
-                                <a href="" class="nav-link p-0 text-muted">Isian</a>
+                                <a href="#berita" class="nav-link p-0 text-muted">Berita</a>
                             </li>
                             <li class="nav-item mb-2">
-                                <a href="" class="nav-link p-0 text-muted">Isian</a>
+                                <a href="#upcoming-events" class="nav-link p-0 text-muted">Kegiatan</a>
                             </li>
                             <li class="nav-item mb-2">
-                                <a href="" class="nav-link p-0 text-muted">Isian</a>
-                            </li>
-                            <li class="nav-item mb-2">
-                                <a href="" class="nav-link p-0 text-muted">Isian</a>
+                                <a href="#foto" class="nav-link p-0 text-muted">Dokumentasi</a>
                             </li>
                         </ul>
                     </div>
@@ -311,6 +298,7 @@
                         <div class="d-flex">
                             <a href="" target="_blank" class="text-decoration-none text-dark">
                                 <img src="{{asset('assets/icon/ig.ico')}}" height="30" width="30" class="me-3" alt="Instagram Icon">
+                                <a href="https://www.instagram.com/nggadungan?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="nav-link p-0 text-muted">nggadungan</a>
                             </a>
                         </div>
                     </div>
@@ -320,22 +308,33 @@
                         <h5 class="font-inter fw-bold mb-4">Kontak</h5>
                         <ul class="nav flex-column">
                             <li class="nav-item mb-2">
-                                <a href="mailto:rw02@gmail.com" class="nav-link p-0 text-muted">rw02@gmail.com</a>
+                                <a href="mailto:katosi.onggojoyo@gmail.com" class="nav-link p-0 text-muted"> 
+                                    <span class="fa fa-envelope"></span> 
+                                    <span class="icon-text">katosi.onggojoyo@gmail.com</span>
+                                </a>
                             </li>
                             <li class="nav-item mb-2">
-                                <a href="tel:082-xxx-xxx" class="nav-link p-0 text-muted">082-xxx-xxx</a>
+                                <a href="tel:0822222222222" class="nav-link p-0 text-muted">
+                                    <span class="fa fa-phone"></span> 
+                                    <span class="icon-text">082222222222</span>
+                                </a>
                             </li>
                             <li class="nav-item mb-2">
-                                <a href="tel:085-xxx-xxx" class="nav-link p-0 text-muted">085-xxx-xxx</a>
+                                <a href="tel:085555555555" class="nav-link p-0 text-muted">
+                                    <span class="fa fa-phone"></span> 
+                                    <span class="icon-text">085555555555</span>
+                                </a>
                             </li>
                         </ul>
                     </div>
-
+                    
                     {{-- kolom 4 Alamat --}}
                     <div class="col-12 col-md-3 mb-4">
                         <h5 class="font-inter fw-bold mb-4">Alamat Desa</h5>
-                        <p class="text-muted">JL. Onggo Joyo No.31 Candirenggo Kec. Singosari, Kabupaten Malang, Jawa Timur</p>
-                    </div>
+                        <p class="text-muted">
+                            <i class="fas fa-map-marker-alt"></i> RW. 02 Kelurahan Candirenggo Kec. Singosari, Kabupaten Malang, Jawa Timur
+                        </p>
+                    </div>                    
                 </div>
             </footer>
         </div>
@@ -422,4 +421,3 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
-
