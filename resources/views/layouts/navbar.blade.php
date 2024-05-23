@@ -23,7 +23,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" {{ ($activeMenu == 'bansos') ? 'active' : '' }}>
+                    <a class="nav-link dropdown-toggle" href="#" id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Bansos
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="bansosDropdown">

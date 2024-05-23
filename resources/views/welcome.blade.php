@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -342,22 +343,33 @@
                         <h5 class="font-inter fw-bold mb-4">Kontak</h5>
                         <ul class="nav flex-column">
                             <li class="nav-item mb-2">
-                                <a href="mailto:katosi.onggojoyo@gmail.com" class="nav-link p-0 text-muted">katosi.onggojoyo@gmail.com</a>
+                                <a href="mailto:katosi.onggojoyo@gmail.com" class="nav-link p-0 text-muted"> 
+                                    <span class="fa fa-envelope"></span> 
+                                    <span class="icon-text">katosi.onggojoyo@gmail.com</span>
+                                </a>
                             </li>
                             <li class="nav-item mb-2">
-                                <a href="tel:082-xxx-xxx" class="nav-link p-0 text-muted">082222222222</a>
+                                <a href="tel:0822222222222" class="nav-link p-0 text-muted">
+                                    <span class="fa fa-phone"></span> 
+                                    <span class="icon-text">082222222222</span>
+                                </a>
                             </li>
                             <li class="nav-item mb-2">
-                                <a href="tel:085-xxx-xxx" class="nav-link p-0 text-muted">085555555555</a>
+                                <a href="tel:085555555555" class="nav-link p-0 text-muted">
+                                    <span class="fa fa-phone"></span> 
+                                    <span class="icon-text">085555555555</span>
+                                </a>
                             </li>
                         </ul>
                     </div>
-
+                    
                     {{-- kolom 4 Alamat --}}
                     <div class="col-12 col-md-3 mb-4">
                         <h5 class="font-inter fw-bold mb-4">Alamat Desa</h5>
-                        <p class="text-muted">RW. 02 Kelurahan Candirenggo Kec. Singosari, Kabupaten Malang, Jawa Timur</p>
-                    </div>
+                        <p class="text-muted">
+                            <i class="fas fa-map-marker-alt"></i> RW. 02 Kelurahan Candirenggo Kec. Singosari, Kabupaten Malang, Jawa Timur
+                        </p>
+                    </div>                    
                 </div>
             </footer>
         </div>
