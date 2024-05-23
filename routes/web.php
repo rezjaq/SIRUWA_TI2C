@@ -57,6 +57,7 @@ Route::group(['middleware' => ['auth']], function () {
         });
         Route::get('/bansos', [GuestBantuanSosialController::class, 'index'])->name('bansos');
         Route::get('/data-diri', [GuestDataDiriController::class, 'index'])->name('data-diri');
+        Route::get('umkm', [GuestUmkmController::class, 'index']);
     });
 
     // Rute untuk RT
@@ -188,7 +189,6 @@ Route::get('/berita', function () {
     return view('berita.berita');
 });
 
-Route::get('umkm', [GuestUmkmController::class, 'index']);
 
 
 // Home Page or Landing Page
