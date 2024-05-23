@@ -36,7 +36,7 @@
 
 
         <!-- Breadcrumb -->
-        <div class="container-fluid py-5" style="padding-top: 50px;">
+        <div class="container-fluid py-0" style="padding-top: 50px;">
             <div class="row">
                 <div class="col-12">
                     @include('layouts.breadcrumb')
