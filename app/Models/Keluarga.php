@@ -18,5 +18,6 @@ class Keluarga extends Model
         'no_kk',
         'alamat',
         'no_rt',
+        'kk',
     ];
 }

@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <!-- Tombol kembali -->
-                <a href="{{ route('Warga.index') }}" class="btn btn-secondary">Kembali</a>
+                <a href="{{ route('verifikasi.index') }}" class="btn btn-secondary">Kembali</a>
             </div>
         </div>
     </div>
