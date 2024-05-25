@@ -215,7 +215,7 @@
     <section id="upcoming-events" class="upcoming-events">
         <div class="container" fade-up>
             <div class="header-kegiatan text-center fade-up">
-                <h2 class="fw-bold">Kegaiatan Mendatang Wilayah RW. 02</h2>
+                <h2 class="fw-bold">Kegiatan Mendatang Wilayah RW. 02</h2>
             </div>
             <div class="carousel-container py-5 fade-up">
                 <div class="row">
@@ -305,6 +305,23 @@
 
             <div class="row g-3">
                 <div class="col-lg-3 col-md-6 col-6">
+                    <a class="image-link" href="{{asset('assets/img/kerja bakti.jpg')}}">
+                        <img src="{{asset('assets/img/kerja bakti.jpg')}}" class="img-fluid-doc rounded" alt="">
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6 col-6">
+                    <a class="image-link" href="{{asset('assets/img/lomba.jpg')}}">
+                        <img src="{{asset('assets/img/lomba.jpg')}}" class="img-fluid-doc rounded" alt="">
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6 col-6">
+                    <a class="image-link" href="{{asset('assets/img/maulid nabi.jpg')}}">
+                        <img src="{{asset('assets/img/maulid nabi.jpg')}}" class="img-fluid-doc rounded" alt="">
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6 col-6">
+                    <a class="image-link" href="{{asset('assets/img/kegiatan-jalan-santai-yang-digelar-gerakan-pemuda-dan-peremp-g4of.jpg')}}">
+                        <img src="{{asset('assets/img/kegiatan-jalan-santai-yang-digelar-gerakan-pemuda-dan-peremp-g4of.jpg')}}" class="img-fluid-doc rounded" alt="">
                     <a class="image-link" href="{{ asset('assets/img/kerja bakti.jpg') }}">
                         <img src="{{ asset('assets/img/kerja bakti.jpg') }}" class="img-fluid rounded"
                             alt="">
@@ -335,10 +352,23 @@
 
 
     {{-- footer --}}
+   <section id="footer" class="bg-white">
+    <div class="container py-5 fade-up">
+      <footer>
+        <div class="row fade-up">
+          {{-- logo and description --}}
+          <div class="col-12 col-md-3 mb-4">
+            <div class="logo-description" style="max-width: 230px;"> <!-- add max-width -->
+              <img src="{{ asset('assets/img/siruwaFooter.png') }}" alt="Logo" class="logo">
+              <p class="description">Akses digitalisasi untuk informasi dan layanan warga</p>
+            </div>
+          </div>
+
     <section id="footer" class="bg-white">
         <div class="container py-5 fade-up">
             <footer>
                 <div class="row fade-up">
+
                     {{-- kolom 1 Navigasi --}}
                     <div class="col-12 col-md-3 mb-4">
                         <h5 class="fw-bold mb-4">Navigasi</h5>
@@ -383,11 +413,16 @@
                             </li>
                             <li class="nav-item mb-2">
                                 <a href="tel:0822222222222" class="nav-link p-0 text-muted">
+                                    <span class="fas fa-phone fa-flip-horizontal"></span> 
                                     <span class="fa fa-phone"></span>
                                     <span class="icon-text">082222222222</span>
                                 </a>
                             </li>
+
                             <li class="nav-item mb-2">
+                                <a href="https://maps.app.goo.gl/GQnGXpcnKqJPHJsd9?g_st=ico" class="nav-link p-0 text-muted">
+                                    <span class="fas fa-map-marker-alt"></span> 
+                                    <span class="icon-text">RW. 02 Kelurahan Candirenggo Kecamatan Singosari, Kabupaten Malang, Jawa Timur</span>
                                 <a href="tel:085555555555" class="nav-link p-0 text-muted">
                                     <span class="fa fa-phone"></span>
                                     <span class="icon-text">085555555555</span>
@@ -395,7 +430,6 @@
                             </li>
                         </ul>
                     </div>
-
                     {{-- kolom 4 Alamat --}}
                     <div class="col-12 col-md-3 mb-4">
                         <h5 class="font-inter fw-bold mb-4">Alamat Desa</h5>
