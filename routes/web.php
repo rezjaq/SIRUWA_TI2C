@@ -7,11 +7,13 @@ use App\Http\Controllers\RT\KegiatanController as RTKegiatanController;
 use App\Http\Controllers\RT\KeluargaController as RTKeluargaController;
 use App\Http\Controllers\RT\WargaController as RTWargaController;
 use App\Http\Controllers\RT\PengaduanController as RTPengaduanController;
-use App\Http\Controllers\Guest\DashboardWargaController as GuestDashboardWargaController;
-use App\Http\Controllers\Guest\PengajuanSuratController as GuestPengajuanSuratController;
-use App\Http\Controllers\Guest\BantuanSosial as GuestBantuanSosialController;
-use App\Http\Controllers\Guest\DataDiriController as GuestDataDiriController;
-use App\Http\Controllers\Guest\umkm as GuestUmkmController;
+use App\Http\Controllers\Warga\DashboardWargaController as DashboardWargaController;
+use App\Http\Controllers\Warga\PengajuanSuratController as PengajuanSuratController;
+use App\Http\Controllers\Warga\BantuanSosial as BantuanSosialController;
+use App\Http\Controllers\Warga\DataDiriController as DataDiriController;
+use App\Http\Controllers\Warga\umkm as UmkmController;
+use App\Http\Controllers\Warga\DataKeluargaController as WargaDataKeluargaController;
+use App\Http\Controllers\Warga\DataWargaController as WargaDataWargaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\RW\DashboardRwController as RwDashboardController;
@@ -20,6 +22,8 @@ use App\Http\Controllers\RW\KegiatanController as RwKegiatanController;
 use App\Http\Controllers\RW\KeluargaController as RwKeluargaController;
 use App\Http\Controllers\RW\WargaController as RwWargaController;
 use App\Http\Controllers\SuratController;
+use App\Http\Controllers\RegistrasiWargaController as RegistrasiWarga;
+use App\Http\Controllers\RW\Verifikasi as RWverifikasi;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,6 +47,9 @@ Route::get('/check-login', function () {
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::get('/cek_nik', [RegistrasiWarga::class, 'index'])->name('registrasi.index');
+Route::post('/cek_nik', [RegistrasiWarga::class, 'isNikExists'])->name('nik.check');
+
 // Setelah mendefinisikan rute login, baru kemudian Anda dapat menambahkan rute untuk akses yang memerlukan autentikasi.
 // Pastikan bahwa rute-rute ini terletak setelah rute login.
 
@@ -50,75 +57,28 @@ Route::group(['middleware' => ['auth']], function () {
     // Rute yang memerlukan autentikasi
     // Rute untuk Warga
     Route::group(['middleware' => ['cek_login:warga']], function () {
-        Route::get('/warga', [GuestDashboardWargaController::class, 'index'])->name('dashboard-warga');
+        Route::get('/warga', [DashboardWargaController::class, 'index'])->name('dashboard-warga');
         Route::prefix('pengajuan_surat')->group(function () {
-            Route::get('/surat-tetap', [GuestPengajuanSuratController::class, 'suratTetap'])->name('warga-tetap');
-            Route::get('/surat-pindah', [GuestPengajuanSuratController::class, 'suratPindah'])->name('warga-pindah');
+            Route::get('/surat-tetap', [PengajuanSuratController::class, 'suratTetap'])->name('warga-tetap');
+            Route::get('/surat-pindah', [PengajuanSuratController::class, 'suratPindah'])->name('warga-pindah');
         });
-        Route::get('/bansos', [GuestBantuanSosialController::class, 'index'])->name('bansos');
-        Route::get('/data-diri', [GuestDataDiriController::class, 'index'])->name('data-diri');
-        Route::get('umkm', [GuestUmkmController::class, 'index']);
+        Route::prefix('/data-keluarga')->group(function () {
+            Route::get('/', [WargaDataKeluargaController::class, 'index'])->name('warga.keluarga.index');
+            Route::get('/create', [WargaDataKeluargaController::class, 'create'])->name('warga.keluarga.create');
+            Route::post('/store', [WargaDataKeluargaController::class, 'store'])->name('warga.keluarga.store');
+        });
+        Route::prefix('/data-warga')->group(function () {
+            Route::get('/', [WargaDataWargaController::class, 'index'])->name('warga.Warga.index');
+            Route::get('/create', [WargaDataWargaController::class, 'create'])->name('warga.Warga.create');
+            Route::post('/store', [WargaDataWargaController::class, 'store'])->name('warga.Warga.store');
+            Route::get('/edit', [WargaDataWargaController::class, 'edit'])->name('warga.Warga.edit'); // No ID, as it's the logged-in user
+            Route::put('/update', [WargaDataWargaController::class, 'update'])->name('warga.Warga.update'); // No ID, as it's the logged-in user
+        });
+        Route::get('/bansos', [BantuanSosialController::class, 'index'])->name('bansos');
+        Route::get('/data-diri', [DataDiriController::class, 'index'])->name('data-diri');
+        Route::get('/umkm', [UmkmController::class, 'index']);
     });
 
-    // Rute untuk RT
-    Route::group(['middleware' => ['cek_login:RT']], function () {
-        Route::get('/RT', [RTDashboardController::class, 'index'])->name('dashboard-rt');
-
-        Route::prefix('announcement')->group(function () {
-            Route::get('/', [RTPengumumanController::class, 'index'])->name('announcement.index');
-            Route::post('/list', [RTPengumumanController::class, 'list'])->name('announcement.list');
-            Route::get('/create', [RTPengumumanController::class, 'create'])->name('announcement.create');
-            Route::post('/store', [RTPengumumanController::class, 'store'])->name('announcement.store');
-            Route::get('/{id}', [RTPengumumanController::class, 'show'])->name('announcement.show');
-            Route::get('/{id}/edit', [RTPengumumanController::class, 'edit'])->name('announcement.edit');
-            Route::put('/{id}/update', [RTPengumumanController::class, 'update'])->name('announcement.update');
-            Route::delete('/{id}', [RTPengumumanController::class, 'destroy'])->name('announcement.destroy');
-        });
-
-        Route::prefix('/activity')->group(function () {
-            Route::get('/', [RTKegiatanController::class, 'index'])->name('activity.index');
-            Route::post('/list', [RTKegiatanController::class, 'list'])->name('activity.list');
-            Route::get('/create', [RTKegiatanController::class, 'create'])->name('activity.create');
-            Route::post('/store', [RTKegiatanController::class, 'store'])->name('activity.store');
-            Route::get('/{id}', [RTKegiatanController::class, 'show'])->name('activity.show');
-            Route::get('/{id}/edit', [RTKegiatanController::class, 'edit'])->name('activity.edit');
-            Route::put('/{id}/update', [RTKegiatanController::class, 'update'])->name('activity.update');
-            Route::delete('/{id}', [RTKegiatanController::class, 'destroy'])->name('activity.destroy');
-        });
-
-        Route::prefix('/family')->group(function () {
-            Route::get('/', [RTKeluargaController::class, 'index'])->name('family.index');
-            Route::post('/list', [RTKeluargaController::class, 'list'])->name('family.list');
-            Route::get('/create', [RTKeluargaController::class, 'create'])->name('family.create');
-            Route::post('/store', [RTKeluargaController::class, 'store'])->name('family.store');
-            Route::get('/{id}', [RTKeluargaController::class, 'show'])->name('family.show');
-            Route::get('/{id}/edit', [RTKeluargaController::class, 'edit'])->name('family.edit');
-            Route::put('/{id}/update', [RTKeluargaController::class, 'update'])->name('family.update');
-            Route::delete('/{id}', [RTKeluargaController::class, 'destroy'])->name('family.destroy');
-        });
-
-        Route::prefix('/citizen')->group(function () {
-            Route::get('/', [RTWargaController::class, 'index'])->name('citizen.index');
-            Route::post('/list', [RTWargaController::class, 'list'])->name('citizen.list');
-            Route::get('/create', [RTWargaController::class, 'create'])->name('citizen.create');
-            Route::post('/store', [RTWargaController::class, 'store'])->name('citizen.store');
-            Route::get('/{id}', [RTWargaController::class, 'show'])->name('citizen.show');
-            Route::get('/{id}/edit', [RTWargaController::class, 'edit'])->name('citizen.edit');
-            Route::put('/{id}/update', [RTWargaController::class, 'update'])->name('citizen.update');
-            Route::delete('/{id}', [RTWargaController::class, 'destroy'])->name('citizen.destroy');
-        });
-
-        Route::prefix('/complaint')->group(function () {
-            Route::get('/', [RTPengaduanController::class, 'index'])->name('complaint.index');
-            Route::post('/list', [RTPengaduanController::class, 'list'])->name('complaint.list');
-            Route::get('/create', [RTPengaduanController::class, 'create'])->name('complaint.create');
-            Route::post('/store', [RTPengaduanController::class, 'store'])->name('complaint.store');
-            Route::get('/{id}', [RTPengaduanController::class, 'show'])->name('complaint.show');
-            Route::get('/{id}/edit', [RTPengaduanController::class, 'edit'])->name('complaint.edit');
-            Route::put('/{id}/update', [RTPengaduanController::class, 'update'])->name('complaint.update');
-            Route::delete('/{id}', [RTPengaduanController::class, 'destroy'])->name('complaint.destroy');
-        });
-    });
 
     // Rute untuk RW
     Route::group(['middleware' => ['cek_login:RW']], function () {
@@ -157,7 +117,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::delete('/{id}', [RwKeluargaController::class, 'destroy'])->name('keluarga.destroy');
         });
 
-        Route::prefix('/citizen')->group(function () {
+        Route::prefix('/Warga')->group(function () {
             Route::get('/', [RwWargaController::class, 'index'])->name('Warga.index');
             Route::post('/list', [RwWargaController::class, 'list'])->name('Warga.list');
             Route::get('/create', [RwWargaController::class, 'create'])->name('Warga.create');
@@ -166,6 +126,14 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/{id}/edit', [RwWargaController::class, 'edit'])->name('Warga.edit');
             Route::put('/{id}/update', [RwWargaController::class, 'update'])->name('Warga.update');
             Route::delete('/{id}', [RwWargaController::class, 'destroy'])->name('Warga.destroy');
+        });
+
+        Route::prefix('/verifikasi')->group(function () {
+            Route::get('/', [RWverifikasi::class, 'index'])->name('verifikasi.index');
+            Route::post('/list', [RWverifikasi::class, 'list'])->name('verifikasi.list');
+            Route::get('/{id}', [RWverifikasi::class, 'show'])->name('verifikasi.show');
+            Route::post('/approve/{nik}', [RWverifikasi::class, 'approve'])->name('verifikasi.approve');
+            Route::post('reject/{nik}', [RWverifikasi::class, 'reject'])->name('verifikasi.reject');
         });
     });
 });
@@ -184,6 +152,66 @@ Route::group(['middleware' => ['auth']], function () {
 //     });
 // });
 
+// Rute untuk RT
+Route::group(['middleware' => ['cek_login:RT']], function () {
+    Route::get('/RT', [RTDashboardController::class, 'index'])->name('dashboard-rt');
+
+    Route::prefix('announcement')->group(function () {
+        Route::get('/', [RTPengumumanController::class, 'index'])->name('announcement.index');
+        Route::post('/list', [RTPengumumanController::class, 'list'])->name('announcement.list');
+        Route::get('/create', [RTPengumumanController::class, 'create'])->name('announcement.create');
+        Route::post('/store', [RTPengumumanController::class, 'store'])->name('announcement.store');
+        Route::get('/{id}', [RTPengumumanController::class, 'show'])->name('announcement.show');
+        Route::get('/{id}/edit', [RTPengumumanController::class, 'edit'])->name('announcement.edit');
+        Route::put('/{id}/update', [RTPengumumanController::class, 'update'])->name('announcement.update');
+        Route::delete('/{id}', [RTPengumumanController::class, 'destroy'])->name('announcement.destroy');
+    });
+
+    Route::prefix('/activity')->group(function () {
+        Route::get('/', [RTKegiatanController::class, 'index'])->name('activity.index');
+        Route::post('/list', [RTKegiatanController::class, 'list'])->name('activity.list');
+        Route::get('/create', [RTKegiatanController::class, 'create'])->name('activity.create');
+        Route::post('/store', [RTKegiatanController::class, 'store'])->name('activity.store');
+        Route::get('/{id}', [RTKegiatanController::class, 'show'])->name('activity.show');
+        Route::get('/{id}/edit', [RTKegiatanController::class, 'edit'])->name('activity.edit');
+        Route::put('/{id}/update', [RTKegiatanController::class, 'update'])->name('activity.update');
+        Route::delete('/{id}', [RTKegiatanController::class, 'destroy'])->name('activity.destroy');
+    });
+
+    Route::prefix('/family')->group(function () {
+        Route::get('/', [RTKeluargaController::class, 'index'])->name('family.index');
+        Route::post('/list', [RTKeluargaController::class, 'list'])->name('family.list');
+        Route::get('/create', [RTKeluargaController::class, 'create'])->name('family.create');
+        Route::post('/store', [RTKeluargaController::class, 'store'])->name('family.store');
+        Route::get('/{id}', [RTKeluargaController::class, 'show'])->name('family.show');
+        Route::get('/{id}/edit', [RTKeluargaController::class, 'edit'])->name('family.edit');
+        Route::put('/{id}/update', [RTKeluargaController::class, 'update'])->name('family.update');
+        Route::delete('/{id}', [RTKeluargaController::class, 'destroy'])->name('family.destroy');
+    });
+
+    Route::prefix('/citizen')->group(function () {
+        Route::get('/', [RTWargaController::class, 'index'])->name('citizen.index');
+        Route::post('/list', [RTWargaController::class, 'list'])->name('citizen.list');
+        Route::get('/create', [RTWargaController::class, 'create'])->name('citizen.create');
+        Route::post('/store', [RTWargaController::class, 'store'])->name('citizen.store');
+        Route::get('/{id}', [RTWargaController::class, 'show'])->name('citizen.show');
+        Route::get('/{id}/edit', [RTWargaController::class, 'edit'])->name('citizen.edit');
+        Route::put('/{id}/update', [RTWargaController::class, 'update'])->name('citizen.update');
+        Route::delete('/{id}', [RTWargaController::class, 'destroy'])->name('citizen.destroy');
+    });
+
+    Route::prefix('/complaint')->group(function () {
+        Route::get('/', [RTPengaduanController::class, 'index'])->name('complaint.index');
+        Route::post('/list', [RTPengaduanController::class, 'list'])->name('complaint.list');
+        Route::get('/create', [RTPengaduanController::class, 'create'])->name('complaint.create');
+        Route::post('/store', [RTPengaduanController::class, 'store'])->name('complaint.store');
+        Route::get('/{id}', [RTPengaduanController::class, 'show'])->name('complaint.show');
+        Route::get('/{id}/edit', [RTPengaduanController::class, 'edit'])->name('complaint.edit');
+        Route::put('/{id}/update', [RTPengaduanController::class, 'update'])->name('complaint.update');
+        Route::delete('/{id}', [RTPengaduanController::class, 'destroy'])->name('complaint.destroy');
+    });
+});
+
 
 Route::get('/berita', function () {
     return view('berita.berita');
@@ -193,4 +221,3 @@ Route::get('/berita', function () {
 
 // Home Page or Landing Page
 Route::get('/', [HomeController::class, 'index'])->name('home');
-

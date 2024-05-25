@@ -73,7 +73,8 @@
                             </div>
                         </form>
                         <a href="#!" class="forgot-password-link">Forgot password?</a>
-                        <p class="login-wrapper-footer-text">Don't have an account? <a href="#!" class="text-reset">Register here</a></p>
+                        <p class="login-wrapper-footer-text">Don't have an account? <a href="{{ route('registrasi.index') }}" class="text-reset">Register here</a></p>
+
                     </div>
                 </div>
                 <div class="col-sm-6 px-0 d-none d-sm-block login-img-wrapper">

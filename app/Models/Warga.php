@@ -27,6 +27,7 @@ class Warga extends Authenticable implements JWTSubject
 
     protected $fillable = [
         'nik',
+        'status',
         'nama',
         'password',
         'level',
@@ -38,7 +39,9 @@ class Warga extends Authenticable implements JWTSubject
         'statusKawin',
         'pekerjaan',
         'no_rt',
+        'ktp',
         'id_keluarga',
+        'verif',
     ];
 
     public function keluarga(): BelongsTo
