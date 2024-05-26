@@ -19,6 +19,17 @@ class umkm extends Controller
         return view('warga.umkm.umkm', ['breadcrumb' => $breadcrumb]);
     }
 
+    public function create()
+    {
+        $breadcrumb = (object) [
+            'title' => 'UMKM WARGA',
+            'list' => ['UMKM', 'Pengajuan UMKM'] // List diubah menjadi array
+        ];
+
+        $user = Auth::user();
+
+        return view('warga.umkm', ['breadcrumb' => $breadcrumb, 'user' => $user]);
+    }
     public function show()
     {
         $breadcrumb = (object) [
@@ -28,6 +39,6 @@ class umkm extends Controller
 
         $user = Auth::user();
 
-        return view('warga.umkm.pengajuan', ['breadcrumb' => $breadcrumb, 'user' => $user]);
+        return view('warga.umkm.umkm', ['breadcrumb' => $breadcrumb, 'user' => $user]);
     }
 }

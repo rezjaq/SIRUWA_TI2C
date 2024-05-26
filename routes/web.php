@@ -100,7 +100,6 @@ Route::group(['middleware' => ['auth']], function () {
         });
         Route::get('/bansos', [BantuanSosialController::class, 'index'])->name('bansos');
         Route::get('/data-diri', [DataDiriController::class, 'index'])->name('data-diri');
-        Route::get('/umkm', [UmkmController::class, 'index']);
     });
 
 

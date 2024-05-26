@@ -74,6 +74,17 @@
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="dataWargaDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Data Warga
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dataWargaDropdown">
+                                    <li><a class="dropdown-item" href="{{ route('warga.Warga.index') }}">Data Warga</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('warga.keluarga.index') }}">Data Keluarga</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle {{ Request::routeIs('bansos.*') ? 'active' : '' }}" href="#" id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Bansos
                                 </a>
@@ -90,12 +101,12 @@
                                 <a class="nav-link {{ Request::routeIs('pengaduan') ? 'active' : '' }}" href="{{ route('pengaduan') }}">Pengaduan</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle {{ Request::routeIs('umkm.*') ? 'active' : '' }}" href="#" id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle {{ Request::routeIs('pengajuan-umkm*') ? 'active' : '' }}" href="#" id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     UMKM
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="bansosDropdown">
-                                    <li><a class="dropdown-item" href="{{ route('umkm') }}">Macam Macam UMKM</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('pengajuan-umkm') }}">Pengajuan UMKM</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('pengajuan-umkm') }}">Macam Macam UMKM</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('umkm.create') }}">Pengajuan UMKM</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -137,7 +148,7 @@
                 </div>
             </div>
         </nav>
-    {{-- navbar --}}
+      {{-- navbar --}}
 
 
     <section id="hero" class="px-0">
@@ -179,8 +190,8 @@
                         <div class="program-title">UMKM Warga</div>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item check-login" href="{{ route('umkm') }}">Macam-Macam UMKM</a></li>
-                        <li><a class="dropdown-item check-login" href="{{ route('pengajuan-umkm') }}">Pengajuan UMKM</a></li>
+                        <li><a class="dropdown-item check-login" href="{{ route('pengajuan-umkm') }}">Macam-Macam UMKM</a></li>
+                        <li><a class="dropdown-item check-login" href="{{ route('umkm.create') }}">Pengajuan UMKM</a></li>
                     </ul>
                 </div>
                 <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Bantuan Sosial">
@@ -202,6 +213,8 @@
             </div>
         </div>
     </section>
+    {{-- program --}}
+
     <br><br>
     {{-- berita --}}
     <section id="berita">

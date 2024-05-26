@@ -2,7 +2,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark py-3 fixed-top">
     <div class="container">
         <a class="navbar-brand" href="#">
-            <!-- Logo -->
             <img src="{{ asset('assets/img/siruwa.png') }}" height="55" width="55" alt="">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,6 +23,17 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dataWargaDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Data Warga
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dataWargaDropdown">
+                            <li><a class="dropdown-item" href="{{ route('warga.Warga.index') }}">Data Warga</a></li>
+                            <li><a class="dropdown-item" href="{{ route('warga.keluarga.index') }}">Data Keluarga</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle {{ Request::routeIs('bansos.*') ? 'active' : '' }}" href="#" id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Bansos
                         </a>
@@ -40,12 +50,12 @@
                         <a class="nav-link {{ Request::routeIs('pengaduan') ? 'active' : '' }}" href="{{ route('pengaduan') }}">Pengaduan</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{ Request::routeIs('umkm.*') ? 'active' : '' }}" href="#" id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle {{ Request::routeIs('pengajuan-umkm*') ? 'active' : '' }}" href="#" id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             UMKM
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="bansosDropdown">
-                            <li><a class="dropdown-item" href="{{ route('umkm') }}">Macam Macam UMKM</a></li>
-                            <li><a class="dropdown-item" href="{{ route('pengajuan-umkm') }}">Pengajuan UMKM</a></li>
+                            <li><a class="dropdown-item" href="{{ route('pengajuan-umkm') }}">Macam Macam UMKM</a></li>
+                            <li><a class="dropdown-item" href="{{ route('umkm.create') }}">Pengajuan UMKM</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -87,3 +97,4 @@
         </div>
     </div>
 </nav>
+{{-- navbar --}}
