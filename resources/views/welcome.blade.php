@@ -96,7 +96,7 @@
                     <div class="program-title">Penerima Bansos</div>
                 </a>
                 <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Data Diri" >
-                    <img src="{{ asset('assets/icon/penerima.png') }}" alt="Data Diri">
+                    <img src="{{ asset('assets/icon/dataWarga.png') }}" alt="Data Diri">
                     <div class="program-title">Data Diri</div>
                 </a>
             </div>
