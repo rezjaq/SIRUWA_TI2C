@@ -41,6 +41,7 @@ Route::get('/check-login', function () {
     return response()->json(['logged_in' => Auth::check()]);
 });
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
+Route::post('/change-password', [AuthController::class, 'changePassword'])->name('change-password');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 // Setelah mendefinisikan rute login, baru kemudian Anda dapat menambahkan rute untuk akses yang memerlukan autentikasi.
@@ -51,11 +52,34 @@ Route::group(['middleware' => ['auth']], function () {
     // Rute untuk Warga
     Route::group(['middleware' => ['cek_login:warga']], function () {
         Route::get('/warga', [GuestDashboardWargaController::class, 'index'])->name('dashboard-warga');
+
         Route::prefix('pengajuan_surat')->group(function () {
             Route::get('/surat-tetap', [GuestPengajuanSuratController::class, 'suratTetap'])->name('warga-tetap');
             Route::get('/surat-pindah', [GuestPengajuanSuratController::class, 'suratPindah'])->name('warga-pindah');
         });
-        Route::get('/bansos', [GuestBantuanSosialController::class, 'index'])->name('bansos');
+
+        Route::prefix('bansos')->group(function () {
+            Route::get('/', [GuestBantuanSosialController::class, 'index'])->name('bansos');
+            Route::get('/jenis-bansos', [GuestBantuanSosialController::class, 'jenisBansos'])->name('jenis-bansos');
+            Route::get('/pengajuan', [GuestBantuanSosialController::class, 'pengajuan'])->name('pengajuan-bansos');
+            Route::get('/daftar-penerima-bansos', [GuestBantuanSosialController::class, 'daftarPenerimaBansos'])->name('daftar-penerima-bansos');
+        });
+
+        Route::get('/denah-rumah', function () {
+            // Your controller logic here
+        })->name('denah-rumah');
+
+        Route::get('/pengaduan', function () {
+            // Your controller logic here
+        })->name('pengaduan');
+
+        Route::prefix('umkm')->group(function () {
+            Route::get('/', [GuestUmkmController::class, 'index'])->name('umkm');
+            Route::get('/pengajuan-umkm', [GuestUmkmController::class, 'show'])->name('pengajuan-umkm');
+            Route::get('/umkm/create', [GuestUmkmController::class, 'create'])->name('umkm.create');
+            Route::post('/umkm/store', [GuestUmkmController::class, 'store'])->name('umkm.store');
+        });
+
         Route::get('/data-diri', [GuestDataDiriController::class, 'index'])->name('data-diri');
     });
 
@@ -187,8 +211,6 @@ Route::group(['middleware' => ['auth']], function () {
 Route::get('/berita', function () {
     return view('berita.berita');
 });
-
-Route::get('umkm', [GuestUmkmController::class, 'index']);
 
 
 // Home Page or Landing Page

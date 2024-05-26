@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Guest;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class umkm extends Controller
 {
@@ -11,9 +12,22 @@ class umkm extends Controller
     {
         $breadcrumb = (object) [
             'title' => 'UMKM WARGA',
-            'list' => ['Home', 'UMKM'] // List diubah menjadi array
+            'list' => ['UMKM', 'Daftar UMKM']
         ];
 
-        return view('warga.umkm', ['breadcrumb' => $breadcrumb]);
+
+        return view('warga.umkm.umkm', ['breadcrumb' => $breadcrumb]);
+    }
+
+    public function show()
+    {
+        $breadcrumb = (object) [
+            'title' => 'UMKM WARGA',
+            'list' => ['UMKM', 'Pengajuan UMKM'] // List diubah menjadi array
+        ];
+
+        $user = Auth::user();
+
+        return view('warga.umkm.pengajuan', ['breadcrumb' => $breadcrumb, 'user' => $user]);
     }
 }

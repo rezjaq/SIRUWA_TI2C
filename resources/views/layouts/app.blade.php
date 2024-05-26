@@ -8,11 +8,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('assets/css/stylee.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <style>
-        .hero-section {
-            max-width: 960px;
-            margin: auto;
-        }
+        body {
+        background-color: #f5f5f5;
+        padding-top: 100px; /* Adjust based on the height of your navbar */
+    }
+
+    .navbar {
+        margin-bottom: 20px; /* Space between navbar and breadcrumb */
+    }
     </style>
     @stack('css')
 </head>
@@ -23,67 +29,49 @@
         <div class="container-fluid p-0">
             @include('layouts.navbar')
         </div>
-        
-        {{-- hero --}}
-        <section id="hero" class="px-0" style="height: 400px;">
-            <div class="overlay"></div>
-            <div class="container text-center text-white d-flex justify-content-center align-items-center fade-up">
-                <div class="hero-title">
-                    <div class="hero-text" style="font-size: 36px;">Sistem Informasi Rukun Warga Wilayah RW. 02 Kelurahan Candirenggo Kecamatan Singosari</div>
+
+        <!-- Breadcrumb -->
+        @yield('breadcrumb')
+
+        <!-- Content -->
+        <section id="content" class="content py-0">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        @yield('content')
+                    </div>
                 </div>
             </div>
         </section>
-
-
-        <!-- Breadcrumb -->
-        <div class="container-fluid py-0" style="padding-top: 50px;">
-            <div class="row">
-                <div class="col-12">
-                    @include('layouts.breadcrumb')
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Content -->  
-        <div class="container-fluid my-4 content-below-hero" style="padding-top: 80px;">
-            <div class="row">
-                <div class="col-12">
-                    @yield('content')
-                </div>
-            </div>
-        </div>
         
-
-
         <!-- Footer -->
         <div class="container-fluid p-0">
             @include('layouts.footer')
         </div>
     </div>
 
-    {{-- src navbar scroll --}}
+    <!-- Scripts -->
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-           const navbar = document.querySelector(".fixed-top");
-           window.addEventListener("scroll", () => {
-               if (window.scrollY > 100) {
-                   navbar.classList.add("scroll-nav-active");
-                   navbar.classList.add("text-nav-active");
-                   navbar.classList.remove("navbar-dark");
-                   navbar.classList.add("navbar-light");
-               } else {
-                   navbar.classList.remove("scroll-nav-active");
-                   navbar.classList.remove("text-nav-active");
-                   navbar.classList.remove("navbar-light");
-                   navbar.classList.add("navbar-dark");
-               }
-           });
-       });
-    </script>
-    {{-- src navbar scroll --}}
+        document.addEventListener('DOMContentLoaded', function () {
+            const navbar = document.querySelector('.navbar');
+            const isHomePage = window.location.pathname === '/'; // Adjust this if your home route is different
 
-    {{-- src kegiatan --}}
+            function checkScroll() {
+                if (window.scrollY > 50 || !isHomePage) {
+                    navbar.classList.add('scroll-nav-active');
+                } else {
+                    navbar.classList.remove('scroll-nav-active');
+                }
+            }
+
+            // Initial check when the page loads
+            checkScroll();
+
+            // Event listener for scroll to toggle scroll-nav-active class
+            window.addEventListener('scroll', checkScroll);
+        });
+    </script>
+    
     <script>
         function autoScrollDiv() {
             const container = document.querySelector('.carousel-container .row');
@@ -100,9 +88,7 @@
         }
         document.addEventListener('DOMContentLoaded', autoScrollDiv);
     </script>
-    {{-- src kegiatan --}}
-
-    <!-- Script untuk mendeteksi kapan elemen muncul dan menambahkan class visible -->
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const elements = document.querySelectorAll('.fade-up');

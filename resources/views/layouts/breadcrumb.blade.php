@@ -1,23 +1,25 @@
-<section class="content-header" style="z-index: 100;">
-  <div class="container-fluid">
-      <div class="row mb-2">
-          <div class="col-sm-6">
-              <div class="row">
-                  <div class="col-sm-12">
-                      <ol class="breadcrumb float-sm-right" style="margin-top: 15px;">
-                          @foreach ($breadcrumb->list as $key => $value)
-                              <li class="breadcrumb-item {{ $key == count($breadcrumb->list) - 1 ? 'active' : '' }}" aria-current="page">{{ $value }}</li>
-                              @if ($key < count($breadcrumb->list) - 1)
-                                  <li class="breadcrumb-separator">/</li> 
-                              @endif
-                          @endforeach
-                      </ol>
-                  </div>
-              </div>
-              <div class="col-sm-6">
-                  <h1>{{ $breadcrumb->title }}</h1>
-              </div>
-          </div>
-      </div>
-  </div>
+<section class="breadcrumb-section">
+    <div class="container py-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent p-0 m-0 rounded">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('dashboard-warga') }}" class="text-decoration-none text-dark">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                @foreach ($list as $key => $value)
+                    <li class="breadcrumb-item {{ $loop->last ? 'active' : '' }}">
+                        @if (!$loop->last)
+                            <a href="#" class="text-decoration-none text-dark">
+                                {{ $value }}
+                            </a>
+                            <i class="fa fa-angle-right"></i>
+                        @else
+                            {{ $value }}
+                        @endif
+                    </li>
+                @endforeach
+            </ol>
+        </nav>
+    </div>
 </section>

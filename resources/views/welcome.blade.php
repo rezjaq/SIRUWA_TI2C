@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Sistem Informasi Rukun Warga</title>
     <link rel="shortcut icon" href="{{asset('assets/icon/favicon.ico')}}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -11,40 +12,133 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        .btn-login,
+        .btn-login-notif {
+            background-color: #03774A !important;
+            color: #fff !important;
+            border: none !important;
+            padding: 10px 20px !important;
+            font-size: 16px !important;
+            border-radius: 5px !important;
+            cursor: pointer !important;
+            margin-right: 10px !important; 
+        }
+
+        .btn-cancel,
+        .btn-cancel-notif {
+            background-color: #ccc !important;
+            color: #333 !important;
+            border: none !important;
+            padding: 10px 20px !important;
+            font-size: 16px !important;
+            border-radius: 5px !important;
+            cursor: pointer !important;
+            margin-left: 10px !important; 
+        }
+
+        .btn-login:hover,
+        .btn-login-notif:hover {
+            background-color: #026a3d !important;
+        }
+
+        .btn-cancel:hover,
+        .btn-cancel-notif:hover {
+            background-color: #bbb !important;
+        }
+    </style>
 </head>
 <body>
-
       {{-- navbar --}}
-      <nav class="navbar navbar-expand-lg navbar-dark py-3 fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <!-- Logo -->
-                <img src="{{asset('assets/img/siruwa.png')}}" height="55" width="55" alt="">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Beranda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#berita">Berita</a>
-                    </li>
-                        <a class="nav-link" href="#upcoming-events">Kegiatan</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#foto">Dokumentasi</a>
-                    </li>
-                </ul>
-                <div class="d-flex">
-                    <a href="{{ route('login') }}" class="btn btn-success">Login</a>
-                </div>                
+        <nav class="navbar navbar-expand-lg navbar-dark py-3 fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="{{ asset('assets/img/siruwa.png') }}" height="55" width="55" alt="">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+                    @auth
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::routeIs('dashboard-warga') ? 'active' : '' }}" aria-current="page" href="{{ route('dashboard-warga') }}">Beranda</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle {{ Request::routeIs('warga-tetap') || Request::routeIs('warga-pindah') ? 'active' : '' }}" href="#" id="pengajuanDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Pengajuan
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="pengajuanDropdown">
+                                    <li><a class="dropdown-item" href="{{ route('warga-tetap') }}">Surat Warga Tetap</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('warga-pindah') }}">Surat Warga Pindahan</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle {{ Request::routeIs('bansos.*') ? 'active' : '' }}" href="#" id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Bansos
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="bansosDropdown">
+                                    <li><a class="dropdown-item" href="{{ route('jenis-bansos') }}">Jenis Bansos</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('pengajuan-bansos') }}">Pengajuan</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('daftar-penerima-bansos') }}">Daftar Penerima Bansos</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::routeIs('denah-rumah') ? 'active' : '' }}" href="{{ route('denah-rumah') }}">Denah Rumah Warga</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::routeIs('pengaduan') ? 'active' : '' }}" href="{{ route('pengaduan') }}">Pengaduan</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle {{ Request::routeIs('umkm.*') ? 'active' : '' }}" href="#" id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    UMKM
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="bansosDropdown">
+                                    <li><a class="dropdown-item" href="{{ route('umkm') }}">Macam Macam UMKM</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('pengajuan-umkm') }}">Pengajuan UMKM</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="d-flex">
+                            {{-- <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-user"></i> {{ Auth::user()->name }}
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
+                                    </ul>
+                                </li>
+                            </ul> --}}
+                            <a href="{{ route('logout') }}" class="btn btn-custom">Logout</a>
+                        </div>
+                    @else
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Beranda</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#berita">Berita</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#upcoming-events">Kegiatan</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#foto">Dokumentasi</a>
+                            </li>
+                        </ul>
+                        <div class="d-flex">
+                            <a href="{{ route('login') }}" class="btn btn-success">Login</a>
+                        </div>
+                    @endauth
+                </div>
             </div>
-        </div>
-      </nav>
+        </nav>
     {{-- navbar --}}
+
 
     <section id="hero" class="px-0">
         <div class="overlay"></div>
@@ -79,10 +173,16 @@
                     <img src="{{ asset('assets/icon/3.png') }}" alt="Pengaduan Warga">
                     <div class="program-title">Pengaduan Warga</div>
                 </a>
-                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="UMKM Warga">
-                    <img src="{{ asset('assets/icon/4.png') }}" alt="UMKM Warga">
-                    <div class="program-title">UMKM Warga</div>
-                </a>
+                <div class="program-ikon dropdown">
+                    <a href="#" class="dropdown-toggle text-decoration-none" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="{{ asset('assets/icon/4.png') }}" alt="Pengajuan Surat">
+                        <div class="program-title">UMKM Warga</div>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item check-login" href="{{ route('umkm') }}">Macam-Macam UMKM</a></li>
+                        <li><a class="dropdown-item check-login" href="{{ route('pengajuan-umkm') }}">Pengajuan UMKM</a></li>
+                    </ul>
+                </div>
                 <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Bantuan Sosial">
                     <img src="{{ asset('assets/icon/5.png') }}" alt="Bantuan Sosial">
                     <div class="program-title">Bantuan Sosial</div>
@@ -95,7 +195,7 @@
                     <img src="{{ asset('assets/icon/penerima.png') }}" alt="Penerima Bansos">
                     <div class="program-title">Penerima Bansos</div>
                 </a>
-                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Data Diri" >
+                <a href="{{ route('data-diri') }}" class="program-ikon check-login" aria-label="Data Diri" >
                     <img src="{{ asset('assets/icon/penerima.png') }}" alt="Data Diri">
                     <div class="program-title">Data Diri</div>
                 </a>
@@ -104,7 +204,6 @@
     </section>
 
 
-    
     
     
     <br><br>
@@ -345,25 +444,20 @@
             &copy; Copyright <strong><span>2024 SIRUWA | Sistem Informasi Rukun Warga</span></strong>
         </div>
     </footer>
-    
     {{-- footer --}}
 
     
     {{-- src navbar scroll --}}
     <script>
-         document.addEventListener("DOMContentLoaded", function() {
-            const navbar = document.querySelector(".fixed-top");
-            window.addEventListener("scroll", () => {
-                if (window.scrollY > 100) {
-                    navbar.classList.add("scroll-nav-active");
-                    navbar.classList.add("text-nav-active");
-                    navbar.classList.remove("navbar-dark");
-                    navbar.classList.add("navbar-light");
+        document.addEventListener('DOMContentLoaded', function () {
+            const navbar = document.querySelector('.navbar');
+
+            // Event listener for scroll to toggle scroll-nav-active class
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scroll-nav-active');
                 } else {
-                    navbar.classList.remove("scroll-nav-active");
-                    navbar.classList.remove("text-nav-active");
-                    navbar.classList.remove("navbar-light");
-                    navbar.classList.add("navbar-dark");
+                    navbar.classList.remove('scroll-nav-active');
                 }
             });
         });
@@ -376,7 +470,7 @@
         function autoScrollDiv() {
             const container = document.querySelector('.carousel-container .row');
             let scrollAmount = 0;
-            const scrollInterval = setInterval(function() {
+            const scrollInterval = setInPterval(function() {
                 if (scrollAmount < container.scrollWidth - container.clientWidth) {
                     container.scrollBy({ left: 300, top: 0, behavior: 'smooth' });
                     scrollAmount += 300;
@@ -412,10 +506,64 @@
         });
     </script>
 
+    {{-- buat change password masih belum bisa --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            @if (session('success'))
+                Swal.fire({
+                    title: 'Login Berhasil',
+                    text: "{{ session('success') }}",
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            @endif
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            @if (session('change_password'))
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                Swal.fire({
+                    title: 'Ubah Password Default',
+                    html: `
+                        <form id="change-password-form" action="{{ route('change-password') }}" method="POST">
+                            <input type="hidden" name="_token" value="${csrfToken}">
+                            <input type="password" id="password" name="password" class="swal2-input" placeholder="Password Baru" required>
+                            <input type="password" id="password_confirmation" name="password_confirmation" class="swal2-input" placeholder="Konfirmasi Password" required>
+                        </form>
+                    `,
+                    focusConfirm: false,
+                    preConfirm: () => {
+                        const form = Swal.getPopup().querySelector('#change-password-form');
+                        if (!form.password.value || form.password.value !== form.password_confirmation.value) {
+                            Swal.showValidationMessage(`Password tidak cocok`);
+                        }
+                        return {
+                            password: form.password.value,
+                            password_confirmation: form.password_confirmation.value
+                        };
+                    },
+                    showCancelButton: true,
+                    confirmButtonText: 'Ubah Password',
+                    cancelButtonText: 'Batal',
+                    customClass: {
+                        confirmButton: 'btn-login-notif',
+                        cancelButton: 'btn-cancel-notif'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const form = document.getElementById('change-password-form');
+                        form.submit();
+                    }
+                });
+            @endif
+        });
+
+    </script>
+    
+
     <script src="{{ asset('assets/js/check-login.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

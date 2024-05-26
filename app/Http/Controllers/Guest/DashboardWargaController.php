@@ -9,6 +9,6 @@ class DashboardWargaController extends Controller
 {
     public function index()
     {
-        return view('warga.dashboard');
+        return view('welcome');
     }
 }

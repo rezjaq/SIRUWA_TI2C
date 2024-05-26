@@ -1,3 +1,9 @@
+:root {
+    --breadcrumb-bg: #e9e9e9;
+    --breadcrumb-text: #333;
+    --breadcrumb-active: #03774A;
+    --breadcrumb-hover: #e0e0e0;
+}
 
 .fade-up {
     opacity: 0;
@@ -35,33 +41,65 @@ body {
     color: #03774A;
 }
 
-/* navbar */
+/* Navbar */
+.navbar {
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.navbar.scroll-nav-active {
+    background-color: rgba(3, 119, 74, 0.9);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
 .navbar-nav .nav-link {
     font-size: 18px;
     margin-left: 5px;
     margin-right: 5px;
-}
-.scroll-nav-active {
-    background-color: #03774A !important;
-    border-bottom: 2px solid #03774A;
-    transition: background-color 0.3s ease, border-bottom 0.3s ease;
-}
-.text-nav-active .nav-link {
-    color: #fff !important;
-}
-.btn-success {
-    background-color: #03774A;
-    border-radius: 15px;
-    border-color: #03774A;
-    padding: 10px 45px;
     color: #fff;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
 }
-.scroll-nav-active .btn-success {
-    background-color: #fff !important;
-    border-color: #fff !important;
-    color: #03774A !important;
+
+.nav-link.active, .nav-link:hover {
+    color: #fff !important;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    transform: scale(1.05);
 }
+
+.btn-custom {
+    background-color: #fff;
+    color: #03774A;
+    border: 2px solid #fff;
+    border-radius: 15px;
+    padding: 10px 45px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: #03774A;
+    color: #fff;
+    border-color: #fff;
+}
+
+/* Enhance dropdown menu */
+.dropdown-menu {
+    background-color: #fff;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+    color: #03774A;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+    
+.dropdown-item:hover {
+    background-color: #04D361;
+    color: #fff;
+}
+
 
 
 /* hero */
@@ -143,7 +181,7 @@ body {
     text-decoration: none;
     transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
     padding: 20px;
-    background: #ffffff;
+    background: #03774A;
     border-radius: 15px;
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
     width: 140px;
@@ -165,7 +203,7 @@ body {
 
 .program-title {
     font-size: 14px;
-    color: #03774A;
+    color: #ffffff;
     font-weight: 600;
     text-align: center;
     margin-top: 10px;
@@ -178,7 +216,7 @@ body {
 .program-ikon:hover {
     transform: translateY(-10px);
     box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
-    background: #f0f0f0;
+    /* background: #f0f0f0; */
 }
 
 .dropdown-menu {
@@ -502,43 +540,68 @@ body {
     }
 }
 
-/* btn popup notifikasi login */
-/* Custom styles for SweetAlert2 buttons */
-.btn-login {
-    background-color: #03774A !important;
-    color: #fff !important;
-    border: none !important;
-    padding: 10px 20px !important;
-    font-size: 16px !important;
-    border-radius: 5px !important;
-    cursor: pointer !important;
-    margin-right: 10px !important; /* Added margin to the right */
+/* Tambahan gaya untuk breadcrumb */
+.breadcrumb-section {
+    background-color: #e9e9e9;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.btn-cancel {
-    background-color: #ccc !important;
-    color: #333 !important;
-    border: none !important;
-    padding: 10px 20px !important;
-    font-size: 16px !important;
-    border-radius: 5px !important;
-    cursor: pointer !important;
-    margin-left: 10px !important; /* Added margin to the left */
+.breadcrumb {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
 }
 
-.btn-login:hover {
-    background-color: #026a3d !important;
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
 }
 
-.btn-cancel:hover {
-    background-color: #bbb !important;
+.breadcrumb-item a {
+    color: #333;
+    font-weight: 400;
+    text-decoration: none;
 }
 
-/* Breadcrumb CSS */
-.breadcrumb-separator {
-    margin: 0 5px; /* Sesuaikan margin sesuai kebutuhan */
-    color: #777; /* Atur warna tanda pemisah */
-    font-size: 14px; /* Sesuaikan ukuran font sesuai kebutuhan */
+.breadcrumb-item.active {
+    color: #03774A;
+    font-weight: bold;
 }
 
+.breadcrumb-item a:hover {
+    background-color: #e0e0e0;
+    border-radius: 3px;
+    padding: 2px 5px;
+    transition: all 0.3s ease;
+}
+
+.fa-chevron-right, .fa-angle-right {
+    margin: 0 5px;
+    color: #666;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .breadcrumb {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .breadcrumb {
+        font-size: 12px;
+    }
+    
+    .breadcrumb-item i {
+        display: none;
+    }
+}
+
+/* Separator */
+.breadcrumb-item:not(:last-child) {
+    margin-right: 5px;
+}
 
