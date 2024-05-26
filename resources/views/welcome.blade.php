@@ -202,60 +202,53 @@
             </div>
         </div>
     </section>
-
-
-    
-    
     <br><br>
     {{-- berita --}}
     <section id="berita">
         <div class="container py-5 fade-up">
-
-            <div class="header-berita text-center fade-up">
+    
+            <div class="header-berita text-center fade-up mb-5">
                 <h2 class="fw-bold">Berita Terbaru Wilayah RW. 02</h2>
             </div>
-
-            <div class="row py-5">
+    
+            <div class="row gy-4">
                 <div class="col-lg-4">
-                    <div class="card broder-0">
-                        <img src="{{asset('assets/img/berita.JPG')}}" class="img-fluid mb-3" alt="">
-                        <div class="konten-berita">
-                            <p class="mb-3">15-05-2024</p>
-                            <h4 class="fw-bold mb-3">Karnaval</h4>
+                    <div class="card border-0 shadow-sm">
+                        <img src="{{asset('assets/img/berita.JPG')}}" class="card-img-top img-fluid mb-3" alt="Berita 1">
+                        <div class="card-body">
+                            <p class="card-text text-muted">15-05-2024</p>
+                            <h4 class="card-title fw-bold mb-3">Karnaval</h4>
                             <p class="text-secondary">#desamoderen</p>
-                            <a href="" class="text-decoration-none text-danger">Read More</a>
+                            <a href="#" class="text-decoration-none text-danger">Read More</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="card broder-0">
-                        <img src="{{asset('assets/img/berita.JPG')}}" class="img-fluid mb-3" alt="">
-                        <div class="konten-berita">
-                            <p class="mb-3">15-05-2024</p>
-                            <h4 class="fw-bold mb-3">Karnaval</h4>
+                    <div class="card border-0 shadow-sm">
+                        <img src="{{asset('assets/img/berita.JPG')}}" class="card-img-top img-fluid mb-3" alt="Berita 2">
+                        <div class="card-body">
+                            <p class="card-text text-muted">15-05-2024</p>
+                            <h4 class="card-title fw-bold mb-3">Karnaval</h4>
                             <p class="text-secondary">#desamoderen</p>
-                            <a href="" class="text-decoration-none text-danger">Read More</a>
+                            <a href="#" class="text-decoration-none text-danger">Read More</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="card broder-0">
-                        <img src="{{asset('assets/img/berita.JPG')}}" class="img-fluid mb-3" alt="">
-                        <div class="konten-berita">
-                            <p class="mb-3">15-05-2024</p>
-                            <h4 class="fw-bold mb-3">Karnaval</h4>
+                    <div class="card border-0 shadow-sm">
+                        <img src="{{asset('assets/img/berita.JPG')}}" class="card-img-top img-fluid mb-3" alt="Berita 3">
+                        <div class="card-body">
+                            <p class="card-text text-muted">15-05-2024</p>
+                            <h4 class="card-title fw-bold mb-3">Karnaval</h4>
                             <p class="text-secondary">#desamoderen</p>
-                            <a href="" class="text-decoration-none text-danger">Read More</a>
+                            <a href="#" class="text-decoration-none text-danger">Read More</a>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="footer-berita text-center">
-                <a href="" class="btn btn-outline-success">Berita Lainnya</a>
+            <div class="footer-berita text-center mt-3">
+                <a href="#" class="btn btn-outline-success">Berita Lainnya</a>
             </div>
-
-            
         </div>
     </section>
     {{-- berita --}}
@@ -264,7 +257,7 @@
     <section id="upcoming-events" class="upcoming-events">
         <div class="container" fade-up>
             <div class="header-kegiatan text-center fade-up">
-                <h2 class="fw-bold">Kegaiatan Mendatang Wilayah RW. 02</h2>
+                <h2 class="fw-bold">Kegiatan Mendatang Wilayah RW. 02</h2>
             </div>
           <div class="carousel-container py-5 fade-up">
             <div class="row">
@@ -343,22 +336,22 @@
             <div class="row g-3">
                 <div class="col-lg-3 col-md-6 col-6">
                     <a class="image-link" href="{{asset('assets/img/kerja bakti.jpg')}}">
-                        <img src="{{asset('assets/img/kerja bakti.jpg')}}" class="img-fluid rounded" alt="">
+                        <img src="{{asset('assets/img/kerja bakti.jpg')}}" class="img-fluid-doc rounded" alt="">
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-6 col-6">
                     <a class="image-link" href="{{asset('assets/img/lomba.jpg')}}">
-                        <img src="{{asset('assets/img/lomba.jpg')}}" class="img-fluid rounded" alt="">
+                        <img src="{{asset('assets/img/lomba.jpg')}}" class="img-fluid-doc rounded" alt="">
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-6 col-6">
                     <a class="image-link" href="{{asset('assets/img/maulid nabi.jpg')}}">
-                        <img src="{{asset('assets/img/maulid nabi.jpg')}}" class="img-fluid rounded" alt="">
+                        <img src="{{asset('assets/img/maulid nabi.jpg')}}" class="img-fluid-doc rounded" alt="">
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-6 col-6">
                     <a class="image-link" href="{{asset('assets/img/kegiatan-jalan-santai-yang-digelar-gerakan-pemuda-dan-peremp-g4of.jpg')}}">
-                        <img src="{{asset('assets/img/kegiatan-jalan-santai-yang-digelar-gerakan-pemuda-dan-peremp-g4of.jpg')}}" class="img-fluid rounded" alt="">
+                        <img src="{{asset('assets/img/kegiatan-jalan-santai-yang-digelar-gerakan-pemuda-dan-peremp-g4of.jpg')}}" class="img-fluid-doc rounded" alt="">
                     </a>
                 </div>
             </div>
@@ -367,11 +360,18 @@
     {{-- dokumentasi --}}
 
 
-   {{-- footer --}}
-    <section id="footer" class="bg-white">
-        <div class="container py-5 fade-up">
-            <footer>
-                <div class="row fade-up">
+    {{-- footer --}}
+   <section id="footer" class="bg-white">
+    <div class="container py-5 fade-up">
+      <footer>
+        <div class="row fade-up">
+          {{-- logo and description --}}
+          <div class="col-12 col-md-3 mb-4">
+            <div class="logo-description" style="max-width: 230px;"> <!-- add max-width -->
+              <img src="{{ asset('assets/img/siruwaFooter.png') }}" alt="Logo" class="logo">
+              <p class="description">Akses digitalisasi untuk informasi dan layanan warga</p>
+            </div>
+          </div>
                     {{-- kolom 1 Navigasi --}}
                     <div class="col-12 col-md-3 mb-4">
                         <h5 class="fw-bold mb-4">Navigasi</h5>
@@ -414,26 +414,21 @@
                             </li>
                             <li class="nav-item mb-2">
                                 <a href="tel:0822222222222" class="nav-link p-0 text-muted">
-                                    <span class="fa fa-phone"></span> 
+                                    <span class="fas fa-phone fa-flip-horizontal"></span> 
                                     <span class="icon-text">082222222222</span>
                                 </a>
                             </li>
+
                             <li class="nav-item mb-2">
-                                <a href="tel:085555555555" class="nav-link p-0 text-muted">
-                                    <span class="fa fa-phone"></span> 
-                                    <span class="icon-text">085555555555</span>
+                                <a href="https://maps.app.goo.gl/GQnGXpcnKqJPHJsd9?g_st=ico" class="nav-link p-0 text-muted">
+                                    <span class="fas fa-map-marker-alt"></span> 
+                                    <span class="icon-text">RW. 02 Kelurahan Candirenggo Kecamatan Singosari, Kabupaten Malang, Jawa Timur</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                     
-                    {{-- kolom 4 Alamat --}}
-                    <div class="col-12 col-md-3 mb-4">
-                        <h5 class="font-inter fw-bold mb-4">Alamat Desa</h5>
-                        <p class="text-muted">
-                            <i class="fas fa-map-marker-alt"></i> RW. 02 Kelurahan Candirenggo Kec. Singosari, Kabupaten Malang, Jawa Timur
-                        </p>
-                    </div>                    
+                   
                 </div>
             </footer>
         </div>

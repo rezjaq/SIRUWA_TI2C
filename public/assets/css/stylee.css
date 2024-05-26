@@ -1,9 +1,3 @@
-:root {
-    --breadcrumb-bg: #e9e9e9;
-    --breadcrumb-text: #333;
-    --breadcrumb-active: #03774A;
-    --breadcrumb-hover: #e0e0e0;
-}
 
 .fade-up {
     opacity: 0;
@@ -110,6 +104,7 @@ body {
     background-size: cover;
     background-position: center;
     height: 600px;
+    margin-bottom: -140px;
 }
 
 #hero .overlay {
@@ -119,7 +114,6 @@ body {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5); /* Black overlay with 50% opacity */
-    z-index: 1;
 }
 
 #hero .container {
@@ -156,15 +150,16 @@ body {
 
 /* program */
 .program-container {
-    width: 100%;
+    width: 80%;
     max-width: 1400px;
     margin: 0 auto;
     text-align: center;
-    padding: 50px 20px;
+    padding: 30px 20px;
     background-color: #ffffff;
     border-radius: 30px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     border: 1px solid #e0e0e0;
+    z-index: 1;
 }
 
 .program-baris-ikon {
@@ -184,15 +179,15 @@ body {
     background: #03774A;
     border-radius: 15px;
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
-    width: 140px;
-    height: 180px;
+    width: 110px;
+    height: 160px;
     border: 1px solid #03774A;
     box-sizing: border-box;
 }
 
 .program-ikon img {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     margin-bottom: 10px;
     border-radius: 15px;
     background-color: #ffffff;
@@ -203,7 +198,7 @@ body {
 
 .program-title {
     font-size: 14px;
-    color: #ffffff;
+    color: #03774A;
     font-weight: 600;
     text-align: center;
     margin-top: 10px;
@@ -216,7 +211,7 @@ body {
 .program-ikon:hover {
     transform: translateY(-10px);
     box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
-    /* background: #f0f0f0; */
+    background: #f0f0f0;
 }
 
 .dropdown-menu {
@@ -281,6 +276,16 @@ body {
 
 
 /* berita */
+#berita {
+    position: relative;
+    background-image: url('../../assets/img/bg1.png');
+    background-repeat: no-repeat;
+    background-size: 100% 70%;;
+    background-position: bottom;
+    height: 740px;
+    margin-bottom: 80px;
+}
+
 #berita .header-berita h2 {
     color: #03774A;
 }
@@ -313,6 +318,30 @@ body {
     background-color: #fff;
     color: #03774A;
     border-color: #03774A;
+}
+#berita .card {
+    transition: transform 0.2s;
+}
+
+#berita .card:hover {
+    transform: scale(1.05);
+}
+
+#berita .card-img-top {
+    border-radius: 10px;
+}
+#berita .card-body {
+    background-color: #f8f9fa;
+    border-radius: 0 0 10px 10px;
+}
+
+#berita .btn-outline-success {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#berita .btn-outline-success:hover {
+    background-color: #28a745;
+    color: #fff;
 }
 
 
@@ -462,7 +491,9 @@ body {
     color: #03774A;
 }
 
-.img-fluid {
+.img-fluid-doc {
+    width: 250px; 
+    height: 170px;
     border: 2px solid #ffffff; /* Adding a white border to images */
 }
 
@@ -529,6 +560,32 @@ body {
 #footer p {
     color: #6c757d; /* Muted text color */
 }
+
+.nav-link {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: top;
+  }
+  .icon-text {
+    grid-column: 2;
+  }
+  .logo-description {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .logo {
+      width: 85px; /* adjust the width of the logo */
+      height: auto;
+      margin-bottom: 20px;
+    }
+    
+    .description {
+      font-size: 16px;
+      color: #666;
+      text-align: flex-start;
+    }
 
 @media (max-width: 768px) {
     #footer .nav-link, #footer p {
