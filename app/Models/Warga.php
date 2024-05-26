@@ -1,24 +1,13 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Warga extends Authenticable implements JWTSubject
 {
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
     use HasFactory;
 
     protected $table = 'warga';
@@ -27,6 +16,7 @@ class Warga extends Authenticable implements JWTSubject
 
     protected $fillable = [
         'nik',
+        'status',
         'nama',
         'password',
         'level',
@@ -38,11 +28,29 @@ class Warga extends Authenticable implements JWTSubject
         'statusKawin',
         'pekerjaan',
         'no_rt',
+        'ktp',
         'id_keluarga',
+        'verif',
     ];
 
     public function keluarga(): BelongsTo
     {
         return $this->belongsTo(Keluarga::class, 'id_keluarga');
+    }
+
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
+
+    // JWT methods
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

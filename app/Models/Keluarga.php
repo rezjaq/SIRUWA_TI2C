@@ -15,8 +15,9 @@ class Keluarga extends Model
 
     protected $fillable = [
         'nama_kepala_keluarga',
-        'nomor_nik',
+        'no_kk',
         'alamat',
         'no_rt',
+        'kk',
     ];
 }

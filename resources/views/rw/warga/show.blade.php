@@ -21,7 +21,14 @@
                         <p class="card-text"><strong>No. RT:</strong> {{ $warga->no_rt }}</p>
                     </div>
                     <div class="col-md-6">
-                        <!-- Tambahkan bagian lain yang ingin ditampilkan di sini -->
+                        <!-- Menampilkan foto KTP -->
+                        @if($warga->ktp)
+                            <div class="text-center">
+                                <img src="{{ asset('storage/ktp_images/' . basename($warga->ktp)) }}" alt="Foto KTP" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
+                            </div>
+                        @else
+                            <p class="text-center">Foto KTP tidak tersedia.</p>
+                        @endif
                     </div>
                 </div>
                 <!-- Tombol kembali -->

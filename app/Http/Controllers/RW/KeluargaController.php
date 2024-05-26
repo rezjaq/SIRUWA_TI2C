@@ -28,7 +28,7 @@ class KeluargaController extends Controller
 
     public function list()
     {
-        $keluarga = Keluarga::select('id_keluarga', 'nama_kepala_keluarga', 'nomor_nik', 'alamat', 'no_rt');
+        $keluarga = Keluarga::select('id_keluarga', 'nama_kepala_keluarga', 'no_kk', 'alamat', 'no_rt');
 
         return DataTables::of($keluarga)
             ->addIndexColumn()
@@ -56,7 +56,7 @@ class KeluargaController extends Controller
         // Validasi input
         $request->validate([
             'nama_kepala_keluarga' => 'required',
-            'nomor_nik' => 'required',
+            'no_kk' => 'required',
             'alamat' => 'required',
             'no_rt' => 'required'
         ]);
@@ -64,7 +64,7 @@ class KeluargaController extends Controller
         // Simpan data keluarga baru
         $keluarga = new Keluarga();
         $keluarga->nama_kepala_keluarga = $request->nama_kepala_keluarga;
-        $keluarga->nomor_nik = $request->nomor_nik;
+        $keluarga->no_kk = $request->no_kk;
         $keluarga->alamat = $request->alamat;
         $keluarga->no_rt = $request->no_rt;
 
@@ -106,7 +106,7 @@ class KeluargaController extends Controller
         // Validasi input
         $request->validate([
             'nama_kepala_keluarga' => 'required',
-            'nomor_nik' => 'required',
+            'no_kk' => 'required',
             'alamat' => 'required',
             'no_rt' => 'required',
         ]);
@@ -116,7 +116,7 @@ class KeluargaController extends Controller
 
         // Update data keluarga
         $keluarga->nama_kepala_keluarga = $request->nama_kepala_keluarga;
-        $keluarga->nomor_nik = $request->nomor_nik;
+        $keluarga->no_kk = $request->no_kk;
         $keluarga->alamat = $request->alamat;
         $keluarga->no_rt = $request->no_rt;
 

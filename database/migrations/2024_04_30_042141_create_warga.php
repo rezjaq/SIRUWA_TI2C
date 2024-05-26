@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('nik')->primary();
             $table->string('nama');
             $table->string('password');
-            $table->enum('level', ['RW', 'RT', 'Warga']);
+            $table->string('level');
             $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
             $table->date('tanggal_lahir');
             $table->string('alamat');

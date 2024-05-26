@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Warga;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -15,14 +16,15 @@ class AuthController extends Controller
         if ($user) {
             if ($user->level == 'RW') {
                 return redirect()->intended('RW');
-            } else if ($user->level == 'RT') {
+            } elseif ($user->level == 'RT') {
                 return redirect()->intended('RT');
-            } else if ($user->level == 'warga') {
-                return redirect()->intended('warga');
+            } elseif ($user->level == 'warga') {
+                return redirect()->intended('warga')->with('user', $user);
             }
         }
         return view('login');
     }
+
 
     public function proses_login(Request $request)
     {
@@ -31,17 +33,23 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-        $user = Warga::where('nik', $request->nik)->where('password', $request->password)->first();
+        $user = Warga::where('nik', $request->nik)->first();
 
-        if ($user) {
+        if ($user && $request->password === $user->password) {
             Auth::login($user);
+
+            if ($request->password === $user->nik) {
+                session(['change_password' => true]);
+            }
+
+            session()->flash('success', 'Selamat datang, ' . $user->nama);
 
             if ($user->level == 'RW') {
                 return redirect()->intended('RW');
-            } else if ($user->level == 'RT') {
+            } elseif ($user->level == 'RT') {
                 return redirect()->intended('RT');
-            } else if ($user->level == 'warga') {
-                return redirect()->intended('warga');
+            } elseif ($user->level == 'warga') {
+                return redirect()->intended('warga')->with('user', $user);
             }
 
             return redirect()->intended('/');
@@ -50,6 +58,28 @@ class AuthController extends Controller
         return redirect('login')
             ->withInput()
             ->withErrors(['login_gagal' => 'Pastikan kembali username dan password yang dimasukkan sudah benar']);
+    }
+
+    public function changePassword(Request $request)
+    {
+        dd(session()->all());
+
+        $request->validate([
+            'password' => 'required|confirmed',
+        ]);
+
+        $user = Auth::user();
+
+        if (!$user instanceof \App\Models\Warga) {
+            dd('User is not an instance of Warga model');
+        }
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        session()->flash('success', 'Password berhasil diubah.');
+
+        return redirect()->route('dashboard');
     }
 
 
@@ -63,6 +93,7 @@ class AuthController extends Controller
 
         return redirect('login');
     }
+
 
     // -- MEnggunakan password enkripsi
 
