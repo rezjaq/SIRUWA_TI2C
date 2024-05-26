@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Warga;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PengajuanSuratController extends Controller
 {
@@ -15,10 +16,11 @@ class PengajuanSuratController extends Controller
             'list' => ['Home', 'Pengajuan Surat'] // Example breadcrumb list
         ];
 
-        return view('warga.pengajuan_surat.surat', ['breadcrumb' => $breadcrumb]);
+        // Mengambil data pengguna yang sudah login
+        $user = Auth::user();
+
+        return view('warga.pengajuan_surat.surat', ['breadcrumb' => $breadcrumb, 'user' => $user]);
     }
-
-
 
 
     public function suratPindah()
@@ -27,8 +29,8 @@ class PengajuanSuratController extends Controller
             'title' => 'Pengajuan Surat',
         ];
 
-        $activeMenu = 'warga_pindah';
+        $user = Auth::user();
 
-        return view('warga.pengajuan_surat.surat-pindah', ['breadcrumb' => $breadcrumb]);
+        return view('warga.pengajuan_surat.surat-pindah', ['breadcrumb' => $breadcrumb, 'user' => $user]);
     }
 }

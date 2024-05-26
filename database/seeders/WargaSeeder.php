@@ -1838,7 +1838,7 @@ class WargaSeeder extends Seeder
             [
                 'nik' => '3525021904120002',
                 'nama' => 'KEVIN APRILLIO RIZKY SAPUTRA',
-                'password' => '123456',
+                'password' => '3525021904120002',
                 'level' => 'warga',
                 'jenis_kelamin' => 'Perempuan',
                 'tanggal_lahir' => '1981-01-12',

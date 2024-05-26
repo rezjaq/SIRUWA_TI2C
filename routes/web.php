@@ -45,6 +45,7 @@ Route::get('/check-login', function () {
     return response()->json(['logged_in' => Auth::check()]);
 });
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
+Route::post('/change-password', [AuthController::class, 'changePassword'])->name('change-password');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/cek_nik', [RegistrasiWarga::class, 'index'])->name('registrasi.index');
@@ -62,6 +63,29 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/surat-tetap', [PengajuanSuratController::class, 'suratTetap'])->name('warga-tetap');
             Route::get('/surat-pindah', [PengajuanSuratController::class, 'suratPindah'])->name('warga-pindah');
         });
+        Route::prefix('bansos')->group(function () {
+            Route::get('/', [BantuanSosialController::class, 'index'])->name('bansos');
+            Route::get('/jenis-bansos', [BantuanSosialController::class, 'jenisBansos'])->name('jenis-bansos');
+            Route::get('/pengajuan', [BantuanSosialController::class, 'pengajuan'])->name('pengajuan-bansos');
+            Route::get('/daftar-penerima-bansos', [BantuanSosialController::class, 'daftarPenerimaBansos'])->name('daftar-penerima-bansos');
+        });
+
+        Route::get('/denah-rumah', function () {
+            // Your controller logic here
+        })->name('denah-rumah');
+
+        Route::get('/pengaduan', function () {
+            // Your controller logic here
+        })->name('pengaduan');
+
+        Route::prefix('umkm')->group(function () {
+            Route::get('/', [UmkmController::class, 'index'])->name('umkm');
+            Route::get('/pengajuan-umkm', [UmkmController::class, 'show'])->name('pengajuan-umkm');
+            Route::get('/umkm/create', [UmkmController::class, 'create'])->name('umkm.create');
+            Route::post('/umkm/store', [UmkmController::class, 'store'])->name('umkm.store');
+        });
+
+        Route::get('/data-diri', [DataDiriController::class, 'index'])->name('data-diri');
         Route::prefix('/data-keluarga')->group(function () {
             Route::get('/', [WargaDataKeluargaController::class, 'index'])->name('warga.keluarga.index');
             Route::get('/create', [WargaDataKeluargaController::class, 'create'])->name('warga.keluarga.create');
@@ -76,7 +100,6 @@ Route::group(['middleware' => ['auth']], function () {
         });
         Route::get('/bansos', [BantuanSosialController::class, 'index'])->name('bansos');
         Route::get('/data-diri', [DataDiriController::class, 'index'])->name('data-diri');
-        Route::get('/umkm', [UmkmController::class, 'index']);
     });
 
 
@@ -216,7 +239,6 @@ Route::group(['middleware' => ['cek_login:RT']], function () {
 Route::get('/berita', function () {
     return view('berita.berita');
 });
-
 
 
 // Home Page or Landing Page
