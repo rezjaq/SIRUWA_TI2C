@@ -11,10 +11,11 @@
     <link rel="stylesheet" href="{{ asset('assets/css/stylee.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -34,6 +35,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Beranda</a>
                         <a class="nav-link active" aria-current="page" href="{{ route('dashboard-warga') }}">Beranda</a>
                     </li>
                     <li class="nav-item dropdown">
@@ -69,15 +71,17 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Denah Rumah Warga</a>
+                        <a class="nav-link" href="#berita">Berita</a>
+                    </li>
+                        <a class="nav-link" href="#upcoming-events">Kegiatan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pengaduan</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">UMKM</a>
+                        <a class="nav-link" href="#foto">Dokumentasi</a>
                     </li>
                 </ul>
+                <div class="d-flex">
+                    <a href="{{ route('login') }}" class="btn btn-success">Login</a>
+                </div>                
                 @auth
                 <div class="d-flex">
                     <a href="{{ route('logout') }}" class="btn btn-success">Logout</a>
@@ -89,7 +93,7 @@
                 @endauth
             </div>
         </div>
-    </nav>
+      </nav>
     {{-- navbar --}}
 
     <section id="hero" class="px-0">
@@ -108,12 +112,18 @@
         <div class="program-container fade-up">
             <div class="program-baris-ikon">
                 <div class="program-ikon dropdown">
+                    <a href="#" class="dropdown-toggle text-decoration-none" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                     <a href="#" class="dropdown-toggle text-decoration-none" id="dropdownMenuLink"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="{{ asset('assets/icon/2.png') }}" alt="Pengajuan Surat">
                         <div class="program-title">Pengajuan Surat</div>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item check-login" href="{{ route('warga-tetap') }}">Surat Warga Tetap</a></li>
+                        <li><a class="dropdown-item check-login" href="{{ route('warga-pindah') }}">Surat Warga Pindahan</a></li>
+                    </ul>
+                </div>
+                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Denah Rumah Warga">
                         <li><a class="dropdown-item check-login" href="{{ route('warga-tetap') }}">Surat Warga
                                 Tetap</a></li>
                         <li><a class="dropdown-item check-login" href="{{ route('warga-pindah') }}">Surat Warga
@@ -141,6 +151,12 @@
                     <img src="{{ asset('assets/icon/bansos.png') }}" alt="Pengajuan Bansos">
                     <div class="program-title">Pengajuan Bansos</div>
                 </a>
+                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Penerima Bansos" >
+                    <img src="{{ asset('assets/icon/penerima.png') }}" alt="Penerima Bansos">
+                    <div class="program-title">Penerima Bansos</div>
+                </a>
+                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Data Diri" >
+                    <img src="{{ asset('assets/icon/dataWarga.png') }}" alt="Data Diri">
                 <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Penerima Bansos">
                     <img src="{{ asset('assets/icon/penerima.png') }}" alt="Penerima Bansos">
                     <div class="program-title">Penerima Bansos</div>
@@ -156,57 +172,68 @@
 
 
 
-
     <br><br>
     {{-- berita --}}
     <section id="berita">
         <div class="container py-5 fade-up">
-
-            <div class="header-berita text-center fade-up">
+    
+            <div class="header-berita text-center fade-up mb-5">
                 <h2 class="fw-bold">Berita Terbaru Wilayah RW. 02</h2>
             </div>
-
-            <div class="row py-5">
+    
+            <div class="row gy-4">
                 <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm">
+                        <img src="{{asset('assets/img/berita.JPG')}}" class="card-img-top img-fluid mb-3" alt="Berita 1">
+                        <div class="card-body">
+                            <p class="card-text text-muted">15-05-2024</p>
+                            <h4 class="card-title fw-bold mb-3">Karnaval</h4>
                     <div class="card broder-0">
                         <img src="{{ asset('assets/img/berita.JPG') }}" class="img-fluid mb-3" alt="">
                         <div class="konten-berita">
                             <p class="mb-3">15-05-2024</p>
                             <h4 class="fw-bold mb-3">Karnaval</h4>
                             <p class="text-secondary">#desamoderen</p>
-                            <a href="" class="text-decoration-none text-danger">Read More</a>
+                            <a href="#" class="text-decoration-none text-danger">Read More</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm">
+                        <img src="{{asset('assets/img/berita.JPG')}}" class="card-img-top img-fluid mb-3" alt="Berita 2">
+                        <div class="card-body">
+                            <p class="card-text text-muted">15-05-2024</p>
+                            <h4 class="card-title fw-bold mb-3">Karnaval</h4>
                     <div class="card broder-0">
                         <img src="{{ asset('assets/img/berita.JPG') }}" class="img-fluid mb-3" alt="">
                         <div class="konten-berita">
                             <p class="mb-3">15-05-2024</p>
                             <h4 class="fw-bold mb-3">Karnaval</h4>
                             <p class="text-secondary">#desamoderen</p>
-                            <a href="" class="text-decoration-none text-danger">Read More</a>
+                            <a href="#" class="text-decoration-none text-danger">Read More</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm">
+                        <img src="{{asset('assets/img/berita.JPG')}}" class="card-img-top img-fluid mb-3" alt="Berita 3">
+                        <div class="card-body">
+                            <p class="card-text text-muted">15-05-2024</p>
+                            <h4 class="card-title fw-bold mb-3">Karnaval</h4>
                     <div class="card broder-0">
                         <img src="{{ asset('assets/img/berita.JPG') }}" class="img-fluid mb-3" alt="">
                         <div class="konten-berita">
                             <p class="mb-3">15-05-2024</p>
                             <h4 class="fw-bold mb-3">Karnaval</h4>
                             <p class="text-secondary">#desamoderen</p>
-                            <a href="" class="text-decoration-none text-danger">Read More</a>
+                            <a href="#" class="text-decoration-none text-danger">Read More</a>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="footer-berita text-center">
-                <a href="" class="btn btn-outline-success">Berita Lainnya</a>
+            <div class="footer-berita text-center mt-3">
+                <a href="#" class="btn btn-outline-success">Berita Lainnya</a>
             </div>
-
-
         </div>
     </section>
     {{-- berita --}}
@@ -393,6 +420,8 @@
                         <h5 class="fw-bold mb-4">Follow Kami</h5>
                         <div class="d-flex">
                             <a href="" target="_blank" class="text-decoration-none text-dark">
+                                <img src="{{asset('assets/icon/ig.ico')}}" height="30" width="30" class="me-3" alt="Instagram Icon">
+                                <a href="https://www.instagram.com/nggadungan?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="nav-link p-0 text-muted">nggadungan</a>
                                 <img src="{{ asset('assets/icon/ig.ico') }}" height="30" width="30"
                                     class="me-3" alt="Instagram Icon">
                                 <a href="https://www.instagram.com/nggadungan?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
@@ -406,6 +435,8 @@
                         <h5 class="font-inter fw-bold mb-4">Kontak</h5>
                         <ul class="nav flex-column">
                             <li class="nav-item mb-2">
+                                <a href="mailto:katosi.onggojoyo@gmail.com" class="nav-link p-0 text-muted"> 
+                                    <span class="fa fa-envelope"></span> 
                                 <a href="mailto:katosi.onggojoyo@gmail.com" class="nav-link p-0 text-muted">
                                     <span class="fa fa-envelope"></span>
                                     <span class="icon-text">katosi.onggojoyo@gmail.com</span>
@@ -430,6 +461,7 @@
                             </li>
                         </ul>
                     </div>
+
                     {{-- kolom 4 Alamat --}}
                     <div class="col-12 col-md-3 mb-4">
                         <h5 class="font-inter fw-bold mb-4">Alamat Desa</h5>
@@ -533,5 +565,5 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
 </body>
-
 </html>
+
