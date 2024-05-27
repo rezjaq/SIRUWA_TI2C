@@ -47,7 +47,7 @@
                         <a class="nav-link {{ Request::routeIs('denah-rumah') ? 'active' : '' }}" href="{{ route('denah-rumah') }}">Denah Rumah Warga</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::routeIs('pengaduan') ? 'active' : '' }}" href="{{ route('pengaduan') }}">Pengaduan</a>
+                        <a class="nav-link {{ Request::routeIs('form.pengaduan') ? 'active' : '' }}" href="{{ route('form.pengaduan') }}">Pengaduan</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle {{ Request::routeIs('pengajuan-umkm*') ? 'active' : '' }}" href="#" id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

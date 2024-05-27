@@ -219,7 +219,6 @@ body {
 
 .dropdown-toggle {
     color: #f0f0f0;
-=======
 }
 
 .program-baris-ikon {
@@ -755,5 +754,30 @@ body {
 .breadcrumb-item:not(:last-child) {
     margin-right: 5px;
 }
+
+/* Animation for Home link */
+.breadcrumb-home {
+    position: relative;
+}
+
+.breadcrumb-home::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background-color: rgba(3, 119, 74, 0.1);
+    border-radius: 50%;
+    transition: width 0.5s ease, height 0.5s ease, left 0.5s ease, top 0.5s ease;
+}
+
+.breadcrumb-home:active::after {
+    width: 200%;
+    height: 200%;
+    left: -50%;
+    top: -50%;
+}
+
 
 

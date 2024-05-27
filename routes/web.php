@@ -14,6 +14,7 @@ use App\Http\Controllers\Warga\DataDiriController as DataDiriController;
 use App\Http\Controllers\Warga\umkm as UmkmController;
 use App\Http\Controllers\Warga\DataKeluargaController as WargaDataKeluargaController;
 use App\Http\Controllers\Warga\DataWargaController as WargaDataWargaController;
+use App\Http\Controllers\Warga\PengaduanController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\RW\DashboardRwController as RwDashboardController;
@@ -74,9 +75,7 @@ Route::group(['middleware' => ['auth']], function () {
             // Your controller logic here
         })->name('denah-rumah');
 
-        Route::get('/pengaduan', function () {
-            // Your controller logic here
-        })->name('pengaduan');
+        Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('form.pengaduan');
 
         Route::prefix('umkm')->group(function () {
             Route::get('/', [UmkmController::class, 'index'])->name('umkm');

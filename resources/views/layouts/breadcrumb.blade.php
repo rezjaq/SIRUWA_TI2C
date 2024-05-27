@@ -3,7 +3,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent p-0 m-0 rounded">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('dashboard-warga') }}" class="text-decoration-none text-dark">
+                    <a href="{{ route('dashboard-warga') }}" class="text-decoration-none text-dark breadcrumb-home">
                         <i class="fas fa-home"></i> Home
                     </a>
                 </li>
