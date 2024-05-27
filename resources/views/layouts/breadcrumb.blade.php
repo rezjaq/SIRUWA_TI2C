@@ -7,15 +7,27 @@
                         <i class="fas fa-home"></i> Home
                     </a>
                 </li>
-                @foreach ($list as $key => $value)
+                @foreach ($list as $key => $item)
                     <li class="breadcrumb-item {{ $loop->last ? 'active' : '' }}">
                         @if (!$loop->last)
-                            <a href="#" class="text-decoration-none text-dark">
-                                {{ $value }}
-                            </a>
-                            <i class="fa fa-angle-right"></i>
+                            @if(isset($item['dropdown']) && $item['dropdown'])
+                                <div class="dropdown">
+                                    <a href="#" class="text-decoration-none text-dark dropdown-toggle" id="breadcrumbDropdown{{ $key }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{ $item['label'] }}
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="breadcrumbDropdown{{ $key }}">
+                                        @foreach($item['links'] as $link)
+                                            <a class="dropdown-item" href="{{ $link['url'] }}">{{ $link['label'] }}</a>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @else
+                                <a href="{{ $item['url'] }}" class="text-decoration-none text-dark">
+                                    {{ $item['label'] }}
+                                </a>
+                            @endif
                         @else
-                            {{ $value }}
+                            {{ $item['label'] }}
                         @endif
                     </li>
                 @endforeach

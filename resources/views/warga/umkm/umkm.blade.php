@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Macam Macam UMKM')
+@section('title', 'Daftar UMKM Warga ')
 
 @section('breadcrumb')
     @component('layouts.breadcrumb', [
-        'title' => $breadcrumb->title,
-        'list' => $breadcrumb->list
+        'title' => $breadcrumb['title'],
+        'list' => $breadcrumb['list']
     ])
     @endcomponent
 @endsection

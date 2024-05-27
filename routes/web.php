@@ -85,7 +85,6 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/umkm/store', [UmkmController::class, 'store'])->name('umkm.store');
         });
 
-        Route::get('/data-diri', [DataDiriController::class, 'index'])->name('data-diri');
         Route::prefix('/data-keluarga')->group(function () {
             Route::get('/', [WargaDataKeluargaController::class, 'index'])->name('warga.keluarga.index');
             Route::get('/create', [WargaDataKeluargaController::class, 'create'])->name('warga.keluarga.create');
@@ -99,7 +98,6 @@ Route::group(['middleware' => ['auth']], function () {
             Route::put('/update', [WargaDataWargaController::class, 'update'])->name('warga.Warga.update'); // No ID, as it's the logged-in user
         });
         Route::get('/bansos', [BantuanSosialController::class, 'index'])->name('bansos');
-        Route::get('/data-diri', [DataDiriController::class, 'index'])->name('data-diri');
     });
 
 

@@ -1,5 +1,16 @@
 @extends('layouts.app')
 
+@section('title', $breadcrumb['title'])
+
+@section('breadcrumb')
+    @component('layouts.breadcrumb', [
+        'title' => $breadcrumb['title'],
+        'list' => $breadcrumb['list']
+    ])
+    @endcomponent
+@endsection
+
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -20,36 +31,35 @@
 
                         <form method="POST" action="{{ route('warga.Warga.store') }}" enctype="multipart/form-data">
                             @csrf
-
-                            <div class="form-group">
-                                <label for="nik">NIK:</label>
+                            <div class="form-group mb-3">
+                                <label for="nik" class="col-form-label">NIK:</label>
                                 <input type="text" class="form-control" id="nik" name="nik" value="{{ old('nik') }}">
                             </div>
-                            <div class="form-group">
-                                <label for="nama">Nama:</label>
+                            <div class="form-group mb-3">
+                                <label for="nama" class="col-form-label">Nama:</label>
                                 <input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama') }}">
                             </div>
-                            <div class="form-group">
-                                <label for="jenis_kelamin">Jenis Kelamin:</label>
+                            <div class="form-group mb-3">
+                                <label for="jenis_kelamin" class="col-form-label">Jenis Kelamin:</label>
                                 <select class="form-control" id="jenis_kelamin" name="jenis_kelamin">
                                     <option value="Laki-laki">Laki-laki</option>
                                     <option value="Perempuan">Perempuan</option>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label for="tanggal_lahir">Tanggal Lahir:</label>
+                            <div class="form-group mb-3">
+                                <label for="tanggal_lahir" class="col-form-label">Tanggal Lahir:</label>
                                 <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}">
                             </div>
-                            <div class="form-group">
-                                <label for="alamat">Alamat:</label>
+                            <div class="form-group mb-3">
+                                <label for="alamat" class="col-form-label">Alamat:</label>
                                 <textarea class="form-control" id="alamat" name="alamat">{{ old('alamat') }}</textarea>
                             </div>
-                            <div class="form-group">
-                                <label for="agama">Agama:</label>
+                            <div class="form-group mb-3">
+                                <label for="agama" class="col-form-label">Agama:</label>
                                 <input type="text" class="form-control" id="agama" name="agama" value="{{ old('agama') }}">
                             </div>
-                            <div class="form-group">
-                                <label for="id_keluarga" class="col-sm-2 col-form-label">Pilih Keluarga</label>
+                            <div class="form-group mb-3">
+                                <label for="id_keluarga" class="col-form-label">Pilih Keluarga:</label>
                                 <select class="form-control" id="id_keluarga" name="id_keluarga" required>
                                     <option value="">Pilih Keluarga</option>
                                     @foreach($keluargas as $keluarga)
@@ -57,11 +67,17 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label for="no_rt">Nomor RT:</label>
+                            <div class="form-group mb-3">
+                                <label for="no_rt" class="col-form-label">Nomor RT:</label>
                                 <input type="text" class="form-control" id="no_rt" name="no_rt" value="{{ old('no_rt') }}">
                             </div>
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <div class="form-group row mb-0">
+                                <div class="col-md-12 d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-primary w-100" >
+                                        {{ __('Simpan') }}
+                                    </button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -69,3 +85,40 @@
         </div>
     </div>
 @endsection
+
+@push('css')
+    <style>
+        .card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 4px;
+        }
+
+        /* Add styles to the form labels */
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        /* Add styles to the form inputs */
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 4px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .form-group.mb-3 {
+            margin-bottom: 1rem;
+        }
+
+        /* Styling for error messages */
+        .alert ul {
+            margin-bottom: 0;
+        }
+    </style>
+@endpush

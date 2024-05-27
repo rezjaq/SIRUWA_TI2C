@@ -10,9 +10,19 @@ class umkm extends Controller
 {
     public function index()
     {
-        $breadcrumb = (object) [
-            'title' => 'UMKM WARGA',
-            'list' => ['UMKM', 'Daftar UMKM']
+        $breadcrumb = [
+            'title' => 'Jenis Jenis UMKM Warga',
+            'list' => [
+                [
+                    'label' => 'Daftar UMKM Warga',
+                    'dropdown' => true,
+                    'links' => [
+                        ['url' => route('pengajuan-umkm'), 'label' => 'Daftar UMKM Warga'],
+                        ['url' => route('umkm.create'), 'label' => 'Pengajuan UMKM']
+                    ]
+                ],
+                ['label' => 'Daftar UMKM Warga', 'url' => route('umkm.create')]
+            ]
         ];
 
 
@@ -21,24 +31,43 @@ class umkm extends Controller
 
     public function create()
     {
-        $breadcrumb = (object) [
-            'title' => 'UMKM WARGA',
-            'list' => ['UMKM', 'Pengajuan UMKM'] // List diubah menjadi array
+        $breadcrumb = [
+            'title' => 'Jenis Jenis UMKM Warga',
+            'list' => [
+                [
+                    'label' => 'Pengajuan UMKM Warga',
+                    'dropdown' => true,
+                    'links' => [
+                        ['url' => route('pengajuan-umkm'), 'label' => 'Daftar UMKM Warga'],
+                        ['url' => route('umkm.create'), 'label' => 'Pengajuan UMKM']
+                    ]
+                ],
+                ['label' => 'Pengajuan UMKM', 'url' => route('umkm.create')]
+            ]
         ];
 
         $user = Auth::user();
 
-        return view('warga.umkm', ['breadcrumb' => $breadcrumb, 'user' => $user]);
+        return view('warga.umkm.pengajuan', ['breadcrumb' => $breadcrumb, 'user' => $user]);
     }
     public function show()
     {
-        $breadcrumb = (object) [
-            'title' => 'UMKM WARGA',
-            'list' => ['UMKM', 'Pengajuan UMKM'] // List diubah menjadi array
+        $breadcrumb = [
+            'title' => 'Jenis Jenis UMKM Warga',
+            'list' => [
+                [
+                    'label' => 'Daftar UMKM Warga',
+                    'dropdown' => true,
+                    'links' => [
+                        ['url' => route('pengajuan-umkm'), 'label' => 'Daftar UMKM Warga'],
+                        ['url' => route('umkm.create'), 'label' => 'Pengajuan UMKM']
+                    ]
+                ],
+                ['label' => 'Daftar UMKM Warga', 'url' => route('umkm.create')]
+            ]
         ];
 
-        $user = Auth::user();
 
-        return view('warga.umkm.umkm', ['breadcrumb' => $breadcrumb, 'user' => $user]);
+        return view('warga.umkm.umkm', ['breadcrumb' => $breadcrumb]);
     }
 }
