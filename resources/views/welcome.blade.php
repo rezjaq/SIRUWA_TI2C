@@ -207,6 +207,41 @@
                     <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Penerima Bansos" >
                         <img src="{{ asset('assets/icon/penerima.png') }}" alt="Penerima Bansos">
                         <div class="program-title">Penerima Bansos</div>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item check-login" href="{{ route('warga-tetap') }}">Surat Warga Tetap</a></li>
+                        <li><a class="dropdown-item check-login" href="{{ route('warga-pindah') }}">Surat Warga Pindahan</a></li>
+                    </ul>
+                </div>
+                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Denah Rumah Warga">
+                    <img src="{{ asset('assets/icon/map.png') }}" alt="Denah Rumah Warga">
+                    <div class="program-title">Denah Rumah Warga</div>
+                </a>
+                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Pengaduan Warga">
+                    <img src="{{ asset('assets/icon/3.png') }}" alt="Pengaduan Warga">
+                    <div class="program-title">Pengaduan Warga</div>
+                </a>
+                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="UMKM Warga">
+                    <img src="{{ asset('assets/icon/4.png') }}" alt="UMKM Warga">
+                    <div class="program-title">UMKM Warga</div>
+                </a>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item check-login" href="{{ route('warga-tetap') }}">Surat Warga Tetap</a></li>
+                        <li><a class="dropdown-item check-login" href="{{ route('warga-pindah') }}">Surat Warga Pindahan</a></li>
+                    </ul>
+                </div>
+                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Denah Rumah Warga">
+                    <img src="{{ asset('assets/icon/map.png') }}" alt="Denah Rumah Warga">
+                    <div class="program-title">Denah Rumah Warga</div>
+                </a>
+                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Pengaduan Warga">
+                    <img src="{{ asset('assets/icon/3.png') }}" alt="Pengaduan Warga">
+                    <div class="program-title">Pengaduan Warga</div>
+                </a>
+                <div class="program-ikon dropdown">
+                    <a href="#" class="dropdown-toggle text-decoration-none" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="{{ asset('assets/icon/4.png') }}" alt="Pengajuan Surat">
+                        <div class="program-title">UMKM Warga</div>
                     </a>
                     <div class="program-ikon dropdown">
                         <a href="#" class="dropdown-toggle text-decoration-none" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -219,9 +254,28 @@
                         </ul>
                     </div>
                 </div>
+                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Bantuan Sosial">
+                    <img src="{{ asset('assets/icon/5.png') }}" alt="Bantuan Sosial">
+                    <div class="program-title">Bantuan Sosial</div>
+                </a>
+                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Pengajuan Bansos">
+                    <img src="{{ asset('assets/icon/bansos.png') }}" alt="Pengajuan Bansos">
+                    <div class="program-title">Pengajuan Bansos</div>
+                </a>
+                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Penerima Bansos" >
+                    <img src="{{ asset('assets/icon/penerima.png') }}" alt="Penerima Bansos">
+                    <div class="program-title">Penerima Bansos</div>
+                </a>
+                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Data Diri" >
+                    <img src="{{ asset('assets/icon/dataWarga.png') }}" alt="Data Diri">
+                <a href="{{ route('data-diri') }}" class="program-ikon check-login" aria-label="Data Diri" >
+                    <img src="{{ asset('assets/icon/penerima.png') }}" alt="Data Diri">
+                    <div class="program-title">Data Diri</div>
+                </a>
             </div>
         </section>
     {{-- program --}}
+
 
     <br><br>
     {{-- berita --}}
