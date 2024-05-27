@@ -23,9 +23,9 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dataWargaDropdown" role="button"
+                        <a class="nav-link dropdown-toggle" {{ Request::routeIs('warga.Warga.index') || Request::routeIs('warga.keluarga.index') ? 'active' : '' }}" href="#" id="dataWargaDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            Data Warga
+                            Pengecekan Data
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dataWargaDropdown">
                             <li><a class="dropdown-item" href="{{ route('warga.Warga.index') }}">Data Warga</a></li>

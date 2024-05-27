@@ -10,34 +10,44 @@ class DataKeluargaController extends Controller
 {
     public function index()
     {
-        $breadcrumb = (object) [
-            'title' => 'Data Keluarga',
+        $breadcrumb = [
+            'title' => 'Daftar Data Keluarga Wilayah RW 02',
+            'list' => [
+                [
+                    'label' => 'Data Keluarga',
+                    'dropdown' => true,
+                    'links' => [
+                        ['url' => route('warga.keluarga.index'), 'label' => 'Daftar Data Keluarga'],
+                        ['url' => route('warga.keluarga.create'), 'label' => 'Tambah Data Keluarga']
+                    ]
+                ],
+                ['label' => 'Daftar Data Keluarga', 'url' => route('warga.keluarga.index')]
+            ]
         ];
-
-        $page = (object) [
-            'title' => 'Daftar Data Keluarga'
-        ];
-
-        $activeMenu = 'keluarga_warga';
 
         // Ambil data keluarga dari database
         $keluargas = Keluarga::select('id_keluarga', 'nama_kepala_keluarga', 'alamat', 'no_rt')->get();
 
-        return view('warga.data_keluarga.index', compact('breadcrumb', 'page', 'activeMenu', 'keluargas'));
+        return view('warga.data_keluarga.index', compact('breadcrumb', 'keluargas'));
     }
     public function create()
     {
-        $breadcrumb = (object) [
-            'title' => 'Tambah Keluarga',
+        $breadcrumb = [
+            'title' => 'Daftar Data Keluarga Wilayah RW 02',
+            'list' => [
+                [
+                    'label' => 'Data Keluarga',
+                    'dropdown' => true,
+                    'links' => [
+                        ['url' => route('warga.keluarga.index'), 'label' => 'Daftar Data Keluarga'],
+                        ['url' => route('warga.keluarga.create'), 'label' => 'Tambah Data Keluarga']
+                    ]
+                ],
+                ['label' => 'Tambah Data Keluarga', 'url' => route('warga.keluarga.create')]
+            ]
         ];
 
-        $page = (object) [
-            'title' => 'Tambah Keluarga'
-        ];
-
-        $activeMenu = 'tambah_keluarga';
-
-        return view('warga.data_keluarga.create', compact('breadcrumb', 'page', 'activeMenu'));
+        return view('warga.data_keluarga.create', compact('breadcrumb'));
     }
 
     // Metode untuk menyimpan data keluarga baru
