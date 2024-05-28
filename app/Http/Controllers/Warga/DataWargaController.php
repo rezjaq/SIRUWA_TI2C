@@ -13,15 +13,21 @@ class DataWargaController extends Controller
 {
     public function index()
     {
-        $breadcrumb = (object) [
-            'title' => 'Dashboard Warga',
+        $breadcrumb = [
+            'title' => 'Data Warga Wilayah RW 02',
+            'list' => [
+                [
+                    'label' => 'Data Warga',
+                    'dropdown' => true,
+                    'links' => [
+                        ['url' => route('warga.Warga.index'), 'label' => 'Daftar Warga'],
+                        ['url' => route('warga.Warga.create'), 'label' => 'Tambah Warga'],
+                        ['url' => route('warga.Warga.edit'), 'label' => 'Vertifikasi Data Warga']
+                    ]
+                ],
+                ['label' => 'Daftar Warga', 'url' => route('warga.Warga.index')]
+            ]
         ];
-
-        $page = (object) [
-            'title' => 'Lihat Data Warga'   
-        ];
-
-        $activeMenu = 'dashboard_warga';
 
         // Ambil data warga dari database beserta informasi keluarga
         $wargas = Warga::with('keluarga:id_keluarga,nama_kepala_keluarga')
@@ -29,25 +35,35 @@ class DataWargaController extends Controller
             ->select('nama', 'jenis_kelamin', 'alamat', 'id_keluarga', 'no_rt')
             ->get();
 
-        return view('warga.data_warga.index', compact('breadcrumb', 'page', 'activeMenu', 'wargas'));
+        return view('warga.data_warga.index', compact('breadcrumb', 'wargas'));
     }
+
+
 
     public function create()
     {
-        $breadcrumb = (object) [
-            'title' => 'Tambah Data Warga',
+        $breadcrumb = [
+            'title' => 'Data Warga Wilayah RW 02',
+            'list' => [
+                [
+                    'label' => 'Data Warga',
+                    'dropdown' => true,
+                    'links' => [
+                        ['url' => route('warga.Warga.index'), 'label' => 'Daftar Warga'],
+                        ['url' => route('warga.Warga.create'), 'label' => 'Tambah Warga'],
+                        ['url' => route('warga.Warga.edit'), 'label' => 'Vertifikasi Data Warga']
+                    ]
+                ],
+                ['label' => 'Tambah Warga', 'url' => route('warga.Warga.create')]
+            ]
         ];
-
-        $page = (object) [
-            'title' => 'Tambah Data Warga'
-        ];
-
-        $activeMenu = 'tambah_data_warga';
 
         $keluargas = Keluarga::all();
 
-        return view('warga.data_warga.create', compact('breadcrumb', 'page', 'activeMenu', 'keluargas'));
+        return view('warga.data_warga.create', compact('breadcrumb', 'keluargas'));
     }
+
+
 
     public function store(Request $request)
     {
@@ -88,27 +104,36 @@ class DataWargaController extends Controller
     
         return redirect()->route('warga.Warga.index')->with('success', 'Data warga berhasil ditambahkan. Data yang anda tambahkan akan diperiksa. Silahkan cek daftar warga untuk mengetahui data yang anda inputkan disetujui. Kalau dalam 2 hari data masih belum ada, silahkan isi kembali atau laporkan ke menu laporan.');
     }
-    
+
 
     
 
     public function edit()
     {
-        $breadcrumb = (object) [
-            'title' => 'Edit Data Warga',
+        $breadcrumb = [
+            'title' => 'Data Warga Wilayah RW 02',
+            'list' => [
+                [
+                    'label' => 'Data Warga',
+                    'dropdown' => true,
+                    'links' => [
+                        ['url' => route('warga.Warga.index'), 'label' => 'Daftar Warga'],
+                        ['url' => route('warga.Warga.create'), 'label' => 'Tambah Warga'],
+                        ['url' => route('warga.Warga.edit'), 'label' => 'Vertifikasi Data Warga']
+                    ]
+                ],
+                ['label' => 'Vertifikasi Data Warga', 'url' => route('warga.Warga.edit')]
+            ]
         ];
-
-        $page = (object) [
-            'title' => 'Edit Data Warga'
-        ];
-
-        $activeMenu = 'edit_data_warga';
 
         $warga = Auth::user();
         $keluargas = Keluarga::all();
 
-        return view('warga.data_warga.edit', compact('breadcrumb', 'page', 'activeMenu', 'warga', 'keluargas'));
+        return view('warga.data_warga.edit', compact('breadcrumb', 'warga', 'keluargas'));
     }
+
+
+
 
     public function update(Request $request)
     {
@@ -151,6 +176,6 @@ class DataWargaController extends Controller
             $warga->save();
         }
 
-        return redirect()->route('warga.Warga.index')->with('success', 'Data warga berhasil diperbarui.');
+        return redirect()->route('warga.Warga.index')->with('success', 'Tunggu Vertifikasi dari RT atau RW');
     }
 }

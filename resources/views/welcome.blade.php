@@ -46,9 +46,11 @@
         .btn-cancel-notif:hover {
             background-color: #bbb !important;
         }
+
     </style>
 </head>
 <body>
+
       {{-- navbar --}}
         <nav class="navbar navbar-expand-lg navbar-dark py-3 fixed-top">
             <div class="container">
@@ -76,11 +78,11 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="dataWargaDropdown" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                    Data Warga
+                                    Pengecekan Data
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="dataWargaDropdown">
                                     <li><a class="dropdown-item" href="{{ route('warga.Warga.index') }}">Data Warga</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('warga.keluarga.index') }}">Data Keluarga</a>
+                                    <li><a class="dropdown-item" href="{{ route('warga.keluarga.index') }}">Data Kepala Keluarga</a>
                                     </li>
                                 </ul>
                             </li>
@@ -163,234 +165,220 @@
     </section>
 
     {{-- program --}}
-    <section id="program" class="mt-4">
-        <div class="program-container fade-up">
-            <div class="program-baris-ikon">
-                <div class="program-ikon dropdown">
-                    <a href="#" class="dropdown-toggle text-decoration-none" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ asset('assets/icon/2.png') }}" alt="Pengajuan Surat">
-                        <div class="program-title">Pengajuan Surat</div>
+        <section id="program" class="mt-4">
+            <div class="program-container fade-up">
+                <div class="program-baris-ikon">
+                    <div class="program-ikon dropdown">
+                        <a href="#" class="dropdown-toggle text-decoration-none" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{ asset('assets/icon/2.png') }}" alt="Pengajuan Surat">
+                            <div class="program-title">Pengajuan Surat</div>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item check-login" href="{{ route('warga-tetap') }}">Surat Warga Tetap</a></li>
+                            <li><a class="dropdown-item check-login" href="{{ route('warga-pindah') }}">Surat Warga Pindahan</a></li>
+                        </ul>
+                    </div>
+                    <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Denah Rumah Warga">
+                        <img src="{{ asset('assets/icon/map.png') }}" alt="Denah Rumah Warga">
+                        <div class="program-title">Denah Rumah Warga</div>
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item check-login" href="{{ route('warga-tetap') }}">Surat Warga Tetap</a></li>
-                        <li><a class="dropdown-item check-login" href="{{ route('warga-pindah') }}">Surat Warga Pindahan</a></li>
-                    </ul>
-                </div>
-                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Denah Rumah Warga">
-                    <img src="{{ asset('assets/icon/map.png') }}" alt="Denah Rumah Warga">
-                    <div class="program-title">Denah Rumah Warga</div>
-                </a>
-                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Pengaduan Warga">
-                    <img src="{{ asset('assets/icon/3.png') }}" alt="Pengaduan Warga">
-                    <div class="program-title">Pengaduan Warga</div>
-                </a>
-                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="UMKM Warga">
-                    <img src="{{ asset('assets/icon/4.png') }}" alt="UMKM Warga">
-                    <div class="program-title">UMKM Warga</div>
-                </a>
+                    <a href="{{ route('pengaduan') }}" class="program-ikon check-login" aria-label="Pengaduan Warga">
+                        <img src="{{ asset('assets/icon/3.png') }}" alt="Pengaduan Warga">
+                        <div class="program-title">Pengaduan Warga</div>
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item check-login" href="{{ route('warga-tetap') }}">Surat Warga Tetap</a></li>
-                        <li><a class="dropdown-item check-login" href="{{ route('warga-pindah') }}">Surat Warga Pindahan</a></li>
-                    </ul>
-                </div>
-                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Denah Rumah Warga">
-                    <img src="{{ asset('assets/icon/map.png') }}" alt="Denah Rumah Warga">
-                    <div class="program-title">Denah Rumah Warga</div>
-                </a>
-                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Pengaduan Warga">
-                    <img src="{{ asset('assets/icon/3.png') }}" alt="Pengaduan Warga">
-                    <div class="program-title">Pengaduan Warga</div>
-                </a>
-                <div class="program-ikon dropdown">
-                    <a href="#" class="dropdown-toggle text-decoration-none" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ asset('assets/icon/4.png') }}" alt="Pengajuan Surat">
-                        <div class="program-title">UMKM Warga</div>
+                    <div class="program-ikon dropdown">
+                        <a href="#" class="dropdown-toggle text-decoration-none" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{ asset('assets/icon/4.png') }}" alt="Pengajuan Surat">
+                            <div class="program-title">UMKM Warga</div>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item check-login" href="{{ route('pengajuan-umkm') }}">Macam-Macam UMKM</a></li>
+                            <li><a class="dropdown-item check-login" href="{{ route('umkm.create') }}">Pengajuan UMKM</a></li>
+                        </ul>
+                    </div>
+                    <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Bantuan Sosial">
+                        <img src="{{ asset('assets/icon/5.png') }}" alt="Bantuan Sosial">
+                        <div class="program-title">Bantuan Sosial</div>
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item check-login" href="{{ route('pengajuan-umkm') }}">Macam-Macam UMKM</a></li>
-                        <li><a class="dropdown-item check-login" href="{{ route('umkm.create') }}">Pengajuan UMKM</a></li>
-                    </ul>
+                    <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Pengajuan Bansos">
+                        <img src="{{ asset('assets/icon/bansos.png') }}" alt="Pengajuan Bansos">
+                        <div class="program-title">Pengajuan Bansos</div>
+                    </a>
+                    <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Penerima Bansos" >
+                        <img src="{{ asset('assets/icon/penerima.png') }}" alt="Penerima Bansos">
+                        <div class="program-title">Penerima Bansos</div>
+                    </a>
+                    <div class="program-ikon dropdown">
+                        <a href="#" class="dropdown-toggle text-decoration-none" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{ asset('assets/icon/pengecekan.png') }}" alt="Pengajuan Surat">
+                            <div class="program-title">Pengecekan Data</div>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item check-login" href="{{ route('warga.Warga.index') }}">Data Warga</a></li>
+                            <li><a class="dropdown-item check-login" href="{{ route('warga.keluarga.index') }}">Data Kepala Keluarga</a></li>
+                        </ul>
+                    </div>
                 </div>
-                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Bantuan Sosial">
-                    <img src="{{ asset('assets/icon/5.png') }}" alt="Bantuan Sosial">
-                    <div class="program-title">Bantuan Sosial</div>
-                </a>
-                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Pengajuan Bansos">
-                    <img src="{{ asset('assets/icon/bansos.png') }}" alt="Pengajuan Bansos">
-                    <div class="program-title">Pengajuan Bansos</div>
-                </a>
-                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Penerima Bansos" >
-                    <img src="{{ asset('assets/icon/penerima.png') }}" alt="Penerima Bansos">
-                    <div class="program-title">Penerima Bansos</div>
-                </a>
-                <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Data Diri" >
-                    <img src="{{ asset('assets/icon/dataWarga.png') }}" alt="Data Diri">
-                <a href="{{ route('data-diri') }}" class="program-ikon check-login" aria-label="Data Diri" >
-                    <img src="{{ asset('assets/icon/penerima.png') }}" alt="Data Diri">
-                    <div class="program-title">Data Diri</div>
-                </a>
             </div>
-        </div>
-    </section>
+        </section>
     {{-- program --}}
 
 
     <br><br>
     {{-- berita --}}
-    <section id="berita">
-        <div class="container py-5 fade-up">
-    
-            <div class="header-berita text-center fade-up mb-5">
-                <h2 class="fw-bold">Berita Terbaru Wilayah RW. 02</h2>
-            </div>
-    
-            <div class="row gy-4">
-                <div class="col-lg-4">
-                    <div class="card border-0 shadow-sm">
-                        <img src="{{asset('assets/img/berita.JPG')}}" class="card-img-top img-fluid mb-3" alt="Berita 1">
-                        <div class="card-body">
-                            <p class="card-text text-muted">15-05-2024</p>
-                            <h4 class="card-title fw-bold mb-3">Karnaval</h4>
-                            <p class="text-secondary">#desamoderen</p>
-                            <a href="#" class="text-decoration-none text-danger">Read More</a>
+        <section id="berita">
+            <div class="container py-5 fade-up">
+        
+                <div class="header-berita text-center fade-up mb-5">
+                    <h2 class="fw-bold">Berita Terbaru Wilayah RW. 02</h2>
+                </div>
+        
+                <div class="row gy-4">
+                    <div class="col-lg-4">
+                        <div class="card border-0 shadow-sm">
+                            <img src="{{asset('assets/img/berita.JPG')}}" class="card-img-top img-fluid mb-3" alt="Berita 1">
+                            <div class="card-body">
+                                <p class="card-text text-muted">15-05-2024</p>
+                                <h4 class="card-title fw-bold mb-3">Karnaval</h4>
+                                <p class="text-secondary">#desamoderen</p>
+                                <a href="#" class="text-decoration-none text-danger">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card border-0 shadow-sm">
+                            <img src="{{asset('assets/img/berita.JPG')}}" class="card-img-top img-fluid mb-3" alt="Berita 2">
+                            <div class="card-body">
+                                <p class="card-text text-muted">15-05-2024</p>
+                                <h4 class="card-title fw-bold mb-3">Karnaval</h4>
+                                <p class="text-secondary">#desamoderen</p>
+                                <a href="#" class="text-decoration-none text-danger">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card border-0 shadow-sm">
+                            <img src="{{asset('assets/img/berita.JPG')}}" class="card-img-top img-fluid mb-3" alt="Berita 3">
+                            <div class="card-body">
+                                <p class="card-text text-muted">15-05-2024</p>
+                                <h4 class="card-title fw-bold mb-3">Karnaval</h4>
+                                <p class="text-secondary">#desamoderen</p>
+                                <a href="#" class="text-decoration-none text-danger">Read More</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="card border-0 shadow-sm">
-                        <img src="{{asset('assets/img/berita.JPG')}}" class="card-img-top img-fluid mb-3" alt="Berita 2">
-                        <div class="card-body">
-                            <p class="card-text text-muted">15-05-2024</p>
-                            <h4 class="card-title fw-bold mb-3">Karnaval</h4>
-                            <p class="text-secondary">#desamoderen</p>
-                            <a href="#" class="text-decoration-none text-danger">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="card border-0 shadow-sm">
-                        <img src="{{asset('assets/img/berita.JPG')}}" class="card-img-top img-fluid mb-3" alt="Berita 3">
-                        <div class="card-body">
-                            <p class="card-text text-muted">15-05-2024</p>
-                            <h4 class="card-title fw-bold mb-3">Karnaval</h4>
-                            <p class="text-secondary">#desamoderen</p>
-                            <a href="#" class="text-decoration-none text-danger">Read More</a>
-                        </div>
-                    </div>
+                <div class="footer-berita text-center mt-3">
+                    <a href="#" class="btn btn-outline-success">Berita Lainnya</a>
                 </div>
             </div>
-            <div class="footer-berita text-center mt-3">
-                <a href="#" class="btn btn-outline-success">Berita Lainnya</a>
-            </div>
-        </div>
-    </section>
+        </section>
     {{-- berita --}}
 
     {{-- Kegiatan --}}
-    <section id="upcoming-events" class="upcoming-events">
-        <div class="container" fade-up>
-            <div class="header-kegiatan text-center fade-up">
-                <h2 class="fw-bold">Kegiatan Mendatang Wilayah RW. 02</h2>
+        <section id="upcoming-events" class="upcoming-events">
+            <div class="container" fade-up>
+                <div class="header-kegiatan text-center fade-up">
+                    <h2 class="fw-bold">Kegiatan Mendatang Wilayah RW. 02</h2>
+                </div>
+            <div class="carousel-container py-5 fade-up">
+                <div class="row">
+                <div class="col-lg-3">
+                    <div class="card">
+                    <div class="card-img">
+                        <img src="{{asset('assets/img/senam sehat.jpg')}}" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-center py-2"><a href="">Senam Sehat</a></h5>
+                        <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">06:00 - selesai</span></p>
+                        <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">Jumat, 19 April 2024</span></p>
+                        <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">Lapangan Utara</span></p>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card">
+                    <div class="card-img">
+                        <img src="{{asset('assets/img/kerja bakti.jpg')}}" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-center py-2"><a href="">Kerja Bakti</a></h5>
+                        <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">06:30 - selesai</span></p>
+                        <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">Minggu, 21 April 2024</span></p>
+                        <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">Seluruh Wilayah RW. 02</span></p>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card">
+                    <div class="card-img">
+                        <img src="{{asset('assets/img/berita.JPG')}}" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-center py-2"><a href="">Lomba 17 Agustusan</a></h5>
+                        <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">06:30 - selesai</span></p>
+                        <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">Minggu, 21 April 2024</span></p>
+                        <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">Halaman Rumah</span></p>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card">
+                    <div class="card-img">
+                        <img src="{{asset('assets/img/posyandu.jpg')}}" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-center py-2"><a href="">Posyandu</a></h5>
+                        <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">09:00 - selesai</span></p>
+                        <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">Jumat, 19 Mei 2024</span></p>
+                        <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">Pos Posyandu</span></p>
+                    </div>
+                    </div>
+                </div>
+                </div>
             </div>
-          <div class="carousel-container py-5 fade-up">
-            <div class="row">
-              <div class="col-lg-3">
-                <div class="card">
-                  <div class="card-img">
-                    <img src="{{asset('assets/img/senam sehat.jpg')}}" alt="...">
-                  </div>
-                  <div class="card-body">
-                    <h5 class="card-title text-center py-2"><a href="">Senam Sehat</a></h5>
-                    <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">06:00 - selesai</span></p>
-                    <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">Jumat, 19 April 2024</span></p>
-                    <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">Lapangan Utara</span></p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3">
-                <div class="card">
-                  <div class="card-img">
-                    <img src="{{asset('assets/img/kerja bakti.jpg')}}" alt="...">
-                  </div>
-                  <div class="card-body">
-                    <h5 class="card-title text-center py-2"><a href="">Kerja Bakti</a></h5>
-                    <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">06:30 - selesai</span></p>
-                    <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">Minggu, 21 April 2024</span></p>
-                    <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">Seluruh Wilayah RW. 02</span></p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3">
-                <div class="card">
-                  <div class="card-img">
-                    <img src="{{asset('assets/img/berita.JPG')}}" alt="...">
-                  </div>
-                  <div class="card-body">
-                    <h5 class="card-title text-center py-2"><a href="">Lomba 17 Agustusan</a></h5>
-                    <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">06:30 - selesai</span></p>
-                    <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">Minggu, 21 April 2024</span></p>
-                    <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">Halaman Rumah</span></p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3">
-                <div class="card">
-                  <div class="card-img">
-                    <img src="{{asset('assets/img/posyandu.jpg')}}" alt="...">
-                  </div>
-                  <div class="card-body">
-                    <h5 class="card-title text-center py-2"><a href="">Posyandu</a></h5>
-                    <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">09:00 - selesai</span></p>
-                    <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">Jumat, 19 Mei 2024</span></p>
-                    <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">Pos Posyandu</span></p>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
-        </div>
-      </section>
+        </section>
     {{-- Kegiatan --}}
 
     {{-- dokumentasi --}}
-    <br>
-    <section id="foto" class="section-foto parallax">
-        <div class="container py-5 fade-up">
-            <div class="d-flex justify-content-between align-items-center mb-4 fade-up">
-                <div class="d-flex align-items-center">
-                    <div class="stripe-putih me-2"></div>
-                    <h5 class="fw-bold text-white">Dokumentasi Wilayah RW 02</h5>
+        <br>
+        <section id="foto" class="section-foto parallax">
+            <div class="container py-5 fade-up">
+                <div class="d-flex justify-content-between align-items-center mb-4 fade-up">
+                    <div class="d-flex align-items-center">
+                        <div class="stripe-putih me-2"></div>
+                        <h5 class="fw-bold text-white">Dokumentasi Wilayah RW 02</h5>
+                    </div>
+                    <div>
+                        <a href="" class="btn btn-outline-light">Dokumentasi Lainnya</a>
+                    </div>
                 </div>
-                <div>
-                    <a href="" class="btn btn-outline-light">Dokumentasi Lainnya</a>
+        
+                <div class="row g-3">
+                    <div class="col-lg-3 col-md-6 col-6">
+                        <a class="image-link" href="{{asset('assets/img/kerja bakti.jpg')}}">
+                            <img src="{{asset('assets/img/kerja bakti.jpg')}}" class="img-fluid-doc rounded" alt="">
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-6">
+                        <a class="image-link" href="{{asset('assets/img/lomba.jpg')}}">
+                            <img src="{{asset('assets/img/lomba.jpg')}}" class="img-fluid-doc rounded" alt="">
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-6">
+                        <a class="image-link" href="{{asset('assets/img/maulid nabi.jpg')}}">
+                            <img src="{{asset('assets/img/maulid nabi.jpg')}}" class="img-fluid-doc rounded" alt="">
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-6">
+                        <a class="image-link" href="{{asset('assets/img/kegiatan-jalan-santai-yang-digelar-gerakan-pemuda-dan-peremp-g4of.jpg')}}">
+                            <img src="{{asset('assets/img/kegiatan-jalan-santai-yang-digelar-gerakan-pemuda-dan-peremp-g4of.jpg')}}" class="img-fluid-doc rounded" alt="">
+                        </a>
+                    </div>
                 </div>
             </div>
-    
-            <div class="row g-3">
-                <div class="col-lg-3 col-md-6 col-6">
-                    <a class="image-link" href="{{asset('assets/img/kerja bakti.jpg')}}">
-                        <img src="{{asset('assets/img/kerja bakti.jpg')}}" class="img-fluid-doc rounded" alt="">
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-6 col-6">
-                    <a class="image-link" href="{{asset('assets/img/lomba.jpg')}}">
-                        <img src="{{asset('assets/img/lomba.jpg')}}" class="img-fluid-doc rounded" alt="">
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-6 col-6">
-                    <a class="image-link" href="{{asset('assets/img/maulid nabi.jpg')}}">
-                        <img src="{{asset('assets/img/maulid nabi.jpg')}}" class="img-fluid-doc rounded" alt="">
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-6 col-6">
-                    <a class="image-link" href="{{asset('assets/img/kegiatan-jalan-santai-yang-digelar-gerakan-pemuda-dan-peremp-g4of.jpg')}}">
-                        <img src="{{asset('assets/img/kegiatan-jalan-santai-yang-digelar-gerakan-pemuda-dan-peremp-g4of.jpg')}}" class="img-fluid-doc rounded" alt="">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
     {{-- dokumentasi --}}
 
 
@@ -468,11 +456,11 @@
         </div>
     </section>
 
-    <footer id="footer-bottom" class="text-white py-3">
-        <div class="container text-center">
-            &copy; Copyright <strong><span>2024 SIRUWA | Sistem Informasi Rukun Warga</span></strong>
-        </div>
-    </footer>
+        <footer id="footer-bottom" class="text-white py-3">
+            <div class="container text-center">
+                &copy; Copyright <strong><span>2024 SIRUWA | Sistem Informasi Rukun Warga</span></strong>
+            </div>
+        </footer>
     {{-- footer --}}
 
     
@@ -587,6 +575,7 @@
         });
 
     </script>
+    
     
 
     <script src="{{ asset('assets/js/check-login.js') }}"></script>

@@ -14,6 +14,7 @@ use App\Http\Controllers\Warga\DataDiriController as DataDiriController;
 use App\Http\Controllers\Warga\umkm as UmkmController;
 use App\Http\Controllers\Warga\DataKeluargaController as WargaDataKeluargaController;
 use App\Http\Controllers\Warga\DataWargaController as WargaDataWargaController;
+use App\Http\Controllers\Warga\PengaduanController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\RW\DashboardRwController as RwDashboardController;
@@ -23,6 +24,7 @@ use App\Http\Controllers\RW\KeluargaController as RwKeluargaController;
 use App\Http\Controllers\RW\WargaController as RwWargaController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\RegistrasiWargaController as RegistrasiWarga;
+use App\Http\Controllers\RW\AprrovePengaduan;
 use App\Http\Controllers\RW\Verifikasi as RWverifikasi;
 use App\Http\Controllers\RW\VerifikasiKeluarga as RWverifikasiKeluarga;
 use Illuminate\Support\Facades\Route;
@@ -75,9 +77,12 @@ Route::group(['middleware' => ['auth']], function () {
             // Your controller logic here
         })->name('denah-rumah');
 
-        Route::get('/pengaduan', function () {
-            // Your controller logic here
-        })->name('pengaduan');
+        Route::group(['prefix' => 'pengaduan'], function () {
+            Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan');
+            Route::post('/store', [PengaduanController::class, 'store'])->name('pengaduan.store');
+            Route::get('/pengaduan/{id}/history', [PengaduanController::class, 'show'])->name('pengaduan.history');
+        });
+
 
         Route::prefix('umkm')->group(function () {
             Route::get('/', [UmkmController::class, 'index'])->name('umkm');
@@ -88,6 +93,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::get('/data-diri', [DataDiriController::class, 'index'])->name('data-diri');
         Route::prefix('/data-keluarga')->middleware('auth')->group(function () {
+        Route::prefix('/data-keluarga')->group(function () {
             Route::get('/', [WargaDataKeluargaController::class, 'index'])->name('warga.keluarga.index');
             Route::get('/create', [WargaDataKeluargaController::class, 'create'])->name('warga.keluarga.create');
             Route::post('/store', [WargaDataKeluargaController::class, 'store'])->name('warga.keluarga.store');
@@ -102,7 +108,6 @@ Route::group(['middleware' => ['auth']], function () {
             Route::put('/update', [WargaDataWargaController::class, 'update'])->name('warga.Warga.update'); // No ID, as it's the logged-in user
         });
         Route::get('/bansos', [BantuanSosialController::class, 'index'])->name('bansos');
-        Route::get('/data-diri', [DataDiriController::class, 'index'])->name('data-diri');
     });
 
 
@@ -167,6 +172,11 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/{id}', [RWverifikasiKeluarga::class, 'show'])->name('verifikasiKeluarga.show');
             Route::post('/approve/{id_keluarga}', [RWverifikasiKeluarga::class, 'approve'])->name('verifikasiKeluarga.approve');
             Route::post('reject/{id_keluarga}', [RWverifikasiKeluarga::class, 'reject'])->name('verifikasiKeluarga.reject');
+
+        Route::prefix('/Pengaduann')->group(function () {
+            Route::get('/', [AprrovePengaduan::class, 'index'])->name('admin.pengaduan');
+            Route::post('/{id}/approve', [AprrovePengaduan::class, 'approve'])->name('pengaduan.approve');
+            Route::post('/{id}/reject', [AprrovePengaduan::class, 'reject'])->name('pengaduan.reject');
         });
     });
 });
