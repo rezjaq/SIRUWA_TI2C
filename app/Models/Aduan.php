@@ -15,8 +15,11 @@ class Aduan extends Model
 
     protected $fillable = [
         'nik_warga',
-        'tanggal_aduan',
-        'isi_aduan',
+        'nama',
+        'tempat',
+        'tanggal',
+        'isi',
+        'foto',
         'status_aduan',
     ];
 
@@ -25,3 +28,4 @@ class Aduan extends Model
         return $this->belongsTo(Warga::class, 'nik_warga', 'nik');
     }
 }
+

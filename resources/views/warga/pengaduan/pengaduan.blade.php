@@ -33,8 +33,11 @@
                 </div>
             @endif
 
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('pengaduan.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <!-- Hidden input for nik_warga -->
+                <input type="hidden" name="nik_warga" value="{{ $user->nik }}">
+                
                 <div class="mb-3">
                     <label for="nama" class="form-label">Nama Warga</label>
                     <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" placeholder="Masukkan Nama Anda" value="{{ $user->nama }}" required>
@@ -49,23 +52,24 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
+                <!-- Tanggal -->
                 <div class="mb-3">
                     <label for="tanggal" class="form-label">Tanggal</label>
-                    <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" name="tanggal" value="{{ old('tanggal') }}" required>
-                    @error('tanggal')
+                    <input type="date" class="form-control @error('tanggal_aduan') is-invalid @enderror" id="tanggal_aduan" name="tanggal_aduan" value="{{ old('tanggal_aduan') }}" required>
+                    @error('tanggal_aduan')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="isi" class="form-label">Isi Pengaduan</label>
-                    <textarea class="form-control @error('isi') is-invalid @enderror" id="isi" name="isi" rows="4" placeholder="Tuliskan Isi Pengaduan Anda" required>{{ old('isi') }}</textarea>
-                    @error('isi')
+                    <label for="isi_aduan" class="form-label">Isi Pengaduan</label>
+                    <textarea class="form-control @error('isi_aduan') is-invalid @enderror" id="isi_aduan" name="isi_aduan" rows="4" placeholder="Tuliskan Isi Pengaduan Anda" required>{{ old('isi_aduan') }}</textarea>
+                    @error('isi_aduan')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
                     <label for="foto" class="form-label">Foto</label>
-                    <input type="file" class="form-control @error('foto') is-invalid @enderror" id="foto" name="foto" accept="image/*" required>
+                    <input type="file" class="form-control @error('foto') is-invalid @enderror" id="foto" name="foto" accept="image/*" >
                     @error('foto')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
