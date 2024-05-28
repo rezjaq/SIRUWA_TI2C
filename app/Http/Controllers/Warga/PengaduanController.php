@@ -18,10 +18,10 @@ class PengaduanController extends Controller
                     'label' => 'Form Pengaduan',
                     'dropdown' => true,
                     'links' => [
-                        ['url' => route('form.pengaduan'), 'label' => 'Form Pengaduan']
+                        ['url' => route('pengaduan'), 'label' => 'Form Pengaduan']
                     ]
                 ],
-                ['label' => 'Form Pengaduan', 'url' => route('form.pengaduan')]
+                ['label' => 'Form Pengaduan', 'url' => route('pengaduan')]
             ]
         ];
 
@@ -34,21 +34,29 @@ class PengaduanController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'tempat' => 'required|string|max:255',
-            'tanggal' => 'required|date',
-            'isi' => 'required|string',
+            'tanggal_aduan' => 'required|date',
+            'isi_aduan' => 'required|string', // Kolom isi_aduan harus diisi
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+
+        // Get the authenticated user's nik_warga
+        $nik_warga = Auth::user()->nik;
 
         $imagePath = $request->file('foto')->store('pengaduan', 'public');
 
         Aduan::create([
+            'nik_warga' => $nik_warga,
             'nama' => $request->nama,
             'tempat' => $request->tempat,
-            'tanggal' => $request->tanggal,
-            'isi' => $request->isi,
+            'tanggal_aduan' => $request->tanggal_aduan,
+            'isi_aduan' => $request->isi_aduan,
             'foto' => $imagePath,
         ]);
 
         return redirect()->route('pengaduan')->with('success', 'Pengaduan berhasil dikirim.');
     }
+
+
+
 }

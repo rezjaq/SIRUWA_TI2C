@@ -24,6 +24,7 @@ use App\Http\Controllers\RW\KeluargaController as RwKeluargaController;
 use App\Http\Controllers\RW\WargaController as RwWargaController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\RegistrasiWargaController as RegistrasiWarga;
+use App\Http\Controllers\RW\AprrovePengaduan;
 use App\Http\Controllers\RW\Verifikasi as RWverifikasi;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -75,7 +76,12 @@ Route::group(['middleware' => ['auth']], function () {
             // Your controller logic here
         })->name('denah-rumah');
 
-        Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('form.pengaduan');
+        Route::group(['prefix' => 'pengaduan'], function () {
+            Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan');
+            Route::post('/store', [PengaduanController::class, 'store'])->name('pengaduan.store');
+            Route::get('/pengaduan/{id}/history', [PengaduanController::class, 'show'])->name('pengaduan.history');
+        });
+
 
         Route::prefix('umkm')->group(function () {
             Route::get('/', [UmkmController::class, 'index'])->name('umkm');
@@ -154,6 +160,12 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/{id}', [RWverifikasi::class, 'show'])->name('verifikasi.show');
             Route::post('/approve/{nik}', [RWverifikasi::class, 'approve'])->name('verifikasi.approve');
             Route::post('reject/{nik}', [RWverifikasi::class, 'reject'])->name('verifikasi.reject');
+        });
+
+        Route::prefix('/Pengaduann')->group(function () {
+            Route::get('/', [AprrovePengaduan::class, 'index'])->name('admin.pengaduan');
+            Route::post('/{id}/approve', [AprrovePengaduan::class, 'approve'])->name('pengaduan.approve');
+            Route::post('/{id}/reject', [AprrovePengaduan::class, 'reject'])->name('pengaduan.reject');
         });
     });
 });
