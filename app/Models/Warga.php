@@ -28,6 +28,7 @@ class Warga extends Authenticable implements JWTSubject
         'statusKawin',
         'pekerjaan',
         'no_rt',
+        'akte',
         'ktp',
         'id_keluarga',
         'verif',

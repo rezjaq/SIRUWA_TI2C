@@ -97,26 +97,16 @@ class Verifikasi extends Controller
 
         $warga = Warga::findOrFail($nik);
 
-        // Jika validasi data warga, tampilkan seluruh atribut termasuk foto KTP
         if ($warga->status == 'disetujui' && $warga->verif == 'belum_terverifikasi') {
-            return view('RW.verifikasi.show', compact('breadcrumb', 'activeMenu', 'warga'));
+            $ktpPath = $warga->ktp ? asset('storage/ktp/' . $warga->ktp) : null;
+            return view('rw.verifikasi.show', compact('breadcrumb', 'activeMenu', 'warga', 'ktpPath'));
         }
 
-        // Jika penambahan data warga baru, tampilkan seluruh atribut kecuali foto KTP
         if ($warga->status == 'belum_disetujui') {
-            // Ambil nama file KK
-            $kk = $warga->kk;
-            // Hilangkan ekstensi file
-            $kkFileName = pathinfo($kk, PATHINFO_FILENAME);
-            // Ambil nama folder tempat penyimpanan KK
-            $kkFolderName = pathinfo($kk, PATHINFO_DIRNAME);
-            // Gabungkan nama folder dengan nama file tanpa ekstensi untuk mendapatkan path lengkap
-            $kkPath = $kkFolderName . '/' . $kkFileName;
-
-            return view('RW.verifikasi.show1', compact('breadcrumb', 'activeMenu', 'warga', 'kkPath'));
+            $aktePath = $warga->akte ? asset('storage/akte/' . $warga->akte) : null;
+            return view('rw.verifikasi.show1', compact('breadcrumb', 'activeMenu', 'warga', 'aktePath'));
         }
 
-        // Jika tidak memenuhi kedua kondisi di atas, lempar error atau tampilkan halaman kosong
         abort(404, 'Halaman tidak ditemukan.');
     }
 }

@@ -13,6 +13,29 @@
 @section('content')
 <div class="container">
     <!-- Tombol untuk pindah ke halaman tambah data keluarga -->
+    <a href="{{ route('warga.keluarga.create') }}" class="btn btn-primary mb-3">Tambah Data Keluarga</a>
+    <a href="{{ route('warga.keluarga.edit') }}" class="btn btn-primary mb-3">Update Data Keluarga</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama Kepala Keluarga</th>
+                <th>Alamat</th>
+                <th>No RT</th>
+                <th>Aksi</th> <!-- Tambah kolom untuk tombol aksi -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($keluargas as $key => $keluarga)
+            <tr>
+                <td>{{ $key + 1 }}</td>
+                <td>{{ $keluarga->nama_kepala_keluarga }}</td>
+                <td>{{ $keluarga->alamat }}</td>
+                <td>{{ $keluarga->no_rt }}</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
     <a href="{{ route('warga.keluarga.create') }}" class="btn btn-primary mb-3" style="background-color: #03774A;">
         <i class="fas fa-user-plus me-2"></i> Tambah Data Keluarga
     </a>

@@ -41,6 +41,13 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{ url('/verifikasiKeluarga') }}" class="nav-link {{ ($activeMenu == 'verifikasiKeluarga') ? 'active' : '' }}">
+                <span class="menu-title">verifikasiKeluarga</span>
+                <i class="mdi mdi-account menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ url('/complaint') }}" class="nav-link {{ ($activeMenu == 'complaint') ? 'active' : '' }}">
             <a href="{{ url('/Pengaduann') }}" class="nav-link {{ ($activeMenu == 'complaint') ? 'active' : '' }}">
                 <span class="menu-title">Pengaduan</span>
                 <i class="mdi mdi-comment-alert menu-icon"></i>

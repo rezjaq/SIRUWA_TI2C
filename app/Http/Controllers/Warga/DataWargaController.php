@@ -74,13 +74,20 @@ class DataWargaController extends Controller
             'jenis_kelamin' => 'required',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required',
-            'agama' => 'required', // Menambah validasi untuk foto akte
+            'agama' => 'required',
             'id_keluarga' => 'required|exists:keluarga,id_keluarga',
             'no_rt' => 'required',
+            'akte' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi untuk foto akte
         ]);
-
-
-
+    
+        // Handle file upload
+        if ($request->hasFile('akte')) {
+            $aktePath = $request->file('akte')->store('akte');
+            $akteName = basename($aktePath);
+        } else {
+            $akteName = null;
+        }
+    
         // Simpan data warga ke database
         Warga::create([
             'nik' => $request->nik,
@@ -90,13 +97,16 @@ class DataWargaController extends Controller
             'alamat' => $request->alamat,
             'agama' => $request->agama,
             'no_rt' => $request->no_rt,
-            'id_keluarga' => $request->id_keluarga
+            'id_keluarga' => $request->id_keluarga,
+            'password' => $request->nik,
+            'akte' => $akteName, // Simpan nama file akte
         ]);
-
+    
         return redirect()->route('warga.Warga.index')->with('success', 'Data warga berhasil ditambahkan. Data yang anda tambahkan akan diperiksa. Silahkan cek daftar warga untuk mengetahui data yang anda inputkan disetujui. Kalau dalam 2 hari data masih belum ada, silahkan isi kembali atau laporkan ke menu laporan.');
-
     }
 
+
+    
 
     public function edit()
     {
