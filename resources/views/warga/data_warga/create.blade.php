@@ -16,7 +16,14 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Tambah Data Warga</div>
+                    <div class="card-header" style="background-color: #03774A; color: #fff;">
+                        <h4 class="mb-0">
+                            <a href="{{ route('warga.Warga.index') }}" class="btn btn-sm btn-light me-2">
+                                <i class="fas fa-arrow-left"></i>
+                            </a>
+                            Tambah Data Warga
+                        </h4>
+                    </div>
                     
                     <div class="card-body">
                         @if ($errors->any())
@@ -73,9 +80,7 @@
                             </div>
                             <div class="form-group row mb-0">
                                 <div class="col-md-12 d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-primary w-100" >
-                                        {{ __('Simpan') }}
-                                    </button>
+                                    <button type="submit" class="btn btn-primary w-100">{{ __('Simpan') }}</button>
                                 </div>
                             </div>
                         </form>
@@ -119,6 +124,17 @@
         /* Styling for error messages */
         .alert ul {
             margin-bottom: 0;
+        }
+
+        .btn-primary {
+            background-color: #03774A;
+            border-color: #03774A;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: #03774A;
+            border-color: #03774A;
         }
     </style>
 @endpush

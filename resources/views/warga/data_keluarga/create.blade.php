@@ -15,7 +15,14 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Tambah Keluarga') }}</div>
+                <div class="card-header" style="background-color: #03774A; color: #fff;">
+                    <h4 class="mb-0">
+                        <a href="{{ route('warga.keluarga.index') }}" class="btn btn-sm btn-light me-2">
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                        Tambah Keluarga
+                    </h4>
+                </div>
 
                 <div class="card-body">
                     <!-- Form tambah keluarga -->
@@ -61,8 +68,6 @@
         }
 
         .card-header {
-            background-color: #03774A;
-            color: #fff;
             border-radius: 10px 10px 0 0;
         }
 

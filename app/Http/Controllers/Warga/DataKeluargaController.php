@@ -23,7 +23,7 @@ class DataKeluargaController extends Controller
                         ['url' => route('warga.keluarga.create'), 'label' => 'Tambah Data Keluarga']
                     ]
                 ],
-                ['label' => 'Daftar Data Keluarga', 'url' => route('warga.keluarga.index')]
+                ['label' => 'List Data Keluarga', 'url' => route('warga.keluarga.index')]
             ]
         ];
 
@@ -85,15 +85,21 @@ class DataKeluargaController extends Controller
 
     public function edit()
     {
-        $breadcrumb = (object) [
-            'title' => 'Edit Keluarga',
+        $breadcrumb = [
+            'title' => 'Daftar Data Keluarga Wilayah RW 02',
+            'list' => [
+                [
+                    'label' => 'Data Keluarga',
+                    'dropdown' => true,
+                    'links' => [
+                        ['url' => route('warga.keluarga.index'), 'label' => 'Daftar Data Keluarga'],
+                        ['url' => route('warga.keluarga.create'), 'label' => 'Tambah Data Keluarga'],
+                        ['url' => route('warga.keluarga.update'), 'label' => 'Update Data Keluarga'],
+                    ]
+                ],
+                ['label' => 'Update Data Keluarga', 'url' => route('warga.keluarga.update')]
+            ]
         ];
-
-        $page = (object) [
-            'title' => 'Edit Keluarga'
-        ];
-
-        $activeMenu = 'edit_keluarga';
 
         // Get the authenticated Warga user
         $warga = Auth::user();
@@ -101,7 +107,7 @@ class DataKeluargaController extends Controller
         // Load the related Keluarga data
         $keluarga = $warga->keluarga;
 
-        return view('warga.data_keluarga.edit', compact('breadcrumb', 'page', 'activeMenu', 'keluarga'));
+        return view('warga.data_keluarga.edit', compact('breadcrumb', 'keluarga'));
     }
 
     public function update(Request $request)

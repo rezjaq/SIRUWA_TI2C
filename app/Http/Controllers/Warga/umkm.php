@@ -14,14 +14,14 @@ class umkm extends Controller
             'title' => 'Jenis Jenis UMKM Warga',
             'list' => [
                 [
-                    'label' => 'Daftar UMKM Warga',
+                    'label' => 'UMKM Warga',
                     'dropdown' => true,
                     'links' => [
                         ['url' => route('pengajuan-umkm'), 'label' => 'Daftar UMKM Warga'],
                         ['url' => route('umkm.create'), 'label' => 'Pengajuan UMKM']
                     ]
                 ],
-                ['label' => 'Daftar UMKM Warga', 'url' => route('umkm.create')]
+                ['label' => 'UMKM Warga', 'url' => route('umkm.create')]
             ]
         ];
 
@@ -56,14 +56,14 @@ class umkm extends Controller
             'title' => 'Jenis Jenis UMKM Warga',
             'list' => [
                 [
-                    'label' => 'Daftar UMKM Warga',
+                    'label' => 'UMKM Warga',
                     'dropdown' => true,
                     'links' => [
                         ['url' => route('pengajuan-umkm'), 'label' => 'Daftar UMKM Warga'],
                         ['url' => route('umkm.create'), 'label' => 'Pengajuan UMKM']
                     ]
                 ],
-                ['label' => 'Daftar UMKM Warga', 'url' => route('umkm.create')]
+                ['label' => 'List UMKM Warga', 'url' => route('umkm.create')]
             ]
         ];
 
