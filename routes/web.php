@@ -24,6 +24,7 @@ use App\Http\Controllers\RW\WargaController as RwWargaController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\RegistrasiWargaController as RegistrasiWarga;
 use App\Http\Controllers\RW\Verifikasi as RWverifikasi;
+use App\Http\Controllers\RW\VerifikasiKeluarga as RWverifikasiKeluarga;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -86,16 +87,18 @@ Route::group(['middleware' => ['auth']], function () {
         });
 
         Route::get('/data-diri', [DataDiriController::class, 'index'])->name('data-diri');
-        Route::prefix('/data-keluarga')->group(function () {
+        Route::prefix('/data-keluarga')->middleware('auth')->group(function () {
             Route::get('/', [WargaDataKeluargaController::class, 'index'])->name('warga.keluarga.index');
             Route::get('/create', [WargaDataKeluargaController::class, 'create'])->name('warga.keluarga.create');
             Route::post('/store', [WargaDataKeluargaController::class, 'store'])->name('warga.keluarga.store');
+            Route::get('/edit', [WargaDataKeluargaController::class, 'edit'])->name('warga.keluarga.edit');
+            Route::put('/update', [WargaDataKeluargaController::class, 'update'])->name('warga.keluarga.update');
         });
         Route::prefix('/data-warga')->group(function () {
             Route::get('/', [WargaDataWargaController::class, 'index'])->name('warga.Warga.index');
             Route::get('/create', [WargaDataWargaController::class, 'create'])->name('warga.Warga.create');
             Route::post('/store', [WargaDataWargaController::class, 'store'])->name('warga.Warga.store');
-            Route::get('/edit', [WargaDataWargaController::class, 'edit'])->name('warga.Warga.edit'); // No ID, as it's the logged-in user
+            Route::get('/edit', [WargaDataWargaController::class, 'edit'])->name('warga.Warga.edit'); // Tidak memerlukan ID
             Route::put('/update', [WargaDataWargaController::class, 'update'])->name('warga.Warga.update'); // No ID, as it's the logged-in user
         });
         Route::get('/bansos', [BantuanSosialController::class, 'index'])->name('bansos');
@@ -157,6 +160,13 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/{id}', [RWverifikasi::class, 'show'])->name('verifikasi.show');
             Route::post('/approve/{nik}', [RWverifikasi::class, 'approve'])->name('verifikasi.approve');
             Route::post('reject/{nik}', [RWverifikasi::class, 'reject'])->name('verifikasi.reject');
+        });
+        Route::prefix('/verifikasiKeluarga')->group(function () {
+            Route::get('/', [RWverifikasiKeluarga::class, 'index'])->name('verifikasiKeluarga.index');
+            Route::post('/list', [RWverifikasiKeluarga::class, 'list'])->name('verifikasiKeluarga.list');
+            Route::get('/{id}', [RWverifikasiKeluarga::class, 'show'])->name('verifikasiKeluarga.show');
+            Route::post('/approve/{id_keluarga}', [RWverifikasiKeluarga::class, 'approve'])->name('verifikasiKeluarga.approve');
+            Route::post('reject/{id_keluarga}', [RWverifikasiKeluarga::class, 'reject'])->name('verifikasiKeluarga.reject');
         });
     });
 });
