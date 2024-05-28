@@ -45,7 +45,7 @@
         </section>
         
         <!-- Footer -->
-        <div class="container-fluid p-0">
+        <div class="container-fluid py-5">
             @include('layouts.footer')
         </div>
     </div>

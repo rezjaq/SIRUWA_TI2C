@@ -82,7 +82,7 @@ class DataKeluargaController extends Controller
 
         return redirect()->route('warga.keluarga.index')->with('success', 'Data keluarga berhasil ditambahkan.');
     }
-    
+
     public function edit()
     {
         $breadcrumb = (object) [
@@ -144,5 +144,5 @@ class DataKeluargaController extends Controller
 
         return redirect()->route('warga.keluarga.index')->with('success', 'Data keluarga berhasil diperbarui.');
     }
-    
+
 }
