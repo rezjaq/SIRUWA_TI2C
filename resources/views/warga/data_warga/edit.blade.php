@@ -118,7 +118,12 @@
                         <div class="form-group row">
                             <label for="statusKawin" class="col-md-4 col-form-label text-md-right">{{ __('Status Kawin') }}</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="statusKawin" name="statusKawin" value="{{ old('statusKawin',$warga->statusKawin) }}">
+                                <select class="form-control" id="statusKawin" name="statusKawin">   
+                                    <option value="">Pilih Status Kawin</option>
+                                    <option value="Kawin" {{ old('statusKawin',$warga->statusKawin) == 'Kawin' ? 'selected' : '' }}>Kawin</option>
+                                    <option value="Belum Kawin" {{ old('statusKawin',$warga->statusKawin) == 'Belum Kawin' ? 'selected' : '' }}>Belum Kawin</option>
+                                    <option value="Bercerai" {{ old('statusKawin',$warga->statusKawin) == 'Bercerai' ? 'selected' : '' }}>Bercerai</option>
+                                </select>
                             </div>
                         </div>
                         
@@ -143,15 +148,12 @@
                                     <input type="file" class="custom-file-input" id="ktp" name="ktp">
                                     <label class="custom-file-label" for="ktp">
                                         @if ($warga->ktp)
-                                            {{ basename($warga->ktp) }}
+                                        <img src="{{ asset('storage/ktp_images/' . basename($warga->ktp)) }}" alt="KTP Image" width="100">
                                         @else
                                             Choose file
                                         @endif
                                     </label>
                                 </div>
-                                @if ($warga->ktp)
-                                    <img src="{{ asset('storage/app/ktp_images/' . basename($warga->ktp)) }}" alt="KTP Image" width="100">
-                                @endif
                             </div>
                         </div> 
                         

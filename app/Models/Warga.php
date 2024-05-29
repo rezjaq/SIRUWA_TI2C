@@ -31,17 +31,13 @@ class Warga extends Authenticable implements JWTSubject
         'akte',
         'ktp',
         'id_keluarga',
+        'previous_id_keluarga',
         'verif',
     ];
 
     public function keluarga(): BelongsTo
     {
         return $this->belongsTo(Keluarga::class, 'id_keluarga');
-    }
-
-    public function setPasswordAttribute($password)
-    {
-        $this->attributes['password'] = bcrypt($password);
     }
 
     // JWT methods

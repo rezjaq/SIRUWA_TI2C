@@ -46,7 +46,7 @@
             <label for="kk">KK</label>
             <input type="file" name="kk" class="form-control">
             @if ($keluarga->kk)
-                <img src="{{ Storage::url($keluarga->kk) }}" alt="KK" width="100">
+                <img src="{{ asset('storage/kk_images/' . basename($keluarga->kk)) }}" alt="KK" width="100">
             @endif
             @error('kk')
                 <div class="text-danger">{{ $message }}</div>

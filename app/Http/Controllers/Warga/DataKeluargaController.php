@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Warga;
 
 use App\Http\Controllers\Controller;
 use App\Models\Keluarga;
+use App\Models\Warga;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -27,8 +28,10 @@ class DataKeluargaController extends Controller
             ]
         ];
 
-        // Ambil data keluarga dari database
-        $keluargas = Keluarga::select('id_keluarga', 'nama_kepala_keluarga', 'alamat', 'no_rt')->get();
+        // Ambil data keluarga dari database yang statusnya disetujui
+        $keluargas = Keluarga::select('id_keluarga', 'nama_kepala_keluarga', 'alamat', 'no_rt')
+            ->where('status', 'disetujui')
+            ->get();
 
         return view('warga.data_keluarga.index', compact('breadcrumb', 'keluargas'));
     }
@@ -48,14 +51,24 @@ class DataKeluargaController extends Controller
                 ['label' => 'Tambah Data Keluarga', 'url' => route('warga.keluarga.create')]
             ]
         ];
+        $wargas = Warga::select('nik', 'nama')
+            ->where('verif', 'terverifikasi')
+            ->whereNotIn('nama', function ($query) {
+                $query->select('nama_kepala_keluarga')
+                    ->from('keluarga')
+                    ->whereIn('status', ['disetujui', 'belum_disetujui']); // tambahkan kondisi untuk memeriksa data yang belum disetujui juga
+            })
+            ->get();
 
-        return view('warga.data_keluarga.create', compact('breadcrumb'));
+
+
+        return view('warga.data_keluarga.create', compact('breadcrumb', 'wargas'));
     }
 
     // Metode untuk menyimpan data keluarga baru
     public function store(Request $request)
     {
-        // Validasi input
+        // Validasi input dasar
         $request->validate([
             'nama_kepala_keluarga' => 'required',
             'no_kk' => 'required',
@@ -64,6 +77,14 @@ class DataKeluargaController extends Controller
             'kk' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
+        // Ambil daftar nama dari tabel warga
+        $namaWargas = Warga::pluck('nama')->toArray();
+
+        // Validasi bahwa nama_kepala_keluarga ada dalam daftar nama warga
+        if (!in_array($request->nama_kepala_keluarga, $namaWargas)) {
+            return back()->withErrors(['nama_kepala_keluarga' => 'Nama Kepala Keluarga tidak valid. Nama tersebut harus berasal dari data warga.'])->withInput();
+        }
+
         // Simpan gambar kk ke storage dan dapatkan pathnya
         $kkPath = null;
         if ($request->hasFile('kk')) {
@@ -71,7 +92,7 @@ class DataKeluargaController extends Controller
         }
 
         // Simpan data keluarga ke database
-        Keluarga::create([
+        $keluarga = Keluarga::create([
             'nama_kepala_keluarga' => $request->nama_kepala_keluarga,
             'no_kk' => $request->no_kk,
             'alamat' => $request->alamat,
@@ -80,9 +101,19 @@ class DataKeluargaController extends Controller
             'verif' => 'belum_diverifikasi',
         ]);
 
-        return redirect()->route('warga.keluarga.index')->with('success', 'Data keluarga berhasil ditambahkan.');
+        // Update id_keluarga dari warga yang menjadi kepala keluarga
+        $kepalaKeluarga = Warga::where('nama', $request->nama_kepala_keluarga)->first();
+        if ($kepalaKeluarga) {
+            $kepalaKeluarga->previous_id_keluarga = $kepalaKeluarga->id_keluarga; // Simpan id_keluarga sebelumnya
+            $kepalaKeluarga->id_keluarga = $keluarga->id_keluarga;
+            $kepalaKeluarga->save();
+        }
+
+        return redirect()->route('warga.keluarga.index')->with('success', 'Data Keluarga berhasil ditambahkan. Data yang anda tambahkan akan diperiksa. Silahkan cek daftar warga untuk mengetahui data yang anda inputkan disetujui. Kalau dalam 2 hari data masih belum ada, silahkan isi kembali atau laporkan ke menu laporan.');
     }
-    
+
+
+
     public function edit()
     {
         $breadcrumb = (object) [
@@ -144,5 +175,4 @@ class DataKeluargaController extends Controller
 
         return redirect()->route('warga.keluarga.index')->with('success', 'Data keluarga berhasil diperbarui.');
     }
-    
 }
