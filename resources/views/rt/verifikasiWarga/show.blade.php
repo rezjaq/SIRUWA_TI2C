@@ -21,22 +21,10 @@
                         <p class="card-text"><strong>No. RT:</strong> {{ $warga->no_rt }}</p>
                     </div>
                     <div class="col-md-6">
-                        <div class="col-md-6">
-                            <!-- Menampilkan foto akte -->
-                            @if ($warga->akte)
-                                <div class="text-center">
-                                    <img src="{{ asset('storage/akte/' . basename($warga->akte)) }}" alt="Foto Akte"
-                                        class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
-                                </div>
-                            @else
-                                <p class="text-center">Foto Akte Kelahiran tidak tersedia.</p>
-                            @endif
-                        </div>
                         <!-- Menampilkan foto KTP -->
-                        @if ($warga->ktp)
+                        @if($warga->ktp)
                             <div class="text-center">
-                                <img src="{{ asset('storage/ktp_images/' . basename($warga->ktp)) }}" alt="Foto KTP"
-                                    class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
+                                <img src="{{ asset('storage/ktp_images/' . basename($warga->ktp)) }}" alt="Foto KTP" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
                             </div>
                         @else
                             <p class="text-center">Foto KTP tidak tersedia.</p>
@@ -44,7 +32,7 @@
                     </div>
                 </div>
                 <!-- Tombol kembali -->
-                <a href="{{ route('Warga.index') }}" class="btn btn-secondary">Kembali</a>
+                <a href="{{ route('RTVerifikasiWarga.index') }}" class="btn btn-secondary">Kembali</a>
             </div>
         </div>
     </div>

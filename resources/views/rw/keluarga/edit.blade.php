@@ -13,7 +13,7 @@
         <div class="alert alert-danger">
             <i class="icon fas fa-ban"></i> Data tidak ditemukan
         </div>
-        <a href="{{ route('keluarga') }}" class="btn btn-sm btn-secondary" style="background-color: #6c757d; border-color: #6c757d;"><i class="fas fa-arrow-left"></i> Kembali</a>
+        <a href="{{ route('keluarga.index') }}" class="btn btn-sm btn-secondary" style="background-color: #6c757d; border-color: #6c757d;"><i class="fas fa-arrow-left"></i> Kembali</a>
         @else
         <div class="container mt-4">
             <form method="POST" action="{{ route('keluarga.update', $keluarga->id_keluarga) }}" enctype="multipart/form-data">

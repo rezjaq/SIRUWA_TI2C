@@ -78,6 +78,11 @@
                                 <label for="no_rt" class="col-form-label">Nomor RT:</label>
                                 <input type="text" class="form-control" id="no_rt" name="no_rt" value="{{ old('no_rt') }}">
                             </div>
+                            <div class="form-group">
+                                <label for="akte">{{ __('Akte Kelahiran') }}:</label>
+                                <input type="file" class="form-control-file" id="akte" name="akte">
+                                <small class="form-text text-muted">Unggah gambar KK dalam format .jpg, .jpeg, atau .png</small>
+                            </div>
                             <div class="form-group row mb-0">
                                 <div class="col-md-12 d-flex justify-content-center">
                                     <button type="submit" class="btn btn-primary w-100">{{ __('Simpan') }}</button>

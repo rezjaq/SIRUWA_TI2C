@@ -2,7 +2,7 @@
     <ul class="nav">
         <li class="nav-item">
 
-            <a href="{{ url('/RT') }}" class="nav-link {{ ($activeMenu == 'dashboard') ? 'active' : '' }}">
+            {{-- <a href="{{ url('/RT') }}" class="nav-link {{ ($activeMenu == 'dashboard') ? 'active' : '' }}"> --}}
 
             <a href="{{ url('/RW') }}" class="nav-link {{ ($activeMenu == 'dashboard') ? 'active' : '' }}">
 
@@ -47,7 +47,6 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ url('/complaint') }}" class="nav-link {{ ($activeMenu == 'complaint') ? 'active' : '' }}">
             <a href="{{ url('/Pengaduann') }}" class="nav-link {{ ($activeMenu == 'complaint') ? 'active' : '' }}">
                 <span class="menu-title">Pengaduan</span>
                 <i class="mdi mdi-comment-alert menu-icon"></i>

@@ -11,12 +11,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="nama_kepala_keluarga">{{ __('Nama Kepala Keluarga') }}:</label>
-                            <select class="form-control" id="nama_kepala_keluarga" name="nama_kepala_keluarga" required>
-                                <option value="">{{ __('Pilih Nama Kepala Keluarga') }}</option>
-                                @foreach($wargas as $warga)
-                                    <option value="{{ $warga->nama }}">{{ $warga->nama }}</option>
-                                @endforeach
-                            </select>
+                            <input type="text" class="form-control" id="nama_kepala_keluarga" name="nama_kepala_keluarga" required>
                         </div>
                         <div class="form-group">
                             <label for="no_kk">{{ __('Nomor KK') }}:</label>

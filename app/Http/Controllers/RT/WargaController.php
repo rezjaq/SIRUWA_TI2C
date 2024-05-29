@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Keluarga;
 use App\Models\Warga;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class WargaController extends Controller
@@ -29,7 +30,13 @@ class WargaController extends Controller
 
     public function list()
     {
-        $warga = warga::select('nik', 'nama', 'jenis_kelamin', 'tanggal_lahir', 'alamat', 'no_telepon', 'agama', 'statusKawin', 'pekerjaan', 'no_rt');
+        // Dapatkan RT pengguna yang sedang login
+        $userNoRT = Auth::user()->no_rt;
+
+        // Ambil data warga yang sesuai dengan RT pengguna yang sedang login dan status disetujui
+        $warga = Warga::select('nik', 'nama', 'jenis_kelamin', 'tanggal_lahir', 'alamat', 'no_telepon', 'agama', 'statusKawin', 'pekerjaan', 'no_rt')
+            ->where('status', 'disetujui')
+            ->where('no_rt', $userNoRT);
 
         return DataTables::of($warga)
             ->addIndexColumn()
@@ -48,12 +55,13 @@ class WargaController extends Controller
         $breadcrumb = (object) [
             'title' => 'Tambah Warga',
         ];
-        $activeMenu = 'citizen';
+        $activeMenu = 'warga';
 
         // Mendapatkan daftar keluarga yang sudah ada
-        $keluargas = keluarga::all();
+        $userNoRT = Auth::user()->no_rt;
+        $keluargas = Keluarga::where('no_rt', $userNoRT)->get();
 
-        return view('rt.citizen.create', compact('breadcrumb', 'activeMenu', 'keluargas'));
+        return view('rt.citizen.create', compact('breadcrumb', 'activeMenu', 'keluargas', 'userNoRT'));
     }
 
 
@@ -66,18 +74,40 @@ class WargaController extends Controller
             'jenis_kelamin' => 'required',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required',
-            'no_telepon' => 'required',
             'agama' => 'required',
             'statusKawin' => 'required',
-            'pekerjaan' => 'required',
-            'no_rt' => 'required',
-            'password' => 'required|min:6',
-            'id_keluarga' => 'required|exists:keluarga,id_keluarga'
-
+            'password' => 'required',
+            'id_keluarga' => 'required|exists:keluarga,id_keluarga',
+            'akte' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'ktp' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
+        // Simpan akte jika diunggah
+        $aktePath = null;
+        if ($request->hasFile('akte')) {
+            $aktePath = $request->file('akte')->store('akte');
+        }
+
+        // Simpan KTP jika diunggah
+        $ktpPath = null;
+        if ($request->hasFile('ktp')) {
+            $ktpPath = $request->file('ktp')->store('ktp_images');
+        }
+
+        // Tentukan verifikasi berdasarkan keberadaan foto KTP atau Akte
+        $verifikasi = 'belum_terverifikasi';
+        $sts = 'belum_disetujui';
+        if ($ktpPath) {
+            $verifikasi = 'terverifikasi';
+            $sts = 'disetujui';
+        }
+        if ($aktePath) {
+            $sts = 'disetujui';
+            $verifikasi = 'tidak_terverifikasi';
+        }
+
         // Simpan data warga baru
-        $warga = warga::create([
+        $warga = Warga::create([
             'nik' => $request->nik,
             'nama' => $request->nama,
             'jenis_kelamin' => $request->jenis_kelamin,
@@ -88,8 +118,12 @@ class WargaController extends Controller
             'statusKawin' => $request->statusKawin,
             'pekerjaan' => $request->pekerjaan,
             'no_rt' => $request->no_rt,
-            'password' => bcrypt($request->password),
-            'id_keluarga' => $request->id_keluarga
+            'password' => $request->password,
+            'id_keluarga' => $request->id_keluarga,
+            'akte' => $aktePath,
+            'ktp' => $ktpPath,
+            'verif' => $verifikasi,
+            'status' => $sts,
         ]);
 
         return redirect()->route('citizen.index')->with('success', 'Warga berhasil ditambahkan.');
@@ -116,35 +150,48 @@ class WargaController extends Controller
             'title' => 'Edit Warga',
             'list' => ['Home', 'Warga', 'Edit']
         ];
-        $activeMenu = 'citizen';
+        $activeMenu = 'Warga';
 
         $warga = Warga::findOrFail($nik);
+        $userNoRT = Auth::user()->no_rt;
+        $keluargas = Keluarga::where('no_rt', $userNoRT)->get();
 
-        return view('rt.citizen.edit', compact('breadcrumb', 'activeMenu', 'warga'));
+        return view('rt.citizen.edit', compact('breadcrumb', 'activeMenu', 'warga', 'keluargas'));
     }
 
     public function update(Request $request, $nik)
     {
+        // Temukan warga berdasarkan NIK
+        $warga = Warga::findOrFail($nik);
+
         // Validasi input
         $request->validate([
-            'nik' => 'required|unique:warga,nik,' . $nik,
             'nama' => 'required',
             'jenis_kelamin' => 'required',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required',
-            'no_telepon' => 'required',
             'agama' => 'required',
             'statusKawin' => 'required',
-            'pekerjaan' => 'required',
             'no_rt' => 'required',
-            'level' => 'required'
+            'password' => 'required',
+            'level' => 'required',
+            'id_keluarga' => 'required|exists:keluarga,id_keluarga'
         ]);
 
-        // Temukan warga berdasarkan NIK
-        $warga = warga::findOrFail($nik);
+        // Simpan akte jika ada
+        $aktePath = null;
+        if ($request->hasFile('akte')) {
+            $aktePath = $request->file('akte')->store('akte_images');
+        }
+
+        // Simpan KTP jika ada
+        $ktpPath = null;
+        if ($request->hasFile('ktp')) {
+            $ktpPath = $request->file('ktp')->store('ktp_images');
+        }
+
 
         // Update data warga
-        $warga->nik = $request->nik;
         $warga->nama = $request->nama;
         $warga->jenis_kelamin = $request->jenis_kelamin;
         $warga->tanggal_lahir = $request->tanggal_lahir;
@@ -155,6 +202,18 @@ class WargaController extends Controller
         $warga->pekerjaan = $request->pekerjaan;
         $warga->no_rt = $request->no_rt;
         $warga->level = $request->level;
+        $warga->id_keluarga = $request->id_keluarga;
+        $warga->akte = $aktePath ? $aktePath : $warga->akte; // Tetapkan nilai sebelumnya jika tidak ada perubahan
+        $warga->ktp = $ktpPath ? $ktpPath : $warga->ktp; // Tetapkan nilai sebelumnya jika tidak ada perubahan
+        $warga->verif = $request->verif;
+        $warga->status = $request->status;
+        $warga->password = $request->password;
+
+        if ($request->status === 'tidak_disetujui') {
+            $warga->password = null;
+        } else {
+            $warga->password = $request->password;
+        }
 
         $warga->save();
 

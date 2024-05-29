@@ -147,7 +147,7 @@
                             <div class="col-sm-10">
                                 <input type="file" class="form-control-file" id="akte" name="akte">
                                 @if ($warga->akte)
-                                    <p class="mt-2"><a href="{{ asset('storage/' . $warga->akte) }}">Akte saat ini</a></p>
+                                <img src="{{ asset('storage/akte/' . basename($warga->akte)) }}" alt="Foto Akte" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
                                 @endif
                             </div>
                         </div>
@@ -156,7 +156,7 @@
                             <div class="col-sm-10">
                                 <input type="file" class="form-control-file" id="ktp" name="ktp">
                                 @if ($warga->ktp)
-                                    <p class="mt-2"><a href="{{ asset('storage/' . $warga->ktp) }}">KTP saat ini</a></p>
+                                <img src="{{ asset('storage/ktp_images/' . basename($warga->ktp)) }}" alt="Foto KTP" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
                                 @endif
                             </div>
                         </div>

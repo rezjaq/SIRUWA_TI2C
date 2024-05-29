@@ -97,6 +97,7 @@ class DataWargaController extends Controller
             'id_keluarga' => $request->id_keluarga,
             'password' => $request->nik,
             'akte' =>  $aktePath, // Simpan nama file akte
+            'verif' => 'tidak_terverifikasi',
         ]);
     
         return redirect()->route('warga.Warga.index')->with('success', 'Data warga berhasil ditambahkan. Data yang anda tambahkan akan diperiksa. Silahkan cek daftar warga untuk mengetahui data yang anda inputkan disetujui. Kalau dalam 2 hari data masih belum ada, silahkan isi kembali atau laporkan ke menu laporan.');

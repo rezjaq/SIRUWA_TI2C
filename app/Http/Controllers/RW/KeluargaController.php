@@ -52,15 +52,7 @@ class KeluargaController extends Controller
             'title' => 'Tambah Keluarga',
         ];
         $activeMenu = 'keluarga';
-        $wargas = Warga::select('nik', 'nama')
-            ->where('verif', 'terverifikasi')
-            ->whereNotIn('nama', function ($query) {
-                $query->select('nama_kepala_keluarga')
-                    ->from('keluarga')
-                    ->whereIn('status', ['disetujui', 'belum_disetujui']); // tambahkan kondisi untuk memeriksa data yang belum disetujui juga
-            })
-            ->get();
-        return view('rw.keluarga.create', compact('breadcrumb', 'activeMenu', 'wargas'));
+        return view('rw.keluarga.create', compact('breadcrumb', 'activeMenu'));
     }
 
     public function store(Request $request)
@@ -74,11 +66,6 @@ class KeluargaController extends Controller
             'kk' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $namaWargas = Warga::pluck('nama')->toArray();
-
-        if (!in_array($request->nama_kepala_keluarga, $namaWargas)) {
-            return back()->withErrors(['nama_kepala_keluarga' => 'Nama Kepala Keluarga tidak valid. Nama tersebut harus berasal dari data warga.'])->withInput();
-        }
 
         $kkPath = null;
         if ($request->hasFile('kk')) {
@@ -96,13 +83,6 @@ class KeluargaController extends Controller
             'status' => 'disetujui',
         ]);
 
-        // Update id_keluarga dari warga yang menjadi kepala keluarga
-        $kepalaKeluarga = Warga::where('nama', $request->nama_kepala_keluarga)->first();
-        if ($kepalaKeluarga) {
-            $kepalaKeluarga->previous_id_keluarga = $kepalaKeluarga->id_keluarga; // Simpan id_keluarga sebelumnya
-            $kepalaKeluarga->id_keluarga = $keluarga->id_keluarga;
-            $kepalaKeluarga->save();
-        }
 
         // Redirect ke halaman daftar keluarga dengan pesan sukses
         return redirect()->route('keluarga.index')->with('success', 'Keluarga berhasil ditambahkan.');
