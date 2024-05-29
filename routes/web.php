@@ -105,6 +105,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/edit', [WargaDataWargaController::class, 'edit'])->name('warga.Warga.edit'); // Tidak memerlukan ID
             Route::put('/update', [WargaDataWargaController::class, 'update'])->name('warga.Warga.update'); // No ID, as it's the logged-in user
         });
+
         Route::get('/bansos', [BantuanSosialController::class, 'index'])->name('bansos');
     });
 
@@ -171,7 +172,6 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/approve/{id_keluarga}', [RWverifikasiKeluarga::class, 'approve'])->name('verifikasiKeluarga.approve');
             Route::post('reject/{id_keluarga}', [RWverifikasiKeluarga::class, 'reject'])->name('verifikasiKeluarga.reject');
         });
-
         Route::prefix('/Pengaduann')->group(function () {
             Route::get('/', [AprrovePengaduan::class, 'index'])->name('admin.pengaduan');
             Route::post('/{id}/approve', [AprrovePengaduan::class, 'approve'])->name('pengaduan.approve');
@@ -262,3 +262,4 @@ Route::get('/berita', function () {
 
 // Home Page or Landing Page
 Route::get('/', [HomeController::class, 'index'])->name('home');
+

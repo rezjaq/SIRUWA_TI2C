@@ -13,11 +13,11 @@
     <style>
         body {
         background-color: #f5f5f5;
-        padding-top: 100px; /* Adjust based on the height of your navbar */
+        padding-top: 100px; 
     }
 
     .navbar {
-        margin-bottom: 20px; /* Space between navbar and breadcrumb */
+        margin-bottom: 20px; 
     }
     </style>
     @stack('css')
@@ -45,9 +45,9 @@
         </section>
         
         <!-- Footer -->
-        <div class="container-fluid p-0">
+        <div class="container-fluid p-0" style="height: 100px;"> 
             @include('layouts.footer')
-        </div>
+          </div>
     </div>
 
     <!-- Scripts -->

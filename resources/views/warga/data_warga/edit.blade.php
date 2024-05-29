@@ -15,8 +15,15 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Edit Data Warga') }}</div>
+            <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #03774A; color: #fff;">
+                    <h4 class="mb-0">
+                        <a href="{{ route('warga.Warga.index') }}" class="btn btn-sm btn-light me-2">
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                        Update Data Warga
+                    </h4>
+                </div>
 
                 <div class="card-body">
                     {{-- Card for verification status --}}
@@ -126,7 +133,7 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class="form-group row">
                             <label for="pekerjaan" class="col-md-4 col-form-label text-md-right">{{ __('Pekerjaan') }}</label>
                             <div class="col-md-8">
@@ -156,15 +163,9 @@
                                 </div>
                             </div>
                         </div> 
-                        
+                        <br><br>
                         <!-- Submit button -->
-                        <div class="form-group row mb-0">
-                            <div class="col-md-12 d-flex justify-content-center">
-                                <button type="submit" class="btn btn-primary w-100">
-                                    {{ __('Verifikasi') }}
-                                </button>
-                            </div>
-                        </div>
+                        <button type="submit" class="btn btn-primary" style="background-color: #03774A; border: none;">Vertifikasi</button>
                     </form>
                 </div>
             </div>
@@ -198,6 +199,16 @@
             border-radius: 4px;
             box-sizing: border-box;
             width: 100%;
+        }
+        .btn-primary {
+            background-color: #03774A;
+            border-color: #03774A;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: #03774A;
+            border-color: #03774A;
         }
     </style>
 @endpush
