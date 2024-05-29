@@ -4,6 +4,7 @@ namespace App\Http\Controllers\RW;
 
 use App\Http\Controllers\Controller;
 use App\Models\Keluarga;
+use App\Models\Warga;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -80,10 +81,20 @@ class VerifikasiKeluarga extends Controller
                 $keluarga->status = 'tidak_disetujui';
             }
             $keluarga->save();
-            return response()->json(['success' => 'Data warga telah ditolak.']);
+
+            // Kembalikan id_keluarga warga yang menjadi kepala keluarga ke nilai sebelumnya
+            $kepalaKeluarga = Warga::where('nama', $keluarga->nama_kepala_keluarga)->first();
+            if ($kepalaKeluarga && $kepalaKeluarga->previous_id_keluarga) {
+                $kepalaKeluarga->id_keluarga = $kepalaKeluarga->previous_id_keluarga;
+                $kepalaKeluarga->previous_id_keluarga = null;
+                $kepalaKeluarga->save();
+            }
+
+            return response()->json(['success' => 'Data keluarga telah ditolak.']);
         }
-        return response()->json(['error' => 'Data warga tidak ditemukan.'], 404);
+        return response()->json(['error' => 'Data keluarga tidak ditemukan.'], 404);
     }
+
 
     public function show($id_keluarga)
     {

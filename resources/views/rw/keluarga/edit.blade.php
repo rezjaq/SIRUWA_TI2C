@@ -19,29 +19,43 @@
             <form method="POST" action="{{ route('keluarga.update', $keluarga->id_keluarga) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                <div class="form-group row">
-                    <label for="nama_kepala_keluarga" class="col-sm-2 col-form-label">Nama Kepala Keluarga</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="nama_kepala_keluarga" name="nama_kepala_keluarga" value="{{ $keluarga->nama_kepala_keluarga }}">
-                    </div>
+                <div class="form-group">
+                    <label for="nama_kepala_keluarga">Nama Kepala Keluarga</label>
+                    <input type="text" name="nama_kepala_keluarga" class="form-control" value="{{ old('nama_kepala_keluarga', $keluarga->nama_kepala_keluarga) }}">
+                    @error('nama_kepala_keluarga')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
-                <div class="form-group row">
-                    <label for="no_kk" class="col-sm-2 col-form-label">Nomor Kartu Keluarga</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="no_kk" name="no_kk" value="{{ $keluarga->no_kk }}">
-                    </div>
+                <div class="form-group">
+                    <label for="no_kk">No KK</label>
+                    <input type="text" name="no_kk" class="form-control" value="{{ old('no_kk', $keluarga->no_kk) }}">
+                    @error('no_kk')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
-                <div class="form-group row">
-                    <label for="alamat" class="col-sm-2 col-form-label">alamat</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $keluarga->alamat }}">
-                    </div>
+                <div class="form-group">
+                    <label for="alamat">Alamat</label>
+                    <input type="text" name="alamat" class="form-control" value="{{ old('alamat', $keluarga->alamat) }}">
+                    @error('alamat')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
-                <div class="form-group row">
-                    <label for="no_rt" class="col-sm-2 col-form-label">Nomor RT</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="no_rt" name="no_rt" value="{{ $keluarga->no_rt }}">
-                    </div>
+                <div class="form-group">
+                    <label for="no_rt">No RT</label>
+                    <input type="text" name="no_rt" class="form-control" value="{{ old('no_rt', $keluarga->no_rt) }}">
+                    @error('no_rt')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="kk">KK</label>
+                    <input type="file" name="kk" class="form-control">
+                    @if ($keluarga->kk)
+                        <img src="{{ asset('storage/kk_images/' . basename($keluarga->kk)) }}" alt="KK" width="100">
+                    @endif
+                    @error('kk')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Submit</button>

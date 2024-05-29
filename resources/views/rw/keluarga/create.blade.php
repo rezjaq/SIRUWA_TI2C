@@ -10,20 +10,30 @@
                     <form action="{{ route('keluarga.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <label for="nama_kegiatan" lass="col-sm-2 col-form-label">Nama Kepala Keluarga</label>
-                            <input type="text" class="form-control" id="nama_kepala_keluarga" name="nama_kepala_keluarga" required>
+                            <label for="nama_kepala_keluarga">{{ __('Nama Kepala Keluarga') }}:</label>
+                            <select class="form-control" id="nama_kepala_keluarga" name="nama_kepala_keluarga" required>
+                                <option value="">{{ __('Pilih Nama Kepala Keluarga') }}</option>
+                                @foreach($wargas as $warga)
+                                    <option value="{{ $warga->nama }}">{{ $warga->nama }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label for="tanggal_kegiatan" lass="col-sm-2 col-form-label">Nomor Kartu Keluarga</label>
+                            <label for="no_kk">{{ __('Nomor KK') }}:</label>
                             <input type="text" class="form-control" id="no_kk" name="no_kk" required>
                         </div>
                         <div class="form-group">
-                            <label for="waktu_mulai" lass="col-sm-2 col-form-label">alamat</label>
-                            <input type="text" class="form-control" id="alamat" name="alamat" required>
+                            <label for="alamat">{{ __('Alamat') }}:</label>
+                            <textarea class="form-control" id="alamat" name="alamat" rows="3" required></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="waktu_selesai" lass="col-sm-2 col-form-label">Nomor RT</label>
-                            <input type="text" class="form-control" id="no_rt" name="no_rt">
+                            <label for="no_rt">{{ __('Nomor RT') }}:</label>
+                            <input type="text" class="form-control" id="no_rt" name="no_rt" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="kk">{{ __('Kartu Keluarga (KK)') }}:</label>
+                            <input type="file" class="form-control-file" id="kk" name="kk">
+                            <small class="form-text text-muted">Unggah gambar KK dalam format .jpg, .jpeg, atau .png</small>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Submit</button>

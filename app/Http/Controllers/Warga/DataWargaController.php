@@ -83,10 +83,7 @@ class DataWargaController extends Controller
         // Handle file upload
         if ($request->hasFile('akte')) {
             $aktePath = $request->file('akte')->store('akte');
-            $akteName = basename($aktePath);
-        } else {
-            $akteName = null;
-        }
+        } 
     
         // Simpan data warga ke database
         Warga::create([
@@ -99,7 +96,7 @@ class DataWargaController extends Controller
             'no_rt' => $request->no_rt,
             'id_keluarga' => $request->id_keluarga,
             'password' => $request->nik,
-            'akte' => $akteName, // Simpan nama file akte
+            'akte' =>  $aktePath, // Simpan nama file akte
         ]);
     
         return redirect()->route('warga.Warga.index')->with('success', 'Data warga berhasil ditambahkan. Data yang anda tambahkan akan diperiksa. Silahkan cek daftar warga untuk mengetahui data yang anda inputkan disetujui. Kalau dalam 2 hari data masih belum ada, silahkan isi kembali atau laporkan ke menu laporan.');

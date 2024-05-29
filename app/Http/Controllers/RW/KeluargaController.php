@@ -4,7 +4,9 @@ namespace App\Http\Controllers\RW;
 
 use App\Http\Controllers\Controller;
 use App\Models\Keluarga;
+use App\Models\Warga;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 
 class KeluargaController extends Controller
@@ -28,7 +30,9 @@ class KeluargaController extends Controller
 
     public function list()
     {
-        $keluarga = Keluarga::select('id_keluarga', 'nama_kepala_keluarga', 'no_kk', 'alamat', 'no_rt');
+        $keluarga = Keluarga::select('id_keluarga', 'nama_kepala_keluarga', 'no_kk', 'alamat', 'no_rt')
+            ->where('status', 'disetujui')
+            ->get();;
 
         return DataTables::of($keluarga)
             ->addIndexColumn()
@@ -48,7 +52,15 @@ class KeluargaController extends Controller
             'title' => 'Tambah Keluarga',
         ];
         $activeMenu = 'keluarga';
-        return view('rw.keluarga.create', compact('breadcrumb', 'activeMenu'));
+        $wargas = Warga::select('nik', 'nama')
+            ->where('verif', 'terverifikasi')
+            ->whereNotIn('nama', function ($query) {
+                $query->select('nama_kepala_keluarga')
+                    ->from('keluarga')
+                    ->whereIn('status', ['disetujui', 'belum_disetujui']); // tambahkan kondisi untuk memeriksa data yang belum disetujui juga
+            })
+            ->get();
+        return view('rw.keluarga.create', compact('breadcrumb', 'activeMenu', 'wargas'));
     }
 
     public function store(Request $request)
@@ -58,17 +70,39 @@ class KeluargaController extends Controller
             'nama_kepala_keluarga' => 'required',
             'no_kk' => 'required',
             'alamat' => 'required',
-            'no_rt' => 'required'
+            'no_rt' => 'required',
+            'kk' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        // Simpan data keluarga baru
-        $keluarga = new Keluarga();
-        $keluarga->nama_kepala_keluarga = $request->nama_kepala_keluarga;
-        $keluarga->no_kk = $request->no_kk;
-        $keluarga->alamat = $request->alamat;
-        $keluarga->no_rt = $request->no_rt;
+        $namaWargas = Warga::pluck('nama')->toArray();
 
-        $keluarga->save();
+        if (!in_array($request->nama_kepala_keluarga, $namaWargas)) {
+            return back()->withErrors(['nama_kepala_keluarga' => 'Nama Kepala Keluarga tidak valid. Nama tersebut harus berasal dari data warga.'])->withInput();
+        }
+
+        $kkPath = null;
+        if ($request->hasFile('kk')) {
+            $kkPath = $request->file('kk')->store('kk_images');
+        }
+
+        // Simpan data keluarga baru
+        $keluarga = Keluarga::create([
+            'nama_kepala_keluarga' => $request->nama_kepala_keluarga,
+            'no_kk' => $request->no_kk,
+            'alamat' => $request->alamat,
+            'no_rt' => $request->no_rt,
+            'kk' => $kkPath, // Simpan path gambar kk ke database
+            'verif' => 'diverifikasi',
+            'status' => 'disetujui',
+        ]);
+
+        // Update id_keluarga dari warga yang menjadi kepala keluarga
+        $kepalaKeluarga = Warga::where('nama', $request->nama_kepala_keluarga)->first();
+        if ($kepalaKeluarga) {
+            $kepalaKeluarga->previous_id_keluarga = $kepalaKeluarga->id_keluarga; // Simpan id_keluarga sebelumnya
+            $kepalaKeluarga->id_keluarga = $keluarga->id_keluarga;
+            $kepalaKeluarga->save();
+        }
 
         // Redirect ke halaman daftar keluarga dengan pesan sukses
         return redirect()->route('keluarga.index')->with('success', 'Keluarga berhasil ditambahkan.');
@@ -83,7 +117,7 @@ class KeluargaController extends Controller
 
         $activeMenu = 'keluarga';
 
-        $keluarga = Keluarga::findOrFail($id);
+        $keluarga = Keluarga::with('anggota')->findOrFail($id);
 
         return view('rw.keluarga.show', compact('breadcrumb', 'activeMenu', 'keluarga'));
     }
@@ -109,18 +143,32 @@ class KeluargaController extends Controller
             'no_kk' => 'required',
             'alamat' => 'required',
             'no_rt' => 'required',
+            'kk' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         // Temukan keluarga berdasarkan ID
         $keluarga = Keluarga::findOrFail($id);
 
-        // Update data keluarga
-        $keluarga->nama_kepala_keluarga = $request->nama_kepala_keluarga;
-        $keluarga->no_kk = $request->no_kk;
-        $keluarga->alamat = $request->alamat;
-        $keluarga->no_rt = $request->no_rt;
+        // Simpan gambar kk ke storage dan dapatkan pathnya
+        if ($request->hasFile('kk')) {
+            // Delete the old image if it exists
+            if ($keluarga->kk) {
+                Storage::delete($keluarga->kk);
+            }
+            $kkPath = $request->file('kk')->store('kk_images');
+        } else {
+            $kkPath = $keluarga->kk;
+        }
 
-        $keluarga->save();
+        // Update the Keluarga data
+        $keluarga->update([
+            'nama_kepala_keluarga' => $request->nama_kepala_keluarga,
+            'no_kk' => $request->no_kk,
+            'alamat' => $request->alamat,
+            'no_rt' => $request->no_rt,
+            'kk' => $kkPath, // Simpan path gambar kk ke database
+            'verif' => 'diverifikasi',
+        ]);
 
         // Redirect ke halaman daftar keluarga dengan pesan sukses
         return redirect()->route('keluarga.index')->with('success', 'Keluarga berhasil diperbarui.');

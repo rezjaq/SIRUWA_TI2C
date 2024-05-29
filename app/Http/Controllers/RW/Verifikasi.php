@@ -80,6 +80,7 @@ class Verifikasi extends Controller
                 $warga->status = 'tidak_disetujui';
             }
             $warga->save();
+            $warga->delete();
             return response()->json(['success' => 'Data warga telah ditolak.']);
         }
         return response()->json(['error' => 'Data warga tidak ditemukan.'], 404);

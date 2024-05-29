@@ -12,6 +12,36 @@
 
 @section('content')
 <div class="container">
+
+   
+    <a href="{{ route('warga.keluarga.create') }}" class="btn btn-primary mb-3" style="background-color: #03774A;">
+        <i class="fas fa-user-plus me-2"></i> Tambah Data Keluarga
+    </a>
+    <a href="{{ route('warga.keluarga.edit') }}" class="btn btn-primary mb-3" style="background-color: #03774A;">
+        <i class="fas fa-user-plus me-2"></i> Update Data Keluarga
+    </a>
+    <!-- Tabel data warga -->
+    <div class="table-responsive">
+        <table class="table table-striped" id="dataTable">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Kepala Keluarga</th>
+                    <th>Alamat</th>
+                    <th>No RT</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($keluargas as $key => $keluarga)
+                <tr>
+                    <td>{{ $key + 1 }}</td>
+                    <td>{{ $keluarga->nama_kepala_keluarga }}</td>
+                    <td>{{ $keluarga->alamat }}</td>
+                    <td>{{ $keluarga->no_rt }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
     <div class="card mt-3">
         <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #03774A; color: #fff;">
             <h5 class="mb-0">Data Kepala Keluarga</h5>

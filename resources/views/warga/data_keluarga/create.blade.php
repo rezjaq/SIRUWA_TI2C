@@ -26,11 +26,16 @@
 
                 <div class="card-body">
                     <!-- Form tambah keluarga -->
-                    <form action="{{ route('keluarga.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('warga.keluarga.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="nama_kepala_keluarga">{{ __('Nama Kepala Keluarga') }}:</label>
-                            <input type="text" class="form-control" id="nama_kepala_keluarga" name="nama_kepala_keluarga" required>
+                            <select class="form-control" id="nama_kepala_keluarga" name="nama_kepala_keluarga" required>
+                                <option value="">{{ __('Pilih Nama Kepala Keluarga') }}</option>
+                                @foreach($wargas as $warga)
+                                    <option value="{{ $warga->nama }}">{{ $warga->nama }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="no_kk">{{ __('Nomor KK') }}:</label>

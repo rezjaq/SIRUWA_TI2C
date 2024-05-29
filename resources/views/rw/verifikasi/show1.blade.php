@@ -22,7 +22,7 @@
                         <!-- Menampilkan foto Akte -->
                         @if($warga->akte)
                             <div class="text-center">
-                                <img src="{{ asset('storage/akte/' . $warga->akte) }}" alt="Foto Akte Kelahiran" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
+                                <img src="{{ asset('storage/akte/' .  basename($warga->akte)) }}" alt="Foto Akte Kelahiran" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
                             </div>
                         @else
                             <p class="text-center">Foto Akte Kelahiran tidak tersedia.</p>
