@@ -24,6 +24,7 @@ use App\Http\Controllers\RegistrasiWargaController as RegistrasiWarga;
 use App\Http\Controllers\RW\AprrovePengaduan;
 use App\Http\Controllers\RT\KeluargaController as RTKeluargaController;
 use App\Http\Controllers\RT\WargaController as RTWargaController;
+use App\Http\Controllers\RW\ApproveUmkm;
 use App\Http\Controllers\RW\Verifikasi as RWverifikasi;
 use App\Http\Controllers\RW\VerifikasiKeluarga as RWverifikasiKeluarga;
 use App\Http\Controllers\RT\RTVerifikasiWarga as RTverifikasiWarga;
@@ -67,7 +68,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::prefix('pengajuan_surat')->group(function () {
             Route::get('/surat-tetap', [PengajuanSuratController::class, 'suratTetap'])->name('warga-tetap');
             Route::get('/surat-pindah', [PengajuanSuratController::class, 'suratPindah'])->name('warga-pindah');
+            Route::post('/generate-pdf', [PengajuanSuratController::class, 'generatePDF'])->name('generate-pdf');
         });
+
         Route::prefix('bansos')->group(function () {
             Route::get('/', [BantuanSosialController::class, 'index'])->name('bansos');
             Route::get('/jenis-bansos', [BantuanSosialController::class, 'jenisBansos'])->name('jenis-bansos');
@@ -179,6 +182,11 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/', [AprrovePengaduan::class, 'index'])->name('admin.pengaduan');
             Route::post('/{id}/approve', [AprrovePengaduan::class, 'approve'])->name('pengaduan.approve');
             Route::post('/{id}/reject', [AprrovePengaduan::class, 'reject'])->name('pengaduan.reject');
+        });
+        Route::prefix('/pengajuan-umkm')->group(function () {
+            Route::get('/', [ApproveUmkm::class, 'index'])->name('admin.pengaduan');
+            Route::post('/umkm/approve/{id}', [ApproveUmkm::class, 'approve'])->name('umkm.approve');
+            Route::post('/umkm/reject/{id}', [ApproveUmkm::class, 'reject'])->name('umkm.reject');
         });
     });
     // Rute untuk RT

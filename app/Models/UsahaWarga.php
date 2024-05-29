@@ -19,6 +19,7 @@ class UsahaWarga extends Model
         'jenis_usaha',
         'alamat_usaha',
         'keterangan',
+        'status',  // Add this line
     ];
 
     public function warga()
@@ -26,3 +27,4 @@ class UsahaWarga extends Model
         return $this->belongsTo(Warga::class, 'nik_warga', 'nik');
     }
 }
+

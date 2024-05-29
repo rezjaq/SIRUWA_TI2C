@@ -48,12 +48,13 @@
         </li>
         <li class="nav-item">
             <a href="{{ url('/Pengaduann') }}" class="nav-link {{ ($activeMenu == 'complaint') ? 'active' : '' }}">
+            <a href="{{ url('/Pengaduann') }}" class="nav-link {{ ($activeMenu == 'Pengaduan') ? 'active' : '' }}">
                 <span class="menu-title">Pengaduan</span>
                 <i class="mdi mdi-comment-alert menu-icon"></i>
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ url('/umkm') }}" class="nav-link {{ ($activeMenu == 'umkm') ? 'active' : '' }}">
+            <a href="{{ url('/pengajuan-umkm') }}" class="nav-link {{ ($activeMenu == 'umkm') ? 'active' : '' }}">
                 <span class="menu-title">UMKM Warga</span>
                 <i class="mdi mdi-store menu-icon"></i>
             </a>

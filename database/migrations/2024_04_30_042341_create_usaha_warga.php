@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -18,7 +17,10 @@ return new class extends Migration
             $table->string('nama_usaha');
             $table->string('jenis_usaha');
             $table->string('alamat_usaha');
+            $table->string('nomer_telepon'); // Tambah kolom nomer_telepon
             $table->text('keterangan');
+            $table->string('status')->default('pending');
+            $table->string('foto')->nullable(); // Kolom foto yang bisa null
             $table->timestamps();
         });
     }
@@ -31,3 +33,5 @@ return new class extends Migration
         Schema::dropIfExists('usaha_warga');
     }
 };
+
+
