@@ -13,6 +13,14 @@
 @section('content')
     <section id="about" class="about">
         <div class="container py-0">
+            <!-- Notifikasi -->
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
             <!-- Search and Filter -->
             <div class="row mb-3">
                 <div class="col-md-6">
@@ -21,115 +29,82 @@
                 <div class="col-md-6">
                     <select id="filterSelect" class="form-select">
                         <option value="">Semua Kategori</option>
-                        <option value="Catering">Catering</option>
-                        <option value="Roti">Roti</option>
-                        <option value="Kopi">Kopi</option>
-                        <option value="Mie Pangsit">Mie Pangsit</option>
-                        <option value="Jajanan Pasar">Jajanan Pasar</option>
-                        <option value="Tahu Telor">Tahu Telor</option>
+                        @foreach($usahaWarga->unique('jenis_usaha') as $umkm)
+                            <option value="{{ $umkm->jenis_usaha }}">{{ $umkm->jenis_usaha }}</option>
+                        @endforeach
                     </select>
-                </div>
+                </div>                
             </div>
-            <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
+            <div class="row row-cols-1 row-cols-md-3 g-4 py-5" id="umkmCards">
+                @foreach($usahaWarga as $umkm)
                 <div class="col">
-                    <div class="card" data-value="Catering">
-                        <img src="{{ asset('assets/img/catering.JPG') }}" class="card-img-top img-fluid" alt="Catering Mbak Fatim" style="height: 250px; width: 100%; object-fit: cover;">
+                    <div class="card" data-value="{{ $umkm->jenis_usaha }}">
+                        <img src="{{ asset('storage/' . $umkm->foto) }}" class="card-img-top img-fluid" alt="{{ $umkm->nama_usaha }}" style="height: 250px; width: 100%; object-fit: cover;">
                         <div class="card-body">
-                            <h5 class="card-title"><b>Catering Mbak Fatim</b></h5>
-                            <p class="card-text">Nikmati cita rasa autentik dari Catering Mbak Fatim untuk setiap acara Anda. Pesan sekarang dan rasakan kualitas terbaik dengan harga terjangkau!</p>
+                            <h5 class="card-title"><b>{{ $umkm->nama_usaha }}</b></h5>
+                            <p class="card-text">{{ $umkm->deskripsi }}</p>
+                            <p class="card-text">{{ $umkm->alamat_usaha }}</p>
                         </div>
                         <div class="mb-5 d-flex justify-content-around align-items-center">
-                            <h3><span class="small-text">Harga mulai</span> 12K</h3>
-                            <a href="https://web.whatsapp.com/send?phone=628123252008&text=Assalamualaikum..%0Mbak%20Fatim%20Catering" class="btn btn-primary" target="_blank">
-                                <i class="bi bi-whatsapp"></i>
-                            </a>                           
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card" data-value="Roti">
-                        <img src="{{ asset('assets/img/roti.JPG') }}" class="card-img-top img-fluid" alt="Roti Goreng Onggojoyo" style="height: 250px; width: 100%; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title"><b>Roti Goreng Onggojoyo</b></h5>
-                            <p class="card-text">Cicipi roti goreng renyah dan lezat serta moho lembut khas Onggojoyo. Kelezatan autentik yang memanjakan lidah di setiap gigitan!</p>
-                        </div>
-                        <div class="mb-5 d-flex justify-content-around align-items-center">
-                            <h3><span class="small-text">Harga mulai</span> 2.5K</h3>
-                            <a href="https://web.whatsapp.com/send?phone=628123252008&text=Assalamualaikum..%0Mbak%20Fatim%20Catering" class="btn btn-primary" target="_blank">
+                            <h3><span class="small-text">Harga mulai</span> {{ $umkm->harga }}</h3>
+                            <!-- Ganti URL WhatsApp dengan nomor yang sesuai dari data UMKM jika diperlukan -->
+                            <a href="https://wa.me/{{ $umkm->nomer_telepon }}" class="btn btn-primary" target="_blank">
                                 <i class="bi bi-whatsapp"></i>
                             </a>
                         </div>
                     </div>
                 </div>
-
-                <div class="col">
-                    <div class="card" data-value="Kopi">
-                        <img src="{{ asset('assets/img/kopi.JPG') }}" class="card-img-top img-fluid" alt="Kopi Dampit" style="height: 250px; width: 100%; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title"><b>Kopi Dampit</b></h5>
-                            <p class="card-text">Nikmati kopi Dampit dengan aroma khas dan cita rasa yang menggugah selera. Rasakan kelezatan kopi berkualitas tinggi dari lereng Gunung Dampit.</p>
-                        </div>
-                        <div class="mb-5 d-flex justify-content-around align-items-center">
-                            <h3><span class="small-text">Harga mulai</span> 7K</h3>
-                            <a href="https://web.whatsapp.com/send?phone=628123252008&text=Assalamualaikum..%0Mbak%20Fatim%20Catering" class="btn btn-primary" target="_blank">
-                                <i class="bi bi-whatsapp"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card" data-value="Mie Pangsit">
-                        <img src="{{ asset('assets/img/miePangsit.JPG') }}" class="card-img-top img-fluid" alt="Mie Pangsit Hendro" style="height: 250px; width: 100%; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title"><b>Mie Pangsit Hendro</b></h5>
-                            <p class="card-text">Rasakan mie pangsit kenyal dan kuah yang gurih. Cocok untuk dinikmati kapan saja, terutama saat hujan.</p>
-                        </div>
-                        <div class="mb-5 d-flex justify-content-around align-items-center">
-                            <h3><span class="small-text">Harga mulai</span> 8K</h3>
-                            <a href="https://web.whatsapp.com/send?phone=628123252008&text=Assalamualaikum..%0Mbak%20Fatim%20Catering" class="btn btn-primary" target="_blank">
-                                <i class="bi bi-whatsapp"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card" data-value="Jajanan Pasar">
-                        <img src="{{ asset('assets/img/kue.JPG') }}" class="card-img-top img-fluid" alt="Jajanan Pasar Mbak Amel" style="height: 250px; width: 100%; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title"><b>Jajanan Pasar Mbak Amel</b></h5>
-                            <p class="card-text">Nikmati kelezatan jajanan pasar dengan cita rasa tradisional yang autentik dengan kenangan manis di setiap gigitannya!</p>
-                        </div>
-                        <div class="mb-5 d-flex justify-content-around align-items-center">
-                            <h3><span class="small-text">Harga mulai</span> 2K</h3>
-                            <a href="https://web.whatsapp.com/send?phone=628123252008&text=Assalamualaikum..%0Mbak%20Fatim%20Catering" class="btn btn-primary" target="_blank">
-                                <i class="bi bi-whatsapp"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card" data-value="Tahu Telor">
-                        <img src="{{ asset('assets/img/tahuTelor.JPG') }}" class="card-img-top img-fluid" alt="Tahu Telor Mbak Suci" style="height: 250px; width: 100%; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title"><b>Tahu Telor Mbak Suci</b></h5>
-                            <p class="card-text">Hidangan utama dengan tahu yang renyah dan telur yang gurih, disajikan dengan bumbu khas yang menggugah selera.</p>
-                        </div>
-                        <div class="mb-5 d-flex justify-content-around align-items-center">
-                            <h3><span class="small-text">Harga mulai</span> 10K</h3>
-                            <a href="https://web.whatsapp.com/send?phone=628123252008&text=Assalamualaikum..%0Mbak%20Fatim%20Catering" class="btn btn-primary" target="_blank">
-                                <i class="bi bi-whatsapp"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const cards = document.querySelectorAll('.card');
+            const searchInput = document.getElementById('searchInput');
+            const filterSelect = document.getElementById('filterSelect');
+
+            // Add shadow effect on hover
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function () {
+                    this.classList.add('shadow-lg');
+                });
+
+                card.addEventListener('mouseleave', function () {
+                    this.classList.remove('shadow-lg');
+                });
+            });
+
+            // Filter function
+            function filterUMKM() {
+                const searchText = searchInput.value.toLowerCase();
+                const selectedCategory = filterSelect.value;
+
+                cards.forEach(card => {
+                    const title = card.querySelector('.card-title').textContent.toLowerCase();
+                    const category = card.getAttribute('data-value');
+
+                    const matchesSearch = title.includes(searchText);
+                    const matchesCategory = !selectedCategory || category === selectedCategory;
+
+                    if (matchesSearch && matchesCategory) {
+                        card.parentElement.style.display = '';
+                    } else {
+                        card.parentElement.style.display = 'none';
+                    }
+                });
+            }
+
+            // Event listeners for search and filter
+            searchInput.addEventListener('input', filterUMKM);
+            filterSelect.addEventListener('change', filterUMKM);
+        });
+    </script>
 @endsection
+
+
+
 
 @push('css')
     <style>
@@ -251,21 +226,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const cards = document.querySelectorAll('.card');
-
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function () {
-                    this.classList.add('shadow-lg');
-                });
-
-                card.addEventListener('mouseleave', function () {
-                    this.classList.remove('shadow-lg');
-                });
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const cards = document.querySelectorAll('.card');
             const searchInput = document.getElementById('searchInput');
             const filterSelect = document.getElementById('filterSelect');
 
@@ -292,6 +252,20 @@
         });
 
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                var alert = document.querySelector('.alert');
+                if (alert) {
+                    alert.classList.add('fade-out');
+                    alert.addEventListener('transitionend', function() {
+                        alert.remove();
+                    });
+                }
+            }, 5000); // Notifikasi hilang setelah 5 detik
+        });
+    </script>
+    
 @endpush
 
 
