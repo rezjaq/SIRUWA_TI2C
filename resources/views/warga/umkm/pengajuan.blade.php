@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Daftar UMKM Warga ')
+@section('title', 'Daftar UMKM Warga')
 
 @section('breadcrumb')
     @component('layouts.breadcrumb', [
@@ -13,12 +13,9 @@
 @section('content')
     <div class="form-container">
         <h2>Pengajuan UMKM</h2>
-        <form action="{{ route('umkm.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('umkm.store') }}" method="POST" enctype="multipart/form-data" id="umkmForm">
             @csrf
-            <div class="form-group">
-                <label for="nik_warga">NIK Warga</label>
-                <input type="text" id="nik" name="nik" class="form-control" value="{{ $user->nik }}" required>
-            </div>
+            <input type="hidden" id="nik" name="nik" value="{{ $user->nik }}">
 
             <div class="form-group">
                 <label for="nama_usaha">Nama Usaha</label>
@@ -26,9 +23,20 @@
             </div>
 
             <div class="form-group">
-                <label for="jenis_usaha">Jenis Usaha</label>
-                <input type="text" id="jenis_usaha" name="jenis_usaha" class="form-control" required>
+                <label for="jenis_usaha">Ketegori</label>
+                <select id="jenis_usaha" name="jenis_usaha" class="form-control" required>
+                    <option value="">Pilih Jenis Usaha</option>
+                    <option value="makanan">Makanan</option>
+                    <option value="minuman">Minuman</option>
+                    <option value="kerajinan_tangan">Kerajinan Tangan</option>
+                    <option value="fashion">Fashion</option>
+                </select>
             </div>
+            
+            <div class="form-group">
+                <label for="nomer_telepon">Nomor Telepon</label>
+                <input type="tel" id="nomer_telepon" name="nomer_telepon" class="form-control" required>
+            </div>            
 
             <div class="form-group">
                 <label for="alamat_usaha">Alamat Usaha</label>
@@ -47,7 +55,7 @@
 
             <div class="form-group">
                 <label for="foto">Foto Produk</label>
-                <input type="file" id="foto" name="foto" class="form-control">
+                <input type="file" id="foto" name="foto" class="form-control-file">
             </div>
 
             <div class="form-buttons">
@@ -62,7 +70,7 @@
     <style>
         body {
             background: #f5f5f5;
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
         }
 
         .form-container {
@@ -98,7 +106,8 @@
             color: #555;
         }
 
-        .form-control {
+        .form-control,
+        .form-control-file {
             width: 100%;
             padding: 10px;
             box-sizing: border-box;
@@ -107,7 +116,8 @@
             transition: border-color 0.3s, box-shadow 0.3s;
         }
 
-        .form-control:focus {
+        .form-control:focus,
+        .form-control-file:focus {
             border-color: #007bff;
             outline: none;
             box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
@@ -136,7 +146,7 @@
         }
 
         .btn-primary-umkm:hover {
-            background-color: #03774A;
+            background-color: #02593a;
             transform: scale(1.05);
         }
 
@@ -155,11 +165,20 @@
 @push('js')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var user = @json(Auth::user());
+        var umkmForm = document.getElementById('umkmForm');
 
-        if (user) {
-            document.querySelector('input[name="nik"]').value = user.nik;
-        }
+        umkmForm.addEventListener('submit', function(event) {
+            var namaUsaha = document.getElementById('nama_usaha').value;
+            var jenisUsaha = document.getElementById('jenis_usaha').value;
+            var alamatUsaha = document.getElementById('alamat_usaha').value;
+            var harga = document.getElementById('harga').value;
+            var deskripsi = document.getElementById('deskripsi').value;
+
+            if (!namaUsaha || !jenisUsaha || !alamatUsaha || !harga || !deskripsi) {
+                event.preventDefault();
+                alert('Semua bidang harus diisi.');
+            }
+        });
     });
 </script>
 @endpush
