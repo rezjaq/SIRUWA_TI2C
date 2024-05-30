@@ -39,12 +39,9 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="bansosDropdown">
                             <li><a class="dropdown-item" href="{{ route('jenis-bansos') }}">Jenis Bansos</a></li>
-                            <li><a class="dropdown-item" href="{{ route('pengajuan-bansos') }}">Pengajuan</a></li>
+                            <li><a class="dropdown-item" href="{{ route('bansos-create') }}">Pengajuan</a></li>
                             <li><a class="dropdown-item" href="{{ route('daftar-penerima-bansos') }}">Daftar Penerima Bansos</a></li>
                         </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Request::routeIs('denah-rumah') ? 'active' : '' }}" href="{{ route('denah-rumah') }}">Denah Rumah Warga</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle {{ Request::routeIs('pengaduan.*') ? 'active' : '' }}" href="#" id="pengaduanDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pengaduan</a>
@@ -59,7 +56,7 @@
                             UMKM
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="bansosDropdown">
-                            <li><a class="dropdown-item" href="{{ route('pengajuan-umkm') }}">Macam Macam UMKM</a></li>
+                            <li><a class="dropdown-item" href="{{ route('pengajuan') }}">Macam Macam UMKM</a></li>
                             <li><a class="dropdown-item" href="{{ route('umkm.create') }}">Pengajuan UMKM</a></li>
                         </ul>
                     </li>

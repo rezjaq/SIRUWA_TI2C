@@ -22,12 +22,20 @@ use App\Http\Controllers\RW\PengumumanController as RwPengumumanController;
 use App\Http\Controllers\RW\KegiatanController as RwKegiatanController;
 use App\Http\Controllers\RW\KeluargaController as RwKeluargaController;
 use App\Http\Controllers\RW\WargaController as RwWargaController;
+// SPK
+use App\Http\Controllers\SPK\KriteriaController;
+use App\Http\Controllers\SPK\AlternatifController;
+use App\Http\Controllers\SPK\CripsController;
+use App\Http\Controllers\SPK\PenilaianController;
+
+
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\RegistrasiWargaController as RegistrasiWarga;
 use App\Http\Controllers\RW\AprrovePengaduan;
 use App\Http\Controllers\RW\ApproveUmkm;
 use App\Http\Controllers\RW\Verifikasi as RWverifikasi;
 use App\Http\Controllers\RW\VerifikasiKeluarga as RWverifikasiKeluarga;
+use App\Models\Crips;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -72,13 +80,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::prefix('bansos')->group(function () {
             Route::get('/', [BantuanSosialController::class, 'index'])->name('bansos');
             Route::get('/jenis-bansos', [BantuanSosialController::class, 'jenisBansos'])->name('jenis-bansos');
-            Route::get('/pengajuan', [BantuanSosialController::class, 'pengajuan'])->name('pengajuan-bansos');
+            Route::get('/pengajuan', [BantuanSosialController::class, 'create'])->name('bansos-create');
+            Route::get('/pengajuan/store', [BantuanSosialController::class, 'store'])->name('bansos-store');
             Route::get('/daftar-penerima-bansos', [BantuanSosialController::class, 'daftarPenerimaBansos'])->name('daftar-penerima-bansos');
         });
-
-        Route::get('/denah-rumah', function () {
-            // Your controller logic here
-        })->name('denah-rumah');
 
         Route::group(['prefix' => 'pengaduan'], function () {
             Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan');
@@ -89,7 +94,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::prefix('umkm')->group(function () {
             Route::get('/', [UmkmController::class, 'index'])->name('umkm');
-            Route::get('/pengajuan-umkm', [UmkmController::class, 'show'])->name('pengajuan-umkm');
+            Route::get('/pengajuan-umkm', [UmkmController::class, 'show'])->name('pengajuan');
             Route::get('/umkm/create', [UmkmController::class, 'create'])->name('umkm.create');
             Route::post('/umkm/store', [UmkmController::class, 'store'])->name('umkm.store');
         });
@@ -185,6 +190,36 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/umkm/approve/{id}', [ApproveUmkm::class, 'approve'])->name('umkm.approve');
             Route::post('/umkm/reject/{id}', [ApproveUmkm::class, 'reject'])->name('umkm.reject');
         });
+        Route::prefix('/kriteria')->group(function () {
+            Route::get('/', [KriteriaController::class, 'index'])->name('kriteria.index');
+            Route::post('/store', [KriteriaController::class, 'store'])->name('kriteria.store');
+            Route::get('/{id}/show', [KriteriaController::class, 'show'])->name('kriteria.show');
+            Route::get('/{id}/edit', [KriteriaController::class, 'edit'])->name('kriteria.edit');
+            Route::put('/{id}/update', [KriteriaController::class, 'update'])->name('kriteria.update');
+            Route::delete('/{id}', [KriteriaController::class, 'destroy'])->name('kriteria.destroy');
+        });
+        Route::prefix('/alternatif')->group(function () {
+            Route::get('/', [AlternatifController::class, 'index'])->name('alter.index');
+            Route::post('/store', [AlternatifController::class, 'store'])->name('alter.store');
+            Route::get('/{id}/edit', [AlternatifController::class, 'edit'])->name('alter.edit');
+            Route::put('/{id}/update', [AlternatifController::class, 'update'])->name('alter.update');
+            Route::delete('/{id}', [AlternatifController::class, 'destroy'])->name('alter.destroy');
+        });
+        Route::prefix('/crips')->group(function () {
+            Route::get('/', [CripsController::class, 'index'])->name('cp.index');
+            Route::post('/store', [CripsController::class, 'store'])->name('cp.store');
+            Route::get('/{id}/edit', [CripsController::class, 'edit'])->name('cp.edit');
+            Route::put('/{id}/update', [CripsController::class, 'update'])->name('cp.update');
+            Route::delete('/{id}', [CripsController::class, 'destroy'])->name('cp.destroy');
+        });
+        Route::prefix('/penilaian')->group(function () {
+            Route::get('/', [PenilaianController::class, 'index'])->name('pn.index');
+            Route::post('/store', [PenilaianController::class, 'store'])->name('pn.store');
+            Route::get('/{id}/edit', [PenilaianController::class, 'edit'])->name('pn.edit');
+            Route::put('/{id}/update', [PenilaianController::class, 'update'])->name('pn.update');
+            Route::delete('/{id}', [PenilaianController::class, 'destroy'])->name('pn.destroy');
+        });
+
     });
 });
 

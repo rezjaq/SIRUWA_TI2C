@@ -58,5 +58,18 @@
                 <i class="mdi mdi-store menu-icon"></i>
             </a>
         </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle {{ ($activeMenu == 'spk') ? 'active' : '' }}" href="#" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="menu-title">SPK Bansos</span>
+                <i class="mdi mdi-store menu-icon"></i>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{{ url('/kriteria') }}">Kriteria</a>
+                <a class="dropdown-item" href="{{ url('/alternatif') }}">Alternatif</a>
+                <a class="dropdown-item" href="{{ url('/penilaian') }}">Penilaian</a>
+            </div>
+        </li>
+        
+        
     </ul>
 </nav>

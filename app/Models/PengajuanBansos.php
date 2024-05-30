@@ -25,4 +25,14 @@ class PengajuanBansos extends Model
     {
         return $this->belongsTo(Warga::class, 'nik_warga', 'nik');
     }
+
+    public function kriteria()
+    {
+        return $this->belongsToMany(Kriteria::class, 'kriteria_id');
+    }
+
+    public function crip()
+    {
+        return $this->belongsToMany(Crips::class, 'id');
+    }
 }

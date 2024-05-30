@@ -19,7 +19,7 @@ class umkm extends Controller
                     'label' => 'UMKM Warga',
                     'dropdown' => true,
                     'links' => [
-                        ['url' => route('pengajuan-umkm'), 'label' => 'Daftar UMKM Warga'],
+                        ['url' => route('pengajuan'), 'label' => 'Daftar UMKM Warga'],
                         ['url' => route('umkm.create'), 'label' => 'Pengajuan UMKM']
                     ]
                 ],
@@ -39,7 +39,7 @@ class umkm extends Controller
                     'label' => 'Pengajuan UMKM Warga',
                     'dropdown' => true,
                     'links' => [
-                        ['url' => route('pengajuan-umkm'), 'label' => 'Daftar UMKM Warga'],
+                        ['url' => route('pengajuan'), 'label' => 'Daftar UMKM Warga'],
                         ['url' => route('umkm.create'), 'label' => 'Pengajuan UMKM']
                     ]
                 ],
@@ -95,7 +95,7 @@ class umkm extends Controller
                     'label' => 'UMKM Warga',
                     'dropdown' => true,
                     'links' => [
-                        ['url' => route('pengajuan-umkm'), 'label' => 'Daftar UMKM Warga'],
+                        ['url' => route('pengajuan'), 'label' => 'Daftar UMKM Warga'],
                         ['url' => route('umkm.create'), 'label' => 'Pengajuan UMKM']
                     ]
                 ],
@@ -103,11 +103,11 @@ class umkm extends Controller
             ]
         ];
 
-        $usahaWarga = UsahaWarga::where('nik_warga', Auth::user()->nik)
-            ->where('status', 'approved')
-            ->get();
+        // Corrected the query to fetch only approved records
+        $usahaWarga = UsahaWarga::where('status', 'approved')->get();
 
         return view('warga.umkm.umkm', ['breadcrumb' => $breadcrumb, 'usahaWarga' => $usahaWarga]);
     }
+
 
 }

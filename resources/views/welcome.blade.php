@@ -92,7 +92,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="bansosDropdown">
                             <li><a class="dropdown-item" href="{{ route('jenis-bansos') }}">Jenis Bansos</a></li>
-                            <li><a class="dropdown-item" href="{{ route('pengajuan-bansos') }}">Pengajuan</a></li>
+                            <li><a class="dropdown-item" href="{{ route('bansos-create') }}">Pengajuan</a></li>
                             <li><a class="dropdown-item" href="{{ route('daftar-penerima-bansos') }}">Daftar Penerima Bansos</a></li>
                         </ul>
                     </li>
@@ -107,7 +107,7 @@
                             UMKM
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="umkmDropdown">
-                            <li><a class="dropdown-item" href="{{ route('pengajuan-umkm') }}">Macam Macam UMKM</a></li>
+                            <li><a class="dropdown-item" href="{{ route('pengajuan') }}">Macam Macam UMKM</a></li>
                             <li><a class="dropdown-item" href="{{ route('umkm.create') }}">Pengajuan UMKM</a></li>
                         </ul>
                     </li>
@@ -189,7 +189,7 @@
                             <div class="program-title">UMKM Warga</div>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item check-login" href="{{ route('pengajuan-umkm') }}">Macam-Macam UMKM</a></li>
+                            <li><a class="dropdown-item check-login" href="{{ route('pengajuan') }}">Macam-Macam UMKM</a></li>
                             <li><a class="dropdown-item check-login" href="{{ route('umkm.create') }}">Pengajuan UMKM</a></li>
                         </ul>
                     </div>
@@ -197,7 +197,7 @@
                         <img src="{{ asset('assets/icon/5.png') }}" alt="Bantuan Sosial">
                         <div class="program-title">Bantuan Sosial</div>
                     </a>
-                    <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Pengajuan Bansos">
+                    <a href="{{ route('bansos-create') }}" class="program-ikon check-login" aria-label="Pengajuan Bansos">
                         <img src="{{ asset('assets/icon/bansos.png') }}" alt="Pengajuan Bansos">
                         <div class="program-title">Pengajuan Bansos</div>
                     </a>
