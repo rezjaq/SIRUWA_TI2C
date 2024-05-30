@@ -21,44 +21,6 @@
     <form action="{{ route('warga.keluarga.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-
-        <div class="form-group">
-            <label for="nama_kepala_keluarga">Nama Kepala Keluarga</label>
-            <input type="text" name="nama_kepala_keluarga" class="form-control" value="{{ old('nama_kepala_keluarga', $keluarga->nama_kepala_keluarga) }}">
-            @error('nama_kepala_keluarga')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group">
-            <label for="no_kk">No KK</label>
-            <input type="text" name="no_kk" class="form-control" value="{{ old('no_kk', $keluarga->no_kk) }}">
-            @error('no_kk')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group">
-            <label for="alamat">Alamat</label>
-            <input type="text" name="alamat" class="form-control" value="{{ old('alamat', $keluarga->alamat) }}">
-            @error('alamat')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group">
-            <label for="no_rt">No RT</label>
-            <input type="text" name="no_rt" class="form-control" value="{{ old('no_rt', $keluarga->no_rt) }}">
-            @error('no_rt')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group">
-            <label for="kk">KK</label>
-            <input type="file" name="kk" class="form-control">
-            @if ($keluarga->kk)
-                <img src="{{ asset('storage/kk_images/' . basename($keluarga->kk)) }}" alt="KK" width="100">
-            @endif
-            @error('kk')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
     <div class="card shadow-sm">
         <div class="card-header" style="background-color: #03774A; color: #fff;">
             <h4 class="mb-0">
@@ -109,7 +71,7 @@
                     <label for="kk" class="form-label">KK</label>
                     <input type="file" name="kk" class="form-control @error('kk') is-invalid @enderror">
                     @if ($keluarga->kk)
-                        <img src="{{ Storage::url($keluarga->kk) }}" alt="KK" width="100" class="mt-2">
+                        <img src="{{ asset('storage/kk_images/' . basename($keluarga->kk)) }}" alt="KK" width="100" class="mt-2">
                     @endif
                     @error('kk')
                         <div class="invalid-feedback">{{ $message }}</div>

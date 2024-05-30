@@ -2,11 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RT\DashboardController as RTDashboardController;
-use App\Http\Controllers\RT\PengumumanController as RTPengumumanController;
-use App\Http\Controllers\RT\KegiatanController as RTKegiatanController;
-use App\Http\Controllers\RT\KeluargaController as RTKeluargaController;
-use App\Http\Controllers\RT\WargaController as RTWargaController;
-use App\Http\Controllers\RT\PengaduanController as RTPengaduanController;
+// use App\Http\Controllers\RT\PengumumanController as RTPengumumanController;
+// use App\Http\Controllers\RT\KegiatanController as RTKegiatanController;
 use App\Http\Controllers\Warga\DashboardWargaController as DashboardWargaController;
 use App\Http\Controllers\Warga\PengajuanSuratController as PengajuanSuratController;
 use App\Http\Controllers\Warga\BantuanSosial as BantuanSosialController;
@@ -25,9 +22,14 @@ use App\Http\Controllers\RW\WargaController as RwWargaController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\RegistrasiWargaController as RegistrasiWarga;
 use App\Http\Controllers\RW\AprrovePengaduan;
+use App\Http\Controllers\RT\KeluargaController as RTKeluargaController;
+use App\Http\Controllers\RT\WargaController as RTWargaController;
 use App\Http\Controllers\RW\ApproveUmkm;
 use App\Http\Controllers\RW\Verifikasi as RWverifikasi;
 use App\Http\Controllers\RW\VerifikasiKeluarga as RWverifikasiKeluarga;
+use App\Http\Controllers\RT\RTVerifikasiWarga as RTverifikasiWarga;
+use App\Http\Controllers\RT\RTVerifikasiKeluarga as RTverifikasiKeluarga;
+use App\Http\Controllers\RT\AprovePengaduanRT as AprovePengaduanRT;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -94,6 +96,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/umkm/store', [UmkmController::class, 'store'])->name('umkm.store');
         });
 
+        // ->middleware('auth')
         Route::prefix('/data-keluarga')->middleware('auth')->group(function () {
             Route::get('/', [WargaDataKeluargaController::class, 'index'])->name('warga.keluarga.index');
             Route::get('/create', [WargaDataKeluargaController::class, 'create'])->name('warga.keluarga.create');
@@ -186,6 +189,84 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/umkm/reject/{id}', [ApproveUmkm::class, 'reject'])->name('umkm.reject');
         });
     });
+    // Rute untuk RT
+    Route::group(['middleware' => ['cek_login:RT']], function () {
+        Route::get('/RT', [RTDashboardController::class, 'index'])->name('dashboard-rt');
+
+        Route::prefix('/family')->group(function () {
+            Route::get('/', [RTKeluargaController::class, 'index'])->name('family.index');
+            Route::post('/list', [RTKeluargaController::class, 'list'])->name('family.list');
+            Route::get('/create', [RTKeluargaController::class, 'create'])->name('family.create');
+            Route::post('/store', [RTKeluargaController::class, 'store'])->name('family.store');
+            Route::get('/{id}', [RTKeluargaController::class, 'show'])->name('family.show');
+            Route::get('/{id}/edit', [RTKeluargaController::class, 'edit'])->name('family.edit');
+            Route::put('/{id}/update', [RTKeluargaController::class, 'update'])->name('family.update');
+            Route::delete('/{id}', [RTKeluargaController::class, 'destroy'])->name('family.destroy');
+        });
+
+        Route::prefix('/citizen')->group(function () {
+            Route::get('/', [RTWargaController::class, 'index'])->name('citizen.index');
+            Route::post('/list', [RTWargaController::class, 'list'])->name('citizen.list');
+            Route::get('/create', [RTWargaController::class, 'create'])->name('citizen.create');
+            Route::post('/store', [RTWargaController::class, 'store'])->name('citizen.store');
+            Route::get('/{id}', [RTWargaController::class, 'show'])->name('citizen.show');
+            Route::get('/{id}/edit', [RTWargaController::class, 'edit'])->name('citizen.edit');
+            Route::put('/{id}/update', [RTWargaController::class, 'update'])->name('citizen.update');
+            Route::delete('/{id}', [RTWargaController::class, 'destroy'])->name('citizen.destroy');
+        });
+        Route::prefix('/RTVerifikasiWarga')->group(function () {
+            Route::get('/', [RTverifikasiWarga::class, 'index'])->name('RTVerifikasiWarga.index');
+            Route::post('/list', [RTverifikasiWarga::class, 'list'])->name('RTVerifikasiWarga.list');
+            Route::get('/{id}', [RTverifikasiWarga::class, 'show'])->name('RTVerifikasiWarga.show');
+            Route::post('/approve/{nik}', [RTverifikasiWarga::class, 'approve'])->name('RTVerifikasiWarga.approve');
+            Route::post('reject/{nik}', [RTverifikasiWarga::class, 'reject'])->name('RTVerifikasiWarga.reject');
+        });
+        Route::prefix('/RTVerifikasiKeluarga')->group(function () {
+            Route::get('/', [RTverifikasiKeluarga::class, 'index'])->name('RTVerifikasiKeluarga.index');
+            Route::post('/list', [RTverifikasiKeluarga::class, 'list'])->name('RTVerifikasiKeluarga.list');
+            Route::get('/{id}', [RTverifikasiKeluarga::class, 'show'])->name('RTVerifikasiKeluarga.show');
+            Route::post('/approve/{id_keluarga}', [RTverifikasiKeluarga::class, 'approve'])->name('RTVerifikasiKeluarga.approve');
+            Route::post('reject/{id_keluarga}', [RTverifikasiKeluarga::class, 'reject'])->name('RTVerifikasiKeluarga.reject');
+        });
+        Route::prefix('/PengaduanRT')->group(function () {
+            Route::get('/', [AprovePengaduanRT::class, 'index'])->name('RT.pengaduan.index');
+            Route::post('/{id}/approve', [AprovePengaduanRT::class, 'approve'])->name('RT.pengaduan.approve');
+            Route::post('/{id}/reject', [AprovePengaduanRT::class, 'reject'])->name('RT.pengaduan.reject');
+        });
+
+        // Route::prefix('announcement')->group(function () {
+        //     Route::get('/', [RTPengumumanController::class, 'index'])->name('announcement.index');
+        //     Route::post('/list', [RTPengumumanController::class, 'list'])->name('announcement.list');
+        //     Route::get('/create', [RTPengumumanController::class, 'create'])->name('announcement.create');
+        //     Route::post('/store', [RTPengumumanController::class, 'store'])->name('announcement.store');
+        //     Route::get('/{id}', [RTPengumumanController::class, 'show'])->name('announcement.show');
+        //     Route::get('/{id}/edit', [RTPengumumanController::class, 'edit'])->name('announcement.edit');
+        //     Route::put('/{id}/update', [RTPengumumanController::class, 'update'])->name('announcement.update');
+        //     Route::delete('/{id}', [RTPengumumanController::class, 'destroy'])->name('announcement.destroy');
+        // });
+
+        // Route::prefix('/activity')->group(function () {
+        //     Route::get('/', [RTKegiatanController::class, 'index'])->name('activity.index');
+        //     Route::post('/list', [RTKegiatanController::class, 'list'])->name('activity.list');
+        //     Route::get('/create', [RTKegiatanController::class, 'create'])->name('activity.create');
+        //     Route::post('/store', [RTKegiatanController::class, 'store'])->name('activity.store');
+        //     Route::get('/{id}', [RTKegiatanController::class, 'show'])->name('activity.show');
+        //     Route::get('/{id}/edit', [RTKegiatanController::class, 'edit'])->name('activity.edit');
+        //     Route::put('/{id}/update', [RTKegiatanController::class, 'update'])->name('activity.update');
+        //     Route::delete('/{id}', [RTKegiatanController::class, 'destroy'])->name('activity.destroy');
+        // });
+
+        // Route::prefix('/complaint')->group(function () {
+        //     Route::get('/', [RTPengaduanController::class, 'index'])->name('complaint.index');
+        //     Route::post('/list', [RTPengaduanController::class, 'list'])->name('complaint.list');
+        //     Route::get('/create', [RTPengaduanController::class, 'create'])->name('complaint.create');
+        //     Route::post('/store', [RTPengaduanController::class, 'store'])->name('complaint.store');
+        //     Route::get('/{id}', [RTPengaduanController::class, 'show'])->name('complaint.show');
+        //     Route::get('/{id}/edit', [RTPengaduanController::class, 'edit'])->name('complaint.edit');
+        //     Route::put('/{id}/update', [RTPengaduanController::class, 'update'])->name('complaint.update');
+        //     Route::delete('/{id}', [RTPengaduanController::class, 'destroy'])->name('complaint.destroy');
+        // });
+    });
 });
 
 
@@ -202,65 +283,6 @@ Route::group(['middleware' => ['auth']], function () {
 //     });
 // });
 
-// Rute untuk RT
-Route::group(['middleware' => ['cek_login:RT']], function () {
-    Route::get('/RT', [RTDashboardController::class, 'index'])->name('dashboard-rt');
-
-    Route::prefix('announcement')->group(function () {
-        Route::get('/', [RTPengumumanController::class, 'index'])->name('announcement.index');
-        Route::post('/list', [RTPengumumanController::class, 'list'])->name('announcement.list');
-        Route::get('/create', [RTPengumumanController::class, 'create'])->name('announcement.create');
-        Route::post('/store', [RTPengumumanController::class, 'store'])->name('announcement.store');
-        Route::get('/{id}', [RTPengumumanController::class, 'show'])->name('announcement.show');
-        Route::get('/{id}/edit', [RTPengumumanController::class, 'edit'])->name('announcement.edit');
-        Route::put('/{id}/update', [RTPengumumanController::class, 'update'])->name('announcement.update');
-        Route::delete('/{id}', [RTPengumumanController::class, 'destroy'])->name('announcement.destroy');
-    });
-
-    Route::prefix('/activity')->group(function () {
-        Route::get('/', [RTKegiatanController::class, 'index'])->name('activity.index');
-        Route::post('/list', [RTKegiatanController::class, 'list'])->name('activity.list');
-        Route::get('/create', [RTKegiatanController::class, 'create'])->name('activity.create');
-        Route::post('/store', [RTKegiatanController::class, 'store'])->name('activity.store');
-        Route::get('/{id}', [RTKegiatanController::class, 'show'])->name('activity.show');
-        Route::get('/{id}/edit', [RTKegiatanController::class, 'edit'])->name('activity.edit');
-        Route::put('/{id}/update', [RTKegiatanController::class, 'update'])->name('activity.update');
-        Route::delete('/{id}', [RTKegiatanController::class, 'destroy'])->name('activity.destroy');
-    });
-
-    Route::prefix('/family')->group(function () {
-        Route::get('/', [RTKeluargaController::class, 'index'])->name('family.index');
-        Route::post('/list', [RTKeluargaController::class, 'list'])->name('family.list');
-        Route::get('/create', [RTKeluargaController::class, 'create'])->name('family.create');
-        Route::post('/store', [RTKeluargaController::class, 'store'])->name('family.store');
-        Route::get('/{id}', [RTKeluargaController::class, 'show'])->name('family.show');
-        Route::get('/{id}/edit', [RTKeluargaController::class, 'edit'])->name('family.edit');
-        Route::put('/{id}/update', [RTKeluargaController::class, 'update'])->name('family.update');
-        Route::delete('/{id}', [RTKeluargaController::class, 'destroy'])->name('family.destroy');
-    });
-
-    Route::prefix('/citizen')->group(function () {
-        Route::get('/', [RTWargaController::class, 'index'])->name('citizen.index');
-        Route::post('/list', [RTWargaController::class, 'list'])->name('citizen.list');
-        Route::get('/create', [RTWargaController::class, 'create'])->name('citizen.create');
-        Route::post('/store', [RTWargaController::class, 'store'])->name('citizen.store');
-        Route::get('/{id}', [RTWargaController::class, 'show'])->name('citizen.show');
-        Route::get('/{id}/edit', [RTWargaController::class, 'edit'])->name('citizen.edit');
-        Route::put('/{id}/update', [RTWargaController::class, 'update'])->name('citizen.update');
-        Route::delete('/{id}', [RTWargaController::class, 'destroy'])->name('citizen.destroy');
-    });
-
-    Route::prefix('/complaint')->group(function () {
-        Route::get('/', [RTPengaduanController::class, 'index'])->name('complaint.index');
-        Route::post('/list', [RTPengaduanController::class, 'list'])->name('complaint.list');
-        Route::get('/create', [RTPengaduanController::class, 'create'])->name('complaint.create');
-        Route::post('/store', [RTPengaduanController::class, 'store'])->name('complaint.store');
-        Route::get('/{id}', [RTPengaduanController::class, 'show'])->name('complaint.show');
-        Route::get('/{id}/edit', [RTPengaduanController::class, 'edit'])->name('complaint.edit');
-        Route::put('/{id}/update', [RTPengaduanController::class, 'update'])->name('complaint.update');
-        Route::delete('/{id}', [RTPengaduanController::class, 'destroy'])->name('complaint.destroy');
-    });
-});
 
 
 Route::get('/berita', function () {
@@ -270,4 +292,3 @@ Route::get('/berita', function () {
 
 // Home Page or Landing Page
 Route::get('/', [HomeController::class, 'index'])->name('home');
-

@@ -33,11 +33,11 @@
                         </div>
                     @elseif($warga->verif == 'belum_terverifikasi')
                         <div class="alert alert-warning" role="alert">
-                            Segera Lengkapi Data dan Tunggu Untuk Proses Verifikasi. Data diri Anda belum lengkap. Silakan lengkapi data Anda untuk verifikasi.
+                            Data Anda Menunggu Untuk Proses Verifikasi.
                         </div>
                     @elseif($warga->verif == 'tidak_terverifikasi')
                         <div class="alert alert-danger" role="alert">
-                            Data Anda Mungkin Ada yang Salah. Periksa kembali data Anda dan lakukan submit ulang.
+                            Data Anda Belum Lengkap Atau Data Yang Anda Submit Telah Ditolak. Periksa dan lengkapi kembali data Anda dan lakukan submit.
                         </div>
                     @endif
 

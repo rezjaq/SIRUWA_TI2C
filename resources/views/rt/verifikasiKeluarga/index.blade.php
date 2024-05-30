@@ -4,12 +4,6 @@
 <div class="card card-outline card-primary">
     <div class="card-header bg-gradient-primary d-flex justify-content-between align-items-center">
         <h3 class="card-title">{{ $page->title }}</h3>
-        <div class="card-tools">
-            <!-- Tombol untuk pindah ke halaman tambah data kegiatan -->
-            <a href="{{ route('family.create') }}" class="btn btn-success btn-sm">
-                <i class="fas fa-plus"></i> Tambah Keluarga
-            </a>
-        </div>
     </div>
     <div class="card-body">
         @if (session('success'))
@@ -22,12 +16,11 @@
             <table class="table table-bordered table-striped table-hover table-sm" id="table_keluarga">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>id keluarga</th>
+                        <th>NO KK</th>
                         <th>Nama Kepala Keluarga</th>
-                        <th>NO.KK</th>
-                        <th>Alamat</th>
-                        <th>NO.RT</th>
-                        <th>Aksi</th> 
+                        <th>Keterangan</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
             </table>
@@ -69,16 +62,15 @@
 @push('js')
 <script>
     $(document).ready(function () {
-        var dataPengumuman = $('#table_keluarga').DataTable({
+        var dataKeluarga = $('#table_keluarga').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
-                "url": "{{ route('family.list') }}",
-                "dataType": "json",
-                "type": "POST",
-                "data": function(d){
-                    // d.id_kegiatan = $('#id_kegiatan').val();
-                    d._token = '{{ csrf_token() }}';
+                url: "{{ route('RTVerifikasiKeluarga.list') }}",
+                dataType: "json",
+                type: "POST",
+                data: {
+                    "_token": "{{ csrf_token() }}"
                 }
             },
             columns: [
@@ -89,13 +81,6 @@
                     searchable: false               
                 },
                 {
-                    data: "nama_kepala_keluarga",
-                    name: "nama_kepala_keluarga",
-                    className: "",
-                    orderable: false,
-                    searchable: true
-                },
-                {
                     data: "no_kk",
                     name: "no_kk",
                     className: "",
@@ -103,32 +88,73 @@
                     searchable: true
                 },
                 {
-                    data: "alamat",
-                    name: "alamat",
+                    data: "nama_kepala_keluarga",
+                    name: "nama_kepala_keluarga",
                     className: "",
                     orderable: false,
                     searchable: true
                 },
                 {
-                    data: "no_rt",
-                    name: "no_rt",
+                    data: "keterangan",
+                    name: "keterangan",
                     className: "",
                     orderable: false,
-                    searchable: true
+                    searchable: false
                 },
                 {
                     data: "aksi",
                     name: "aksi",
                     className: "",
                     orderable: false,
-                    searchable: false
+                    searchable: false,
+                    render: function (data, type, row) {
+                        return `
+                            <a href="#" class="btn btn-primary btn-sm mr-1" onclick="showDetail('${row.id_keluarga}')" style="width: 40px; height: 40px; margin-right: 5px;"><i class="fas fa-eye"></i></a>
+                            <button class="btn btn-success btn-sm mr-1" onclick="approve('${row.id_keluarga}')">Setujui</button>
+                            <button class="btn btn-danger btn-sm" onclick="reject('${row.id_keluarga}')">Tolak</button>
+                        `;
+                    }
                 }
             ]
         });
 
-        $('#id_keluarga').on('change', function(){
-            dataKeluarga.ajax.reload(); 
-        });
+        window.showDetail = function (id_keluarga) {
+            window.location.href = "{{ route('RTVerifikasiKeluarga.show', '') }}/" + id_keluarga;
+        }
+
+        window.approve = function (id_keluarga) {
+            $.ajax({
+                url: "{{ route('RTVerifikasiKeluarga.approve', '') }}/" + id_keluarga,
+                type: 'POST',
+                data: {
+                    "_token": "{{ csrf_token() }}"
+                },
+                success: function (response) {
+                    alert(response.success);
+                    dataKeluarga.ajax.reload();
+                },
+                error: function (response) {
+                    alert(response.error);
+                }
+            });
+        }
+
+        window.reject = function (id_keluarga) {
+            $.ajax({
+                url: "{{ route('RTVerifikasiKeluarga.reject', '') }}/" + id_keluarga,
+                type: 'POST',
+                data: {
+                    "_token": "{{ csrf_token() }}"
+                },
+                success: function (response) {
+                    alert(response.success);
+                    dataKeluarga.ajax.reload();
+                },
+                error: function (response) {
+                    alert(response.error);
+                }
+            });
+        }
     });
 </script>
 @endpush

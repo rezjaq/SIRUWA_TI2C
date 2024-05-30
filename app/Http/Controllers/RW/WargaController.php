@@ -97,6 +97,7 @@ class WargaController extends Controller
         }
         if ($aktePath) {
             $sts = 'disetujui';
+            $verifikasi = 'tidak_terverifikasi';
         }
 
         // Simpan data warga baru
@@ -121,9 +122,6 @@ class WargaController extends Controller
 
         return redirect()->route('Warga.index')->with('success', 'Warga berhasil ditambahkan.');
     }
-
-
-
 
     public function show($nik)
     {

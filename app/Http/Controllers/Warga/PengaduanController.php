@@ -52,6 +52,7 @@ class PengaduanController extends Controller
             'tanggal_aduan' => $request->tanggal_aduan,
             'isi_aduan' => $request->isi_aduan,
             'foto' => $imagePath,
+            'status_aduan' => 'pending',
         ]);
 
         return redirect()->route('pengaduan')->with('success', 'Pengaduan berhasil dikirim.');
