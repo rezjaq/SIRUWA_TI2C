@@ -111,7 +111,7 @@ class RTVerifikasiWarga extends Controller
 
         if ($warga->status == 'belum_disetujui') {
             $aktePath = $warga->akte ? asset('storage/akte/' . $warga->akte) : null;
-            return view('rt.verifikasiWarga.show1', compact('breadcrumb', 'activeMenu', 'warga', 'aktePath'));
+            return view('rt.verifikasiWarga.show', compact('breadcrumb', 'activeMenu', 'warga', 'aktePath'));
         }
 
         abort(404, 'Halaman tidak ditemukan.');

@@ -17,10 +17,11 @@ return new class extends Migration {
             $table->string('nama_usaha');
             $table->string('jenis_usaha');
             $table->string('alamat_usaha');
-            $table->string('nomer_telepon'); // Tambah kolom nomer_telepon
-            $table->text('keterangan');
+            $table->string('nomer_telepon');
+            $table->decimal('harga', 10, 2);
+            $table->text('deskripsi');
             $table->string('status')->default('pending');
-            $table->string('foto')->nullable(); // Kolom foto yang bisa null
+            $table->string('foto')->nullable();
             $table->timestamps();
         });
     }
@@ -33,5 +34,6 @@ return new class extends Migration {
         Schema::dropIfExists('usaha_warga');
     }
 };
+
 
 

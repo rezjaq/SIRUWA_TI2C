@@ -58,5 +58,11 @@
                 <i class="mdi mdi-store menu-icon"></i>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{ url('/logout') }}" class="nav-link {{ ($activeMenu == 'pengaduan') ? 'active' : '' }}">
+                <span class="menu-title">Logout</span>
+                <i class="mdi mdi-account menu-icon"></i>
+            </a>
+        </li>
     </ul>
 </nav>

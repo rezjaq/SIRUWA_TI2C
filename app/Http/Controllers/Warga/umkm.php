@@ -60,7 +60,7 @@ class umkm extends Controller
             'alamat_usaha' => 'required',
             'nomer_telepon' => 'required',
             'harga' => 'required|numeric',
-            'deskripsi' => 'required',
+            'deskripsi' => 'required', // correct the field name
             'foto' => 'nullable|image|mimes:jpeg,png,jpg',
         ]);
 
@@ -70,19 +70,20 @@ class umkm extends Controller
         $usahaWarga->alamat_usaha = $request->alamat_usaha;
         $usahaWarga->nomer_telepon = $request->nomer_telepon;
         $usahaWarga->harga = $request->harga;
-        $usahaWarga->deskripsi = $request->deskripsi;
+        $usahaWarga->deskripsi = $request->deskripsi; // correct the field name
         $usahaWarga->nik_warga = Auth::user()->nik;
         $usahaWarga->status = 'pending';
 
         if ($request->hasFile('foto')) {
             $fotoPath = $request->file('foto')->store('public/umkm');
-            $usahaWarga->foto = str_replace('public/', '', $fotoPath); // Hanya simpan path relatif dari storage
+            $usahaWarga->foto = str_replace('public/', '', $fotoPath);
         }
 
         $usahaWarga->save();
 
         return redirect()->route('pengajuan-umkm')->with('success', 'Pengajuan UMKM berhasil disimpan.');
     }
+
 
 
 
@@ -103,9 +104,9 @@ class umkm extends Controller
             ]
         ];
 
-        $usahaWarga = UsahaWarga::where('nik_warga', Auth::user()->nik)
-            ->where('status', 'approved')
+        $usahaWarga = UsahaWarga::where('status', 'approved')
             ->get();
+
 
         return view('warga.umkm.umkm', ['breadcrumb' => $breadcrumb, 'usahaWarga' => $usahaWarga]);
     }
