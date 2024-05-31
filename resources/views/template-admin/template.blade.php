@@ -71,6 +71,7 @@
     <script src="{{ asset('asset/js/dashboard.js') }}"></script>
     <!-- JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- End custom js for this page -->
     @stack('js')
 </body>
