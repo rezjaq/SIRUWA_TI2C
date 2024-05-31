@@ -268,13 +268,6 @@ class KeluargaSeeder extends Seeder
                 'no_rt' => '6',
             ],
             [
-                'id_keluarga' => '3525020901170005',
-                'nama_kepala_keluarga' => 'ACHMAD QOIRUL HIDAYAT',
-                'no_kk' => '3525020301940001',
-                'alamat' => 'Jl. Onggojoyo No. 14',
-                'no_rt' => '6',
-            ],
-            [
                 'id_keluarga' => '3525020906160001',
                 'nama_kepala_keluarga' => 'ABDUL ROKHMAN',
                 'no_kk' => '3525022204970001',
