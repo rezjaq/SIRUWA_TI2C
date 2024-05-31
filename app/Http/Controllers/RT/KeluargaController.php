@@ -13,20 +13,20 @@ class KeluargaController extends Controller
 {
     public function index()
     {
-        $breadcrumb = (object) [
-            'title' => 'Menu Keluarga',
-        ];
+        // $breadcrumb = (object) [
+        //     'title' => 'Menu Keluarga',
+        // ];
 
         $page = (object) [
             'title' => 'Mengelola Keluarga'
         ];
 
         $activeMenu = 'family';
-        
+
         $userNoRT = Auth::user()->no_rt;
         $keluargas = Keluarga::where('no_rt', $userNoRT)->get();
 
-        return view('rt.family.index', compact('breadcrumb', 'page', 'activeMenu', 'keluargas'));
+        return view('rt.family.index', compact('page', 'activeMenu', 'keluargas'));
     }
 
     public function list()
@@ -35,7 +35,8 @@ class KeluargaController extends Controller
         $keluarga = Keluarga::select('id_keluarga', 'nama_kepala_keluarga', 'no_kk', 'alamat', 'no_rt')
             ->where('status', 'disetujui')
             ->where('no_rt', $userNoRT)
-            ->get();;
+            ->get();
+        ;
 
         return DataTables::of($keluarga)
             ->addIndexColumn()
@@ -51,11 +52,9 @@ class KeluargaController extends Controller
 
     public function create()
     {
-        $breadcrumb = (object) [
-            'title' => 'Tambah Keluarga',
-        ];
+
         $activeMenu = 'keluarga';
-        return view('rt.family.create', compact('breadcrumb', 'activeMenu'));
+        return view('rt.family.create', compact('activeMenu'));
     }
 
     public function store(Request $request)
@@ -93,29 +92,20 @@ class KeluargaController extends Controller
 
     public function show($id)
     {
-        $breadcrumb = (object) [
-            'title' => 'Detail Keluarga',
-            'list' => ['Home', 'Keluarga', 'Detail']
-        ];
-
         $activeMenu = 'keluarga';
 
         $keluarga = Keluarga::with('anggota')->findOrFail($id);
 
-        return view('rt.family.show', compact('breadcrumb', 'activeMenu', 'keluarga'));
+        return view('rt.family.show', compact('activeMenu', 'keluarga'));
     }
 
     public function edit($id)
     {
-        $breadcrumb = (object) [
-            'title' => 'Edit Keluarga',
-            'list' => ['Home', 'Keluarga', 'Edit']
-        ];
         $activeMenu = 'keluarga';
 
         $keluarga = Keluarga::findOrFail($id);
 
-        return view('rt.family.edit', compact('breadcrumb', 'activeMenu', 'keluarga'));
+        return view('rt.family.edit', compact('activeMenu', 'keluarga'));
     }
 
     public function update(Request $request, $id)

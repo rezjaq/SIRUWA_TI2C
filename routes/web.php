@@ -73,14 +73,9 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::prefix('bansos')->group(function () {
             Route::get('/', [BantuanSosialController::class, 'index'])->name('bansos');
-            Route::get('/jenis-bansos', [BantuanSosialController::class, 'jenisBansos'])->name('jenis-bansos');
             Route::get('/pengajuan', [BantuanSosialController::class, 'pengajuan'])->name('pengajuan-bansos');
             Route::get('/daftar-penerima-bansos', [BantuanSosialController::class, 'daftarPenerimaBansos'])->name('daftar-penerima-bansos');
         });
-
-        Route::get('/denah-rumah', function () {
-            // Your controller logic here
-        })->name('denah-rumah');
 
         Route::group(['prefix' => 'pengaduan'], function () {
             Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan');
