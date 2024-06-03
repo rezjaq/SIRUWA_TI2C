@@ -240,7 +240,7 @@
                                 <p class="card-text text-muted">15-05-2024</p>
                                 <h4 class="card-title fw-bold mb-3">Karnaval</h4>
                                 <p class="text-secondary">#desamoderen</p>
-                                <a href="#" class="text-decoration-none text-danger">Read More</a>
+                                <a href="{{ route('detail-berita') }}" class="text-decoration-none text-danger">Read More</a>
                             </div>
                         </div>
                     </div>
@@ -251,7 +251,7 @@
                                 <p class="card-text text-muted">15-05-2024</p>
                                 <h4 class="card-title fw-bold mb-3">Karnaval</h4>
                                 <p class="text-secondary">#desamoderen</p>
-                                <a href="#" class="text-decoration-none text-danger">Read More</a>
+                                <a href="{{ route('detail-berita') }}" class="text-decoration-none text-danger">Read More</a>
                             </div>
                         </div>
                     </div>
@@ -262,13 +262,13 @@
                                 <p class="card-text text-muted">15-05-2024</p>
                                 <h4 class="card-title fw-bold mb-3">Karnaval</h4>
                                 <p class="text-secondary">#desamoderen</p>
-                                <a href="#" class="text-decoration-none text-danger">Read More</a>
+                                <a href="{{ route('detail-berita') }}" class="text-decoration-none text-danger">Read More</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="footer-berita text-center mt-3">
-                    <a href="#" class="btn btn-outline-success">Berita Lainnya</a>
+                    <a href="{{ route('berita') }}" class="btn btn-outline-success">Berita Lainnya</a>
                 </div>
             </div>
         </section>
@@ -288,7 +288,7 @@
                         <img src="{{asset('assets/img/senam sehat.jpg')}}" alt="...">
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title text-center py-2"><a href="">Senam Sehat</a></h5>
+                        <h5 class="card-title text-center py-2"><a href="{{ route('events') }}">Senam Sehat</a></h5>
                         <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">06:00 - selesai</span></p>
                         <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">Jumat, 19 April 2024</span></p>
                         <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">Lapangan Utara</span></p>
@@ -301,7 +301,7 @@
                         <img src="{{asset('assets/img/kerja bakti.jpg')}}" alt="...">
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title text-center py-2"><a href="">Kerja Bakti</a></h5>
+                        <h5 class="card-title text-center py-2"><a href="{{ route('events') }}">Kerja Bakti</a></h5>
                         <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">06:30 - selesai</span></p>
                         <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">Minggu, 21 April 2024</span></p>
                         <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">Seluruh Wilayah RW. 02</span></p>
@@ -314,7 +314,7 @@
                         <img src="{{asset('assets/img/berita.JPG')}}" alt="...">
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title text-center py-2"><a href="">Lomba 17 Agustusan</a></h5>
+                        <h5 class="card-title text-center py-2"><a href="{{ route('events') }}">Lomba 17 Agustusan</a></h5>
                         <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">06:30 - selesai</span></p>
                         <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">Minggu, 21 April 2024</span></p>
                         <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">Halaman Rumah</span></p>
@@ -327,7 +327,7 @@
                         <img src="{{asset('assets/img/posyandu.jpg')}}" alt="...">
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title text-center py-2"><a href="">Posyandu</a></h5>
+                        <h5 class="card-title text-center py-2"><a href="{{ route('events') }}">Posyandu</a></h5>
                         <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">09:00 - selesai</span></p>
                         <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">Jumat, 19 Mei 2024</span></p>
                         <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">Pos Posyandu</span></p>
@@ -350,7 +350,7 @@
                         <h5 class="fw-bold text-white">Dokumentasi Wilayah RW 02</h5>
                     </div>
                     <div>
-                        <a href="" class="btn btn-outline-light">Dokumentasi Lainnya</a>
+                        <a href="{{ route('dokumentasi') }}" class="btn btn-outline-light">Dokumentasi Lainnya</a>
                     </div>
                 </div>
         
