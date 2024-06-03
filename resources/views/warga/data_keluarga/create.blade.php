@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Data Warga Wilayah RW 02')
+@section('title', 'Pengajuan Bansos')
 
 @section('breadcrumb')
     @component('layouts.breadcrumb', [

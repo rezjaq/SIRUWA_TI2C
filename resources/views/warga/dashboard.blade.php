@@ -65,9 +65,8 @@
                             Bansos
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="bansosDropdown">
-                            <li><a class="dropdown-item" href="#">Jenis Bansos</a></li>
-                            <li><a class="dropdown-item" href="#">Pengajuan</a></li>
-                            <li><a class="dropdown-item" href="#">Daftar Penerima Bansos</a></li>
+                            <li><a class="dropdown-item" href="{{ route('warga.bansos.create') }}">Pengajuan</a></li>
+                            <li><a class="dropdown-item" href="{{ route('warga.bansos.penerima') }}">Daftar Penerima Bansos</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
