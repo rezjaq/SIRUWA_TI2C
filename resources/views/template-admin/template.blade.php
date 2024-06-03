@@ -16,6 +16,9 @@
     <link rel="stylesheet" href="{{ asset('asset/css/style.css') }}">
     <link rel="shortcut icon" href="{{ asset('asset/images/favicon.png') }}" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <!-- CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
     @stack('css')
 </head>
 
@@ -66,6 +69,9 @@
     <!-- endinject -->
     <!-- Custom js for this page -->
     <script src="{{ asset('asset/js/dashboard.js') }}"></script>
+    <!-- JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- End custom js for this page -->
     @stack('js')
 </body>

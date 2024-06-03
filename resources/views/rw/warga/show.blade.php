@@ -1,51 +1,149 @@
 @extends('template-admin.template')
 
 @section('content')
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Detail Warga</h3>
+    <div class="card">
+        <div class="card-header d-flex align-items-center justify-content-between">
+            <div>
+                <a href="{{ route('Warga.index') }}" class="btn btn-sm btn-light me-2">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <h3 class="card-title d-inline-block text-white">Detail Warga: {{ $warga->nama }}</h3>
             </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <p class="card-text"><strong>NIK:</strong> {{ $warga->nik }}</p>
-                        <p class="card-text"><strong>Nama:</strong> {{ $warga->nama }}</p>
-                        <p class="card-text"><strong>Jenis Kelamin:</strong> {{ $warga->jenis_kelamin }}</p>
-                        <p class="card-text"><strong>Tanggal Lahir:</strong> {{ $warga->tanggal_lahir }}</p>
-                        <p class="card-text"><strong>Alamat:</strong> {{ $warga->alamat }}</p>
-                        <p class="card-text"><strong>No. Telepon:</strong> {{ $warga->no_telepon }}</p>
-                        <p class="card-text"><strong>Agama:</strong> {{ $warga->agama }}</p>
-                        <p class="card-text"><strong>Status Kawin:</strong> {{ $warga->statusKawin }}</p>
-                        <p class="card-text"><strong>Pekerjaan:</strong> {{ $warga->pekerjaan }}</p>
-                        <p class="card-text"><strong>No. RT:</strong> {{ $warga->no_rt }}</p>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">NIK:</label>
+                        <input type="text" class="form-control" value="{{ $warga->nik }}" readonly>
                     </div>
-                    <div class="col-md-6">
-                        <div class="col-md-6">
-                            <!-- Menampilkan foto akte -->
-                            @if ($warga->akte)
-                                <div class="text-center">
-                                    <img src="{{ asset('storage/akte/' . basename($warga->akte)) }}" alt="Foto Akte"
-                                        class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
-                                </div>
-                            @else
-                                <p class="text-center">Foto Akte Kelahiran tidak tersedia.</p>
-                            @endif
-                        </div>
-                        <!-- Menampilkan foto KTP -->
-                        @if ($warga->ktp)
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">Nama:</label>
+                        <input type="text" class="form-control" value="{{ $warga->nama }}" readonly>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">Jenis Kelamin:</label>
+                        <input type="text" class="form-control" value="{{ $warga->jenis_kelamin }}" readonly>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">Tanggal Lahir:</label>
+                        <input type="text" class="form-control" value="{{ $warga->tanggal_lahir }}" readonly>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">Alamat:</label>
+                        <input type="text" class="form-control" value="{{ $warga->alamat }}" readonly>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">No. Telepon:</label>
+                        <input type="text" class="form-control" value="{{ $warga->no_telepon }}" readonly>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">Agama:</label>
+                        <input type="text" class="form-control" value="{{ $warga->agama }}" readonly>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">Status Kawin:</label>
+                        <input type="text" class="form-control" value="{{ $warga->statusKawin }}" readonly>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">Pekerjaan:</label>
+                        <input type="text" class="form-control" value="{{ $warga->pekerjaan }}" readonly>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">No. RT:</label>
+                        <input type="text" class="form-control" value="{{ $warga->no_rt }}" readonly>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">Foto Akte:</label>
+                        @if($warga->akte)
                             <div class="text-center">
-                                <img src="{{ asset('storage/ktp_images/' . basename($warga->ktp)) }}" alt="Foto KTP"
-                                    class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
+                                <img src="{{ asset('storage/akte/' . basename($warga->akte)) }}" alt="Foto Akte" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
+                            </div>
+                        @else
+                            <p class="text-center">Foto Akte Kelahiran tidak tersedia.</p>
+                        @endif
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">Foto KTP:</label>
+                        @if($warga->ktp)
+                            <div class="text-center">
+                                <img src="{{ asset('storage/ktp_images/' . basename($warga->ktp)) }}" alt="Foto KTP" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
                             </div>
                         @else
                             <p class="text-center">Foto KTP tidak tersedia.</p>
                         @endif
                     </div>
                 </div>
-                <!-- Tombol kembali -->
-                <a href="{{ route('Warga.index') }}" class="btn btn-secondary">Kembali</a>
             </div>
         </div>
     </div>
 @endsection
+@push('css')
+    <style>
+        /* Custom CSS */
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            border-radius: 15px 15px 0 0;
+            background-color: #03774A;
+        }
+
+        .card-title {
+            color: white;
+        }
+
+        .card-footer {
+            border-radius: 0 0 15px 15px;
+        }
+
+        .btn-secondary {
+            background-color: #03774A;
+            border-color: #03774A;
+            width: 150px;
+        }
+
+        .btn-secondary:hover {
+            background-color: #026a41;
+            border-color: #026a41;
+        }
+
+        .table th,
+        .table td {
+            vertical-align: middle !important;
+        }
+
+        .fw-bold {
+            color: #03774A;
+        }
+
+        .btn-light {
+            background-color: #f8f9fa;
+            border-color: #f8f9fa;
+        }
+
+        .btn-light:hover {
+            background-color: #e2e6ea;
+            border-color: #dae0e5;
+        }
+
+        .modal-header {
+            background-color: #03774A;
+            color: white;
+        }
+
+        .btn-close {
+            background-color: white;
+        }
+
+        .table-dark th {
+            background-color: #03774A;
+            color: white;
+        }
+
+    </style>
+@endpush

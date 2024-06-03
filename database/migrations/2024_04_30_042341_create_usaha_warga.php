@@ -21,6 +21,11 @@ return new class extends Migration {
             $table->text('keterangan');
             // $table->string('status')->default('pending');
             // $table->string('foto')->nullable(); // Kolom foto yang bisa null
+            $table->string('nomer_telepon');
+            $table->decimal('harga', 10, 2);
+            $table->text('deskripsi');
+            $table->string('status')->default('pending');
+            $table->string('foto')->nullable();
             $table->timestamps();
         });
     }
@@ -33,5 +38,6 @@ return new class extends Migration {
         Schema::dropIfExists('usaha_warga');
     }
 };
+
 
 

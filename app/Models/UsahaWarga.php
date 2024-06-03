@@ -18,8 +18,11 @@ class UsahaWarga extends Model
         'nama_usaha',
         'jenis_usaha',
         'alamat_usaha',
-        'keterangan',
-        'status',  // Add this line
+        'nomer_telepon',
+        'harga',
+        'deskripsi',
+        'status',
+        'foto',
     ];
 
     public function warga()

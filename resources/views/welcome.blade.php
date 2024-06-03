@@ -93,6 +93,8 @@
                         <ul class="dropdown-menu" aria-labelledby="bansosDropdown">
                             <li><a class="dropdown-item" href="{{ route('warga.bansos.create') }}">Pengajuan</a></li>
                             <li><a class="dropdown-item" href="{{ route('warga.bansos.penerima') }}">Daftar Penerima Bansos</a></li>
+                            <li><a class="dropdown-item" href="{{ route('pengajuan-bansos') }}">Pengajuan</a></li>
+                            <li><a class="dropdown-item" href="{{ route('daftar-penerima-bansos') }}">Daftar Penerima Bansos</a></li>
                         </ul>
                     </li>
                     {{-- <li class="nav-item">
@@ -192,7 +194,7 @@
                             <li><a class="dropdown-item check-login" href="{{ route('umkm.create') }}">Pengajuan UMKM</a></li>
                         </ul>
                     </div>
-                    <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Bantuan Sosial">
+                    <a href="{{ route('bansos') }}" class="program-ikon check-login" aria-label="Bantuan Sosial">
                         <img src="{{ asset('assets/icon/5.png') }}" alt="Bantuan Sosial">
                         <div class="program-title">Bantuan Sosial</div>
                     </a>
@@ -529,44 +531,6 @@
                     text: "{{ session('success') }}",
                     icon: 'success',
                     confirmButtonText: 'OK'
-                });
-            @endif
-
-            @if (session('change_password'))
-                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-                Swal.fire({
-                    title: 'Ubah Password Default',
-                    html: `
-                        <form id="change-password-form" action="{{ route('change-password') }}" method="POST">
-                            <input type="hidden" name="_token" value="${csrfToken}">
-                            <input type="password" id="password" name="password" class="swal2-input" placeholder="Password Baru" required>
-                            <input type="password" id="password_confirmation" name="password_confirmation" class="swal2-input" placeholder="Konfirmasi Password" required>
-                        </form>
-                    `,
-                    focusConfirm: false,
-                    preConfirm: () => {
-                        const form = Swal.getPopup().querySelector('#change-password-form');
-                        if (!form.password.value || form.password.value !== form.password_confirmation.value) {
-                            Swal.showValidationMessage(`Password tidak cocok`);
-                        }
-                        return {
-                            password: form.password.value,
-                            password_confirmation: form.password_confirmation.value
-                        };
-                    },
-                    showCancelButton: true,
-                    confirmButtonText: 'Ubah Password',
-                    cancelButtonText: 'Batal',
-                    customClass: {
-                        confirmButton: 'btn-login-notif',
-                        cancelButton: 'btn-cancel-notif'
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        const form = document.getElementById('change-password-form');
-                        form.submit();
-                    }
                 });
             @endif
         });

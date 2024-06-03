@@ -1,9 +1,6 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item">
-
-            {{-- <a href="{{ url('/RT') }}" class="nav-link {{ ($activeMenu == 'dashboard') ? 'active' : '' }}"> --}}
-
             <a href="{{ url('/RT') }}" class="nav-link {{ ($activeMenu == 'dashboard') ? 'active' : '' }}">
 
                 <span class="menu-title">Dashboard</span>
@@ -24,19 +21,25 @@
         </li>
         <li class="nav-item">
             <a href="{{ url('/RTVerifikasiWarga') }}" class="nav-link {{ ($activeMenu == 'verifikasi') ? 'active' : '' }}">
-                <span class="menu-title">verifikasi</span>
+                <span class="menu-title">verifikasi Data Warga</span>
                 <i class="mdi mdi-account menu-icon"></i>
             </a>
         </li>
         <li class="nav-item">
             <a href="{{ url('/RTVerifikasiKeluarga') }}" class="nav-link {{ ($activeMenu == 'verifikasiKeluarga') ? 'active' : '' }}">
-                <span class="menu-title">verifikasiKeluarga</span>
+                <span class="menu-title">verifikasi Data Keluarga</span>
                 <i class="mdi mdi-account menu-icon"></i>
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ url('/RTVerifikasiKeluarga') }}" class="nav-link {{ ($activeMenu == 'pengaduan') ? 'active' : '' }}">
+            <a href="{{ url('/PengaduanRT') }}" class="nav-link {{ ($activeMenu == 'pengaduan') ? 'active' : '' }}">
                 <span class="menu-title">Pengaduan</span>
+                <i class="mdi mdi-account menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ url('/logout') }}" class="nav-link {{ ($activeMenu == 'pengaduan') ? 'active' : '' }}">
+                <span class="menu-title">Logout</span>
                 <i class="mdi mdi-account menu-icon"></i>
             </a>
         </li>

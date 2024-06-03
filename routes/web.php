@@ -77,11 +77,11 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/create', [BansosWarga::class, 'create'])->name('warga.bansos.create');
             Route::post('/store', [BansosWarga::class, 'store'])->name('warga.bansos.store');
             Route::get('/penerima', [BansosWarga::class, 'penerima'])->name('warga.bansos.penerima');
+        Route::prefix('bansos')->group(function () {
+            Route::get('/', [BantuanSosialController::class, 'index'])->name('bansos');
+            Route::get('/pengajuan', [BantuanSosialController::class, 'pengajuan'])->name('pengajuan-bansos');
+            Route::get('/daftar-penerima-bansos', [BantuanSosialController::class, 'daftarPenerimaBansos'])->name('daftar-penerima-bansos');
         });
-
-        Route::get('/denah-rumah', function () {
-            // Your controller logic here
-        })->name('denah-rumah');
 
         Route::group(['prefix' => 'pengaduan'], function () {
             Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan');
