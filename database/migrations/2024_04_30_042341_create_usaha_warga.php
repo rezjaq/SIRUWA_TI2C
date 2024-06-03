@@ -19,8 +19,8 @@ return new class extends Migration {
             $table->string('alamat_usaha');
             $table->string('nomer_telepon'); // Tambah kolom nomer_telepon
             $table->text('keterangan');
-            $table->string('status')->default('pending');
-            $table->string('foto')->nullable(); // Kolom foto yang bisa null
+            // $table->string('status')->default('pending');
+            // $table->string('foto')->nullable(); // Kolom foto yang bisa null
             $table->timestamps();
         });
     }

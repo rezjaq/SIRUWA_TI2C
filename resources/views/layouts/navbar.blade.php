@@ -38,9 +38,8 @@
                             Bansos
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="bansosDropdown">
-                            <li><a class="dropdown-item" href="{{ route('jenis-bansos') }}">Jenis Bansos</a></li>
-                            <li><a class="dropdown-item" href="{{ route('pengajuan-bansos') }}">Pengajuan</a></li>
-                            <li><a class="dropdown-item" href="{{ route('daftar-penerima-bansos') }}">Daftar Penerima Bansos</a></li>
+                            <li><a class="dropdown-item" href="{{ route('warga.bansos.create') }}">Pengajuan</a></li>
+                            <li><a class="dropdown-item" href="#">Daftar Penerima Bansos</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
