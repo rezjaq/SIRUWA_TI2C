@@ -30,6 +30,8 @@ use App\Http\Controllers\RW\VerifikasiKeluarga as RWverifikasiKeluarga;
 use App\Http\Controllers\RT\RTVerifikasiWarga as RTverifikasiWarga;
 use App\Http\Controllers\RT\RTVerifikasiKeluarga as RTverifikasiKeluarga;
 use App\Http\Controllers\RT\AprovePengaduanRT as AprovePengaduanRT;
+use App\Http\Controllers\Warga\BansosController as BansosWarga;
+use App\Http\Controllers\RW\BansosController as BansosRW;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -71,6 +73,10 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/generate-pdf', [PengajuanSuratController::class, 'generatePDF'])->name('generate-pdf');
         });
 
+        Route::prefix('/bansos')->middleware('auth')->group(function () {
+            Route::get('/create', [BansosWarga::class, 'create'])->name('warga.bansos.create');
+            Route::post('/store', [BansosWarga::class, 'store'])->name('warga.bansos.store');
+            Route::get('/penerima', [BansosWarga::class, 'penerima'])->name('warga.bansos.penerima');
         Route::prefix('bansos')->group(function () {
             Route::get('/', [BantuanSosialController::class, 'index'])->name('bansos');
             Route::get('/pengajuan', [BantuanSosialController::class, 'pengajuan'])->name('pengajuan-bansos');
@@ -182,6 +188,15 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/', [ApproveUmkm::class, 'index'])->name('admin.pengaduan');
             Route::post('/umkm/approve/{id}', [ApproveUmkm::class, 'approve'])->name('umkm.approve');
             Route::post('/umkm/reject/{id}', [ApproveUmkm::class, 'reject'])->name('umkm.reject');
+        });
+        Route::prefix('/bansos')->group(function () {
+            Route::get('/', [BansosRW::class, 'viewRankedScores'])->name('RW.bansos.ranked-scores');
+            Route::post('/list', [BansosRW::class, 'listRankedScores'])->name('RW.bansos.ranked-scores.list');
+            Route::get('/bansos/create', [BansosRW::class, 'create'])->name('RW.bansos.create');
+            Route::post('/bansos/store', [BansosRW::class, 'store'])->name('RW.bansos.store');
+            Route::get('/show/{id}', [BansosRW::class, 'show'])->name('RW.Bansos.show');
+            Route::post('/{id}/approve', [BansosRW::class, 'approve'])->name('RW.Bansos.approve');
+            Route::post('/{id}/reject', [BansosRW::class, 'reject'])->name('RW.Bansos.reject');
         });
     });
     // Rute untuk RT
