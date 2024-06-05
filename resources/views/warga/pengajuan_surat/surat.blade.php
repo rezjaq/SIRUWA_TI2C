@@ -307,3 +307,58 @@
 });
 
 </script>
+
+<script>
+    // Fungsi untuk memeriksa apakah setidaknya satu kotak centang telah dipilih
+    function checkInputs() {
+        console.log('Memeriksa input...');
+        var allInputs = document.querySelectorAll('input[name="surat"]');
+        var isAnyChecked = false;
+
+        allInputs.forEach(function(input) {
+            if (input.type === 'checkbox' && input.checked) {
+                isAnyChecked = true;
+            }
+        });
+
+        return isAnyChecked;
+    }
+
+    // Fungsi untuk menampilkan notifikasi dan tautan unduhan
+    function showNotification() {
+        console.log('Menampilkan notifikasi...');
+        var notification = document.getElementById('notification');
+        notification.style.display = 'block';
+    }
+
+    // Fungsi untuk mengunduh surat
+    function downloadSurat() {
+        console.log('Mengunduh surat...');
+        // Logika untuk mengunduh surat
+        alert('Surat berhasil diunduh!');
+        // Ganti URL ini dengan URL unduhan surat
+        window.location.href = '/unduh-surat';
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var allInputs = document.querySelectorAll('input[name="surat"]');
+        allInputs.forEach(function(input) {
+            input.addEventListener('change', function() {
+                console.log('Perubahan pada kotak centang terdeteksi...');
+                // Saat ada perubahan, periksa apakah setidaknya satu kotak sudah dicentang
+                if (checkInputs()) {
+                    showNotification();
+                } else {
+                    // Sembunyikan notifikasi jika tidak ada kotak yang dicentang
+                    var notification = document.getElementById('notification');
+                    notification.style.display = 'none';
+                }
+            });
+        });
+
+        // Tambahkan event listener untuk tombol unduhan
+        var downloadBtn = document.getElementById('downloadBtn');
+        downloadBtn.addEventListener('click', downloadSurat);
+    });
+</script>
+

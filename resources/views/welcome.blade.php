@@ -93,8 +93,8 @@
                         <ul class="dropdown-menu" aria-labelledby="bansosDropdown">
                             <li><a class="dropdown-item" href="{{ route('warga.bansos.create') }}">Pengajuan</a></li>
                             <li><a class="dropdown-item" href="{{ route('warga.bansos.penerima') }}">Daftar Penerima Bansos</a></li>
-                            <li><a class="dropdown-item" href="{{ route('pengajuan-bansos') }}">Pengajuan</a></li>
-                            <li><a class="dropdown-item" href="{{ route('daftar-penerima-bansos') }}">Daftar Penerima Bansos</a></li>
+                            {{-- <li><a class="dropdown-item" href="{{ route('pengajuan-bansos') }}">Pengajuan</a></li>
+                            <li><a class="dropdown-item" href="{{ route('daftar-penerima-bansos') }}">Daftar Penerima Bansos</a></li> --}}
                         </ul>
                     </li>
                     {{-- <li class="nav-item">
@@ -197,6 +197,7 @@
                     <a href="{{ route('bansos') }}" class="program-ikon check-login" aria-label="Bantuan Sosial">
                         <img src="{{ asset('assets/icon/5.png') }}" alt="Bantuan Sosial">
                         <div class="program-title">Bantuan Sosial</div>
+                        
                     </a>
                     <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Pengajuan Bansos">
                         <img src="{{ asset('assets/icon/bansos.png') }}" alt="Pengajuan Bansos">
@@ -530,12 +531,13 @@
                     title: 'Login Berhasil',
                     text: "{{ session('success') }}",
                     icon: 'success',
-                    confirmButtonText: 'OK'
+                    showConfirmButton: false, 
+                    timer: 3000 
                 });
             @endif
         });
-
     </script>
+    
     
     
 
