@@ -222,10 +222,6 @@
             </div>
         </section>
     {{-- program --}}
-
-
-
-    <br><br>
      {{-- pengumuman --}}
      <section id="berita">
         <div class="container py-5 fade-up">
@@ -233,41 +229,8 @@
             <div class="header-berita text-center fade-up mb-5">
                 <h2 class="fw-bold">Berita Terbaru Wilayah RW. 02</h2>
             </div>
-    
             <div class="row gy-4">
                 @foreach ($pengumuman as $item)
-
-    {{-- berita --}}
-        <section id="berita">
-            <div class="container py-5 fade-up">
-        
-                <div class="header-berita text-center fade-up mb-5">
-                    <h2 class="fw-bold">Berita Terbaru Wilayah RW. 02</h2>
-                </div>
-        
-                <div class="row gy-4">
-                    <div class="col-lg-4">
-                        <div class="card border-0 shadow-sm">
-                            <img src="{{asset('assets/img/berita.JPG')}}" class="card-img-top img-fluid mb-3" alt="Berita 1">
-                            <div class="card-body">
-                                <p class="card-text text-muted">15-05-2024</p>
-                                <h4 class="card-title fw-bold mb-3">Karnaval</h4>
-                                <p class="text-secondary">#desamoderen</p>
-                                <a href="{{ route('detail-berita') }}" class="text-decoration-none text-danger">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="card border-0 shadow-sm">
-                            <img src="{{asset('assets/img/berita.JPG')}}" class="card-img-top img-fluid mb-3" alt="Berita 2">
-                            <div class="card-body">
-                                <p class="card-text text-muted">15-05-2024</p>
-                                <h4 class="card-title fw-bold mb-3">Karnaval</h4>
-                                <p class="text-secondary">#desamoderen</p>
-                                <a href="{{ route('detail-berita') }}" class="text-decoration-none text-danger">Read More</a>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-lg-4">
                         <div class="card border-0 shadow-sm" onclick="location.href='{{ route('berita.show', $item->id_pengumuman) }}'">
                             @if ($item->foto)
@@ -283,18 +246,6 @@
                         </div>
                     </div>
                 @endforeach
-                                <p class="card-text text-muted">15-05-2024</p>
-                                <h4 class="card-title fw-bold mb-3">Karnaval</h4>
-                                <p class="text-secondary">#desamoderen</p>
-                                <a href="{{ route('detail-berita') }}" class="text-decoration-none text-danger">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-berita text-center mt-3">
-                    <a href="{{ route('berita') }}" class="btn btn-outline-success">Berita Lainnya</a>
-                </div>
-            </div>
             <div class="footer-berita text-center mt-3">
                 <a href="{{ route('berita_lainnya') }}" class="btn btn-outline-success">Berita Lainnya</a>
             </div>
@@ -332,58 +283,6 @@
                             </div>
                         </div>
                     @endforeach
-                <div class="col-lg-3">
-                    <div class="card">
-                    <div class="card-img">
-                        <img src="{{asset('assets/img/senam sehat.jpg')}}" alt="...">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title text-center py-2"><a href="{{ route('events') }}">Senam Sehat</a></h5>
-                        <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">06:00 - selesai</span></p>
-                        <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">Jumat, 19 April 2024</span></p>
-                        <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">Lapangan Utara</span></p>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card">
-                    <div class="card-img">
-                        <img src="{{asset('assets/img/kerja bakti.jpg')}}" alt="...">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title text-center py-2"><a href="{{ route('events') }}">Kerja Bakti</a></h5>
-                        <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">06:30 - selesai</span></p>
-                        <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">Minggu, 21 April 2024</span></p>
-                        <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">Seluruh Wilayah RW. 02</span></p>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card">
-                    <div class="card-img">
-                        <img src="{{asset('assets/img/berita.JPG')}}" alt="...">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title text-center py-2"><a href="{{ route('events') }}">Lomba 17 Agustusan</a></h5>
-                        <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">06:30 - selesai</span></p>
-                        <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">Minggu, 21 April 2024</span></p>
-                        <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">Halaman Rumah</span></p>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card">
-                    <div class="card-img">
-                        <img src="{{asset('assets/img/posyandu.jpg')}}" alt="...">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title text-center py-2"><a href="{{ route('events') }}">Posyandu</a></h5>
-                        <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">09:00 - selesai</span></p>
-                        <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">Jumat, 19 Mei 2024</span></p>
-                        <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">Pos Posyandu</span></p>
-                    </div>
-                    </div>
-                </div>
                 </div>
             </div>
         </div>
