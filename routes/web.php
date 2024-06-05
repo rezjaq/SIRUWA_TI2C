@@ -316,6 +316,6 @@ Route::get('/berita/{id}', [DashboardWargaController::class, 'beritaShow'])->nam
 
 // Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
 // Route::get('/detail-berita', [BeritaController::class, 'detail'])->name('detail-berita');
-// Route::get('/events', [EventsController::class, 'index'])->name('events');
+Route::get('/events', [EventsController::class, 'index'])->name('events');
 Route::get('/dokumentasi', [DokumentasiController::class, 'index'])->name('dokumentasi');
 
