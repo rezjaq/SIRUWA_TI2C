@@ -197,16 +197,16 @@
                             <li><a class="dropdown-item check-login" href="{{ route('umkm.create') }}">Pengajuan UMKM</a></li>
                         </ul>
                     </div>
-                    <a href="#" class="program-ikon check-login" aria-label="Bantuan Sosial">
+                    <a href="{{ route('bansos') }}" class="program-ikon check-login" aria-label="Bantuan Sosial">
                         <img src="{{ asset('assets/icon/5.png') }}" alt="Bantuan Sosial">
                         <div class="program-title">Bantuan Sosial</div>
                         
                     </a>
-                    <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Pengajuan Bansos">
+                    <a href="{{ route('warga.bansos.create') }}" class="program-ikon check-login" aria-label="Pengajuan Bansos">
                         <img src="{{ asset('assets/icon/bansos.png') }}" alt="Pengajuan Bansos">
                         <div class="program-title">Pengajuan Bansos</div>
                     </a>
-                    <a href="{{ route('warga-tetap') }}" class="program-ikon check-login" aria-label="Penerima Bansos">
+                    <a href="{{ route('warga.bansos.penerima') }}" class="program-ikon check-login" aria-label="Penerima Bansos">
                         <img src="{{ asset('assets/icon/penerima.png') }}" alt="Penerima Bansos">
                         <div class="program-title">Penerima Bansos</div>
                     </a>
