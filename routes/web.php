@@ -80,6 +80,8 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/create', [BansosWarga::class, 'create'])->name('warga.bansos.create');
             Route::post('/store', [BansosWarga::class, 'store'])->name('warga.bansos.store');
             Route::get('/penerima', [BansosWarga::class, 'penerima'])->name('warga.bansos.penerima');
+        });
+        
         Route::prefix('bansos')->group(function () {
             Route::get('/', [BantuanSosialController::class, 'index'])->name('bansos');
             Route::get('/pengajuan', [BantuanSosialController::class, 'pengajuan'])->name('pengajuan-bansos');
@@ -309,3 +311,8 @@ Route::get('/dokumentasi', [DokumentasiController::class, 'index'])->name('dokum
 
 // Home Page or Landing Page
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/berita-lainnya', [HomeController::class, 'beritaLainnya'])->name('berita_lainnya');
+Route::get('/berita/{id}', [HomeController::class, 'beritaShow'])->name('berita.show');
+
+
+
