@@ -112,10 +112,8 @@
                                 </select>
                             </div>
 
-                            <div class="form-group row mb-0 d-flex justify-content-center">
-                                <div class="col-md-4">
-                                    <button type="submit" class="btn btn-primary w-100">{{ __('Simpan') }}</button>
-                                </div>
+                            <div class="form-buttons mt-3">
+                                <button type="submit" class="btn btn-primary btn-block">Kirim Pengajuan</button>
                             </div>
                         </form>
                     </div>
@@ -160,11 +158,23 @@
         .btn-primary {
             background-color: #03774A;
             border-color: #03774A;
+            width: 100%;
         }
 
         .btn-primary:hover {
-            background-color: #02663a;
-            border-color: #02663a;
+            background-color: #02593a;
+            border-color: #02593a;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            width: 100%;
+        }
+
+        .btn-secondary:hover {
+            background-color: #565e64;
+            border-color: #565e64;
         }
 
         @media (max-width: 767.98px) {

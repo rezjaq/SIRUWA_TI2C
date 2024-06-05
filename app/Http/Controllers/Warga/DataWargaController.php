@@ -31,7 +31,7 @@ class DataWargaController extends Controller
 
         // Ambil data warga dari database beserta informasi keluarga
         $wargas = Warga::with('keluarga:id_keluarga,nama_kepala_keluarga')
-            ->where('status', 'belum_disetujui')
+            ->where('status', 'disetujui')
             ->select('nama', 'jenis_kelamin', 'alamat', 'id_keluarga', 'no_rt')
             ->get();
 
