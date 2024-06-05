@@ -61,9 +61,9 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="isi_aduan" class="form-label">Isi Pengaduan</label>
-                    <textarea class="form-control @error('isi_aduan') is-invalid @enderror" id="isi_aduan" name="isi_aduan" rows="4" placeholder="Tuliskan Isi Pengaduan Anda" required>{{ old('isi_aduan') }}</textarea>
-                    @error('isi_aduan')
+                    <label for="isi" class="form-label">Isi Pengaduan</label>
+                    <textarea class="form-control @error('isi') is-invalid @enderror" id="isi" name="isi" rows="4" placeholder="Tuliskan Isi Pengaduan Anda" required>{{ old('isi') }}</textarea>
+                    @error('isi')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

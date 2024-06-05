@@ -56,7 +56,8 @@ Route::get('/check-login', function () {
     return response()->json(['logged_in' => Auth::check()]);
 });
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
-Route::post('/change-password', [AuthController::class, 'changePassword'])->name('change-password');
+Route::get('/change-password', [AuthController::class, 'showChangePasswordForm'])->name('change-password');
+Route::post('/change-password', [AuthController::class, 'changePassword'])->name('post-change-password');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/cek_nik', [RegistrasiWarga::class, 'index'])->name('registrasi.index');
@@ -80,6 +81,10 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/create', [BansosWarga::class, 'create'])->name('warga.bansos.create');
             Route::post('/store', [BansosWarga::class, 'store'])->name('warga.bansos.store');
             Route::get('/penerima', [BansosWarga::class, 'penerima'])->name('warga.bansos.penerima');
+            Route::get('/bansos', [BantuanSosialController::class, 'index'])->name('bansos');
+            // Route::prefix('bansos')->group(function () {
+            //     Route::get('/pengajuan', [BantuanSosialController::class, 'pengajuan'])->name('pengajuan-bansos');
+            //     Route::get('/daftar-penerima-bansos', [BantuanSosialController::class, 'daftarPenerimaBansos'])->name('daftar-penerima-bansos');
         });
         
         Route::prefix('bansos')->group(function () {

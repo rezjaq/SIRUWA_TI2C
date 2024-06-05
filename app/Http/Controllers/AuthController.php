@@ -35,24 +35,57 @@ class AuthController extends Controller
 
         $user = Warga::where('nik', $request->nik)->first();
 
-        if ($user && $request->password === $user->password) {
-            Auth::login($user);
+        if ($user) {
+            // Check if the password matches the non-hashed version
+            if ($request->password === $user->password) {
+                Auth::login($user);
 
-            if ($request->password === $user->nik) {
-                session(['change_password' => true]);
+                session()->flash('success', 'Selamat datang, ' . $user->nama);
+
+                if ($request->nik === $request->password) {
+                    session(['change_password' => true]);
+                    return redirect()->route('change-password');
+                }
+
+                // Redirect based on user level
+                switch ($user->level) {
+                    case 'RW':
+                        return redirect()->intended('RW');
+                    case 'RT':
+                        return redirect()->intended('RT');
+                    case 'warga':
+                        return redirect()->intended('warga')->with('user', $user);
+                    default:
+                        return redirect()->intended('/');
+                }
             }
+            // Check if the password matches the hashed version
+            elseif (Hash::check($request->password, $user->password)) {
+                Auth::login($user);
 
-            session()->flash('success', 'Selamat datang, ' . $user->nama);
+                session()->flash('success', 'Selamat datang, ' . $user->nama);
 
-            if ($user->level == 'RW') {
-                return redirect()->intended('RW');
-            } elseif ($user->level == 'RT') {
-                return redirect()->intended('RT');
-            } elseif ($user->level == 'warga') {
-                return redirect()->intended('warga')->with('user', $user);
+                if ($request->nik === $request->password) {
+                    session(['change_password' => true]);
+                    return redirect()->route('change-password');
+                }
+
+                // Redirect based on user level
+                switch ($user->level) {
+                    case 'RW':
+                        return redirect()->intended('RW');
+                    case 'RT':
+                        return redirect()->intended('RT');
+                    case 'warga':
+                        return redirect()->intended('warga')->with('user', $user);
+                    default:
+                        return redirect()->intended('/');
+                }
+            } else {
+                return redirect('login')
+                    ->withInput()
+                    ->withErrors(['login_gagal' => 'Pastikan kembali username dan password yang dimasukkan sudah benar']);
             }
-
-            return redirect()->intended('/');
         }
 
         return redirect('login')
@@ -60,9 +93,10 @@ class AuthController extends Controller
             ->withErrors(['login_gagal' => 'Pastikan kembali username dan password yang dimasukkan sudah benar']);
     }
 
+
+
     public function changePassword(Request $request)
     {
-        dd(session()->all());
 
         $request->validate([
             'password' => 'required|confirmed',
@@ -79,7 +113,12 @@ class AuthController extends Controller
 
         session()->flash('success', 'Password berhasil diubah.');
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard-warga');
+    }
+
+    public function showChangePasswordForm()
+    {
+        return view('auth.change-password');
     }
 
 
