@@ -260,6 +260,13 @@
 
 
 
+                @endforeach
+            <div class="footer-berita text-center mt-3">
+                <a href="{{ route('berita_lainnya') }}" class="btn btn-outline-success">Berita Lainnya</a>
+            </div>
+        </div>
+    </section>
+    {{-- pengumuman --}}
 
     {{-- Kegiatan --}}
     <section id="upcoming-events" class="upcoming-events">

@@ -304,11 +304,6 @@ Route::group(['middleware' => ['auth']], function () {
 // Route::get('/berita', function () {
 //     return view('berita.berita');
 // });
-Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
-Route::get('/detail-berita', [BeritaController::class, 'detail'])->name('detail-berita');
-Route::get('/events', [EventsController::class, 'index'])->name('events');
-Route::get('/dokumentasi', [DokumentasiController::class, 'index'])->name('dokumentasi');
-
 
 // Home Page or Landing Page
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -319,4 +314,8 @@ Route::get('/berita-lainnya', [DashboardWargaController::class, 'beritaLainnya']
 Route::get('/berita/{id}', [DashboardWargaController::class, 'beritaShow'])->name('berita.show');
 
 
+// Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
+// Route::get('/detail-berita', [BeritaController::class, 'detail'])->name('detail-berita');
+// Route::get('/events', [EventsController::class, 'index'])->name('events');
+Route::get('/dokumentasi', [DokumentasiController::class, 'index'])->name('dokumentasi');
 
