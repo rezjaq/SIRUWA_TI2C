@@ -30,6 +30,9 @@ use App\Http\Controllers\RW\VerifikasiKeluarga as RWverifikasiKeluarga;
 use App\Http\Controllers\RT\RTVerifikasiWarga as RTverifikasiWarga;
 use App\Http\Controllers\RT\RTVerifikasiKeluarga as RTverifikasiKeluarga;
 use App\Http\Controllers\RT\AprovePengaduanRT as AprovePengaduanRT;
+use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\EventsController;
+use App\Http\Controllers\DokumentasiController;
 use App\Http\Controllers\Warga\BansosController as BansosWarga;
 use App\Http\Controllers\RW\BansosController as BansosRW;
 use Illuminate\Support\Facades\Route;
@@ -297,9 +300,13 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 
-Route::get('/berita', function () {
-    return view('berita.berita');
-});
+// Route::get('/berita', function () {
+//     return view('berita.berita');
+// });
+Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
+Route::get('/detail-berita', [BeritaController::class, 'detail'])->name('detail-berita');
+Route::get('/events', [EventsController::class, 'index'])->name('events');
+Route::get('/dokumentasi', [DokumentasiController::class, 'index'])->name('dokumentasi');
 
 
 // Home Page or Landing Page
