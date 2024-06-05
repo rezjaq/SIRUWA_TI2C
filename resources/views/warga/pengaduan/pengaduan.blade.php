@@ -74,7 +74,9 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
-                <button type="submit" class="btn btn-primary">Kirim Pengaduan</button>
+                <div class="form-buttons mt-3">
+                    <button type="submit" class="btn btn-primary btn-block">Kirim Pengaduan</button>
+                </div>
             </form>
         </div>
     </div>
@@ -101,11 +103,23 @@
         .btn-primary {
             background-color: #03774A;
             border-color: #03774A;
-            border-radius: 5px;
+            width: 100%;
         }
+
         .btn-primary:hover {
-            background-color: #025d37;
-            border-color: #025d37;
+            background-color: #02593a;
+            border-color: #02593a;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            width: 100%;
+        }
+
+        .btn-secondary:hover {
+            background-color: #565e64;
+            border-color: #565e64;
         }
     </style>
 @endpush

@@ -51,7 +51,7 @@
 </head>
 <body>
 
-      {{-- navbar --}}
+     {{-- navbar --}}
 <nav class="navbar navbar-expand-lg navbar-dark py-3 fixed-top">
     <div class="container">
         <a class="navbar-brand" href="#">
@@ -68,7 +68,7 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle {{ Request::routeIs('warga-tetap') || Request::routeIs('warga-pindah') ? 'active' : '' }}" href="#" id="pengajuanDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Pengajuan
+                            Pengajuan Surat
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="pengajuanDropdown">
                             <li><a class="dropdown-item" href="{{ route('warga-tetap') }}">Surat Warga Tetap</a></li>
@@ -76,19 +76,19 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dataWargaDropdown" role="button"
+                        <a class="nav-link dropdown-toggle" {{ Request::routeIs('warga.Warga.index') || Request::routeIs('warga.keluarga.index') ? 'active' : '' }}" href="#" id="dataWargaDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Pengecekan Data
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dataWargaDropdown">
                             <li><a class="dropdown-item" href="{{ route('warga.Warga.index') }}">Data Warga</a></li>
-                            <li><a class="dropdown-item" href="{{ route('warga.keluarga.index') }}">Data Kepala Keluarga</a>
+                            <li><a class="dropdown-item" href="{{ route('warga.keluarga.index') }}">Data Keluarga</a>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle {{ Request::routeIs('bansos.*') ? 'active' : '' }}" href="#" id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Bansos
+                            Bantuan Sosial
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="bansosDropdown">
                             <li><a class="dropdown-item" href="{{ route('warga.bansos.create') }}">Pengajuan</a></li>
@@ -96,19 +96,21 @@
                             {{-- <li><a class="dropdown-item" href="{{ route('pengajuan-bansos') }}">Pengajuan</a></li>
                             <li><a class="dropdown-item" href="{{ route('daftar-penerima-bansos') }}">Daftar Penerima Bansos</a></li> --}}
                         </ul>
-                            </ul>
                     </li>
-                    {{-- <li class="nav-item">
-                        <a class="nav-link {{ Request::routeIs('denah-rumah') ? 'active' : '' }}" href="{{ route('denah-rumah') }}">Denah Rumah Warga</a>
-                    </li> --}}
-                    <li class="nav-item">
-                        <a class="nav-link {{ Request::routeIs('pengaduan') ? 'active' : '' }}" href="{{ route('pengaduan') }}">Pengaduan</a>
-                    </li>
+                    
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{ Request::routeIs('pengajuan-umkm*') ? 'active' : '' }}" href="#" id="umkmDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle {{ Request::routeIs('pengaduan.*') ? 'active' : '' }}" href="#" id="pengaduanDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pengaduan Warga</a>
+                        <ul class="dropdown-menu" aria-labelledby="pengaduanDropdown">
+                            <li><a class="dropdown-item {{ Request::routeIs('pengaduan') ? 'active' : '' }}" href="{{ route('pengaduan') }}">Daftar Pengaduan</a></li>
+                            {{-- <li><a class="dropdown-item {{ Request::routeIs('pengaduan.show') ? 'active' : '' }}" href="{{ route('pengaduan.show') }}">History Pengaduan</a></li> --}}
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {{ Request::routeIs('pengajuan-umkm*') ? 'active' : '' }}" href="#" id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             UMKM
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="umkmDropdown">
+                        <ul class="dropdown-menu" aria-labelledby="bansosDropdown">
                             <li><a class="dropdown-item" href="{{ route('pengajuan-umkm') }}">Macam Macam UMKM</a></li>
                             <li><a class="dropdown-item" href="{{ route('umkm.create') }}">Pengajuan UMKM</a></li>
                         </ul>
@@ -136,13 +138,13 @@
                         <a class="nav-link active" aria-current="page" href="#">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#berita" data-target="berita">Berita</a>
+                        <a class="nav-link" href="#berita">Berita</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#upcoming-events" data-target="upcoming-events">Kegiatan</a>
+                        <a class="nav-link" href="#upcoming-events">Kegiatan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#foto" data-target="foto">Dokumentasi</a>
+                        <a class="nav-link" href="#foto">Dokumentasi</a>
                     </li>
                 </ul>
                 <div class="d-flex">
@@ -222,15 +224,17 @@
             </div>
         </section>
     {{-- program --}}
-     {{-- pengumuman --}}
-     <section id="berita">
-        <div class="container py-5 fade-up">
-    
-            <div class="header-berita text-center fade-up mb-5">
-                <h2 class="fw-bold">Berita Terbaru Wilayah RW. 02</h2>
-            </div>
-            <div class="row gy-4">
-                @foreach ($pengumuman as $item)
+
+    <br><br><br><br>
+    {{-- Berita --}}
+        <section id="berita">
+            <div class="container py-5 fade-up">
+                <div class="header-berita text-center fade-up mb-5">
+                    <h2 class="fw-bold">Berita Terbaru Wilayah RW. 02</h2>
+                </div>
+
+                <div class="row gy-4">
+                    @foreach ($pengumuman as $item)
                     <div class="col-lg-4">
                         <div class="card border-0 shadow-sm" onclick="location.href='{{ route('berita.show', $item->id_pengumuman) }}'">
                             @if ($item->foto)
@@ -245,6 +249,17 @@
                             </div>
                         </div>
                     </div>
+                    @endforeach
+                </div>
+                {{-- <div class="footer-berita text-center mt-3">
+                    <a href="{{ route('berita_lainnya') }}" class="btn btn-outline-success">Berita Lainnya</a>
+                </div> --}}
+            </div>
+        </section>
+    {{-- berita --}}
+
+
+
                 @endforeach
             <div class="footer-berita text-center mt-3">
                 <a href="{{ route('berita_lainnya') }}" class="btn btn-outline-success">Berita Lainnya</a>
@@ -262,32 +277,61 @@
             <div class="carousel-container py-5 fade-up">
                 <div class="row">
                     @foreach ($kegiatan as $item)
-                        <div class="col-lg-3">
-                            {{-- onclick="location.href='{{ route('kegiatan.show', $item->id) }}'" --}}
-                            <div class="card">
-                                @if ($item->foto)
-                                    <div class="card-img">
-                                        <img src="{{ asset('storage/' . $item->foto) }}" alt="{{ $item->nama_kegiatan }}" style="width: 100%; height: 200px; object-fit: cover;">
-                                    </div>
-                                @else
-                                    <div class="card-img">
-                                        <img src="{{ asset('assets/img/default.jpg') }}" alt="{{ $item->nama_kegiatan }}" style="width: 100%; height: 200px; object-fit: cover;">
-                                    </div>
-                                @endif
-                                <div class="card-body">
-                                    <h5 class="card-title text-center py-2">{{ $item->nama_kegiatan }}</h5>
-                                    <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">{{ $item->waktu_mulai }} - {{ $item->waktu_selesai ? $item->waktu_selesai : 'selesai' }}</span></p>
-                                    <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">{{ \Carbon\Carbon::parse($item->tanggal_kegiatan)->translatedFormat('l, d F Y') }}</span></p>
-                                    <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">{{ $item->lokasi_kegiatan }}</span></p>
+                    <div class="col-lg-3">
+                        <div class="card">
+                            @if ($item->foto)
+                                <div class="card-img">
+                                    <img src="{{ asset('storage/' . $item->foto) }}" alt="{{ $item->nama_kegiatan }}" style="width: 100%; height: 200px; object-fit: cover;">
                                 </div>
+                            @else
+                                <div class="card-img">
+                                    <img src="{{ asset('assets/img/default.jpg') }}" alt="{{ $item->nama_kegiatan }}" style="width: 100%; height: 200px; object-fit: cover;">
+                                </div>
+                            @endif
+                            <div class="card-body">
+                                <h5 class="card-title text-center py-2">{{ $item->nama_kegiatan }}</h5>
+                                <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">{{ $item->waktu_mulai }} - {{ $item->waktu_selesai ? $item->waktu_selesai : 'selesai' }}</span></p>
+                                <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">{{ \Carbon\Carbon::parse($item->tanggal_kegiatan)->translatedFormat('l, d F Y') }}</span></p>
+                                <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">{{ $item->lokasi_kegiatan }}</span></p>
                             </div>
                         </div>
-                    @endforeach
+                    </div>
+                @endforeach
+                    <!-- Static cards for demo purposes -->
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="card-img">
+                                <img src="{{ asset('assets/img/senam sehat.jpg') }}" alt="...">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title text-center py-2"><a href="{{ route('events') }}">Senam Sehat</a></h5>
+                                <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">06:00 - selesai</span></p>
+                                <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">Jumat, 19 April 2024</span></p>
+                                <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">Lapangan Utara</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Repeat for other static cards -->
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="card-img">
+                                <img src="{{ asset('assets/img/kerja bakti.jpg') }}" alt="...">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title text-center py-2"><a href="{{ route('events') }}">Kerja Bakti</a></h5>
+                                <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">06:30 - selesai</span></p>
+                                <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">Minggu, 21 April 2024</span></p>
+                                <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">Seluruh Wilayah RW. 02</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add more static cards if needed -->
                 </div>
             </div>
         </div>
     </section>
-    {{-- Kegiatan --}}
+{{-- Kegiatan --}}
+
     
     {{-- dokumentasi --}}
         <br>
@@ -485,8 +529,6 @@
             @endif
         });
     </script>
-    
-    
     
 
     <script src="{{ asset('assets/js/check-login.js') }}"></script>
