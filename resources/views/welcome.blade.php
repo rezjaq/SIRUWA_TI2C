@@ -96,6 +96,7 @@
                             {{-- <li><a class="dropdown-item" href="{{ route('pengajuan-bansos') }}">Pengajuan</a></li>
                             <li><a class="dropdown-item" href="{{ route('daftar-penerima-bansos') }}">Daftar Penerima Bansos</a></li> --}}
                         </ul>
+                            </ul>
                     </li>
                     {{-- <li class="nav-item">
                         <a class="nav-link {{ Request::routeIs('denah-rumah') ? 'active' : '' }}" href="{{ route('denah-rumah') }}">Denah Rumah Warga</a>
@@ -194,7 +195,7 @@
                             <li><a class="dropdown-item check-login" href="{{ route('umkm.create') }}">Pengajuan UMKM</a></li>
                         </ul>
                     </div>
-                    <a href="{{ route('bansos') }}" class="program-ikon check-login" aria-label="Bantuan Sosial">
+                    <a href="#" class="program-ikon check-login" aria-label="Bantuan Sosial">
                         <img src="{{ asset('assets/icon/5.png') }}" alt="Bantuan Sosial">
                         <div class="program-title">Bantuan Sosial</div>
                         
@@ -225,6 +226,17 @@
 
 
     <br><br>
+     {{-- pengumuman --}}
+     <section id="berita">
+        <div class="container py-5 fade-up">
+    
+            <div class="header-berita text-center fade-up mb-5">
+                <h2 class="fw-bold">Berita Terbaru Wilayah RW. 02</h2>
+            </div>
+    
+            <div class="row gy-4">
+                @foreach ($pengumuman as $item)
+
     {{-- berita --}}
         <section id="berita">
             <div class="container py-5 fade-up">
@@ -241,7 +253,7 @@
                                 <p class="card-text text-muted">15-05-2024</p>
                                 <h4 class="card-title fw-bold mb-3">Karnaval</h4>
                                 <p class="text-secondary">#desamoderen</p>
-                                <a href="#" class="text-decoration-none text-danger">Read More</a>
+                                <a href="{{ route('detail-berita') }}" class="text-decoration-none text-danger">Read More</a>
                             </div>
                         </div>
                     </div>
@@ -252,44 +264,81 @@
                                 <p class="card-text text-muted">15-05-2024</p>
                                 <h4 class="card-title fw-bold mb-3">Karnaval</h4>
                                 <p class="text-secondary">#desamoderen</p>
-                                <a href="#" class="text-decoration-none text-danger">Read More</a>
+                                <a href="{{ route('detail-berita') }}" class="text-decoration-none text-danger">Read More</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="card border-0 shadow-sm">
-                            <img src="{{asset('assets/img/berita.JPG')}}" class="card-img-top img-fluid mb-3" alt="Berita 3">
+                        <div class="card border-0 shadow-sm" onclick="location.href='{{ route('berita.show', $item->id_pengumuman) }}'">
+                            @if ($item->foto)
+                                <img src="{{ asset('storage/' . $item->foto) }}" class="card-img-top img-fluid mb-3" alt="{{ $item->judul }}" style="width: 100%; height: 200px; object-fit: cover;">
+                            @else
+                                <img src="{{ asset('assets/img/berita.JPG') }}" class="card-img-top img-fluid mb-3" alt="{{ $item->judul }}" style="width: 100%; height: 200px; object-fit: cover;">
+                            @endif
                             <div class="card-body">
+                                <p class="card-text text-muted">{{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}</p>
+                                <h4 class="card-title fw-bold mb-3">{{ $item->judul }}</h4>
+                                <p class="text-secondary">{{ \Illuminate\Support\Str::limit($item->isi, 100, '...') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
                                 <p class="card-text text-muted">15-05-2024</p>
                                 <h4 class="card-title fw-bold mb-3">Karnaval</h4>
                                 <p class="text-secondary">#desamoderen</p>
-                                <a href="#" class="text-decoration-none text-danger">Read More</a>
+                                <a href="{{ route('detail-berita') }}" class="text-decoration-none text-danger">Read More</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="footer-berita text-center mt-3">
-                    <a href="#" class="btn btn-outline-success">Berita Lainnya</a>
+                    <a href="{{ route('berita') }}" class="btn btn-outline-success">Berita Lainnya</a>
                 </div>
             </div>
-        </section>
-    {{-- berita --}}
+            <div class="footer-berita text-center mt-3">
+                <a href="{{ route('berita_lainnya') }}" class="btn btn-outline-success">Berita Lainnya</a>
+            </div>
+        </div>
+    </section>
+    {{-- pengumuman --}}
 
     {{-- Kegiatan --}}
-        <section id="upcoming-events" class="upcoming-events">
-            <div class="container" fade-up>
-                <div class="header-kegiatan text-center fade-up">
-                    <h2 class="fw-bold">Kegiatan Mendatang Wilayah RW. 02</h2>
-                </div>
+    <section id="upcoming-events" class="upcoming-events">
+        <div class="container" fade-up>
+            <div class="header-kegiatan text-center fade-up">
+                <h2 class="fw-bold">Kegiatan Mendatang Wilayah RW. 02</h2>
+            </div>
             <div class="carousel-container py-5 fade-up">
                 <div class="row">
+                    @foreach ($kegiatan as $item)
+                        <div class="col-lg-3">
+                            {{-- onclick="location.href='{{ route('kegiatan.show', $item->id) }}'" --}}
+                            <div class="card">
+                                @if ($item->foto)
+                                    <div class="card-img">
+                                        <img src="{{ asset('storage/' . $item->foto) }}" alt="{{ $item->nama_kegiatan }}" style="width: 100%; height: 200px; object-fit: cover;">
+                                    </div>
+                                @else
+                                    <div class="card-img">
+                                        <img src="{{ asset('assets/img/default.jpg') }}" alt="{{ $item->nama_kegiatan }}" style="width: 100%; height: 200px; object-fit: cover;">
+                                    </div>
+                                @endif
+                                <div class="card-body">
+                                    <h5 class="card-title text-center py-2">{{ $item->nama_kegiatan }}</h5>
+                                    <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">{{ $item->waktu_mulai }} - {{ $item->waktu_selesai ? $item->waktu_selesai : 'selesai' }}</span></p>
+                                    <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">{{ \Carbon\Carbon::parse($item->tanggal_kegiatan)->translatedFormat('l, d F Y') }}</span></p>
+                                    <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">{{ $item->lokasi_kegiatan }}</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 <div class="col-lg-3">
                     <div class="card">
                     <div class="card-img">
                         <img src="{{asset('assets/img/senam sehat.jpg')}}" alt="...">
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title text-center py-2"><a href="">Senam Sehat</a></h5>
+                        <h5 class="card-title text-center py-2"><a href="{{ route('events') }}">Senam Sehat</a></h5>
                         <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">06:00 - selesai</span></p>
                         <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">Jumat, 19 April 2024</span></p>
                         <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">Lapangan Utara</span></p>
@@ -302,7 +351,7 @@
                         <img src="{{asset('assets/img/kerja bakti.jpg')}}" alt="...">
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title text-center py-2"><a href="">Kerja Bakti</a></h5>
+                        <h5 class="card-title text-center py-2"><a href="{{ route('events') }}">Kerja Bakti</a></h5>
                         <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">06:30 - selesai</span></p>
                         <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">Minggu, 21 April 2024</span></p>
                         <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">Seluruh Wilayah RW. 02</span></p>
@@ -315,7 +364,7 @@
                         <img src="{{asset('assets/img/berita.JPG')}}" alt="...">
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title text-center py-2"><a href="">Lomba 17 Agustusan</a></h5>
+                        <h5 class="card-title text-center py-2"><a href="{{ route('events') }}">Lomba 17 Agustusan</a></h5>
                         <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">06:30 - selesai</span></p>
                         <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">Minggu, 21 April 2024</span></p>
                         <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">Halaman Rumah</span></p>
@@ -328,7 +377,7 @@
                         <img src="{{asset('assets/img/posyandu.jpg')}}" alt="...">
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title text-center py-2"><a href="">Posyandu</a></h5>
+                        <h5 class="card-title text-center py-2"><a href="{{ route('events') }}">Posyandu</a></h5>
                         <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">09:00 - selesai</span></p>
                         <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">Jumat, 19 Mei 2024</span></p>
                         <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">Pos Posyandu</span></p>
@@ -337,10 +386,10 @@
                 </div>
                 </div>
             </div>
-            </div>
-        </section>
+        </div>
+    </section>
     {{-- Kegiatan --}}
-
+    
     {{-- dokumentasi --}}
         <br>
         <section id="foto" class="section-foto parallax">
@@ -351,7 +400,7 @@
                         <h5 class="fw-bold text-white">Dokumentasi Wilayah RW 02</h5>
                     </div>
                     <div>
-                        <a href="" class="btn btn-outline-light">Dokumentasi Lainnya</a>
+                        <a href="{{ route('dokumentasi') }}" class="btn btn-outline-light">Dokumentasi Lainnya</a>
                     </div>
                 </div>
         
