@@ -16,7 +16,7 @@
         <p>Program BLT DD adalah inisiatif pemerintah untuk memberikan bantuan dana tunai kepada keluarga yang memenuhi syarat berdasarkan keputusan musyawarah desa (Musdes). Program ini dirancang untuk meringankan beban ekonomi keluarga penerima manfaat (KPM) sesuai dengan peraturan perundang-undangan yang berlaku.</p>
 
         <div class="icon-box">
-          <div class="icon"><i class="bx bx-target-lock"></i></div>
+          <div class="icon"><i class='bx bx-dollar-circle'></i></i></div>
           <h4 class="title"><a href="#tujuan">Tujuan</a></h4>
           <p class="description">Tujuan utama BLT DD adalah membantu keluarga kurang mampu memenuhi kebutuhan sehari-hari, terutama bagi yang terdampak pandemi COVID-19.</p>
         </div>
@@ -34,7 +34,7 @@
         </div>
 
         <div class="text-left mt-4">
-          <a href="#form-ajukan" class="btn-ajukan">Ajukan</a>
+          <a href="{{ route('warga.bansos.create') }}" class="btn-ajukan">Ajukan</a>
         </div>
 
       </div>
@@ -436,10 +436,11 @@ section {
 }
 
 .about .video-box {
-  background: url("assets/img/heroBg.jpg") center center no-repeat;
+  background: url('{{ asset('assets/img/heroBg.jpg') }}') center center no-repeat;
   background-size: cover;
   min-height: 500px;
 }
+
 
 .about .play-btn {
   width: 94px;
@@ -804,5 +805,3 @@ section {
   animateValues(["rupiah", "penerima", "target"], [0, 1, 2], [300, 21, 50], 1000); // Contoh untuk tiga elemen dengan nilai yang berbeda
 </script>
 @endpush
-
-

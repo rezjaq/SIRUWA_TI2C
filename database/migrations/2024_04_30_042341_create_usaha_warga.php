@@ -13,19 +13,16 @@ return new class extends Migration {
         Schema::create('usaha_warga', function (Blueprint $table) {
             $table->id('id_usahaWarga');
             $table->string('nik_warga');
-            $table->foreign('nik_warga')->references('nik')->on('warga')->onDelete('cascade');
+            // $table->foreign('nik_warga')->references('nik')->on('warga')->onDelete('cascade');
             $table->string('nama_usaha');
             $table->string('jenis_usaha');
             $table->string('alamat_usaha');
             $table->string('nomer_telepon'); // Tambah kolom nomer_telepon
-            $table->text('keterangan');
-            // $table->string('status')->default('pending');
-            // $table->string('foto')->nullable(); // Kolom foto yang bisa null
-            $table->string('nomer_telepon');
+            // $table->text('keterangan');
             $table->decimal('harga', 10, 2);
             $table->text('deskripsi');
-            $table->string('status')->default('pending');
-            $table->string('foto')->nullable();
+            // $table->string('status')->default('pending');
+            // $table->string('foto')->nullable();
             $table->timestamps();
         });
     }
@@ -38,6 +35,3 @@ return new class extends Migration {
         Schema::dropIfExists('usaha_warga');
     }
 };
-
-
-

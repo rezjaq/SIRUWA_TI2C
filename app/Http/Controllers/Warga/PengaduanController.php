@@ -35,10 +35,9 @@ class PengaduanController extends Controller
             'nama' => 'required|string|max:255',
             'tempat' => 'required|string|max:255',
             'tanggal_aduan' => 'required|date',
-            'isi_aduan' => 'required|string', // Kolom isi_aduan harus diisi
+            'isi' => 'required|string',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
 
         // Get the authenticated user's nik_warga
         $nik_warga = Auth::user()->nik;
@@ -50,13 +49,14 @@ class PengaduanController extends Controller
             'nama' => $request->nama,
             'tempat' => $request->tempat,
             'tanggal_aduan' => $request->tanggal_aduan,
-            'isi_aduan' => $request->isi_aduan,
+            'isi' => $request->isi,
             'foto' => $imagePath,
             'status_aduan' => 'pending',
         ]);
 
         return redirect()->route('pengaduan')->with('success', 'Pengaduan berhasil dikirim.');
     }
+
 
 
 

@@ -60,7 +60,7 @@ class umkm extends Controller
             'alamat_usaha' => 'required',
             'nomer_telepon' => 'required',
             'harga' => 'required|numeric',
-            'deskripsi' => 'required', // correct the field name
+            'deskripsi' => 'required',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg',
         ]);
 
@@ -70,7 +70,7 @@ class umkm extends Controller
         $usahaWarga->alamat_usaha = $request->alamat_usaha;
         $usahaWarga->nomer_telepon = $request->nomer_telepon;
         $usahaWarga->harga = $request->harga;
-        $usahaWarga->deskripsi = $request->deskripsi; // correct the field name
+        $usahaWarga->deskripsi = $request->deskripsi;
         $usahaWarga->nik_warga = Auth::user()->nik;
         $usahaWarga->status = 'pending';
 
@@ -81,7 +81,7 @@ class umkm extends Controller
 
         $usahaWarga->save();
 
-        return redirect()->route('pengajuan-umkm')->with('success', 'Pengajuan UMKM berhasil disimpan.');
+        return redirect()->route('pengajuan-umkm')->with('success', 'Pengajuan UMKM berhasil dikirim tunggu vertifikasi dari pihak Ketua RW');
     }
 
 
@@ -104,6 +104,7 @@ class umkm extends Controller
             ]
         ];
 
+        // kasih notifikasi jika sudah di approve
         $usahaWarga = UsahaWarga::where('status', 'approved')
             ->get();
 

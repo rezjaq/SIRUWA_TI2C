@@ -22,7 +22,7 @@ class BansosController extends Controller
         ];
         $activeMenu = 'Bansos';
 
-        return view('RW.bansos.index', compact('breadcrumb', 'activeMenu', 'page'));
+        return view('rw.bansos.index', compact('breadcrumb', 'activeMenu', 'page'));
     }
 
     public function listRankedScores()
@@ -146,7 +146,7 @@ class BansosController extends Controller
         // Ambil semua warga yang sudah terverifikasi
         $warga = Warga::where('verif', 'terverifikasi')->get();
 
-        return view('RW.bansos.create', compact('breadcrumb', 'activeMenu','warga'));
+        return view('rw.bansos.create', compact('breadcrumb', 'activeMenu','warga'));
     }
 
     // Method untuk menyimpan pengajuan bansos baru
@@ -230,7 +230,7 @@ class BansosController extends Controller
         ];
 
         // Mengirim data ke view
-        return view('RW.bansos.show', compact('breadcrumb', 'activeMenu', 'bansos', 'kriteria'));
+        return view('rw.bansos.show', compact('breadcrumb', 'activeMenu', 'bansos', 'kriteria'));
     }
 
     public function approve($id)
@@ -239,7 +239,7 @@ class BansosController extends Controller
         $bansos->status = 'approved';
         $bansos->save();
 
-        return redirect()->route('RW.bansos.ranked-scores')->with('success', 'Pengajuan bansos telah disetujui.');
+        return redirect()->route('rw.bansos.ranked-scores')->with('success', 'Pengajuan bansos telah disetujui.');
     }
 
     public function reject($id)
@@ -248,6 +248,6 @@ class BansosController extends Controller
         $bansos->status = 'rejected';
         $bansos->save();
 
-        return redirect()->route('RW.bansos.ranked-scores')->with('success', 'Pengajuan bansos telah ditolak.');
+        return redirect()->route('rw.bansos.ranked-scores')->with('success', 'Pengajuan bansos telah ditolak.');
     }
 }

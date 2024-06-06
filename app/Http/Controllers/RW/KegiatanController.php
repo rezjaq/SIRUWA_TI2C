@@ -75,8 +75,8 @@ class KegiatanController extends Controller
         $kegiatan->status_kegiatan = $request->status_kegiatan;
 
         if ($request->hasFile('foto')) {
-            $fotoPath = $request->file('foto')->store('kegiatan_foto');
-            $kegiatan->foto = $fotoPath;
+            $fotoPath = $request->file('foto')->store('public/kegiatan_foto');
+            $kegiatan->foto = str_replace('public/', '', $fotoPath);
         }
 
         $kegiatan->save();
@@ -84,6 +84,7 @@ class KegiatanController extends Controller
         // Redirect ke halaman daftar kegiatan dengan pesan sukses
         return redirect()->route('kegiatan.index')->with('success', 'Kegiatan berhasil ditambahkan.');
     }
+
 
     public function show($id)
     {
@@ -144,8 +145,8 @@ class KegiatanController extends Controller
 
         // Update foto jika ada
         if ($request->hasFile('foto')) {
-            $fotoPath = $request->file('foto')->store('kegiatan_foto');
-            $kegiatan->foto = $fotoPath;
+            $fotoPath = $request->file('foto')->store('public/kegiatan_foto');
+            $kegiatan->foto = str_replace('public/', '', $fotoPath);
         }
 
         $kegiatan->save();

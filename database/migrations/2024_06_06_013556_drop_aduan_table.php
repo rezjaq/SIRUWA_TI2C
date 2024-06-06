@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -12,6 +13,25 @@ return new class extends Migration
     public function up(): void
     {
         Schema::dropIfExists('aduan');
+
+        Schema::create('aduan', function (Blueprint $table) {
+            $table->id('id_aduan');
+            $table->string('nik_warga');
+            $table->foreign('nik_warga')->references('nik')->on('warga')->onDelete('cascade');
+            // $table->string('nama');  // Nama Warga
+            // $table->string('tempat');  // Tempat Aduan
+            // $table->date('tanggal');  // Tanggal Aduan
+            // $table->text('isi');  // Isi Aduan
+            // $table->string('foto');  // Foto Aduan
+            // $table->enum('status_aduan', ['pending', 'approved', 'rejected'])->default('pending');  // Status Aduan
+            $table->string('nama');
+            $table->string('tempat');
+            $table->timestamp('tanggal')->default(DB::raw('CURRENT_TIMESTAMP')); // Gunakan TIMESTAMP dan CURRENT_TIMESTAMP
+            $table->text('isi');
+            $table->string('foto');
+            $table->enum('status_aduan', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->timestamps();
+        });
     }
 
     /**

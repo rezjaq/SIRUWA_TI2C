@@ -65,12 +65,12 @@ class PengumumanController extends Controller
             'status_pengumuman' => 'required|in:aktif,tidak aktif',
         ]);
 
-        $pengumuman = Pengumuman::create($request->all());
+        $pengumuman = Pengumuman::create($request->except('foto'));
 
         if ($pengumuman->wasRecentlyCreated) {
             if ($request->hasFile('foto')) {
-                $fotoPath = $request->file('foto')->store('pengumuman_foto');
-                $pengumuman->foto = $fotoPath;
+                $fotoPath = $request->file('foto')->store('public/pengumuman_foto');
+                $pengumuman->foto = str_replace('public/', '', $fotoPath);
                 $pengumuman->save();
             }
 
@@ -79,6 +79,7 @@ class PengumumanController extends Controller
             return redirect()->back()->with('error', 'Gagal menambahkan pengumuman.');
         }
     }
+
 
     public function show(string $id)
     {
@@ -131,8 +132,8 @@ class PengumumanController extends Controller
         $pengumuman->update($request->all());
 
         if ($request->hasFile('foto')) {
-            $fotoPath = $request->file('foto')->store('pengumuman_foto');
-            $pengumuman->foto = $fotoPath;
+            $fotoPath = $request->file('foto')->store('public/pengumuman_foto');
+            $pengumuman->foto = str_replace('public/', '', $fotoPath);
             $pengumuman->save();
         }
 

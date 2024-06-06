@@ -11,156 +11,184 @@
 @endsection
 
 @section('content')
-    <div class="form-container">
-        <h2>Pengajuan UMKM</h2>
-        <form action="{{ route('umkm.store') }}" method="POST" enctype="multipart/form-data" id="umkmForm">
-            @csrf
-            <input type="hidden" id="nik" name="nik" value="{{ $user->nik }}">
-
-            <div class="form-group">
-                <label for="nama_usaha">Nama Usaha</label>
-                <input type="text" id="nama_usaha" name="nama_usaha" class="form-control" required>
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-md-10"> <!-- Increased width from col-md-8 to col-md-10 -->
+            <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #03774A; color: #fff;">
+                    <h4 class="mb-0">
+                        <a href="{{ route('home') }}" class="btn btn-sm btn-light me-2">
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                        Form Pengajuan UMKM
+                    </h4>
+                </div>
+                <div class="card-body">
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                
+                    @if($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <form action="{{ route('umkm.store') }}" method="POST" enctype="multipart/form-data" id="umkmForm">
+                        @csrf
+                        <input type="hidden" id="nik" name="nik" value="{{ $user->nik }}">
+                    
+                        <div class="form-group mb-3">
+                            <label for="nama_usaha">Nama Usaha</label>
+                            <input type="text" id="nama_usaha" name="nama_usaha" class="form-control" required>
+                        </div>
+                    
+                        <div class="form-group mb-3">
+                            <label for="jenis_usaha">Kategori</label>
+                            <select id="jenis_usaha" name="jenis_usaha" class="form-control" required>
+                                <option value="">Pilih Jenis Usaha</option>
+                                <option value="makanan">Makanan</option>
+                                <option value="minuman">Minuman</option>
+                                <option value="kerajinan_tangan">Kerajinan Tangan</option>
+                                <option value="fashion">Fashion</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="nomer_telepon">Nomor Telepon</label>
+                            <input type="tel" id="nomer_telepon" name="nomer_telepon" class="form-control" required>
+                        </div>            
+                    
+                        <div class="form-group mb-3">
+                            <label for="alamat_usaha">Alamat Usaha</label>
+                            <textarea id="alamat_usaha" name="alamat_usaha" class="form-control" rows="3" required></textarea>
+                        </div>
+                    
+                        <div class="form-group mb-3">
+                            <label for="harga">Harga Produk</label>
+                            <input type="number" id="harga" name="harga" class="form-control" required>
+                        </div>
+                    
+                        <div class="form-group mb-3">
+                            <label for="deskripsi">Deskripsi Usaha</label>
+                            <textarea id="deskripsi" name="deskripsi" class="form-control" rows="3" required></textarea>
+                        </div>
+                    
+                        <div class="form-group mb-3">
+                            <label for="foto">Foto Produk</label>
+                            <input type="file" id="foto" name="foto" class="form-control-file">
+                        </div>
+                    
+                        <div class="form-buttons mt-3">
+                            <button type="submit" class="btn btn-primary btn-block">Ajukan</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-
-            <div class="form-group">
-                <label for="jenis_usaha">Ketegori</label>
-                <select id="jenis_usaha" name="jenis_usaha" class="form-control" required>
-                    <option value="">Pilih Jenis Usaha</option>
-                    <option value="makanan">Makanan</option>
-                    <option value="minuman">Minuman</option>
-                    <option value="kerajinan_tangan">Kerajinan Tangan</option>
-                    <option value="fashion">Fashion</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="nomer_telepon">Nomor Telepon</label>
-                <input type="tel" id="nomer_telepon" name="nomer_telepon" class="form-control" required>
-            </div>            
-
-            <div class="form-group">
-                <label for="alamat_usaha">Alamat Usaha</label>
-                <textarea id="alamat_usaha" name="alamat_usaha" class="form-control" required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="harga">Harga Produk</label>
-                <input type="number" id="harga" name="harga" class="form-control" required>
-            </div>
-
-            <div class="form-group">
-                <label for="deskripsi">Deskripsi Usaha</label>
-                <textarea id="deskripsi" name="deskripsi" class="form-control" required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="foto">Foto Produk</label>
-                <input type="file" id="foto" name="foto" class="form-control-file">
-            </div>
-
-            <div class="form-buttons">
-                <button type="submit" class="btn btn-primary-umkm">Ajukan</button>
-                <a href="{{ route('home') }}" class="btn btn-secondary-umkm">Back to Home</a>
-            </div>
-        </form>
+        </div>
     </div>
+</div>
 @endsection
 
 @push('css')
     <style>
         body {
-            background: #f5f5f5;
+            background-color: #f5f5f5;
             font-family: 'Roboto', sans-serif;
         }
 
-        .form-container {
-            width: 100%;
-            max-width: 600px;
-            margin: 50px auto;
-            background: #fff;
-            padding: 30px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            transition: transform 0.3s, box-shadow 0.3s;
+        .card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
         }
 
-        .form-container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        .card-header {
+            background-color: #03774A;
+            color: #fff;
+            padding: 15px;
+            border-bottom: none;
+            border-radius: 4px 4px 0 0;
         }
 
-        .form-container h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #333;
+        .card-header h4 {
+            margin: 0;
         }
 
-        .form-group {
-            margin-bottom: 20px;
+        .btn-light {
+            color: #03774A;
+            background-color: #fff;
+            border-color: #03774A;
+        }
+
+        .btn-light:hover {
+            color: #fff;
+            background-color: #02593a;
+            border-color: #02593a;
         }
 
         .form-group label {
-            display: block;
             font-weight: bold;
-            margin-bottom: 8px;
-            color: #555;
+            margin-bottom: 5px;
+            display: block;
+            color: #333;
         }
 
-        .form-control,
-        .form-control-file {
-            width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
             border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 10px;
+            border-radius: 4px;
+            box-sizing: border-box;
+            width: 100%;
             transition: border-color 0.3s, box-shadow 0.3s;
         }
 
-        .form-control:focus,
-        .form-control-file:focus {
-            border-color: #007bff;
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #03774A;
+            box-shadow: 0 0 5px rgba(3, 119, 74, 0.5);
             outline: none;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
         }
 
-        .form-buttons {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .alert ul {
+            margin-bottom: 0;
         }
 
-        .btn {
-            display: inline-block;
-            padding: 12px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            text-align: center;
-            border: none;
-            border-radius: 5px;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        .btn-primary-umkm {
+        .btn-primary {
             background-color: #03774A;
-            color: #fff;
+            border-color: #03774A;
+            width: 100%;
         }
 
-        .btn-primary-umkm:hover {
+        .btn-primary:hover {
             background-color: #02593a;
-            transform: scale(1.05);
+            border-color: #02593a;
         }
 
-        .btn-secondary-umkm {
+        .btn-secondary {
             background-color: #6c757d;
-            color: #fff;
+            border-color: #6c757d;
+            width: 100%;
         }
 
-        .btn-secondary-umkm:hover {
+        .btn-secondary:hover {
             background-color: #565e64;
-            transform: scale(1.05);
+            border-color: #565e64;
         }
     </style>
 @endpush
+
+
 
 @push('js')
 <script>

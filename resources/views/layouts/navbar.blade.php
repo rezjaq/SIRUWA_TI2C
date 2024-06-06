@@ -15,7 +15,7 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle {{ Request::routeIs('warga-tetap') || Request::routeIs('warga-pindah') ? 'active' : '' }}" href="#" id="pengajuanDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Pengajuan
+                            Pengajuan Surat
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="pengajuanDropdown">
                             <li><a class="dropdown-item" href="{{ route('warga-tetap') }}">Surat Warga Tetap</a></li>
@@ -35,18 +35,18 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle {{ Request::routeIs('bansos.*') ? 'active' : '' }}" href="#" id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Bansos
+                            Bantuan Sosial
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="bansosDropdown">
                             <li><a class="dropdown-item" href="{{ route('warga.bansos.create') }}">Pengajuan</a></li>
-                            <li><a class="dropdown-item" href="#">Daftar Penerima Bansos</a></li>
-                            <li><a class="dropdown-item" href="{{ route('pengajuan-bansos') }}">Pengajuan</a></li>
-                            <li><a class="dropdown-item" href="{{ route('daftar-penerima-bansos') }}">Daftar Penerima Bansos</a></li>
+                            <li><a class="dropdown-item" href="{{ route('warga.bansos.penerima') }}">Daftar Penerima Bansos</a></li>
+                            {{-- <li><a class="dropdown-item" href="{{ route('pengajuan-bansos') }}">Pengajuan</a></li>
+                            <li><a class="dropdown-item" href="{{ route('daftar-penerima-bansos') }}">Daftar Penerima Bansos</a></li> --}}
                         </ul>
                     </li>
                     
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{ Request::routeIs('pengaduan.*') ? 'active' : '' }}" href="#" id="pengaduanDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pengaduan</a>
+                        <a class="nav-link dropdown-toggle {{ Request::routeIs('pengaduan.*') ? 'active' : '' }}" href="#" id="pengaduanDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pengaduan Warga</a>
                         <ul class="dropdown-menu" aria-labelledby="pengaduanDropdown">
                             <li><a class="dropdown-item {{ Request::routeIs('pengaduan') ? 'active' : '' }}" href="{{ route('pengaduan') }}">Daftar Pengaduan</a></li>
                             {{-- <li><a class="dropdown-item {{ Request::routeIs('pengaduan.show') ? 'active' : '' }}" href="{{ route('pengaduan.show') }}">History Pengaduan</a></li> --}}
@@ -102,3 +102,16 @@
     </div>
 </nav>
 {{-- navbar --}}
+
+@push('js')
+<script>
+    // Show dropdown on hover
+    $('.nav-item.dropdown').hover(function() {
+        $(this).addClass('show');
+        $(this).find('.dropdown-menu').addClass('show');
+    }, function() {
+        $(this).removeClass('show');
+        $(this).find('.dropdown-menu').removeClass('show');
+    });
+</script>
+@endpush
