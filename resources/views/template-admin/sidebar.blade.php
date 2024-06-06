@@ -23,6 +23,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{ url('/Warga_Pindah') }}" class="nav-link {{ ($activeMenu == 'Warga Pindah') ? 'active' : '' }}">
+                <span class="menu-title">warga Pindah</span>
+                <i class="mdi mdi-credit-card-multiple menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{ url('/pengumuman') }}" class="nav-link {{ ($activeMenu == 'pengumuman') ? 'active' : '' }}">
                 <span class="menu-title">Pengumuman</span>
                 <i class="mdi mdi-clipboard-text menu-icon"></i>

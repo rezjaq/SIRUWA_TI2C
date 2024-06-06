@@ -15,6 +15,12 @@ return new class extends Migration {
             $table->id('id_aduan');
             $table->string('nik_warga');
             $table->foreign('nik_warga')->references('nik')->on('warga')->onDelete('cascade');
+            // $table->string('nama');  // Nama Warga
+            // $table->string('tempat');  // Tempat Aduan
+            // $table->date('tanggal');  // Tanggal Aduan
+            // $table->text('isi');  // Isi Aduan
+            // $table->string('foto');  // Foto Aduan
+            // $table->enum('status_aduan', ['pending', 'approved', 'rejected'])->default('pending');  // Status Aduan
             $table->string('nama');
             $table->string('tempat');
             $table->timestamp('tanggal')->default(DB::raw('CURRENT_TIMESTAMP')); // Gunakan TIMESTAMP dan CURRENT_TIMESTAMP
