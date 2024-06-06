@@ -2,8 +2,6 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RT\DashboardController as RTDashboardController;
-// use App\Http\Controllers\RT\PengumumanController as RTPengumumanController;
-// use App\Http\Controllers\RT\KegiatanController as RTKegiatanController;
 use App\Http\Controllers\Warga\DashboardWargaController as DashboardWargaController;
 use App\Http\Controllers\Warga\PengajuanSuratController as PengajuanSuratController;
 use App\Http\Controllers\Warga\BantuanSosial as BantuanSosialController;
@@ -57,7 +55,8 @@ Route::get('/check-login', function () {
     return response()->json(['logged_in' => Auth::check()]);
 });
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
-Route::post('/change-password', [AuthController::class, 'changePassword'])->name('change-password');
+Route::get('/change-password', [AuthController::class, 'showChangePasswordForm'])->name('change-password');
+Route::post('/change-password', [AuthController::class, 'changePassword'])->name('post-change-password');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/cek_nik', [RegistrasiWarga::class, 'index'])->name('registrasi.index');
@@ -81,8 +80,9 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/create', [BansosWarga::class, 'create'])->name('warga.bansos.create');
             Route::post('/store', [BansosWarga::class, 'store'])->name('warga.bansos.store');
             Route::get('/penerima', [BansosWarga::class, 'penerima'])->name('warga.bansos.penerima');
+            Route::get('/bansos', [BantuanSosialController::class, 'index'])->name('bansos');
         });
-        
+
         Route::prefix('bansos')->group(function () {
             Route::get('/', [BantuanSosialController::class, 'index'])->name('bansos');
             Route::get('/pengajuan', [BantuanSosialController::class, 'pengajuan'])->name('pengajuan-bansos');
@@ -215,6 +215,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::delete('/{id}', [RwWargaPindah::class, 'destroy'])->name('WargaPindah.destroy');
         });
     });
+
     // Rute untuk RT
     Route::group(['middleware' => ['cek_login:RT']], function () {
         Route::get('/RT', [RTDashboardController::class, 'index'])->name('dashboard-rt');
@@ -314,16 +315,18 @@ Route::group(['middleware' => ['auth']], function () {
 // Route::get('/berita', function () {
 //     return view('berita.berita');
 // });
-Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
-Route::get('/detail-berita', [BeritaController::class, 'detail'])->name('detail-berita');
-Route::get('/events', [EventsController::class, 'index'])->name('events');
-Route::get('/dokumentasi', [DokumentasiController::class, 'index'])->name('dokumentasi');
-
 
 // Home Page or Landing Page
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/berita-lainnya', [HomeController::class, 'beritaLainnya'])->name('berita_lainnya');
 Route::get('/berita/{id}', [HomeController::class, 'beritaShow'])->name('berita.show');
+//menampilkan berita untuk page after login
+Route::get('/berita-lainnya', [DashboardWargaController::class, 'beritaLainnya'])->name('berita_lainnya');
+Route::get('/berita/{id}', [DashboardWargaController::class, 'beritaShow'])->name('berita.show');
 
 
+// Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
+// Route::get('/detail-berita', [BeritaController::class, 'detail'])->name('detail-berita');
+Route::get('/events', [EventsController::class, 'index'])->name('events');
+Route::get('/dokumentasi', [DokumentasiController::class, 'index'])->name('dokumentasi');
 

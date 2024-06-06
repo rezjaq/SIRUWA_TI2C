@@ -13,13 +13,10 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
+            <div class="col-lg-10">
+                <div class="card shadow-sm">
                     <div class="card-header" style="background-color: #03774A; color: #fff;">
                         <h4 class="mb-0">
-                            <a href="{{ route('dashboard-warga') }}" class="btn btn-sm btn-light me-2">
-                                <i class="fas fa-arrow-left"></i>
-                            </a>
                             Ajukan Bansos
                         </h4>
                     </div>
@@ -36,7 +33,6 @@
                                 {{ session('success') }}
                             </div>
                         @endif
-
 
                         <form method="POST" action="{{ route('warga.bansos.store') }}">
                             @csrf
@@ -72,8 +68,7 @@
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="status_kepemilikan_rumah" class="col-form-label">Status Kepemilikan
-                                    Rumah:</label>
+                                <label for="status_kepemilikan_rumah" class="col-form-label">Status Kepemilikan Rumah:</label>
                                 <select class="form-control" id="status_kepemilikan_rumah" name="status_kepemilikan_rumah">
                                     <option value="1">Milik sendiri</option>
                                     <option value="2">Milik orang tua/anak</option>
@@ -117,10 +112,8 @@
                                 </select>
                             </div>
 
-                            <div class="form-group row mb-0">
-                                <div class="col-md-12 d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-primary w-100">{{ __('Simpan') }}</button>
-                                </div>
+                            <div class="form-buttons mt-3">
+                                <button type="submit" class="btn btn-primary btn-block">Kirim Pengajuan</button>
                             </div>
                         </form>
                     </div>
@@ -135,7 +128,7 @@
         .card {
             border: 1px solid #ddd;
             padding: 20px;
-            border-radius: 4px;
+            border-radius: 8px;
         }
 
         .form-group label {
@@ -169,8 +162,29 @@
         }
 
         .btn-primary:hover {
-            background-color: #03774A;
-            border-color: #03774A;
+            background-color: #02593a;
+            border-color: #02593a;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            width: 100%;
+        }
+
+        .btn-secondary:hover {
+            background-color: #565e64;
+            border-color: #565e64;
+        }
+
+        @media (max-width: 767.98px) {
+            .form-group.row.mb-0 {
+                flex-direction: row;
+            }
+
+            .form-group.row.mb-0 .col-6 {
+                max-width: 50%;
+            }
         }
     </style>
 @endpush

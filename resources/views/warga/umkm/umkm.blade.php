@@ -48,7 +48,7 @@
                         <div class="mb-5 d-flex justify-content-around align-items-center">
                             <h3><span class="small-text">Harga mulai</span> {{ $umkm->harga }}</h3>
                             <!-- Ganti URL WhatsApp dengan nomor yang sesuai dari data UMKM jika diperlukan -->
-                            <a href="https://wa.me/{{ $umkm->nomer_telepon }}" class="btn btn-primary" target="_blank">
+                            <a href="https://wa.me/+62{{ $umkm->nomer_telepon }}" class="btn btn-primary" target="_blank">
                                 <i class="bi bi-whatsapp"></i>
                             </a>
                         </div>
