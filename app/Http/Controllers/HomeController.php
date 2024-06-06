@@ -17,7 +17,7 @@ class HomeController extends Controller
         
         $kegiatan = Kegiatan::where('status_kegiatan', 'aktif')
             ->orderBy('tanggal_kegiatan', 'desc')
-            ->take(4)
+            // ->take(4)
             ->get();
 
         return view('welcome', compact('pengumuman', 'kegiatan'));

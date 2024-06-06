@@ -26,5 +26,8 @@ class WargaPindahMasuk extends Model
         'alamat_asal',
         'tanggal_pindah',
         'no_rt',
+        'foto_ktp',
+        'foto_surat_pindah',
+        'status',
     ];
 }

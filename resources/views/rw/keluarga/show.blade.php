@@ -50,7 +50,7 @@
                                     <th>NIK</th>
                                     <th>Nama</th>
                                     <th>Jenis Kelamin</th>
-                                    <th>Umur</th>
+                                    <th>Tanggal Lahir</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -59,7 +59,7 @@
                                         <td>{{ $anggota->nik }}</td>
                                         <td>{{ $anggota->nama }}</td>
                                         <td>{{ $anggota->jenis_kelamin }}</td>
-                                        <td>{{ $anggota->statusKawin}}</td>
+                                        <td>{{\Carbon\Carbon::parse($anggota->tanggal_lahir)->format('d-m-Y') }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

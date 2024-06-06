@@ -97,7 +97,9 @@ class KeluargaController extends Controller
 
         $activeMenu = 'keluarga';
 
-        $keluarga = Keluarga::with('anggota')->findOrFail($id);
+        $keluarga = Keluarga::with(['anggota' => function($query) {
+            $query->orderBy('tanggal_lahir', 'asc');
+        }])->findOrFail($id);
 
         return view('rw.keluarga.show', compact('breadcrumb', 'activeMenu', 'keluarga'));
     }
