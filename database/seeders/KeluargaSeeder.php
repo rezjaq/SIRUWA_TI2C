@@ -295,6 +295,56 @@ class KeluargaSeeder extends Seeder
                 'alamat' => 'Jl. Onggojoyo No. 18',
                 'no_rt' => '6',
             ],
+                //RT
+            [
+                'id_keluarga' => '3525021911089173',
+                'nama_kepala_keluarga' => 'MUHAMMAD SAID',
+                'nomor_nik' => '3525020208670023',
+                'alamat' => 'Jl. Sidoagung no. 14',
+                'no_rt' => '1'
+            ],
+            [
+                'id_keluarga' => '3525022607000002',
+                'nama_kepala_keluarga' => 'MUHAMMAD AINUN NAJA',
+                'nomor_nik' => '3525021911089178',
+                'alamat' => 'Jl. Kertarejasa Gang II no. 15',
+                'no_rt' => '2'
+            ],
+            [
+                'id_keluarga' => '3525021911089239',
+                'nama_kepala_keluarga' => 'AHMAD ZAENURI',
+                'nomor_nik' => '3525026506830001',
+                'alamat' => 'Jl. Kertarejasa Gang II no. 16',
+                'no_rt' => '3'
+            ],
+            [
+                'id_keluarga' => '3525021609040002',
+                'nama_kepala_keluarga' => 'USTMAN JUNAEDI',
+                'nomor_nik' => '3525021911089174',
+                'alamat' => 'Jl. Onggojoyo no. 56',
+                'no_rt' => '4'
+            ],
+            [
+                'id_keluarga' => '3525021911089176',
+                'nama_kepala_keluarga' => 'MUHAMMAD SANDIM',
+                'nomor_nik' => '3525022807760002',
+                'alamat' => 'Jl. Onggojoyo no. 70',
+                'no_rt' => '5'
+            ],
+            [
+                'id_keluarga' => '3525021911089250',
+                'nama_kepala_keluarga' => 'MULYONO',
+                'nomor_nik' => '3525021911970004',
+                'alamat' => 'Jl. Onggojoyo no. 88',
+                'no_rt' => '6'
+            ],
+            [
+                'id_keluarga' => '3525021911089253',
+                'nama_kepala_keluarga' => 'HADI SRIONO',
+                'nomor_nik' => '2502480677000822',
+                'alamat' => 'Jl. Kertarejasa Gang II no. 20',
+                'no_rt' => '6'
+            ],
         ];
         DB::table('keluarga')->insert($data);
     }
