@@ -506,21 +506,134 @@
         });
     </script>
 
-    {{-- buat change password masih belum bisa --}}
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            @if (session('success'))
-                Swal.fire({
-                    title: 'Login Berhasil',
-                    text: "{{ session('success') }}",
-                    icon: 'success',
-                    showConfirmButton: false, 
-                    timer: 3000 
-                });
-            @endif
+    <!-- <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Check if there's a success message in the session
+        @if (session('success'))
+            showLoginSuccessAlert("{{ session('success') }}", {{ session('change_password') ? 'true' : 'false' }});
+        @elseif (session('change_password'))
+            showChangePasswordAlert();
+        @endif
+    });
+
+    function showLoginSuccessAlert(successMessage, showChangePassword) {
+        Swal.fire({
+            title: 'Login Berhasil',
+            text: successMessage,
+            icon: 'success',
+            showConfirmButton: true,
+        }).then((result) => {
+            if (showChangePassword) {
+                showChangePasswordAlert();
+            }
         });
-    </script>
-    
+    }
+
+    function showChangePasswordAlert() {
+        Swal.fire({
+            title: 'Ganti Kata Sandi',
+            text: 'Kata sandi Anda saat ini adalah NIK Anda. Harap ubah demi keamanan.',
+            icon: 'warning',
+            showConfirmButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "{{ route('change-password') }}";
+            }
+        });
+    }
+    </script> -->
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        @if (session('success'))
+            showLoginSuccessAlert("{{ session('success') }}", {{ session('change_password') ? 'true' : 'false' }});
+        @elseif (session('change_password'))
+            showChangePasswordAlert();
+        @endif
+    });
+
+    function showLoginSuccessAlert(successMessage, showChangePassword) {
+        Swal.fire({
+            title: 'Login Berhasil',
+            text: successMessage,
+            icon: 'success',
+            showConfirmButton: true,
+        }).then((result) => {
+            if (showChangePassword) {
+                showChangePasswordAlert();
+            }
+        });
+    }
+
+    function showChangePasswordAlert() {
+        Swal.fire({
+            title: 'Ganti Kata Sandi',
+            html: `
+                <p style="margin-bottom: 20px;">Kata sandi Anda saat ini adalah NIK Anda. Harap ubah demi keamanan.</p>
+            <form id="changePasswordForm">
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="password">Password Baru</label>
+                    <input type="password" class="form-control" id="password" name="password" required style="margin-top: 5px;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="password_confirmation">Konfirmasi Password Baru</label>
+                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required style="margin-top: 5px;">
+                </div>
+            </form>
+            `,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ganti Password',
+            preConfirm: () => {
+                const password = Swal.getPopup().querySelector('#password').value;
+                const password_confirmation = Swal.getPopup().querySelector('#password_confirmation').value;
+                if (!password || !password_confirmation) {
+                    Swal.showValidationMessage('Harap masukkan kedua bidang password');
+                } else if (password !== password_confirmation) {
+                    Swal.showValidationMessage('Password tidak cocok');
+                }
+                return { password: password, password_confirmation: password_confirmation };
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                changePassword(result.value.password, result.value.password_confirmation);
+            }
+        });
+    }
+
+    function changePassword(password, password_confirmation) {
+        fetch('{{ route('post-change-password') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ password: password, password_confirmation: password_confirmation })
+        }).then(response => response.json()).then(data => {
+            if (data.success) {
+                Swal.fire({
+                    title: 'Berhasil',
+                    text: data.message,
+                    icon: 'success'
+                }).then(() => {
+                    window.location.reload();
+                });
+            } else {
+                Swal.fire({
+                    title: 'Error',
+                    text: data.message,
+                    icon: 'error'
+                });
+            }
+        }).catch(error => {
+            Swal.fire({
+                title: 'Error',
+                text: 'Terjadi kesalahan!',
+                icon: 'error'
+            });
+        });
+    }
+</script>
 
     <script src="{{ asset('assets/js/check-login.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>    

@@ -16,9 +16,10 @@ class CheckPasswordChange
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
         if (session('change_password')) {
+            // session()->forget('change_password'); // Clear the session after checking
             return redirect()->route('change-password');
         }
 
