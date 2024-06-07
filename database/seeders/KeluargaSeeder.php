@@ -271,7 +271,7 @@ class KeluargaSeeder extends Seeder
                 'id_keluarga' => '3525020906160001',
                 'nama_kepala_keluarga' => 'ABDUL ROKHMAN',
                 'no_kk' => '3525022204970001',
-                'alamat' => 'Jl. Onggojoyo No. 15',
+                'alamat' => 'Jl. Onggojoyo No. 15B',
                 'no_rt' => '6',
             ],
             [

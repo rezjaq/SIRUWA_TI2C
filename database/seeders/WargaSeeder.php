@@ -1835,21 +1835,7 @@ class WargaSeeder extends Seeder
                 'no_rt' => '6',
                 'id_keluarga' => '3525021006160003', // ID Keluarga yang terkait
             ],
-            [
-                'nik' => '3525021904120002',
-                'nama' => 'KEVIN APRILLIO RIZKY SAPUTRA',
-                'password' => '3525021904120002',
-                'level' => 'warga',
-                'jenis_kelamin' => 'Perempuan',
-                'tanggal_lahir' => '1981-01-12',
-                'alamat' => 'Jl. Onggojoyo No. 17',
-                'no_telepon' => '082233551212',
-                'agama' => 'Islam',
-                'statusKawin' => 'Cerai Mati',
-                'pekerjaan' => 'Wiraswasta',
-                'no_rt' => '6',
-                'id_keluarga' => '3525021006160003', // ID Keluarga yang terkait
-            ],
+           
                 //data RT & anggota keluarganya
             [
                 'nik' => '3525020208670023',
