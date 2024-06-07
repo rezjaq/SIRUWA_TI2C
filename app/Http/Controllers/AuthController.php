@@ -109,11 +109,6 @@ class AuthController extends Controller
         return response()->json(['success' => true, 'message' => 'Password berhasil diubah.']);
     }
 
-    public function showChangePasswordForm()
-    {
-        return view('auth.change-password');
-    }
-
     public function logout(Request $request)
     {
         Auth::logout();

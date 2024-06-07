@@ -506,43 +506,6 @@
         });
     </script>
 
-    <!-- <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Check if there's a success message in the session
-        @if (session('success'))
-            showLoginSuccessAlert("{{ session('success') }}", {{ session('change_password') ? 'true' : 'false' }});
-        @elseif (session('change_password'))
-            showChangePasswordAlert();
-        @endif
-    });
-
-    function showLoginSuccessAlert(successMessage, showChangePassword) {
-        Swal.fire({
-            title: 'Login Berhasil',
-            text: successMessage,
-            icon: 'success',
-            showConfirmButton: true,
-        }).then((result) => {
-            if (showChangePassword) {
-                showChangePasswordAlert();
-            }
-        });
-    }
-
-    function showChangePasswordAlert() {
-        Swal.fire({
-            title: 'Ganti Kata Sandi',
-            text: 'Kata sandi Anda saat ini adalah NIK Anda. Harap ubah demi keamanan.',
-            icon: 'warning',
-            showConfirmButton: true,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = "{{ route('change-password') }}";
-            }
-        });
-    }
-    </script> -->
-
     <script>
     document.addEventListener("DOMContentLoaded", function() {
         @if (session('success'))
@@ -615,8 +578,6 @@
                     title: 'Berhasil',
                     text: data.message,
                     icon: 'success'
-                }).then(() => {
-                    window.location.reload();
                 });
             } else {
                 Swal.fire({
