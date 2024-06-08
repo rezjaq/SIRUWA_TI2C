@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\RW;
+namespace App\Http\Controllers\RT;
 
 use App\Http\Controllers\Controller;
 use App\Models\WargaPindahMasuk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class WargaPindah extends Controller
@@ -23,11 +24,12 @@ class WargaPindah extends Controller
 
         $wargas = WargaPindahMasuk::all();
 
-        return view('rw.warga_pindah.index', compact('breadcrumb', 'page', 'activeMenu', 'wargas'));
+        return view('rt.warga_pindah.index', compact('breadcrumb', 'page', 'activeMenu', 'wargas'));
     }
 
     public function list()
     {
+        $userNoRT = Auth::user()->no_rt;
         $warga = WargaPindahMasuk::select(
             'id_wargaPindahMasuk',
             'nama',
@@ -43,14 +45,15 @@ class WargaPindah extends Controller
             'alamat_asal',
             'tanggal_pindah',
         )
-            ->where('status', 'Selesai');
+            ->where('status', 'Selesai')
+            ->where('no_rt', $userNoRT);
 
         return DataTables::of($warga)
             ->addIndexColumn()
             ->addColumn('aksi', function ($warga) {
-                $btn = '<a href="' . route('WargaPindah.show', $warga->id_wargaPindahMasuk) . '" class="btn btn-primary btn-sm mr-1" style="width: 40px; height: 40px; margin-right: 5px;"><i class="fas fa-eye"></i></a>';
-                $btn .= '<a href="' . route('WargaPindah.edit', $warga->id_wargaPindahMasuk) . '" class="btn btn-warning btn-sm mr-1" style="width: 40px; height: 40px; margin-right: 5px;"><i class="fas fa-edit"></i></a>';
-                $btn .= '<form class="d-inline-block" method="POST" action="' . route('WargaPindah.destroy', $warga->id_wargaPindahMasuk) . '">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" style="width: 40px; height: 40px; margin-right: 5px;" onclick="return confirm(\'Apakah Anda Yakin Menghapus Data Ini? \');"><i class="fas fa-trash-alt"></i></button></form>';
+                $btn = '<a href="' . route('rt.WargaPindah.show', $warga->id_wargaPindahMasuk) . '" class="btn btn-primary btn-sm mr-1" style="width: 40px; height: 40px; margin-right: 5px;"><i class="fas fa-eye"></i></a>';
+                $btn .= '<a href="' . route('rt.WargaPindah.edit', $warga->id_wargaPindahMasuk) . '" class="btn btn-warning btn-sm mr-1" style="width: 40px; height: 40px; margin-right: 5px;"><i class="fas fa-edit"></i></a>';
+                $btn .= '<form class="d-inline-block" method="POST" action="' . route('rt.WargaPindah.destroy', $warga->id_wargaPindahMasuk) . '">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" style="width: 40px; height: 40px; margin-right: 5px;" onclick="return confirm(\'Apakah Anda Yakin Menghapus Data Ini? \');"><i class="fas fa-trash-alt"></i></button></form>';
                 return $btn;
             })
             ->rawColumns(['aksi'])
@@ -63,7 +66,7 @@ class WargaPindah extends Controller
         ];
         $activeMenu = 'warga pindah';
 
-        return view('rw.warga_pindah.create', compact('breadcrumb', 'activeMenu'));
+        return view('rt.warga_pindah.create', compact('breadcrumb', 'activeMenu'));
     }
 
     public function store(Request $request)
@@ -117,7 +120,7 @@ class WargaPindah extends Controller
             'status' => 'Selesai',
         ]);
 
-        return redirect()->route('WargaPindah.index')->with('success', 'Warga berhasil ditambahkan.');
+        return redirect()->route('rt.WargaPindah.index')->with('success', 'Warga berhasil ditambahkan.');
     }
 
     public function show($id_wargaPindahMasuk)
@@ -131,7 +134,7 @@ class WargaPindah extends Controller
 
         $warga = WargaPindahMasuk::where('status', 'Selesai')->findOrFail($id_wargaPindahMasuk);
 
-        return view('rw.warga_pindah.show', compact('breadcrumb', 'activeMenu', 'warga'));
+        return view('rt.warga_pindah.show', compact('breadcrumb', 'activeMenu', 'warga'));
     }
 
     public function edit($id_wargaPindahMasuk)
@@ -144,7 +147,7 @@ class WargaPindah extends Controller
 
         $warga = WargaPindahMasuk::findOrFail($id_wargaPindahMasuk);
 
-        return view('rw.warga_pindah.edit', compact('breadcrumb', 'activeMenu', 'warga'));
+        return view('rt.warga_pindah.edit', compact('breadcrumb', 'activeMenu', 'warga'));
     }
 
     public function update(Request $request, $id_wargaPindahMasuk)
@@ -193,14 +196,15 @@ class WargaPindah extends Controller
         $warga->save();
 
         // Redirect ke halaman daftar warga pindah dengan pesan sukses
-        return redirect()->route('WargaPindah.index')->with('success', 'Warga pindah berhasil diperbarui.');
+        return redirect()->route('rt.WargaPindah.index')->with('success', 'Warga pindah berhasil diperbarui.');
     }
+
     public function destroy($id_wargaPindahMasuk)
     {
         $warga = WargaPindahMasuk::findOrFail($id_wargaPindahMasuk);
 
         $warga->delete();
 
-        return redirect()->route('WargaPindah.index')->with('success', 'Warga berhasil dihapus.');
+        return redirect()->route('rt.WargaPindah.index')->with('success', 'Warga berhasil dihapus.');
     }
 }

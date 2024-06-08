@@ -239,7 +239,7 @@ class BansosController extends Controller
         $bansos->status = 'approved';
         $bansos->save();
 
-        return redirect()->route('rw.bansos.ranked-scores')->with('success', 'Pengajuan bansos telah disetujui.');
+        return redirect()->route('RW.bansos.ranked-scores')->with('success', 'Pengajuan bansos telah disetujui.');
     }
 
     public function reject($id)
@@ -248,6 +248,6 @@ class BansosController extends Controller
         $bansos->status = 'rejected';
         $bansos->save();
 
-        return redirect()->route('rw.bansos.ranked-scores')->with('success', 'Pengajuan bansos telah ditolak.');
+        return redirect()->route('RW.bansos.ranked-scores')->with('success', 'Pengajuan bansos telah ditolak.');
     }
 }

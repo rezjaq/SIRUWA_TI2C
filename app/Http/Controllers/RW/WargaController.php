@@ -89,10 +89,12 @@ class WargaController extends Controller
         // Simpan KTP jika diunggah
         $ktpPath = null;
         if ($request->hasFile('ktp')) {
+            $ktpPath = $request->file('ktp')->store('public/ktp_images');
             $ktp = $request->file('ktp');
             $ktpName = time() . '_' . $ktp->getClientOriginalName();
             $ktpPath = $ktp->storeAs('public/ktp_images', $ktpName);
             $ktpPath = str_replace('public/', '', $ktpPath);
+
         }
 
         // Tentukan verifikasi berdasarkan keberadaan foto KTP atau Akte
@@ -127,7 +129,7 @@ class WargaController extends Controller
             'status' => $sts,
         ]);
 
-        return redirect()->route('warga.index')->with('success', 'Warga berhasil ditambahkan.');
+        return redirect()->route('Warga.index')->with('success', 'Warga berhasil ditambahkan.');
     }
 
     public function show($nik)
@@ -224,6 +226,6 @@ class WargaController extends Controller
 
         $warga->delete();
 
-        return redirect()->route('warga.index')->with('success', 'Warga berhasil dihapus.');
+        return redirect()->route('Warga.index')->with('success', 'Warga berhasil dihapus.');
     }
 }

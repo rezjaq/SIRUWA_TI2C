@@ -4,10 +4,10 @@
     <div class="card">
         <div class="card-header d-flex align-items-center justify-content-between">
             <div>
-                <a href="{{ route('Warga.index') }}" class="btn btn-sm btn-light me-2">
+                <a href="{{ route('rt.WargaPindah.index') }}" class="btn btn-sm btn-light me-2">
                     <i class="fas fa-arrow-left"></i>
                 </a>
-                <h3 class="card-title d-inline-block text-white">Detail Warga: {{ $warga->nama }}</h3>
+                <h3 class="card-title d-inline-block text-white">Detail Warga Pindahan: {{ $warga->nama }}</h3>
             </div>
         </div>
         <div class="card-body">
@@ -53,34 +53,42 @@
                         <label class="fw-bold">No. RT:</label>
                         <input type="text" class="form-control" value="{{ $warga->no_rt }}" readonly>
                     </div>
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">Alamat Asal:</label>
+                        <input type="text" class="form-control" value="{{ $warga->alamat_asal}}" readonly>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">Tanggal Pindah:</label>
+                        <input type="text" class="form-control" value="{{ $warga->tanggal_pindah }}" readonly>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group mb-3">
                         <label class="fw-bold">Foto Akte:</label>
-                        @if($warga->akte)
+                        @if($warga->foto_ktp)
                             <div class="text-center">
-                                <img src="{{ asset('storage/' . $warga->akte) }}" alt="Foto Akte" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
-                            </div>
-                        @else
-                            <p class="text-center">Foto Akte Kelahiran tidak tersedia.</p>
-                        @endif
-                    </div>
-                    <div class="form-group mb-3">
-                        <label class="fw-bold">Foto KTP:</label>
-                        @if($warga->ktp)
-                            <div class="text-center">
-                                <img src="{{ asset('storage/public/ktp_images/' . basename($warga->ktp)) }}" alt="Foto KTP" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
-                                <img src="{{ asset('storage/' . $warga->ktp) }}" alt="Foto KTP" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
+                                <img src="{{ asset('storage/foto_ktp/' . basename($warga->foto_ktp)) }}" alt="Foto KTP" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
                             </div>
                         @else
                             <p class="text-center">Foto KTP tidak tersedia.</p>
                         @endif
                     </div>
-                </div>                          
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">Foto Surat Pindah:</label>
+                        @if($warga->foto_surat_pindah)
+                            <div class="text-center">
+                                <img src="{{ asset('storage/foto_surat_pindah/' . basename($warga->foto_surat_pindah)) }}" alt="Foto Surat Pindah" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
+                            </div>
+                        @else
+                            <p class="text-center">Foto Surat Pindah tidak tersedia.</p>
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 @endsection
+
 @push('css')
     <style>
         /* Custom CSS */
