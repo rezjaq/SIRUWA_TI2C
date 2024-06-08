@@ -11,6 +11,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{ url('/DataRT') }}" class="nav-link {{ ($activeMenu == 'Data RT') ? 'active' : '' }}">
+                <span class="menu-title">Data RT</span>
+                <i class="mdi mdi-account-multiple menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{ url('/keluarga') }}" class="nav-link {{ ($activeMenu == 'keluarga') ? 'active' : '' }}">
                 <span class="menu-title">Keluarga</span>
                 <i class="mdi mdi-account-multiple menu-icon"></i>

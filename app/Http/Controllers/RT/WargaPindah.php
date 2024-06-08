@@ -22,7 +22,8 @@ class WargaPindah extends Controller
 
         $activeMenu = 'Warga Pindah';
 
-        $wargas = WargaPindahMasuk::all();
+        $userNoRT = Auth::user()->no_rt;
+        $wargas = WargaPindahMasuk::where('no_rt', $userNoRT)->get();
 
         return view('rt.warga_pindah.index', compact('breadcrumb', 'page', 'activeMenu', 'wargas'));
     }

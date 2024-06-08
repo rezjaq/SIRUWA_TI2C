@@ -63,7 +63,7 @@ class WargaController extends Controller
     {
         // Validasi input
         $request->validate([
-            'nik' => 'required|unique:warga,nik',
+            'nik' => 'required|unique:warga,nik|digits:16',
             'nama' => 'required',
             'jenis_kelamin' => 'required',
             'tanggal_lahir' => 'required|date',
@@ -214,7 +214,7 @@ class WargaController extends Controller
         ]);
 
         // Redirect ke halaman daftar warga dengan pesan sukses
-        return redirect()->route('warga.index')->with('success', 'Warga berhasil diperbarui.');
+        return redirect()->route('Warga.index')->with('success', 'Warga berhasil diperbarui.');
 
     }
 

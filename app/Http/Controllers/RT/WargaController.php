@@ -69,7 +69,7 @@ class WargaController extends Controller
     {
         // Validasi input
         $request->validate([
-            'nik' => 'required|unique:warga,nik',
+            'nik' => 'required|unique:warga,nik|digits:16',
             'nama' => 'required',
             'jenis_kelamin' => 'required',
             'tanggal_lahir' => 'required|date',

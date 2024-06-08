@@ -38,6 +38,18 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{ url('/RTverifikasiWargaPindah') }}" class="nav-link {{ ($activeMenu == 'Verifikasi Warga Pindah') ? 'active' : '' }}">
+                <span class="menu-title">verifikasi Warga Pindahan</span>
+                <i class="mdi mdi-account menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ url('/SuratRT') }}" class="nav-link {{ ($activeMenu == 'Surat') ? 'active' : '' }}">
+                <span class="menu-title">Surat</span>
+                <i class="mdi mdi-account menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{ url('/PengaduanRT') }}" class="nav-link {{ ($activeMenu == 'pengaduan') ? 'active' : '' }}">
                 <span class="menu-title">Pengaduan</span>
                 <i class="mdi mdi-account menu-icon"></i>
