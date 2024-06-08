@@ -143,11 +143,14 @@
                     </div>
                     <div class="form-group row">
                         <label for="akte" class="col-sm-2 col-form-label">Akte</label>
-                        <div class="col-sm-10">
-                            <input type="file" class="form-control-file" id="akte" name="akte">
-                            @if ($warga->akte)
-                            <img src="{{ asset('storage/akte/' . basename($warga->akte)) }}" alt="Foto Akte"
-                                class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
+                        <div class="form-group mb-3">
+                            <label class="fw-bold">Foto Akte:</label>
+                            @if($warga->akte)
+                                <div class="text-center">
+                                    <img src="{{ asset('storage/' . $warga->akte) }}" alt="Foto Akte" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
+                                </div>
+                            @else
+                                <p class="text-center">Foto Akte Kelahiran tidak tersedia.</p>
                             @endif
                         </div>
                     </div>

@@ -16,6 +16,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Nama</th>
                                     <th scope="col">Jenis Kelamin</th>
+                                    <th scope="col">Alamat</th>
                                     <th scope="col">Nomor RT</th>
                                     <!-- Tambahkan kolom lainnya sesuai kebutuhan -->
                                 </tr>
@@ -26,6 +27,7 @@
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td>{{ $penerima->warga->nama }}</td>
                                         <td>{{ $penerima->warga->jenis_kelamin }}</td>
+                                        <td>{{ $penerima->warga->alamat }}</td>
                                         <td>{{ $penerima->warga->no_rt }}</td>
                                         <!-- Tambahkan kolom lainnya sesuai kebutuhan -->
                                     </tr>

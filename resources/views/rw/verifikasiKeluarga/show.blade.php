@@ -36,11 +36,13 @@
                 <div class="form-group mb-3">
                     <label>Gambar KK:</label>
                     @if($keluarga->kk)
-                        <img src="{{ asset('storage/' . $keluarga->kk) }}" class="img-fluid" alt="Gambar KK">
+                        <div class="text-center">
+                            <img src="{{ asset('storage/' . $keluarga->kk) }}" class="img-fluid" alt="Gambar KK">
+                        </div>
                     @else
                         <span>Tidak ada gambar KK.</span>
                     @endif
-                </div>
+                </div>                
             </div>
         </div>
     </div>
