@@ -20,6 +20,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{ url('/RTWarga_Pindah') }}" class="nav-link {{ ($activeMenu == 'Warga Pindah') ? 'active' : '' }}">
+                <span class="menu-title">warga Pindah</span>
+                <i class="mdi mdi-credit-card-multiple menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{ url('/RTVerifikasiWarga') }}" class="nav-link {{ ($activeMenu == 'verifikasi') ? 'active' : '' }}">
                 <span class="menu-title">verifikasi Data Warga</span>
                 <i class="mdi mdi-account menu-icon"></i>
