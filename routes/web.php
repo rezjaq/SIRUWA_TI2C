@@ -55,7 +55,6 @@ Route::get('/check-login', function () {
     return response()->json(['logged_in' => Auth::check()]);
 });
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
-Route::get('/change-password', [AuthController::class, 'showChangePasswordForm'])->name('change-password');
 Route::post('/change-password', [AuthController::class, 'changePassword'])->name('post-change-password');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
