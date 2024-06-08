@@ -258,7 +258,6 @@
         </section>
     {{-- berita --}}
 
-
     {{-- Kegiatan --}}
     <section id="upcoming-events" class="upcoming-events">
         <div class="container" fade-up>
