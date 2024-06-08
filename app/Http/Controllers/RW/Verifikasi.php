@@ -99,15 +99,16 @@ class Verifikasi extends Controller
         $warga = Warga::findOrFail($nik);
 
         if ($warga->status == 'disetujui' && $warga->verif == 'belum_terverifikasi') {
-            $ktpPath = $warga->ktp ? asset('storage/ktp/' . $warga->ktp) : null;
+            $ktpPath = $warga->ktp ? asset('storage/' . $warga->ktp) : null;
             return view('rw.verifikasi.show', compact('breadcrumb', 'activeMenu', 'warga', 'ktpPath'));
         }
 
         if ($warga->status == 'belum_disetujui') {
-            $aktePath = $warga->akte ? asset('storage/akte/' . $warga->akte) : null;
+            $aktePath = $warga->akte ? asset('storage/' . $warga->akte) : null;
             return view('rw.verifikasi.show', compact('breadcrumb', 'activeMenu', 'warga', 'aktePath'));
         }
 
         abort(404, 'Halaman tidak ditemukan.');
     }
+
 }

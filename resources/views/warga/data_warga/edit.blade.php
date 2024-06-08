@@ -155,14 +155,20 @@
                                     <input type="file" class="custom-file-input" id="ktp" name="ktp">
                                     <label class="custom-file-label" for="ktp">
                                         @if ($warga->ktp)
-                                        <img src="{{ asset('storage/ktp_images/' . basename($warga->ktp)) }}" alt="KTP Image" width="100">
+                                            {{ basename($warga->ktp) }}
                                         @else
                                             Choose file
                                         @endif
                                     </label>
                                 </div>
+                                @if ($warga->ktp)
+                                    <div class="mt-2">
+                                        <img src="{{ asset('storage/' . $warga->ktp) }}" alt="KTP Image" width="100">
+                                    </div>
+                                @endif
                             </div>
                         </div> 
+
                         <br><br>
                         <!-- Submit button -->
                         <button type="submit" class="btn btn-primary" style="background-color: #03774A; border: none;">Vertifikasi</button>
@@ -211,4 +217,15 @@
             border-color: #03774A;
         }
     </style>
+@endpush
+
+@push('js')
+<script>
+    // Update the label text with the selected file name
+    document.querySelector('.custom-file-input').addEventListener('change', function (e) {
+        var fileName = e.target.files[0].name;
+        var nextSibling = e.target.nextElementSibling;
+        nextSibling.innerText = fileName;
+    });
+</script>
 @endpush

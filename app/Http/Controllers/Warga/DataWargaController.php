@@ -38,8 +38,6 @@ class DataWargaController extends Controller
         return view('warga.data_warga.index', compact('breadcrumb', 'wargas'));
     }
 
-
-
     public function create()
     {
         $breadcrumb = [
@@ -81,8 +79,12 @@ class DataWargaController extends Controller
         ]);
 
         // Handle file upload
+        $aktePath = null;
         if ($request->hasFile('akte')) {
-            $aktePath = $request->file('akte')->store('akte');
+            $akte = $request->file('akte');
+            $akteName = time() . '_' . $akte->getClientOriginalName();
+            $aktePath = $akte->storeAs('public/akte', $akteName);
+            $aktePath = str_replace('public/', '', $aktePath);
         }
 
         // Simpan data warga ke database
@@ -102,9 +104,6 @@ class DataWargaController extends Controller
 
         return redirect()->route('warga.Warga.index')->with('success', 'Data warga berhasil ditambahkan. Data yang anda tambahkan akan diperiksa. Silahkan cek daftar warga untuk mengetahui data yang anda inputkan disetujui. Kalau dalam 2 hari data masih belum ada, silahkan isi kembali atau laporkan ke menu laporan.');
     }
-
-
-
 
     public function edit()
     {
@@ -130,9 +129,6 @@ class DataWargaController extends Controller
         return view('warga.data_warga.edit', compact('breadcrumb', 'warga', 'keluargas'));
     }
 
-
-
-
     public function update(Request $request)
     {
         $request->validate([
@@ -149,6 +145,7 @@ class DataWargaController extends Controller
 
         $warga = Warga::find(Auth::user()->nik);
 
+        // Update data
         $warga->update([
             'nik' => $request->nik,
             'nama' => $request->nama,
@@ -164,16 +161,21 @@ class DataWargaController extends Controller
             'verif' => 'belum_terverifikasi',
         ]);
 
+        // Handle KTP upload
         if ($request->hasFile('ktp')) {
             if ($warga->ktp) {
-                Storage::delete($warga->ktp);
+                Storage::delete('public/' . $warga->ktp);
             }
 
-            $path = $request->file('ktp')->store('ktp_images');
-            $warga->ktp = $path;
-            $warga->save();
+            $ktp = $request->file('ktp');
+            $ktpName = time() . '_' . $ktp->getClientOriginalName();
+            $ktpPath = $ktp->storeAs('public/ktp_images', $ktpName);
+            $ktpPath = str_replace('public/', '', $ktpPath);
+
+            $warga->update(['ktp' => $ktpPath]);
         }
 
-        return redirect()->route('warga.Warga.index')->with('success', 'Tunggu Vertifikasi dari RT atau RW');
+        return redirect()->route('warga.Warga.index')->with('success', 'Tunggu Verifikasi dari RT atau RW');
     }
+
 }

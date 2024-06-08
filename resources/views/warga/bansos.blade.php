@@ -12,23 +12,23 @@
       </div>
 
       <div class="col-xl-7 col-lg-6 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5">
-        <h3>Bantuan Langsung Tunai Dana Desa (BLT DD)</h3>
+        <h3>Bantuan Langsung Tunai Dana Desa (BLTDD)</h3>
         <p>Program BLT DD adalah inisiatif pemerintah untuk memberikan bantuan dana tunai kepada keluarga yang memenuhi syarat berdasarkan keputusan musyawarah desa (Musdes). Program ini dirancang untuk meringankan beban ekonomi keluarga penerima manfaat (KPM) sesuai dengan peraturan perundang-undangan yang berlaku.</p>
 
         <div class="icon-box">
-          <div class="icon"><i class='bx bx-dollar-circle'></i></i></div>
+          <div class="icon"><i class="bi bi-bullseye"></i></div>
           <h4 class="title"><a href="#tujuan">Tujuan</a></h4>
           <p class="description">Tujuan utama BLT DD adalah membantu keluarga kurang mampu memenuhi kebutuhan sehari-hari, terutama bagi yang terdampak pandemi COVID-19.</p>
         </div>
 
         <div class="icon-box">
-          <div class="icon"><i class="bx bx-money"></i></div>
+          <div class="icon"><i class="bi bi-cash"></i></i></div>
           <h4 class="title"><a href="#besaran-bantuan">Besaran Bantuan</a></h4>
           <p class="description">Setiap Keluarga Penerima Manfaat (KPM) akan menerima bantuan sebesar Rp300.000,00 per bulan.</p>
         </div>
 
         <div class="icon-box">
-          <div class="icon"><i class="bx bx-transfer-alt"></i></div>
+          <div class="icon"><i class="bi bi-arrow-left-right"></i></div>
           <h4 class="title"><a href="#penyaluran-bantuan">Penyaluran Bantuan</a></h4>
           <p class="description">Bantuan disalurkan secara tunai di Kantor Kelurahan Candirenggo untuk memastikan bantuan tepat sasaran.</p>
         </div>

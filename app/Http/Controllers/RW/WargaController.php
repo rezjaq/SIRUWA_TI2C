@@ -30,7 +30,8 @@ class WargaController extends Controller
     public function list()
     {
         $warga = Warga::select('nik', 'nama', 'jenis_kelamin', 'tanggal_lahir', 'alamat', 'no_telepon', 'agama', 'statusKawin', 'pekerjaan', 'no_rt')
-            ->where('status', 'disetujui'); ;
+            ->where('status', 'disetujui');
+        ;
 
         return DataTables::of($warga)
             ->addIndexColumn()
@@ -79,13 +80,21 @@ class WargaController extends Controller
         // Simpan akte jika diunggah
         $aktePath = null;
         if ($request->hasFile('akte')) {
-            $aktePath = $request->file('akte')->store('akte');
+            $akte = $request->file('akte');
+            $akteName = time() . '_' . $akte->getClientOriginalName();
+            $aktePath = $akte->storeAs('public/akte', $akteName);
+            $aktePath = str_replace('public/', '', $aktePath);
         }
 
         // Simpan KTP jika diunggah
         $ktpPath = null;
         if ($request->hasFile('ktp')) {
             $ktpPath = $request->file('ktp')->store('public/ktp_images');
+            $ktp = $request->file('ktp');
+            $ktpName = time() . '_' . $ktp->getClientOriginalName();
+            $ktpPath = $ktp->storeAs('public/ktp_images', $ktpName);
+            $ktpPath = str_replace('public/', '', $ktpPath);
+
         }
 
         // Tentukan verifikasi berdasarkan keberadaan foto KTP atau Akte
@@ -153,10 +162,10 @@ class WargaController extends Controller
 
     public function update(Request $request, $nik)
     {
-        // Temukan warga berdasarkan NIK
-        $warga = Warga::findOrFail($nik);
+        // Find the resident based on NIK
+        $resident = Warga::findOrFail($nik);
 
-        // Validasi input
+        // Validate input
         $request->validate([
             'nama' => 'required',
             'jenis_kelamin' => 'required',
@@ -170,48 +179,45 @@ class WargaController extends Controller
             'id_keluarga' => 'required|exists:keluarga,id_keluarga'
         ]);
 
-        // Simpan akte jika ada
+        // Save AKTE if available
         $aktePath = null;
         if ($request->hasFile('akte')) {
-            $aktePath = $request->file('akte')->store('akte_images');
+            $aktePath = $request->file('akte')->store('public/akte_images');
+            $aktePath = str_replace('public/', '', $aktePath);
         }
 
-        // Simpan KTP jika ada
+        // Save KTP if available
         $ktpPath = null;
         if ($request->hasFile('ktp')) {
-            $ktpPath = $request->file('ktp')->store('ktp_images');
+            $ktpPath = $request->file('ktp')->store('public/ktp_images');
+            $ktpPath = str_replace('public/', '', $ktpPath);
         }
 
-
-        // Update data warga
-        $warga->nama = $request->nama;
-        $warga->jenis_kelamin = $request->jenis_kelamin;
-        $warga->tanggal_lahir = $request->tanggal_lahir;
-        $warga->alamat = $request->alamat;
-        $warga->no_telepon = $request->no_telepon;
-        $warga->agama = $request->agama;
-        $warga->statusKawin = $request->statusKawin;
-        $warga->pekerjaan = $request->pekerjaan;
-        $warga->no_rt = $request->no_rt;
-        $warga->level = $request->level;
-        $warga->id_keluarga = $request->id_keluarga;
-        $warga->akte = $aktePath ? $aktePath : $warga->akte; // Tetapkan nilai sebelumnya jika tidak ada perubahan
-        $warga->ktp = $ktpPath ? $ktpPath : $warga->ktp; // Tetapkan nilai sebelumnya jika tidak ada perubahan
-        $warga->verif = $request->verif;
-        $warga->status = $request->status;
-        $warga->password = $request->password;
-
-        if ($request->status === 'tidak_disetujui') {
-            $warga->password = null;
-        } else {
-            $warga->password = $request->password;
-        }
-
-        $warga->save();
+        // Update resident data
+        $resident->update([
+            'nama' => $request->nama,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'alamat' => $request->alamat,
+            'no_telepon' => $request->no_telepon,
+            'agama' => $request->agama,
+            'statusKawin' => $request->statusKawin,
+            'pekerjaan' => $request->pekerjaan,
+            'no_rt' => $request->no_rt,
+            'level' => $request->level,
+            'id_keluarga' => $request->id_keluarga,
+            'akte' => $aktePath ?? $resident->akte, // Retain previous value if no change
+            'ktp' => $ktpPath ?? $resident->ktp, // Retain previous value if no change
+            'verif' => $request->verif,
+            'status' => $request->status,
+            'password' => $request->status === 'tidak_disetujui' ? null : $request->password, // Nullify password if status is not approved
+        ]);
 
         // Redirect ke halaman daftar warga dengan pesan sukses
         return redirect()->route('warga.index')->with('success', 'Warga berhasil diperbarui.');
+
     }
+
 
 
     public function destroy($nik)

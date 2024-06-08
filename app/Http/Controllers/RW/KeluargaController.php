@@ -32,7 +32,8 @@ class KeluargaController extends Controller
     {
         $keluarga = Keluarga::select('id_keluarga', 'nama_kepala_keluarga', 'no_kk', 'alamat', 'no_rt')
             ->where('status', 'disetujui')
-            ->get();;
+            ->get();
+        ;
 
         return DataTables::of($keluarga)
             ->addIndexColumn()
@@ -69,7 +70,8 @@ class KeluargaController extends Controller
 
         $kkPath = null;
         if ($request->hasFile('kk')) {
-            $kkPath = $request->file('kk')->store('kk_images');
+            $kkPath = $request->file('kk')->store('public/kk_images');
+            $kkPath = str_replace('public/', '', $kkPath);
         }
 
         // Simpan data keluarga baru
@@ -133,11 +135,16 @@ class KeluargaController extends Controller
 
         // Simpan gambar kk ke storage dan dapatkan pathnya
         if ($request->hasFile('kk')) {
-            // Delete the old image if it exists
             if ($keluarga->kk) {
-                Storage::delete($keluarga->kk);
+                Storage::delete('public/' . $keluarga->kk);
             }
-            $kkPath = $request->file('kk')->store('kk_images');
+
+            $kk = $request->file('kk');
+            $kkName = time() . '_' . $kk->getClientOriginalName();
+            $kkPath = $kk->storeAs('public/kk_images', $kkName);
+            $kkPath = str_replace('public/', '', $kkPath);
+
+            $keluarga->update(['kk' => $kkPath]);
         } else {
             $kkPath = $keluarga->kk;
         }

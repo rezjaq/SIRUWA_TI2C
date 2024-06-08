@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
     <style>
         .btn-login,
         .btn-login-notif {
@@ -46,6 +47,56 @@
         .btn-cancel-notif:hover {
             background-color: #bbb !important;
         }
+        .password-custom .form-group {
+        margin-bottom: 20px;
+    }
+
+    .password-custom .input-group-append button {
+    border: none;
+    background-color: #03774A; /* Updated color */
+    color: white;
+    padding: 0.375rem 0.75rem;
+    cursor: pointer;
+}
+
+.password-custom .input-group-append button:hover {
+    background-color: #035C3F;
+}
+
+.password-custom .form-group label {
+    font-weight: bold;
+}
+
+.password-custom .form-group small {
+    display: block;
+    margin-top: 0.25rem;
+}
+
+.password-custom .input-group {
+    position: relative;
+    width: 100%;
+}
+
+.password-custom .input-group-append {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.password-custom .toggle-password {
+    padding: 0.375rem;
+    background-color: transparent;
+    border: none;
+    color: #6c757d;
+    cursor: pointer;
+}
+
+.password-custom .toggle-password:hover {
+    color: #343a40;
+}
 
     </style>
 </head>
@@ -260,7 +311,6 @@
             </div>
         </section>
     {{-- berita --}}
-
 
     {{-- Kegiatan --}}
     <section id="upcoming-events" class="upcoming-events">
@@ -509,21 +559,188 @@
         });
     </script>
 
-    {{-- buat change password masih belum bisa --}}
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            @if (session('success'))
-                Swal.fire({
-                    title: 'Login Berhasil',
-                    text: "{{ session('success') }}",
-                    icon: 'success',
-                    showConfirmButton: false, 
-                    timer: 3000 
-                });
-            @endif
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        @if (session('success'))
+            showLoginSuccessAlert("{{ session('success') }}", {{ session('change_password') ? 'true' : 'false' }});
+        @elseif (session('change_password'))
+            showChangePasswordAlert();
+        @endif
+    });
+
+    function showLoginSuccessAlert(successMessage, showChangePassword) {
+        Swal.fire({
+            title: 'Login Berhasil',
+            text: successMessage,
+            icon: 'success',
+            showConfirmButton: false,
+        }).then((result) => {
+            if (showChangePassword) {
+                showChangePasswordAlert();
+            }
         });
-    </script>
-    
+    }
+
+    function showChangePasswordAlert() {
+        Swal.fire({
+            title: 'Ganti Kata Sandi',
+            html: `
+                <div class="password-custom">
+                    <p style="margin-bottom: 20px;">Kata sandi Anda saat ini adalah NIK Anda. Harap ubah demi keamanan.</p>
+                    <form id="changePasswordForm">
+                        <div class="form-group">
+                            <label for="password">Password Baru</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="password" name="password" required>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-secondary toggle-password" data-toggle="#password">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="password-strength"></div>
+                            <small class="form-text text-muted">Contoh: StrongP@ssw0rd!</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="password_confirmation">Konfirmasi Password Baru</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-secondary toggle-password" data-toggle="#password_confirmation">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            `,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ganti Password',
+            preConfirm: () => {
+                const password = Swal.getPopup().querySelector('#password').value;
+                const password_confirmation = Swal.getPopup().querySelector('#password_confirmation').value;
+                if (!password || !password_confirmation) {
+                    Swal.showValidationMessage('Harap masukkan kedua bidang password');
+                } else if (password !== password_confirmation) {
+                    Swal.showValidationMessage('Password tidak cocok');
+                }
+                return { password: password, password_confirmation: password_confirmation };
+            },
+            didOpen: () => {
+                const passwordInput = Swal.getPopup().querySelector('#password');
+                const passwordConfirmationInput = Swal.getPopup().querySelector('#password_confirmation');
+                const toggleButtons = Swal.getPopup().querySelectorAll('.toggle-password');
+                const passwordStrengthDiv = Swal.getPopup().querySelector('#password-strength');
+
+                toggleButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const input = Swal.getPopup().querySelector(button.getAttribute('data-toggle'));
+                        if (input.type === 'password') {
+                            input.type = 'text';
+                            button.innerHTML = '<i class="fas fa-eye-slash"></i>';
+                        } else {
+                            input.type = 'password';
+                            button.innerHTML = '<i class="fas fa-eye"></i>';
+                        }
+                    });
+                });
+
+                passwordInput.addEventListener('input', () => {
+                    const strength = getPasswordStrength(passwordInput.value);
+                    passwordStrengthDiv.innerHTML = `Strength: ${strength}`;
+                    passwordStrengthDiv.style.color = getPasswordStrengthColor(strength);
+                });
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                changePassword(result.value.password, result.value.password_confirmation);
+            }
+        });
+    }
+
+    function changePassword(password, password_confirmation) {
+        fetch('{{ route('post-change-password') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ password: password, password_confirmation: password_confirmation })
+        }).then(response => response.json()).then(data => {
+            if (data.success) {
+                Swal.fire({
+                    title: 'Berhasil',
+                    text: data.message,
+                    icon: 'success'
+                });
+            } else {
+                Swal.fire({
+                    title: 'Error',
+                    text: data.message,
+                    icon: 'error'
+                });
+            }
+        }).catch(error => {
+            Swal.fire({
+                title: 'Error',
+                text: 'Terjadi kesalahan!',
+                icon: 'error'
+            });
+        });
+    }
+
+    function getPasswordStrength(password) {
+        let strength = "Weak";
+        const regex = {
+            lower: /[a-z]/,
+            upper: /[A-Z]/,
+            number: /[0-9]/,
+            special: /[!@#$%^&*(),.?":{}|<>]/
+        };
+        let passedTests = 0;
+
+        if (regex.lower.test(password)) passedTests++;
+        if (regex.upper.test(password)) passedTests++;
+        if (regex.number.test(password)) passedTests++;
+        if (regex.special.test(password)) passedTests++;
+        if (password.length >= 8) passedTests++;
+
+        switch (passedTests) {
+            case 5:
+                strength = "Very Strong";
+                break;
+            case 4:
+                strength = "Strong";
+                break;
+            case 3:
+                strength = "Medium";
+                break;
+            default:
+                strength = "Weak";
+                break;
+        }
+
+        return strength;
+    }
+
+    function getPasswordStrengthColor(strength) {
+        switch (strength) {
+            case "Very Strong":
+                return "green";
+            case "Strong":
+                return "blue";
+            case "Medium":
+                return "orange";
+            default:
+                return "red";
+        }
+    }
+</script>
+
+
 
     <script src="{{ asset('assets/js/check-login.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>    

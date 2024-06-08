@@ -25,7 +25,6 @@ class AuthController extends Controller
         return view('login');
     }
 
-
     public function proses_login(Request $request)
     {
         $request->validate([
@@ -44,7 +43,6 @@ class AuthController extends Controller
 
                 if ($request->nik === $request->password) {
                     session(['change_password' => true]);
-                    return redirect()->route('change-password');
                 }
 
                 // Redirect based on user level
@@ -67,7 +65,6 @@ class AuthController extends Controller
 
                 if ($request->nik === $request->password) {
                     session(['change_password' => true]);
-                    return redirect()->route('change-password');
                 }
 
                 // Redirect based on user level
@@ -93,11 +90,8 @@ class AuthController extends Controller
             ->withErrors(['login_gagal' => 'Pastikan kembali username dan password yang dimasukkan sudah benar']);
     }
 
-
-
     public function changePassword(Request $request)
     {
-
         $request->validate([
             'password' => 'required|confirmed',
         ]);
@@ -105,22 +99,15 @@ class AuthController extends Controller
         $user = Auth::user();
 
         if (!$user instanceof \App\Models\Warga) {
-            dd('User is not an instance of Warga model');
+            return response()->json(['success' => false, 'message' => 'User bukan instance dari model Warga'], 400);
         }
 
         $user->password = Hash::make($request->password);
         $user->save();
+        session()->forget('change_password');
 
-        session()->flash('success', 'Password berhasil diubah.');
-
-        return redirect()->route('dashboard-warga');
+        return response()->json(['success' => true, 'message' => 'Password berhasil diubah.']);
     }
-
-    public function showChangePasswordForm()
-    {
-        return view('auth.change-password');
-    }
-
 
     public function logout(Request $request)
     {
@@ -132,34 +119,4 @@ class AuthController extends Controller
 
         return redirect('login');
     }
-
-
-    // -- MEnggunakan password enkripsi
-
-    // public function proses_login(Request $request) {
-    //     $request->validate([
-    //         'nik' => 'required',
-    //         'password' => 'required'
-    //     ]);
-
-    //     $credential = $request->only('nik', 'password');
-    //     if (Auth::attempt($credential)) {
-    //         $user = Auth::user();
-
-    //         if ($user->level == 'RW') {
-    //             return redirect()->intended('rw');
-    //         } else if ($user->level == 'RT') {
-    //             return redirect()->intended('rt');
-    //         }else if ($user->level == 'warga') {
-    //             return redirect()->intended('warga');
-    //         }
-
-    //         return redirect()->intended('/');
-
-    //     }
-
-    //     return redirect('login')
-    //         ->withInput()
-    //         ->withErrors(['login_gagal' => 'Pastikan kembali username dan password yang dimasukkan sudah benar']);
-    // }
 }
