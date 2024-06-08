@@ -17,6 +17,7 @@ use App\Http\Controllers\RW\PengumumanController as RwPengumumanController;
 use App\Http\Controllers\RW\KegiatanController as RwKegiatanController;
 use App\Http\Controllers\RW\KeluargaController as RwKeluargaController;
 use App\Http\Controllers\RW\WargaController as RwWargaController;
+use App\Http\Controllers\RW\WargaPindah as RwWargaPindah;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\RegistrasiWargaController as RegistrasiWarga;
 use App\Http\Controllers\RW\AprrovePengaduan;
@@ -202,6 +203,16 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/show/{id}', [BansosRW::class, 'show'])->name('RW.Bansos.show');
             Route::post('/{id}/approve', [BansosRW::class, 'approve'])->name('RW.Bansos.approve');
             Route::post('/{id}/reject', [BansosRW::class, 'reject'])->name('RW.Bansos.reject');
+        });
+        Route::prefix('/Warga_Pindah')->group(function () {
+            Route::get('/', [RwWargaPindah::class, 'index'])->name('WargaPindah.index');
+            Route::post('/list', [RwWargaPindah::class, 'list'])->name('WargaPindah.list');
+            Route::get('/create', [RwWargaPindah::class, 'create'])->name('WargaPindah.create');
+            Route::post('/store', [RwWargaPindah::class, 'store'])->name('WargaPindah.store');
+            Route::get('/{id}', [RwWargaPindah::class, 'show'])->name('WargaPindah.show');
+            Route::get('/{id}/edit', [RwWargaPindah::class, 'edit'])->name('WargaPindah.edit');
+            Route::put('/{id}/update', [RwWargaPindah::class, 'update'])->name('WargaPindah.update');
+            Route::delete('/{id}', [RwWargaPindah::class, 'destroy'])->name('WargaPindah.destroy');
         });
     });
 

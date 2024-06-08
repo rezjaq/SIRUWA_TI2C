@@ -24,7 +24,7 @@ class WargaController extends Controller
 
         $wargas = Warga::all();
 
-        return view('RW.Warga.index', compact('breadcrumb', 'page', 'activeMenu', 'wargas'));
+        return view('rw.warga.index', compact('breadcrumb', 'page', 'activeMenu', 'wargas'));
     }
 
     public function list()
@@ -55,7 +55,7 @@ class WargaController extends Controller
         // Mendapatkan daftar keluarga yang sudah ada
         $keluargas = Keluarga::all();
 
-        return view('RW.Warga.create', compact('breadcrumb', 'activeMenu', 'keluargas'));
+        return view('rw.warga.create', compact('breadcrumb', 'activeMenu', 'keluargas'));
     }
 
 
@@ -127,7 +127,7 @@ class WargaController extends Controller
             'status' => $sts,
         ]);
 
-        return redirect()->route('Warga.index')->with('success', 'Warga berhasil ditambahkan.');
+        return redirect()->route('warga.index')->with('success', 'Warga berhasil ditambahkan.');
     }
 
     public function show($nik)
@@ -141,7 +141,7 @@ class WargaController extends Controller
 
         $warga = Warga::findOrFail($nik);
 
-        return view('RW.Warga.show', compact('breadcrumb', 'activeMenu', 'warga'));
+        return view('rw.warga.show', compact('breadcrumb', 'activeMenu', 'warga'));
     }
 
     public function edit($nik)
@@ -155,7 +155,7 @@ class WargaController extends Controller
         $warga = Warga::findOrFail($nik);
         $keluargas = Keluarga::all();
 
-        return view('RW.Warga.edit', compact('breadcrumb', 'activeMenu', 'warga', 'keluargas'));
+        return view('rw.warga.edit', compact('breadcrumb', 'activeMenu', 'warga','keluargas'));
     }
 
     public function update(Request $request, $nik)
@@ -211,8 +211,9 @@ class WargaController extends Controller
             'password' => $request->status === 'tidak_disetujui' ? null : $request->password, // Nullify password if status is not approved
         ]);
 
-        // Redirect to the resident list page with a success message
-        return redirect()->route('Warga.index')->with('success', 'Resident successfully updated.');
+        // Redirect ke halaman daftar warga dengan pesan sukses
+        return redirect()->route('warga.index')->with('success', 'Warga berhasil diperbarui.');
+
     }
 
 
@@ -223,6 +224,6 @@ class WargaController extends Controller
 
         $warga->delete();
 
-        return redirect()->route('Warga.index')->with('success', 'Warga berhasil dihapus.');
+        return redirect()->route('warga.index')->with('success', 'Warga berhasil dihapus.');
     }
 }
