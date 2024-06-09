@@ -184,6 +184,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#foto">Dokumentasi</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('wargaPindah.create') }}">Warga Pindahan</a>
+                    </li>
                 </ul>
                 <div class="d-flex">
                     <a href="{{ route('login') }}" class="btn btn-success">Login</a>
@@ -315,7 +318,7 @@
                         <div class="card">
                             @if ($item->foto)
                                 <div class="card-img">
-                                    <img src="{{ asset('storage/' . $item->foto) }}" alt="{{ $item->nama_kegiatan }}" style="width: 100%; height: 200px; object-fit: cover;">
+                                    <img src="{{ asset('storage/public/' . $item->foto) }}" alt="{{ $item->nama_kegiatan }}" style="width: 100%; height: 200px; object-fit: cover;">
                                 </div>
                             @else
                                 <div class="card-img">

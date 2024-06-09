@@ -11,6 +11,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{ url('/DataRT') }}" class="nav-link {{ ($activeMenu == 'Data RT') ? 'active' : '' }}">
+                <span class="menu-title">Data RT</span>
+                <i class="mdi mdi-account-multiple menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{ url('/keluarga') }}" class="nav-link {{ ($activeMenu == 'keluarga') ? 'active' : '' }}">
                 <span class="menu-title">Keluarga</span>
                 <i class="mdi mdi-account-multiple menu-icon"></i>
@@ -48,7 +54,13 @@
         </li>
         <li class="nav-item">
             <a href="{{ url('/verifikasiKeluarga') }}" class="nav-link {{ ($activeMenu == 'verifikasiKeluarga') ? 'active' : '' }}">
-                <span class="menu-title">verifikasiKeluarga</span>
+                <span class="menu-title">verifikasi Keluarga</span>
+                <i class="mdi mdi-account menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ url('/verifikasiWargaPindah') }}" class="nav-link {{ ($activeMenu == 'Verifikasi Warga Pindah') ? 'active' : '' }}">
+                <span class="menu-title">Verifikasi Warga Pindah</span>
                 <i class="mdi mdi-account menu-icon"></i>
             </a>
         </li>
@@ -62,6 +74,12 @@
             <a href="{{ url('/pengajuan-umkm') }}" class="nav-link {{ ($activeMenu == 'umkm') ? 'active' : '' }}">
                 <span class="menu-title">UMKM Warga</span>
                 <i class="mdi mdi-store menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ url('/SuratRW') }}" class="nav-link {{ ($activeMenu == 'Surat') ? 'active' : '' }}">
+                <span class="menu-title">Surat</span>
+                <i class="mdi mdi-mail menu-icon"></i>
             </a>
         </li>
         <li class="nav-item">

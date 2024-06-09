@@ -4,13 +4,8 @@
     <div class="container-fluid">
         <div class="card mt-3">
             <div class="card-header d-flex justify-content-between align-items-center"
-                style="background-color: #03774A; color: #fff; border-radius: 10px 10px 0 0; padding: 1rem;">
-                <h5 class="mb-0">{{ $page->title }}</h5>
-                <div>
-                    <a href="{{ route('Warga.create') }}" class="btn btn-outline-light">
-                        <i class="fas fa-user-plus me-2"></i> Tambah Data Warga
-                    </a>
-                </div>
+                style="background-color: #03774A; color: #fff;">
+                <h5 class="mb-0">Verifikasi Data Warga Pindahan</h5>
             </div>
             <div class="card-body">
                 @if (session('success'))
@@ -19,14 +14,6 @@
                 @if (session('error'))
                     <div class="alert alert-danger">{{ session('error') }}</div>
                 @endif
-
-                <div class="d-flex mb-3">
-                    <select id="data-type-selector" class="form-control w-auto">
-                        <option value="Warga.list">Warga Hidup</option>
-                        <option value="Warga.listDeceased">Warga Meninggal</option>
-                    </select>
-                </div>
-
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped table-hover table-sm" id="table_warga">
                         <thead class="table-header">
@@ -34,13 +21,11 @@
                                 <th>NIK</th>
                                 <th>Nama</th>
                                 <th>Jenis Kelamin</th>
-                                <th>Tanggal Lahir</th>
                                 <th>Alamat</th>
-                                <th>No. Telepon</th>
-                                <th>Agama</th>
-                                <th>Status Kawin</th>
-                                <th>Pekerjaan</th>
-                                <th>No. RT</th>
+                                <th>No Telepon</th>
+                                <th>No RT</th>
+                                <th>Alamat Asal</th>
+                                <th>Tanggal Pindah</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -137,77 +122,52 @@
 @endpush
 
 @push('js')
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
-            var table = $('#table_warga').DataTable({
+            $('#table_warga').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('Warga.list') }}",
+                    url: "{{ route('RTverifikasiWargaPindah.list') }}",
+                    dataType: "json",
                     type: "POST",
-                    data: function(d) {
-                        d._token = "{{ csrf_token() }}";
+                    data: {
+                        "_token": "{{ csrf_token() }}"
                     }
                 },
                 columns: [{
                         data: "nik",
-                        className: "text-center",
-                        orderable: false,
-                        searchable: false
+                        name: "nik"
                     },
                     {
                         data: "nama",
-                        name: "nama",
-                        orderable: false,
-                        searchable: true
+                        name: "nama"
                     },
                     {
                         data: "jenis_kelamin",
-                        name: "jenis_kelamin",
-                        orderable: false,
-                        searchable: true
-                    },
-                    {
-                        data: "tanggal_lahir",
-                        name: "tanggal_lahir",
-                        orderable: false,
-                        searchable: true
+                        name: "jenis_kelamin"
                     },
                     {
                         data: "alamat",
-                        name: "alamat",
-                        orderable: false,
-                        searchable: true
+                        name: "alamat"
                     },
                     {
                         data: "no_telepon",
-                        name: "no_telepon",
-                        orderable: false,
-                        searchable: true
-                    },
-                    {
-                        data: "agama",
-                        name: "agama",
-                        orderable: false,
-                        searchable: true
-                    },
-                    {
-                        data: "statusKawin",
-                        name: "statusKawin",
-                        orderable: false,
-                        searchable: true
-                    },
-                    {
-                        data: "pekerjaan",
-                        name: "pekerjaan",
-                        orderable: false,
-                        searchable: true
+                        name: "no_telepon"
                     },
                     {
                         data: "no_rt",
-                        name: "no_rt",
-                        orderable: false,
-                        searchable: true
+                        name: "no_rt"
+                    },
+                    {
+                        data: "alamat_asal",
+                        name: "alamat_asal"
+                    },
+                    {
+                        data: "tanggal_pindah",
+                        name: "tanggal_pindah"
                     },
                     {
                         data: "aksi",
@@ -217,20 +177,6 @@
                     }
                 ]
             });
-
-            $('#data-type-selector').on('change', function() {
-                var selectedValue = $(this).val();
-                var newUrl;
-
-                if (selectedValue === 'Warga.listDeceased') {
-                    newUrl = "{{ route('Warga.listDeceased') }}";
-                } else {
-                    newUrl = "{{ route('Warga.list') }}";
-                }
-
-                table.ajax.url(newUrl).load();
-            });
-
         });
     </script>
 @endpush

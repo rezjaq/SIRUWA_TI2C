@@ -50,6 +50,25 @@ class WargaController extends Controller
             ->make(true);
     }
 
+    public function listDeceased()
+    {
+        $userNoRT = Auth::user()->no_rt;
+        $warga = Warga::select('nik', 'nama', 'jenis_kelamin', 'tanggal_lahir', 'alamat', 'no_telepon', 'agama', 'statusKawin', 'pekerjaan', 'no_rt')
+            ->where('status', 'tidak_disetujui')
+            ->where('no_rt', $userNoRT);
+
+        return DataTables::of($warga)
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($warga) {
+                $btn = '<a href="' . route('Warga.show', $warga->nik) . '" class="btn btn-primary btn-sm mr-1" style="width: 40px; height: 40px; margin-right: 5px;"><i class="fas fa-eye"></i></a>';
+                $btn .= '<a href="' . route('Warga.edit', $warga->nik) . '" class="btn btn-warning btn-sm mr-1" style="width: 40px; height: 40px; margin-right: 5px;"><i class="fas fa-edit"></i></a>';
+                $btn .= '<form class="d-inline-block" method="POST" action="' . route('Warga.destroy', $warga->nik) . '">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" style="width: 40px; height: 40px; margin-right: 5px;" onclick="return confirm(\'Apakah Anda Yakin Menghapus Data Ini? \');"><i class="fas fa-trash-alt"></i></button></form>';
+                return $btn;
+            })
+            ->rawColumns(['aksi'])
+            ->make(true);
+    }
+
     public function create()
     {
         $breadcrumb = (object) [
@@ -69,7 +88,7 @@ class WargaController extends Controller
     {
         // Validasi input
         $request->validate([
-            'nik' => 'required|unique:warga,nik',
+            'nik' => 'required|unique:warga,nik|digits:16',
             'nama' => 'required',
             'jenis_kelamin' => 'required',
             'tanggal_lahir' => 'required|date',
