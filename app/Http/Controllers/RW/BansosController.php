@@ -30,28 +30,84 @@ class BansosController extends Controller
         // Matriks Perbandingan Berpasangan
         $pairwiseMatrix = [
             'pendidikan' => [
-                'pendidikan' => 1, 'pekerjaan' => 5, 'penghasilan' => 7, 'status_kepemilikan_rumah' => 2, 'fasilitas_wc' => 0.5, 'fasilitas_listrik' => 0.5, 'bahan_bakar' => 0.5, 'kepemilikan_tabungan' => 7
+                'pendidikan' => 1,
+                'pekerjaan' => 5,
+                'penghasilan' => 7,
+                'status_kepemilikan_rumah' => 2,
+                'fasilitas_wc' => 0.5,
+                'fasilitas_listrik' => 0.5,
+                'bahan_bakar' => 0.5,
+                'kepemilikan_tabungan' => 7
             ],
             'pekerjaan' => [
-                'pendidikan' => 0.2, 'pekerjaan' => 1, 'penghasilan' => 5, 'status_kepemilikan_rumah' => 0.2, 'fasilitas_wc' => 0.5, 'fasilitas_listrik' => 0.2, 'bahan_bakar' => 0.5, 'kepemilikan_tabungan' => 5
+                'pendidikan' => 0.2,
+                'pekerjaan' => 1,
+                'penghasilan' => 5,
+                'status_kepemilikan_rumah' => 0.2,
+                'fasilitas_wc' => 0.5,
+                'fasilitas_listrik' => 0.2,
+                'bahan_bakar' => 0.5,
+                'kepemilikan_tabungan' => 5
             ],
             'penghasilan' => [
-                'pendidikan' => 0.1428571429, 'pekerjaan' => 0.2, 'penghasilan' => 1, 'status_kepemilikan_rumah' => 0.2, 'fasilitas_wc' => 0.5, 'fasilitas_listrik' => 0.2, 'bahan_bakar' => 0.1428571429, 'kepemilikan_tabungan' => 3
+                'pendidikan' => 0.1428571429,
+                'pekerjaan' => 0.2,
+                'penghasilan' => 1,
+                'status_kepemilikan_rumah' => 0.2,
+                'fasilitas_wc' => 0.5,
+                'fasilitas_listrik' => 0.2,
+                'bahan_bakar' => 0.1428571429,
+                'kepemilikan_tabungan' => 3
             ],
             'status_kepemilikan_rumah' => [
-                'pendidikan' => 0.5, 'pekerjaan' => 5, 'penghasilan' => 5, 'status_kepemilikan_rumah' => 1, 'fasilitas_wc' => 0.3333333333, 'fasilitas_listrik' => 0.25, 'bahan_bakar' => 0.1428571429, 'kepemilikan_tabungan' => 4
+                'pendidikan' => 0.5,
+                'pekerjaan' => 5,
+                'penghasilan' => 5,
+                'status_kepemilikan_rumah' => 1,
+                'fasilitas_wc' => 0.3333333333,
+                'fasilitas_listrik' => 0.25,
+                'bahan_bakar' => 0.1428571429,
+                'kepemilikan_tabungan' => 4
             ],
             'fasilitas_wc' => [
-                'pendidikan' => 2, 'pekerjaan' => 2, 'penghasilan' => 2, 'status_kepemilikan_rumah' => 3, 'fasilitas_wc' => 1, 'fasilitas_listrik' => 4, 'bahan_bakar' => 5, 'kepemilikan_tabungan' => 5
+                'pendidikan' => 2,
+                'pekerjaan' => 2,
+                'penghasilan' => 2,
+                'status_kepemilikan_rumah' => 3,
+                'fasilitas_wc' => 1,
+                'fasilitas_listrik' => 4,
+                'bahan_bakar' => 5,
+                'kepemilikan_tabungan' => 5
             ],
             'fasilitas_listrik' => [
-                'pendidikan' => 2, 'pekerjaan' => 5, 'penghasilan' => 5, 'status_kepemilikan_rumah' => 4, 'fasilitas_wc' => 0.25, 'fasilitas_listrik' => 1, 'bahan_bakar' => 0.3333333333, 'kepemilikan_tabungan' => 2
+                'pendidikan' => 2,
+                'pekerjaan' => 5,
+                'penghasilan' => 5,
+                'status_kepemilikan_rumah' => 4,
+                'fasilitas_wc' => 0.25,
+                'fasilitas_listrik' => 1,
+                'bahan_bakar' => 0.3333333333,
+                'kepemilikan_tabungan' => 2
             ],
             'bahan_bakar' => [
-                'pendidikan' => 2, 'pekerjaan' => 2, 'penghasilan' => 7, 'status_kepemilikan_rumah' => 7, 'fasilitas_wc' => 0.2, 'fasilitas_listrik' => 3, 'bahan_bakar' => 1, 'kepemilikan_tabungan' => 5
+                'pendidikan' => 2,
+                'pekerjaan' => 2,
+                'penghasilan' => 7,
+                'status_kepemilikan_rumah' => 7,
+                'fasilitas_wc' => 0.2,
+                'fasilitas_listrik' => 3,
+                'bahan_bakar' => 1,
+                'kepemilikan_tabungan' => 5
             ],
             'kepemilikan_tabungan' => [
-                'pendidikan' => 0.1428571429, 'pekerjaan' => 0.2, 'penghasilan' => 0.3333333333, 'status_kepemilikan_rumah' => 0.25, 'fasilitas_wc' => 0.2, 'fasilitas_listrik' => 0.5, 'bahan_bakar' => 0.2, 'kepemilikan_tabungan' => 1
+                'pendidikan' => 0.1428571429,
+                'pekerjaan' => 0.2,
+                'penghasilan' => 0.3333333333,
+                'status_kepemilikan_rumah' => 0.25,
+                'fasilitas_wc' => 0.2,
+                'fasilitas_listrik' => 0.5,
+                'bahan_bakar' => 0.2,
+                'kepemilikan_tabungan' => 1
             ]
         ];
 
@@ -123,8 +179,14 @@ class BansosController extends Controller
     private function calculateWPMScore($recipient, $weights)
     {
         $criteria = [
-            'pendidikan', 'pekerjaan', 'penghasilan', 'status_kepemilikan_rumah',
-            'fasilitas_wc', 'fasilitas_listrik', 'bahan_bakar', 'kepemilikan_tabungan'
+            'pendidikan',
+            'pekerjaan',
+            'penghasilan',
+            'status_kepemilikan_rumah',
+            'fasilitas_wc',
+            'fasilitas_listrik',
+            'bahan_bakar',
+            'kepemilikan_tabungan'
         ];
 
         $score = 1;
@@ -146,7 +208,7 @@ class BansosController extends Controller
         // Ambil semua warga yang sudah terverifikasi
         $warga = Warga::where('verif', 'terverifikasi')->get();
 
-        return view('rw.bansos.create', compact('breadcrumb', 'activeMenu','warga'));
+        return view('rw.bansos.create', compact('breadcrumb', 'activeMenu', 'warga'));
     }
 
     // Method untuk menyimpan pengajuan bansos baru
@@ -239,7 +301,7 @@ class BansosController extends Controller
         $bansos->status = 'approved';
         $bansos->save();
 
-        return redirect()->route('rw.bansos.ranked-scores')->with('success', 'Pengajuan bansos telah disetujui.');
+        return redirect()->route('RW.bansos.ranked-scores')->with('success', 'Pengajuan bansos telah disetujui.');
     }
 
     public function reject($id)
@@ -248,6 +310,6 @@ class BansosController extends Controller
         $bansos->status = 'rejected';
         $bansos->save();
 
-        return redirect()->route('rw.bansos.ranked-scores')->with('success', 'Pengajuan bansos telah ditolak.');
+        return redirect()->route('RW.bansos.ranked-scores')->with('success', 'Pengajuan bansos telah ditolak.');
     }
 }

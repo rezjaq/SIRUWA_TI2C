@@ -10,7 +10,6 @@
     @endcomponent
 @endsection
 
-
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -152,25 +151,17 @@
                             <label for="ktp" class="col-md-4 col-form-label text-md-right">{{ __('KTP') }}</label>
                             <div class="col-md-8">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="ktp" name="ktp">
-                                    <label class="custom-file-label" for="ktp">
-                                        @if ($warga->ktp)
-                                            {{ basename($warga->ktp) }}
-                                        @else
-                                            Choose file
-                                        @endif
-                                    </label>
+                                    <input type="file" class="custom-file-input" id="ktp" name="ktp" accept="image/*" onchange="previewImage(event)">
                                 </div>
-                                @if ($warga->ktp)
-                                    <div class="mt-2">
-                                        <img src="{{ asset('storage/' . $warga->ktp) }}" alt="KTP Image" width="100">
-                                    </div>
-                                @endif
+                                <div class="mt-2" id="image-preview">
+                                    @if ($warga->ktp)
+                                        <img id="ktp-image" src="{{ asset('storage/' . $warga->ktp) }}" alt="KTP Image" class="img-thumbnail">
+                                    @endif
+                                </div>
                             </div>
-                        </div> 
-
+                        </div>
+                        
                         <br><br>
-                        <!-- Submit button -->
                         <button type="submit" class="btn btn-primary" style="background-color: #03774A; border: none;">Vertifikasi</button>
                     </form>
                 </div>
@@ -216,16 +207,47 @@
             background-color: #03774A;
             border-color: #03774A;
         }
+
+        /* Image styles */
+        #ktp-image {
+            max-width: 480px;
+            height: auto;
+        }
+
+        @media (max-width: 767px) {
+            #ktp-image {
+                max-width: 100%;
+                height: auto;
+            }
+        }
     </style>
 @endpush
 
 @push('js')
-<script>
-    // Update the label text with the selected file name
-    document.querySelector('.custom-file-input').addEventListener('change', function (e) {
-        var fileName = e.target.files[0].name;
-        var nextSibling = e.target.nextElementSibling;
-        nextSibling.innerText = fileName;
-    });
-</script>
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('ktp-image');
+                if (output) {
+                    output.src = reader.result;
+                } else {
+                    var imagePreview = document.getElementById('image-preview');
+                    output = document.createElement('img');
+                    output.id = 'ktp-image';
+                    output.src = reader.result;
+                    output.classList.add('img-thumbnail');
+                    imagePreview.appendChild(output);
+                }
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        // Update the label text with the selected file name
+        document.querySelector('.custom-file-input').addEventListener('change', function (e) {
+            var fileName = e.target.files[0].name;
+            var nextSibling = e.target.nextElementSibling;
+            nextSibling.innerText = fileName;
+        });
+    </script>
 @endpush

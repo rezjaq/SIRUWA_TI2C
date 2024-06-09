@@ -69,14 +69,17 @@
 
                 <div class="mb-3">
                     <label for="kk" class="form-label">KK</label>
-                    <input type="file" name="kk" class="form-control @error('kk') is-invalid @enderror">
-                    @if ($keluarga->kk)
-                        <img src="{{ asset('storage/kk_images/' . basename($keluarga->kk)) }}" alt="KK" width="100" class="mt-2">
-                    @endif
+                    <input type="file" name="kk" class="form-control @error('kk') is-invalid @enderror" accept="image/*" onchange="previewKKImage(event)">
+                    <div class="mt-2" id="kk-image-preview">
+                        @if ($keluarga->kk)
+                            <img src="{{ asset('storage/kk_images/' . basename($keluarga->kk)) }}" alt="KK" id="kk-image" class="img-thumbnail" style="max-width: 480px; height: auto;">
+                        @endif
+                    </div>
                     @error('kk')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
+                
                 <button type="submit" class="btn btn-primary" style="background-color: #03774A; border: none;">Update</button>
             </form>
         </div>
@@ -117,5 +120,39 @@
     .invalid-feedback {
         font-size: 0.875em;
     }
+    #kk-image {
+            max-width: 780px;
+            height: auto;
+        }
+
+        @media (max-width: 767px) {
+            #kk-image {
+                max-width: 100%;
+                height: auto;
+            }
+        }
 </style>
+@endpush
+
+
+@push('js')
+    <script>
+        function previewKKImage(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('kk-image');
+                if (output) {
+                    output.src = reader.result;
+                } else {
+                    var imagePreview = document.getElementById('kk-image-preview');
+                    output = document.createElement('img');
+                    output.id = 'kk-image';
+                    output.src = reader.result;
+                    output.classList.add('img-thumbnail');
+                    imagePreview.appendChild(output);
+                }
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
 @endpush

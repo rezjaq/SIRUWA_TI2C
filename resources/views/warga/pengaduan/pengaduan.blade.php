@@ -69,7 +69,8 @@
                 </div>
                 <div class="mb-3">
                     <label for="foto" class="form-label">Foto</label>
-                    <input type="file" class="form-control @error('foto') is-invalid @enderror" id="foto" name="foto" accept="image/*" >
+                    <input type="file" class="form-control @error('foto') is-invalid @enderror" id="foto" name="foto" accept="image/*" onchange="previewImage(event)">
+                    <div id="imagePreview" class="mt-2"></div> <!-- Menampilkan preview gambar -->
                     @error('foto')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -124,3 +125,17 @@
     </style>
 @endpush
 
+@push('js')
+<script>
+    function previewImage(event) {
+        var input = event.target;
+        var reader = new FileReader();
+        reader.onload = function(){
+            var dataURL = reader.result;
+            var output = document.getElementById('imagePreview');
+            output.innerHTML = '<img src="' + dataURL + '" class="img-fluid" alt="Preview">';
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+</script>
+@endpush

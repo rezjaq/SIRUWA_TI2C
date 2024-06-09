@@ -124,6 +124,12 @@
                 /* Pindahkan label "Show" ke bawah */
             }
         }
+
+        /* Atur warna background dan teks untuk header tabel */
+        .table th {
+            background-color: #03774A;
+            color: #fff;
+        }
     </style>
 @endpush
 

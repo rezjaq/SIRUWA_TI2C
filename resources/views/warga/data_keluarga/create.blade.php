@@ -51,9 +51,12 @@
                         </div>
                         <div class="form-group">
                             <label for="kk">{{ __('Kartu Keluarga (KK)') }}:</label>
-                            <input type="file" class="form-control-file" id="kk" name="kk">
+                            <input type="file" class="form-control-file" id="kk" name="kk" accept="image/*" onchange="previewKKImage(event)">
                             <small class="form-text text-muted">Unggah gambar KK dalam format .jpg, .jpeg, atau .png</small>
-                        </div>
+                            <div class="mt-2" id="kk-image-preview">
+                                <!-- Pratinjau gambar akan ditampilkan di sini -->
+                            </div>
+                        </div>                        
                         <br><br>
                         <button type="submit" class="btn btn-primary">{{ __('Simpan') }}</button>
                     </form>
@@ -116,11 +119,43 @@
         .form-text {
             color: #6c757d;
         }
+        #kk-image {
+            max-width: 780px;
+            height: auto;
+        }
 
+        @media (max-width: 767px) {
+            #kk-image {
+                max-width: 100%;
+                height: auto;
+            }
+        }
         @media (max-width: 767.98px) {
             .card-body {
                 padding: 15px;
             }
         }
     </style>
+@endpush
+
+@push('js')
+    <script>
+        function previewKKImage(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('kk-image');
+                if (output) {
+                    output.src = reader.result;
+                } else {
+                    var imagePreview = document.getElementById('kk-image-preview');
+                    output = document.createElement('img');
+                    output.id = 'kk-image';
+                    output.src = reader.result;
+                    output.classList.add('img-thumbnail');
+                    imagePreview.appendChild(output);
+                }
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
 @endpush

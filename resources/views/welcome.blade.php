@@ -152,8 +152,8 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle {{ Request::routeIs('pengaduan.*') ? 'active' : '' }}" href="#" id="pengaduanDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pengaduan Warga</a>
                         <ul class="dropdown-menu" aria-labelledby="pengaduanDropdown">
-                            <li><a class="dropdown-item {{ Request::routeIs('pengaduan') ? 'active' : '' }}" href="{{ route('pengaduan') }}">Daftar Pengaduan</a></li>
-                            {{-- <li><a class="dropdown-item {{ Request::routeIs('pengaduan.show') ? 'active' : '' }}" href="{{ route('pengaduan.show') }}">History Pengaduan</a></li> --}}
+                            <li><a class="dropdown-item {{ Request::routeIs('pengaduan') ? 'active' : '' }}" href="{{ route('pengaduan') }}">Ajukan Pengaduan</a></li>
+                            <li><a class="dropdown-item {{ Request::routeIs('pengaduan.history') ? 'active' : '' }}" href="{{ route('pengaduan.history') }}">List Pengaduan</a></li>
                         </ul>
                     </li>
                     
@@ -168,19 +168,6 @@
                     </li>
                 </ul>
                 <div class="d-flex">
-                    {{-- <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user"></i> {{ Auth::user()->name }}
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
-                                <li><a class="dropdown-item" href="#">Settings</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul> --}}
                     <a href="{{ route('logout') }}" class="btn btn-custom">Logout</a>
                 </div>
             @else
@@ -234,10 +221,16 @@
                             <li><a class="dropdown-item check-login" href="{{ route('warga-pindah') }}">Surat Warga Pindahan</a></li>
                         </ul>
                     </div>
-                    <a href="{{ route('pengaduan') }}" class="program-ikon check-login" aria-label="Pengaduan Warga">
-                        <img src="{{ asset('assets/icon/3.png') }}" alt="Pengaduan Warga">
-                        <div class="program-title">Pengaduan Warga</div>
-                    </a>
+                    <div class="program-ikon dropdown">
+                        <a href="#" class="dropdown-toggle text-decoration-none" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{ asset('assets/icon/3.png') }}" alt="Pengajuan Surat">
+                            <div class="program-title">Pengaduan Warga</div>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item check-login" href="{{ route('pengaduan') }}">Ajukan Pengaduan</a></li>
+                            <li><a class="dropdown-item check-login" href="{{ route('pengaduan.history') }}">List Pengaduan</a></li>
+                        </ul>
+                    </div>                   
                     <div class="program-ikon dropdown">
                         <a href="#" class="dropdown-toggle text-decoration-none" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="{{ asset('assets/icon/4.png') }}" alt="UMKM Warga">
@@ -250,7 +243,7 @@
                     </div>
                     <a href="{{ route('bansos') }}" class="program-ikon check-login" aria-label="Bantuan Sosial">
                         <img src="{{ asset('assets/icon/5.png') }}" alt="Bantuan Sosial">
-                        <div class="program-title">Bantuan Sosial</div>
+                        <div class="program-title">Bantuan Sosial</div> 
                         
                     </a>
                     <a href="{{ route('warga.bansos.create') }}" class="program-ikon check-login" aria-label="Pengajuan Bansos">
@@ -277,36 +270,36 @@
     {{-- program --}}
 
     <br><br><br><br>
-    {{-- Berita --}}
-        <section id="berita">
-            <div class="container py-5 fade-up">
-                <div class="header-berita text-center fade-up mb-5">
-                    <h2 class="fw-bold">Berita Terbaru Wilayah RW. 02</h2>
-                </div>
 
-                <div class="row gy-4">
-                    @foreach ($pengumuman as $item)
-                    <div class="col-lg-4">
-                        <div class="card border-0 shadow-sm" onclick="location.href='{{ route('berita.show', $item->id_pengumuman) }}'">
-                            @if ($item->foto)
-                                <img src="{{ asset('storage/' . $item->foto) }}" class="card-img-top img-fluid mb-3" alt="{{ $item->judul }}" style="width: 100%; height: 200px; object-fit: cover;">
-                            @else
-                                <img src="{{ asset('assets/img/berita.JPG') }}" class="card-img-top img-fluid mb-3" alt="{{ $item->judul }}" style="width: 100%; height: 200px; object-fit: cover;">
-                            @endif
-                            <div class="card-body">
-                                <p class="card-text text-muted">{{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}</p>
-                                <h4 class="card-title fw-bold mb-3">{{ $item->judul }}</h4>
-                                <p class="text-secondary">{{ \Illuminate\Support\Str::limit($item->isi, 100, '...') }}</p>
-                            </div>
+
+    {{-- Berita --}}
+    <section id="berita">
+        <div class="container py-5 fade-up">
+            <div class="header-berita text-center fade-up mb-5">
+                <h2 class="fw-bold">Berita Terbaru Wilayah RW. 02</h2>
+            </div>
+
+            <div class="row gy-4 justify-content-center"> 
+                @foreach ($pengumuman as $item)
+                <div class="col-lg-3"> 
+                    <div class="card border-0 shadow-sm" onclick="location.href='{{ route('berita.show', $item->id_pengumuman) }}'">
+                        @if ($item->foto)
+                            <img src="{{ asset('storage/' . $item->foto) }}" class="card-img-top img-fluid mb-3" alt="{{ $item->judul }}" style="width: 100%; height: 200px; object-fit: cover;">
+                        @else
+                            <img src="{{ asset('assets/img/berita.JPG') }}" class="card-img-top img-fluid mb-3" alt="{{ $item->judul }}" style="width: 100%; height: 200px; object-fit: cover;">
+                        @endif
+                        <div class="card-body">
+                            <p class="card-text text-muted">{{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}</p>
+                            <h4 class="card-title fw-bold mb-3">{{ $item->judul }}</h4>
+                            <p class="text-secondary">{{ \Illuminate\Support\Str::limit($item->isi, 100, '...') }}</p>
+                            <a href="{{ route('berita.show', $item->id_pengumuman) }}" class="btn btn-primary mt-auto align-self-start">Baca Selengkapnya</a>
                         </div>
                     </div>
-                    @endforeach
                 </div>
-                {{-- <div class="footer-berita text-center mt-3">
-                    <a href="{{ route('berita_lainnya') }}" class="btn btn-outline-success">Berita Lainnya</a>
-                </div> --}}
+                @endforeach
             </div>
-        </section>
+        </div>
+    </section>
     {{-- berita --}}
 
     {{-- Kegiatan --}}
@@ -337,41 +330,13 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
-                    <!-- Static cards for demo purposes -->
-                    <div class="col-lg-3">
-                        <div class="card">
-                            <div class="card-img">
-                                <img src="{{ asset('assets/img/senam sehat.jpg') }}" alt="...">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title text-center py-2"><a href="{{ route('events') }}">Senam Sehat</a></h5>
-                                <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">06:00 - selesai</span></p>
-                                <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">Jumat, 19 April 2024</span></p>
-                                <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">Lapangan Utara</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Repeat for other static cards -->
-                    <div class="col-lg-3">
-                        <div class="card">
-                            <div class="card-img">
-                                <img src="{{ asset('assets/img/kerja bakti.jpg') }}" alt="...">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title text-center py-2"><a href="{{ route('events') }}">Kerja Bakti</a></h5>
-                                <p class="card-text"><span class="bi bi-alarm"></span> <span class="icon-text">06:30 - selesai</span></p>
-                                <p class="card-text"><span class="bi bi-calendar-check"></span> <span class="icon-text">Minggu, 21 April 2024</span></p>
-                                <p class="card-text"><span class="bi bi-geo-alt-fill"></span> <span class="icon-text">Seluruh Wilayah RW. 02</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Add more static cards if needed -->
+                    @endforeach
                 </div>
             </div>
         </div>
     </section>
-{{-- Kegiatan --}}
+    {{-- Kegiatan --}}
+
 
     
     {{-- dokumentasi --}}
@@ -382,9 +347,6 @@
                     <div class="d-flex align-items-center">
                         <div class="stripe-putih me-2"></div>
                         <h5 class="fw-bold text-white">Dokumentasi Wilayah RW 02</h5>
-                    </div>
-                    <div>
-                        <a href="{{ route('dokumentasi') }}" class="btn btn-outline-light">Dokumentasi Lainnya</a>
                     </div>
                 </div>
         
@@ -515,22 +477,91 @@
     {{-- src navbar scroll --}}
 
 
+    {{-- berita --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var slider = document.querySelector("#berita .row");
+            var sliderItems = document.querySelectorAll("#berita .carousel-item");
+            var currentSlide = 0;
+            var slideWidth = sliderItems[0].offsetWidth;
+            var intervalId; // variabel untuk menyimpan ID interval
+
+            // Fungsi untuk pergeseran ke slide selanjutnya
+            function nextSlide() {
+                currentSlide++;
+                if (currentSlide >= sliderItems.length) {
+                    currentSlide = 0;
+                }
+                slideTo(currentSlide);
+            }
+
+            // Fungsi untuk menggeser slider ke slide tertentu
+            function slideTo(slideIndex) {
+                var offset = slideIndex * slideWidth;
+                slider.style.transform = "translateX(-" + offset + "px)";
+            }
+
+            // Fungsi untuk memulai pergeseran otomatis
+            function startAutoSlide() {
+                intervalId = setInterval(nextSlide, 3000);
+            }
+
+            // Fungsi untuk menghentikan pergeseran otomatis
+            function stopAutoSlide() {
+                clearInterval(intervalId);
+            }
+
+            // Atur event listener untuk menghentikan pergeseran otomatis saat mouse hover pada slider
+            slider.addEventListener("mouseenter", stopAutoSlide);
+            slider.addEventListener("mouseleave", startAutoSlide);
+
+            // Atur interval untuk pergeseran otomatis setiap 3 detik
+            startAutoSlide();
+
+            // Atur event listener untuk menggeser slider saat klik panah kiri atau kanan
+            document.querySelector("#prevBtn").addEventListener("click", function() {
+                currentSlide--;
+                if (currentSlide < 0) {
+                    currentSlide = sliderItems.length - 1;
+                }
+                slideTo(currentSlide);
+            });
+
+            document.querySelector("#nextBtn").addEventListener("click", function() {
+                currentSlide++;
+                if (currentSlide >= sliderItems.length) {
+                    currentSlide = 0;
+                }
+                slideTo(currentSlide);
+            });
+        });
+    </script>
+    
+    
     {{-- src kegiatan --}}
     <script>
-        function autoScrollDiv() {
-            const container = document.querySelector('.carousel-container .row');
-            let scrollAmount = 0;
-            const scrollInterval = setInPterval(function() {
-                if (scrollAmount < container.scrollWidth - container.clientWidth) {
-                    container.scrollBy({ left: 300, top: 0, behavior: 'smooth' });
-                    scrollAmount += 300;
-                } else {
-                    container.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
-                    scrollAmount = 0;
-                }
-            }, 5000); 
-        }
-        document.addEventListener('DOMContentLoaded', autoScrollDiv);
+        document.addEventListener('DOMContentLoaded', function() {
+            function autoScrollDiv() {
+                const container = document.querySelector('.carousel-container .row');
+                let scrollAmount = 0;
+                const scrollStep = 300; // Jumlah pixel per langkah scroll
+                const scrollInterval = 3000; // Interval waktu antara setiap scroll (ms)
+
+                const scrollContent = () => {
+                    const maxScrollLeft = container.scrollWidth - container.clientWidth;
+                    if (scrollAmount < maxScrollLeft) {
+                        container.scrollBy({ left: scrollStep, top: 0, behavior: 'smooth' });
+                        scrollAmount += scrollStep;
+                    } else {
+                        container.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
+                        scrollAmount = 0;
+                    }
+                };
+
+                setInterval(scrollContent, scrollInterval);
+            }
+            autoScrollDiv();
+        });
     </script>
     {{-- src kegiatan --}}
 
@@ -571,7 +602,7 @@
             title: 'Login Berhasil',
             text: successMessage,
             icon: 'success',
-            showConfirmButton: false,
+            showConfirmButton: true,
         }).then((result) => {
             if (showChangePassword) {
                 showChangePasswordAlert();
@@ -740,11 +771,13 @@
 
 
     <script src="{{ asset('assets/js/check-login.js') }}"></script>
+    <script src="{{ asset('assets/js/navbar.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 </body>
 </html>

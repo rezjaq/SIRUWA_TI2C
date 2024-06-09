@@ -33,7 +33,7 @@ class ApproveUmkm extends Controller
         $usahaWarga->status = 'approved';
         $usahaWarga->save();
 
-        return redirect()->route('umkm')->with('success', 'Pengajuan UMKM berhasil disetujui.');
+        return redirect()->route('admin.pengajuan')->with('success', 'Pengajuan UMKM berhasil disetujui.');
     }
 
     public function reject($id)
@@ -42,6 +42,6 @@ class ApproveUmkm extends Controller
         $usahaWarga->status = 'rejected';
         $usahaWarga->save();
 
-        return redirect()->route('umkm')->with('success', 'Pengajuan UMKM berhasil ditolak.');
+        return redirect()->route('admin.pengajuan')->with('success', 'Pengajuan UMKM berhasil ditolak.');
     }
 }

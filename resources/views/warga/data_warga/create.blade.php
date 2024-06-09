@@ -80,9 +80,13 @@
                             </div>
                             <div class="form-group">
                                 <label for="akte">{{ __('Akte Kelahiran') }}:</label>
-                                <input type="file" class="form-control-file" id="akte" name="akte">
-                                <small class="form-text text-muted">Unggah gambar KK dalam format .jpg, .jpeg, atau .png</small>
+                                <input type="file" class="form-control-file" id="akte" name="akte" accept="image/*" onchange="previewAkteImage(event)">
+                                <small class="form-text text-muted">Unggah gambar Akte dalam format .jpg, .jpeg, atau .png</small>
+                                <div class="mt-2" id="akte-image-preview">
+                                    <!-- Image preview will be inserted here -->
+                                </div>
                             </div>
+                            
                             <div class="form-group row mb-0">
                                 <div class="col-md-12 d-flex justify-content-center">
                                     <button type="submit" class="btn btn-primary w-100">{{ __('Simpan') }}</button>
@@ -141,5 +145,37 @@
             background-color: #03774A;
             border-color: #03774A;
         }
+        #akte-image {
+            max-width: 780px;
+            height: auto;
+        }
+
+        @media (max-width: 767px) {
+            #akte-image {
+                max-width: 100%;
+                height: auto;
+            }
+        }
     </style>
+@endpush
+@push('js')
+    <script>
+        function previewAkteImage(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('akte-image');
+                if (output) {
+                    output.src = reader.result;
+                } else {
+                    var imagePreview = document.getElementById('akte-image-preview');
+                    output = document.createElement('img');
+                    output.id = 'akte-image';
+                    output.src = reader.result;
+                    output.classList.add('img-thumbnail');
+                    imagePreview.appendChild(output);
+                }
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
 @endpush

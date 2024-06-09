@@ -14,12 +14,11 @@ class DashboardWargaController extends Controller
     {
         $pengumuman = Pengumuman::where('status_pengumuman', 'aktif')
             ->orderBy('tanggal', 'desc')
-            ->take(3)
+            ->take(4)
             ->get();
 
         $kegiatan = Kegiatan::where('status_kegiatan', 'aktif')
             ->orderBy('tanggal_kegiatan', 'desc')
-            ->take(4)
             ->get();
         $user = Auth::user();
         return view('welcome', compact('pengumuman', 'kegiatan'))->with('user', $user);
@@ -30,7 +29,7 @@ class DashboardWargaController extends Controller
             'title' => 'Berita Lainnya',
             'list' => [
                 [
-                    'label' => 'home',
+                    'label' => 'Berita',
                     'dropdown' => true,
                     'links' => [
                         ['url' => route('home'), 'label' => 'Halaman Awal']
@@ -52,7 +51,7 @@ class DashboardWargaController extends Controller
             'title' => 'Detail Berita',
             'list' => [
                 [
-                    'label' => 'home',
+                    'label' => 'Berita',
                     'dropdown' => true,
                     'links' => [
                         ['title' => 'Home', 'url' => route('home')],

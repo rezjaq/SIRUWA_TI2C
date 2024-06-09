@@ -21,6 +21,7 @@ class Aduan extends Model
         'isi',
         'foto',
         'status_aduan',
+        'komentar',
     ];
 
     public function warga()

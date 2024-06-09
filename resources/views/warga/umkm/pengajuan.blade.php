@@ -81,8 +81,9 @@
                     
                         <div class="form-group mb-3">
                             <label for="foto">Foto Produk</label>
-                            <input type="file" id="foto" name="foto" class="form-control-file">
+                            <input type="file" id="foto" name="foto" class="form-control-file" onchange="previewImage(this)">
                         </div>
+                        <div id="imagePreview"></div>
                     
                         <div class="form-buttons mt-3">
                             <button type="submit" class="btn btn-primary btn-block">Ajukan</button>
@@ -208,5 +209,20 @@
             }
         });
     });
+</script>
+<script>
+    function previewImage(input) {
+        // Memeriksa apakah file yang diunggah adalah gambar
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                // Menampilkan gambar yang diunggah
+                document.getElementById('imagePreview').innerHTML = '<img src="' + e.target.result + '" class="img-fluid" alt="Preview">';
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
 @endpush

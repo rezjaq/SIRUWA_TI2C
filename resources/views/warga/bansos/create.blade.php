@@ -17,6 +17,9 @@
                 <div class="card shadow-sm">
                     <div class="card-header" style="background-color: #03774A; color: #fff;">
                         <h4 class="mb-0">
+                            <a href="{{ route('bansos') }}" class="btn btn-sm btn-light me-2">
+                                <i class="fas fa-arrow-left"></i>
+                            </a>
                             Ajukan Bansos
                         </h4>
                     </div>
