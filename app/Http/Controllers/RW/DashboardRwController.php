@@ -4,6 +4,7 @@ namespace App\Http\Controllers\RW;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bansos;
+use App\Models\Keluarga;
 use App\Models\Warga;
 use App\Models\WargaPindahMasuk;
 use DateTime;
@@ -29,7 +30,7 @@ class DashboardRwController extends Controller
     public function wargaSpread()
     {
         // Ambil semua data warga
-        $wargas = Warga::all();
+        $wargas = Warga::where('status', 'disetujui')->get();
 
         // Inisialisasi array untuk menyimpan jumlah warga di setiap RT
         $rtCounts = [];
@@ -46,6 +47,32 @@ class DashboardRwController extends Controller
         }
 
         // Transformasikan data untuk digunakan dalam diagram
+        $data = [];
+        foreach ($rtCounts as $rt => $count) {
+            $data[] = [
+                'rt' => $rt,
+                'count' => $count,
+            ];
+        }
+
+        return response()->json($data);
+    }
+
+    public function familySpread()
+    {
+        // Ambil semua data keluarga
+        $keluargas = Keluarga::where('status', 'disetujui')->get();
+        $rtCounts = [];
+
+        // Hitung jumlah keluarga di setiap RT
+        foreach ($keluargas as $keluarga) {
+            $rt = $keluarga->no_rt;
+            if (!isset($rtCounts[$rt])) {
+                $rtCounts[$rt] = 0;
+            }
+            $rtCounts[$rt]++;
+        }
+
         $data = [];
         foreach ($rtCounts as $rt => $count) {
             $data[] = [
@@ -108,6 +135,60 @@ class DashboardRwController extends Controller
         }
 
         // Transformasikan data untuk digunakan dalam diagram
+        $data = [];
+        foreach ($rtCounts as $rt => $count) {
+            $data[] = [
+                'rt' => $rt,
+                'count' => $count,
+            ];
+        }
+
+        return response()->json($data);
+    }
+
+    public function bansosSubmissionSpread()
+    {
+        $bansos = Bansos::where('status', 'pending')->get();
+
+        $rtCounts = [];
+
+        foreach ($bansos as $b) {
+            $rt = $b->warga->no_rt;
+
+            if (!isset($rtCounts[$rt])) {
+                $rtCounts[$rt] = 0;
+            }
+
+            $rtCounts[$rt]++;
+        }
+
+        $data = [];
+        foreach ($rtCounts as $rt => $count) {
+            $data[] = [
+                'rt' => $rt,
+                'count' => $count,
+            ];
+        }
+
+        return response()->json($data);
+    }
+
+    public function bansosRejectedSpread()
+    {
+        $bansos = Bansos::where('status', 'rejected')->get();
+
+        $rtCounts = [];
+
+        foreach ($bansos as $b) {
+            $rt = $b->warga->no_rt;
+
+            if (!isset($rtCounts[$rt])) {
+                $rtCounts[$rt] = 0;
+            }
+
+            $rtCounts[$rt]++;
+        }
+
         $data = [];
         foreach ($rtCounts as $rt => $count) {
             $data[] = [

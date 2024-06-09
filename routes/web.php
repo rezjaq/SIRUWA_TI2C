@@ -133,11 +133,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['cek_login:RW']], function () {
         Route::get('/RW', [RwDashboardController::class, 'index'])->name('dashboard-rw');
         Route::get('/RW/spread', [RwDashboardController::class, 'wargaSpread'])->name('rw.wargaSpread');
+        Route::get('/RW/family-spread', [RwDashboardController::class, 'familySpread'])->name('rw.familySpread');
         Route::get('/RW/warga-pindahan-spread', [RwDashboardController::class, 'wargaPindahanSpread'])->name('rw.wargaPindahanSpread');
         Route::get('/RW/bansos-spread', [RwDashboardController::class, 'bansosSpread'])->name('rw.bansosSpread');
         Route::get('/RW/gender-spread', [RwDashboardController::class, 'genderSpread'])->name('rw.genderSpread');
         Route::get('/RW/age-spread', [RwDashboardController::class, 'ageSpread'])->name('rw.ageSpread');
         Route::get('/RW/marital-status-spread', [RwDashboardController::class, 'maritalStatusSpread'])->name('rw.maritalStatusSpread');
+        Route::get('/RW/bansos-submission-spread', [RwDashboardController::class, 'bansosSubmissionSpread'])->name('rw.bansosSubmissionSpread');
+        Route::get('/RW/bansos-rejected-spread', [RwDashboardController::class, 'bansosRejectedSpread'])->name('rw.bansosRejectedSpread');
 
 
         Route::prefix('/pengumuman')->group(function () {
@@ -176,6 +179,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::prefix('/Warga')->group(function () {
             Route::get('/', [RwWargaController::class, 'index'])->name('Warga.index');
             Route::post('/list', [RwWargaController::class, 'list'])->name('Warga.list');
+            Route::post('/warga-list-deceased', [RwWargaController::class, 'listDeceased'])->name('Warga.listDeceased');
             Route::get('/create', [RwWargaController::class, 'create'])->name('Warga.create');
             Route::post('/store', [RwWargaController::class, 'store'])->name('Warga.store');
             Route::get('/{id}', [RwWargaController::class, 'show'])->name('Warga.show');
@@ -247,13 +251,15 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/create', [DataRT::class, 'create'])->name('DataRT.create');
             Route::post('/store', [DataRT::class, 'store'])->name('DataRT.store');
             Route::put('/{nik}/removeRT', [DataRT::class, 'removeRT'])->name('DataRT.removeRT');
-
         });
     });
 
     // Rute untuk RT
     Route::group(['middleware' => ['cek_login:RT']], function () {
         Route::get('/RT', [RTDashboardController::class, 'index'])->name('dashboard-rt');
+        Route::get('/RT/gender-spread', [RTDashboardController::class, 'genderSpread'])->name('rt.genderSpread');
+        Route::get('/RT/age-spread', [RTDashboardController::class, 'ageSpread'])->name('rt.ageSpread');
+        Route::get('/RT/marital-status-spread', [RTDashboardController::class, 'maritalStatusSpread'])->name('rt.maritalStatusSpread');
 
         Route::prefix('/family')->group(function () {
             Route::get('/', [RTKeluargaController::class, 'index'])->name('family.index');
@@ -269,6 +275,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::prefix('/citizen')->group(function () {
             Route::get('/', [RTWargaController::class, 'index'])->name('citizen.index');
             Route::post('/list', [RTWargaController::class, 'list'])->name('citizen.list');
+            Route::post('/warga-list-deceased', [RTWargaController::class, 'listDeceased'])->name('citizen.listDeceased');
             Route::get('/create', [RTWargaController::class, 'create'])->name('citizen.create');
             Route::post('/store', [RTWargaController::class, 'store'])->name('citizen.store');
             Route::get('/{id}', [RTWargaController::class, 'show'])->name('citizen.show');
