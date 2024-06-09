@@ -16,11 +16,11 @@
             <div class="alert alert-danger">
                 <i class="icon fas fa-ban"></i> Data tidak ditemukan
             </div>
-            <a href="{{ route('citizen.update') }}" class="btn btn-sm btn-secondary"
-                style="background-color: #6c757d; border-color: #6c757d;"><i class="fas fa-arrow-left"></i> Kembali</a>
+            <a href="{{ route('citizen.index') }}" class="btn btn-sm btn-secondary"
+                style="background-color: #6c757d; border-color: #6c757d;"><i class="fas fa-arrow-left"></i></a>
             @else
             <div class="form-group">
-                <form method="POST" action="{{ route('Warga.update', $warga->nik) }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('citizen.update', $warga->nik) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="form-group row">

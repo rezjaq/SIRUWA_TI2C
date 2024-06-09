@@ -10,7 +10,7 @@
                                 <select id="data-type-selector" class="form-control w-auto">
                                     <option value="warga">Sebaran Warga</option>
                                     <option value="warga-pindahan">Sebaran Warga Pindahan</option>
-                                    <option value="bansos">Sebaran Penerima Bansos</option>
+                                    <option value="keluarga">Sebaran Keluarga</option>
                                 </select>
                             </div>
                             <div id="chart-container"></div>
@@ -22,6 +22,24 @@
                 </div>
             </div>
             <div class="row mt-4">
+                <!-- Tambahkan div baru untuk diagram bar penerima bansos -->
+                <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <select id="bansos-type-selector" class="form-control w-auto">
+                                    <option value="penerima">Penerima Bansos</option>
+                                    <option value="pengajuan">Pengajuan Bansos</option>
+                                    <option value="ditolak">Bansos Ditolak</option>
+                                </select>
+                            </div>
+                            <div id="bansos-chart-container"></div>
+                            <div id="bansos-total-container" class="mt-4">
+                                <h5>Total: <span id="bansos-total-count">0</span></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-lg-6 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
@@ -46,7 +64,7 @@
 
 @push('css')
     <style>
-        #chart-container, #pie-chart-container {
+        #chart-container, #pie-chart-container, #bansos-chart-container {
             width: 100%;
             height: 300px;
         }
@@ -61,7 +79,9 @@
             const totalCountElement = document.getElementById('total-count');
             const pieDataTypeSelector = document.getElementById('pie-data-type-selector');
             const pieTotalCountElement = document.getElementById('pie-total-count');
-            let chart, pieChart;
+            const bansosTypeSelector = document.getElementById('bansos-type-selector');
+            const bansosTotalCountElement = document.getElementById('bansos-total-count');
+            let chart, pieChart, bansosChart;
 
             function fetchData(dataType) {
                 let url;
@@ -69,8 +89,8 @@
                     url = '{{ route('rw.wargaSpread') }}';
                 } else if (dataType === 'warga-pindahan') {
                     url = '{{ route('rw.wargaPindahanSpread') }}';
-                } else if (dataType === 'bansos') {
-                    url = '{{ route('rw.bansosSpread') }}';
+                } else if (dataType === 'keluarga') {
+                    url = '{{ route('rw.familySpread') }}';
                 }
 
                 fetch(url)
@@ -107,7 +127,7 @@
                             title: {
                                 text: dataType === 'warga' ? 'Diagram Penyebaran Warga per RT' : 
                                       dataType === 'warga-pindahan' ? 'Diagram Penyebaran Warga Pindahan per RT' :
-                                      'Diagram Penyebaran Penerima Bansos per RT'
+                                      'Diagram Penyebaran Keluarga per RT'
                             }
                         };
 
@@ -169,25 +189,93 @@
                         // Render chart pie
                         pieChart = new ApexCharts(document.querySelector("#pie-chart-container"), options);
                         pieChart.render();
-                   
                     })
-            .catch(error => console.error('Error:', error));
-    }
+                    .catch(error => console.error('Error:', error));
+            }
 
-    // Initial fetch untuk chart batang
-    fetchData(dataTypeSelector.value);
+            function fetchBansosData(bansosType) {
+                let url;
+                if (bansosType === 'penerima') {
+                    url = '{{ route('rw.bansosSpread') }}';
+                } else if (bansosType === 'pengajuan') {
+                    url = '{{ route('rw.bansosSubmissionSpread') }}';
+                } else if (bansosType === 'ditolak') {
+                    url = '{{ route('rw.bansosRejectedSpread') }}';
+                }
 
-    // Initial fetch untuk chart pie
-    fetchPieData(pieDataTypeSelector.value);
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data); // Log data to console for debugging
+                        const chartData = data.map(item => item.count);
+                        const categories = data.map(item => 'RT ' + item.rt);
 
-    // Fetch data pada perubahan pilihan
-    dataTypeSelector.addEventListener('change', function() {
-        fetchData(this.value);
-    });
+                        // Hitung total
+                        const totalCount = chartData.reduce((sum, count) => sum + count, 0);
 
-    pieDataTypeSelector.addEventListener('change', function() {
-        fetchPieData(this.value);
-    });
-});
-</script>
+                        // Update total count
+                        bansosTotalCountElement.textContent = totalCount;
+
+                        // Konfigurasi chart batang untuk bansos
+                        const options = {
+                            series: [{
+                                name: bansosType === 'penerima' ? 'Jumlah Penerima Bansos' : 
+                                      bansosType === 'pengajuan' ? 'Jumlah Pengajuan Bansos' : 
+                                      'Jumlah Bansos Ditolak',
+                                data: chartData
+                            }],
+                            chart: {
+                                type: 'bar',
+                                height: 300
+                            },
+                            plotOptions: {
+                                bar: {
+                                    horizontal: false,
+                                }
+                            },
+                            xaxis: {
+                                categories: categories,
+                            },
+                            title: {
+                                text: bansosType === 'penerima' ? 'Diagram Penyebaran Penerima Bansos per RT' : 
+                                      bansosType === 'pengajuan' ? 'Diagram Penyebaran Pengajuan Bansos per RT' :
+                                      'Diagram Penyebaran Bansos Ditolak per RT'
+                            }
+                        };
+
+                        // Hapus chart sebelumnya jika ada
+                        if (bansosChart) {
+                            bansosChart.destroy();
+                        }
+
+                        // Render chart batang untuk bansos
+                        bansosChart = new ApexCharts(document.querySelector("#bansos-chart-container"), options);
+                        bansosChart.render();
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+
+            // Initial fetch untuk chart batang
+            fetchData(dataTypeSelector.value);
+
+            // Initial fetch untuk chart pie
+            fetchPieData(pieDataTypeSelector.value);
+
+            // Initial fetch untuk chart bansos
+            fetchBansosData(bansosTypeSelector.value);
+
+            // Fetch data pada perubahan pilihan
+            dataTypeSelector.addEventListener('change', function() {
+                fetchData(this.value);
+            });
+
+            pieDataTypeSelector.addEventListener('change', function() {
+                fetchPieData(this.value);
+            });
+
+            bansosTypeSelector.addEventListener('change', function() {
+                fetchBansosData(this.value);
+            });
+        });
+    </script>
 @endpush

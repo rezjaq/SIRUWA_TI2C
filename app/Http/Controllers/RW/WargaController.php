@@ -30,8 +30,7 @@ class WargaController extends Controller
     public function list()
     {
         $warga = Warga::select('nik', 'nama', 'jenis_kelamin', 'tanggal_lahir', 'alamat', 'no_telepon', 'agama', 'statusKawin', 'pekerjaan', 'no_rt')
-            ->where('status', 'disetujui');
-        ;
+            ->where('status', 'disetujui');;
 
         return DataTables::of($warga)
             ->addIndexColumn()
@@ -44,6 +43,24 @@ class WargaController extends Controller
             ->rawColumns(['aksi'])
             ->make(true);
     }
+
+    public function listDeceased()
+    {
+        $warga = Warga::select('nik', 'nama', 'jenis_kelamin', 'tanggal_lahir', 'alamat', 'no_telepon', 'agama', 'statusKawin', 'pekerjaan', 'no_rt')
+            ->where('status', 'tidak_disetujui');
+
+        return DataTables::of($warga)
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($warga) {
+                $btn = '<a href="' . route('Warga.show', $warga->nik) . '" class="btn btn-primary btn-sm mr-1" style="width: 40px; height: 40px; margin-right: 5px;"><i class="fas fa-eye"></i></a>';
+                $btn .= '<a href="' . route('Warga.edit', $warga->nik) . '" class="btn btn-warning btn-sm mr-1" style="width: 40px; height: 40px; margin-right: 5px;"><i class="fas fa-edit"></i></a>';
+                $btn .= '<form class="d-inline-block" method="POST" action="' . route('Warga.destroy', $warga->nik) . '">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" style="width: 40px; height: 40px; margin-right: 5px;" onclick="return confirm(\'Apakah Anda Yakin Menghapus Data Ini? \');"><i class="fas fa-trash-alt"></i></button></form>';
+                return $btn;
+            })
+            ->rawColumns(['aksi'])
+            ->make(true);
+    }
+
 
     public function create()
     {
@@ -94,7 +111,6 @@ class WargaController extends Controller
             $ktpName = time() . '_' . $ktp->getClientOriginalName();
             $ktpPath = $ktp->storeAs('public/ktp_images', $ktpName);
             $ktpPath = str_replace('public/', '', $ktpPath);
-
         }
 
         // Tentukan verifikasi berdasarkan keberadaan foto KTP atau Akte
@@ -157,7 +173,7 @@ class WargaController extends Controller
         $warga = Warga::findOrFail($nik);
         $keluargas = Keluarga::all();
 
-        return view('rw.warga.edit', compact('breadcrumb', 'activeMenu', 'warga','keluargas'));
+        return view('rw.warga.edit', compact('breadcrumb', 'activeMenu', 'warga', 'keluargas'));
     }
 
     public function update(Request $request, $nik)
@@ -215,7 +231,6 @@ class WargaController extends Controller
 
         // Redirect ke halaman daftar warga dengan pesan sukses
         return redirect()->route('Warga.index')->with('success', 'Warga berhasil diperbarui.');
-
     }
 
 
