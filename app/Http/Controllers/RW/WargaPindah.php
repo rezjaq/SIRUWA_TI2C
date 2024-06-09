@@ -70,7 +70,7 @@ class WargaPindah extends Controller
     {
         // Validasi input
         $request->validate([
-            'nik' => 'required',
+            'nik' => 'required|unique:warga_pindah_masuk,nik|digits:16',
             'nama' => 'required',
             'jenis_kelamin' => 'required',
             'tanggal_lahir' => 'required|date',

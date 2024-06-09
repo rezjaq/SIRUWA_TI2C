@@ -67,7 +67,7 @@ class DataWargaController extends Controller
     {
         // Validasi input
         $request->validate([
-            'nik' => 'required|unique:warga',
+            'nik' => 'required|unique:warga,nik|digits:16',
             'nama' => 'required',
             'jenis_kelamin' => 'required',
             'tanggal_lahir' => 'required|date',

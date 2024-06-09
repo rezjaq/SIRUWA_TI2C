@@ -31,6 +31,7 @@ use App\Http\Controllers\RW\VerifikasiKeluarga as RWverifikasiKeluarga;
 use App\Http\Controllers\RT\RTVerifikasiWarga as RTverifikasiWarga;
 use App\Http\Controllers\RT\RTVerifikasiKeluarga as RTverifikasiKeluarga;
 use App\Http\Controllers\RW\VerifikasiWargaPindah as verifikasiWargaPindah;
+use App\Http\Controllers\RT\VerifikasiWargaPindah as RTverifikasiWargaPindah;
 use App\Http\Controllers\RT\AprovePengaduanRT as AprovePengaduanRT;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\EventsController;
@@ -38,6 +39,8 @@ use App\Http\Controllers\DokumentasiController;
 use App\Http\Controllers\Warga\BansosController as BansosWarga;
 use App\Http\Controllers\RW\BansosController as BansosRW;
 use App\Http\Controllers\RW\SuratController as SuratRW;
+use App\Http\Controllers\RT\SuratController as SuratRT;
+use App\Http\Controllers\RW\DataRT as DataRT;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -129,6 +132,13 @@ Route::group(['middleware' => ['auth']], function () {
     // Rute untuk RW
     Route::group(['middleware' => ['cek_login:RW']], function () {
         Route::get('/RW', [RwDashboardController::class, 'index'])->name('dashboard-rw');
+        Route::get('/RW/spread', [RwDashboardController::class, 'wargaSpread'])->name('rw.wargaSpread');
+        Route::get('/RW/warga-pindahan-spread', [RwDashboardController::class, 'wargaPindahanSpread'])->name('rw.wargaPindahanSpread');
+        Route::get('/RW/bansos-spread', [RwDashboardController::class, 'bansosSpread'])->name('rw.bansosSpread');
+        Route::get('/RW/gender-spread', [RwDashboardController::class, 'genderSpread'])->name('rw.genderSpread');
+        Route::get('/RW/age-spread', [RwDashboardController::class, 'ageSpread'])->name('rw.ageSpread');
+        Route::get('/RW/marital-status-spread', [RwDashboardController::class, 'maritalStatusSpread'])->name('rw.maritalStatusSpread');
+
 
         Route::prefix('/pengumuman')->group(function () {
             Route::get('/', [RwPengumumanController::class, 'index'])->name('pengumuman');
@@ -231,6 +241,14 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/store', [SuratRW::class, 'store'])->name('rw.surat.store');
             Route::delete('/{id}', [SuratRW::class, 'destroy'])->name('rw.surat.destroy');
         });
+        Route::prefix('/DataRT')->group(function () {
+            Route::get('/', [DataRT::class, 'index'])->name('DataRT.index');
+            Route::post('/list', [DataRT::class, 'list'])->name('DataRT.list');
+            Route::get('/create', [DataRT::class, 'create'])->name('DataRT.create');
+            Route::post('/store', [DataRT::class, 'store'])->name('DataRT.store');
+            Route::put('/{nik}/removeRT', [DataRT::class, 'removeRT'])->name('DataRT.removeRT');
+
+        });
     });
 
     // Rute untuk RT
@@ -286,6 +304,20 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/{id}/edit', [RtWargaPindah::class, 'edit'])->name('rt.WargaPindah.edit');
             Route::put('/{id}/update', [RtWargaPindah::class, 'update'])->name('rt.WargaPindah.update');
             Route::delete('/{id}', [RtWargaPindah::class, 'destroy'])->name('rt.WargaPindah.destroy');
+        });
+        Route::prefix('/RTverifikasiWargaPindah')->group(function () {
+            Route::get('/', [RTverifikasiWargaPindah::class, 'index'])->name('RTverifikasiWargaPindah.index');
+            Route::post('/list', [RTverifikasiWargaPindah::class, 'list'])->name('RTverifikasiWargaPindah.list');
+            Route::get('/{id}', [RTverifikasiWargaPindah::class, 'show'])->name('RTverifikasiWargaPindah.show');
+            Route::post('/approve/{id}', [RTverifikasiWargaPindah::class, 'approve'])->name('RTverifikasiWargaPindah.approve');
+            Route::post('reject/{id}', [RTverifikasiWargaPindah::class, 'reject'])->name('RTverifikasiWargaPindah.reject');
+        });
+        Route::prefix('/SuratRT')->group(function () {
+            Route::get('/', [SuratRT::class, 'index'])->name('rt.surat.index');
+            Route::post('/list', [SuratRT::class, 'list'])->name('rt.surat.list');
+            Route::get('/create', [SuratRT::class, 'create'])->name('rt.surat.create');
+            Route::post('/store', [SuratRT::class, 'store'])->name('rt.surat.store');
+            Route::delete('/{id}', [SuratRT::class, 'destroy'])->name('rt.surat.destroy');
         });
 
         // Route::prefix('announcement')->group(function () {
