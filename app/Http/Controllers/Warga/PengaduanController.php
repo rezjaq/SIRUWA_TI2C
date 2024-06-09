@@ -15,10 +15,10 @@ class PengaduanController extends Controller
             'title' => 'Pengaduan Warga',
             'list' => [
                 [
-                    'label' => 'Form Pengaduan',
+                    'label' => 'Pengaduan',
                     'dropdown' => true,
                     'links' => [
-                        ['url' => route('pengaduan'), 'label' => 'Form Pengaduan']
+                        ['url' => route('pengaduan'), 'label' => 'Form Pengaduan'],
                     ]
                 ],
                 ['label' => 'Form Pengaduan', 'url' => route('pengaduan')]
@@ -29,6 +29,7 @@ class PengaduanController extends Controller
 
         return view('warga.pengaduan.pengaduan', ['breadcrumb' => $breadcrumb, 'user' => $user]);
     }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -39,7 +40,6 @@ class PengaduanController extends Controller
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        // Get the authenticated user's nik_warga
         $nik_warga = Auth::user()->nik;
 
         $imagePath = $request->file('foto')->store('pengaduan', 'public');
@@ -57,7 +57,25 @@ class PengaduanController extends Controller
         return redirect()->route('pengaduan')->with('success', 'Pengaduan berhasil dikirim.');
     }
 
+    public function show()
+    {
+        $breadcrumb = [
+            'title' => 'Pengaduan Warga',
+            'list' => [
+                [
+                    'label' => 'Pengaduan',
+                    'dropdown' => true,
+                    'links' => [
+                        ['url' => route('pengaduan.history'), 'label' => 'List Pengaduan'],
+                    ]
+                ],
+                ['label' => 'List Pengaduan', 'url' => route('pengaduan.history')],
+            ]
+        ];
 
 
+        $pengaduans = Aduan::latest()->get();
 
+        return view('warga.pengaduan.hsitory', ['breadcrumb' => $breadcrumb, 'pengaduans' => $pengaduans]);
+    }
 }

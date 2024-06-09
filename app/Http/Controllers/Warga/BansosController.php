@@ -15,18 +15,16 @@ class BansosController extends Controller
             'title' => 'Bantuan Sosial',
             'list' => [
                 [
-                    'label' => 'Data Warga',
+                    'label' => 'Bantuan Sosial',
                     'dropdown' => true,
                     'links' => [
-                        ['url' => route('warga.Warga.index'), 'label' => 'Daftar Warga'],
-                        ['url' => route('warga.Warga.create'), 'label' => 'Tambah Warga'],
-                        ['url' => route('warga.Warga.edit'), 'label' => 'Vertifikasi Data Warga']
+                        ['url' => route('warga.Warga.index'), 'label' => 'Form Pengajuan Bansos'],
                     ]
                 ],
-                ['label' => 'Daftar Warga', 'url' => route('warga.Warga.index')]
+                ['label' => 'Form Pengajuan Bansos', 'url' => route('warga.Warga.index')]
             ] // List diubah menjadi array
         ];
-        
+
         return view('warga.bansos.create', compact('breadcrumb'));
     }
 

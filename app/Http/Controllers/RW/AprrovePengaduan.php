@@ -25,23 +25,25 @@ class AprrovePengaduan extends Controller
         return view('rw.pengaduan.index', compact('breadcrumb', 'page', 'activeMenu', 'aduans'));
     }
 
-    public function approve($id)
+    public function approve(Request $request, $id)
     {
         $aduan = Aduan::findOrFail($id);
         $aduan->status_aduan = 'approved';
+        $aduan->komentar = $request->input('komentar');
         $aduan->save();
 
         return redirect()->route('admin.pengaduan')->with('success', 'Pengaduan telah disetujui.');
     }
 
-    public function reject($id)
+    public function reject(Request $request, $id)
     {
         $aduan = Aduan::findOrFail($id);
         $aduan->status_aduan = 'rejected';
+        $aduan->komentar = $request->input('komentar');
         $aduan->save();
 
         return redirect()->route('admin.pengaduan')->with('success', 'Pengaduan telah ditolak.');
     }
-
 }
+
 

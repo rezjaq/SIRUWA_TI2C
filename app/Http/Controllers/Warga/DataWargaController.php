@@ -20,12 +20,12 @@ class DataWargaController extends Controller
                     'label' => 'Data Warga',
                     'dropdown' => true,
                     'links' => [
-                        ['url' => route('warga.Warga.index'), 'label' => 'Daftar Warga'],
+                        ['url' => route('warga.Warga.index'), 'label' => 'List Data Warga'],
                         ['url' => route('warga.Warga.create'), 'label' => 'Tambah Warga'],
                         ['url' => route('warga.Warga.edit'), 'label' => 'Vertifikasi Data Warga']
                     ]
                 ],
-                ['label' => 'Daftar Warga', 'url' => route('warga.Warga.index')]
+                ['label' => 'List Data Warga', 'url' => route('warga.Warga.index')]
             ]
         ];
 

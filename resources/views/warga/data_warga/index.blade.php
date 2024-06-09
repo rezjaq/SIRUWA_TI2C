@@ -28,7 +28,7 @@
                     <i class="fas fa-user-plus me-2"></i> Tambah Warga
                 </a>
                 <a href="{{ route('warga.Warga.edit') }}" class="btn btn-outline-light">
-                    <i class="fas fa-user-edit me-2"></i> Edit Warga
+                    <i class="fas fa-user-edit me-2"></i> Update Data Warga
                 </a>
             </div>
         </div>
@@ -77,6 +77,10 @@
         background-color: #fff;
         color: #03774A;
     }
+    .table th {
+            background-color: #03774A;
+            color: #fff;
+        
 
     /* Tambahkan gaya khusus untuk membuat tabel responsif di perangkat seluler */
     @media (max-width: 575.98px) {

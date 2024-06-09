@@ -7,50 +7,54 @@
             <h3 class="card-title d-inline-block text-white">Kelola Pengaduan Warga</h3>
         </div>
     </div>
-        <div class="card-body">
-            <div class="row">
-                @if(session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
-                <table class="table table-bordered">
-                    <thead>
+    <div class="card-body">
+        <div class="row">
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+            <table class="table table-bordered">
+                <thead class="table-header">
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Tempat</th>
+                        <th>Tanggal</th>
+                        <th>Isi Pengaduan</th>
+                        <th>Foto</th>
+                        <th>Komentar</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($aduans as $aduan)
                         <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Tempat</th>
-                            <th>Tanggal</th>
-                            <th>Isi Pengaduan</th>
-                            <th>Foto</th>
-                            <th>Aksi</th>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $aduan->nama }}</td>
+                            <td>{{ $aduan->tempat }}</td>
+                            <td>{{ $aduan->tanggal }}</td>
+                            <td>{{ $aduan->isi }}</td>
+                            <td><img src="{{ asset('storage/' . $aduan->foto) }}" alt="Foto Pengaduan" width="100"></td>
+                            <td>{{ $aduan->komentar }}</td>
+                            <td>
+                                <form action="{{ route('pengaduan.approve', $aduan->id_aduan) }}" method="POST" style="display:inline-block;">
+                                    @csrf
+                                    <textarea name="komentar" rows="2" class="form-control mb-2" placeholder="Komentar" required></textarea>
+                                    <button type="submit" class="btn btn-success">Approve</button>
+                                </form>
+                                <form action="{{ route('pengaduan.reject', $aduan->id_aduan) }}" method="POST" style="display:inline-block;">
+                                    @csrf
+                                    <textarea name="komentar" rows="2" class="form-control mb-2" placeholder="Komentar" required></textarea>
+                                    <button type="submit" class="btn btn-danger">Reject</button>
+                                </form>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($aduans as $aduan)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $aduan->nama }}</td>
-                                <td>{{ $aduan->tempat }}</td>
-                                <td>{{ $aduan->tanggal }}</td>
-                                <td>{{ $aduan->isi }}</td>
-                                <td><img src="{{ asset('storage/' . $aduan->foto) }}" alt="Foto Pengaduan" width="100"></td>
-                                <td>
-                                    <form action="{{ route('RT.pengaduan.approve', $aduan->id_aduan) }}" method="POST" style="display:inline-block;">
-                                        @csrf
-                                        <button type="submit" class="btn btn-success">Approve</button>
-                                    </form>
-                                    <form action="{{ route('RT.pengaduan.reject', $aduan->id_aduan) }}" method="POST" style="display:inline-block;">
-                                        @csrf
-                                        <button type="submit" class="btn btn-danger">Reject</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
+    </div>
 </div>
 @endsection
 
@@ -61,10 +65,6 @@
         background-color: #03774A;
         color: #fff;
         font-weight: bold;
-    }
-
-    .table-header th {
-        color: #fff;
     }
 
     .btn-outline-light {

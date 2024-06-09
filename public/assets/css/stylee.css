@@ -272,76 +272,117 @@ body {
 
 
 
-/* berita */
 #berita {
     position: relative;
-    background-image: url('../../assets/img/bg3.png');
-    background-repeat: no-repeat;
-    background-size: 100% 80%;;
     background-image: url('../../assets/img/bg1.png');
     background-repeat: no-repeat;
-    background-size: 100% 70%;;
-    background-position: bottom;
-    height: 740px;
+    background-size: cover; 
+    height: 100%; 
     margin-bottom: 80px;
+    padding: 50px 0; 
+}
+
+#berita .container {
+    max-width: none; /* Menghapus batasan lebar */
 }
 
 #berita .header-berita h2 {
     color: #03774A;
+    font-family: 'Arial', sans-serif; 
 }
+
 #berita .card {
     border: none;
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-#berita .card img {
-    transition: transform 0.3s ease;
-}
-#berita .card:hover img {
-    transform: scale(1.05);
-}
-#berita .konten-berita h4 {
-    color: #03774A;
-}
-#berita .konten-berita a {
-    color: #03774A;
-    font-weight: bold;
-}
-#berita .footer-berita .btn-outline-success {
-    color: #fff;
-    background-color: #03774A;
-    border: 2px solid #03774A;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-#berita .footer-berita .btn-outline-success:hover {
-    background-color: #eaeaea;
-    color: #03774A;
-    border-color: #03774A;
-}
-#berita .card {
-    transition: transform 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s, box-shadow 0.3s; 
 }
 
 #berita .card:hover {
-    transform: scale(1.05);
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); 
 }
 
 #berita .card-img-top {
     border-radius: 10px;
+    transition: transform 0.3s; 
+    height: 250px; /* Tinggi gambar yang diperbesar */
+    object-fit: cover; /* Memastikan gambar tetap proporsional */
 }
+
+#berita .card:hover .card-img-top {
+    transform: scale(1.05); 
+}
+
 #berita .card-body {
     background-color: #f8f9fa;
     border-radius: 0 0 10px 10px;
 }
 
-#berita .btn-outline-success {
-    transition: background-color 0.3s, color 0.3s;
+#berita .btn-primary {
+    background-color: #03774A; 
+    border-color: #03774A;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
-#berita .btn-outline-success:hover {
-    background-color: #28a745;
-    color: #fff;
+#berita .btn-primary:hover {
+    background-color: #025C3E; 
+    border-color: #025C3E;
+}
+
+#berita .btn-carousel {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #03774A;
+    cursor: pointer;
+    transition: color 0.3s;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+#berita .btn-carousel.prev {
+    left: 10px; /* Mengatur jarak dari kiri */
+}
+
+#berita .btn-carousel.next {
+    right: 10px; /* Mengatur jarak dari kanan */
+}
+
+/* CSS untuk slider */
+.carousel {
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel-container .row {
+    display: flex;
+    flex-wrap: nowrap;
+    transition: transform 0.5s ease;
+    margin: 0 -15px;
+}
+
+.carousel-item {
+    flex: 0 0 auto;
+    padding: 0 15px;
+}
+
+/* Mengatur ukuran slider untuk layar kecil */
+@media (max-width: 767px) {
+    .carousel .col-lg-4 {
+        margin-right: 0; 
+    }
+
+    #berita .btn-carousel.prev, #berita .btn-carousel.next {
+        left: 10px;
+        right: 10px;
+        top: auto;
+        bottom: 10px;
+        transform: none;
+    }
 }
 
 
@@ -442,6 +483,7 @@ body {
     transform: translateY(-10px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
+
   
 
 /* dokumentasi */
@@ -450,7 +492,7 @@ body {
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
-    height: 500px;
+    height: auto; /* Ubah ketinggian ke otomatis */
     width: 100%;
     color: #fff;
     display: flex;
@@ -458,6 +500,7 @@ body {
     align-items: center;
     background-color: rgba(3, 119, 74, 0.6); /* Adding a green overlay */
     position: relative;
+    overflow: hidden; /* Mengatur overflow agar efek hover terjadi di dalam */
 }
 
 .section-foto::before {
@@ -481,25 +524,19 @@ body {
     background-color: #ffffff;
 }
 
-.btn-outline-light {
-    border-color: #ffffff;
-    color: #ffffff;
-}
-
-.btn-outline-light:hover {
-    background-color: #ffffff;
-    color: #03774A;
-}
-
 .img-fluid-doc {
-    width: 250px; 
-    height: 170px;
+    width: 100%; /* Mengisi lebar container */
+    height: 250px; /* Atur tinggi foto */
+    object-fit: cover; /* Memastikan proporsi foto tetap */
     border: 2px solid #ffffff; /* Adding a white border to images */
+    transition: transform 0.3s; /* Efek transisi saat digeser */
 }
 
-.d-flex .align-items-center h5 {
-    color: #ffffff;
+.img-fluid-doc:hover {
+    transform: scale(1.05); /* Memperbesar foto saat digeser */
+    cursor: pointer; /* Mengubah kursor saat digeser */
 }
+
 
 /* footer */
 #footer {

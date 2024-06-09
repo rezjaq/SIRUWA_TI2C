@@ -36,7 +36,7 @@ class umkm extends Controller
             'title' => 'Jenis UMKM Warga',
             'list' => [
                 [
-                    'label' => 'Pengajuan UMKM Warga',
+                    'label' => 'UMKM',
                     'dropdown' => true,
                     'links' => [
                         ['url' => route('pengajuan-umkm'), 'label' => 'Daftar UMKM Warga'],

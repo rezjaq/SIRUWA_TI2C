@@ -5,7 +5,7 @@
             <img src="{{ asset('assets/img/siruwa.png') }}" height="55" width="55" alt="">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            Menu
         </button>
         <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
             @auth
@@ -40,16 +40,13 @@
                         <ul class="dropdown-menu" aria-labelledby="bansosDropdown">
                             <li><a class="dropdown-item" href="{{ route('warga.bansos.create') }}">Pengajuan</a></li>
                             <li><a class="dropdown-item" href="{{ route('warga.bansos.penerima') }}">Daftar Penerima Bansos</a></li>
-                            {{-- <li><a class="dropdown-item" href="{{ route('pengajuan-bansos') }}">Pengajuan</a></li>
-                            <li><a class="dropdown-item" href="{{ route('daftar-penerima-bansos') }}">Daftar Penerima Bansos</a></li> --}}
                         </ul>
                     </li>
-                    
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle {{ Request::routeIs('pengaduan.*') ? 'active' : '' }}" href="#" id="pengaduanDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pengaduan Warga</a>
                         <ul class="dropdown-menu" aria-labelledby="pengaduanDropdown">
-                            <li><a class="dropdown-item {{ Request::routeIs('pengaduan') ? 'active' : '' }}" href="{{ route('pengaduan') }}">Daftar Pengaduan</a></li>
-                            {{-- <li><a class="dropdown-item {{ Request::routeIs('pengaduan.show') ? 'active' : '' }}" href="{{ route('pengaduan.show') }}">History Pengaduan</a></li> --}}
+                            <li><a class="dropdown-item {{ Request::routeIs('pengaduan') ? 'active' : '' }}" href="{{ route('pengaduan') }}">Ajukan Pengaduan</a></li>
+                            <li><a class="dropdown-item {{ Request::routeIs('pengaduan.history') ? 'active' : '' }}" href="{{ route('pengaduan.history') }}">List Pengaduan</a></li>
                         </ul>
                     </li>
                     
@@ -64,19 +61,6 @@
                     </li>
                 </ul>
                 <div class="d-flex">
-                    {{-- <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user"></i> {{ Auth::user()->name }}
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
-                                <li><a class="dropdown-item" href="#">Settings</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul> --}}
                     <a href="{{ route('logout') }}" class="btn btn-custom">Logout</a>
                 </div>
             @else

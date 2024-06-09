@@ -96,11 +96,10 @@ Route::group(['middleware' => ['auth']], function () {
         });
 
         Route::group(['prefix' => 'pengaduan'], function () {
-            Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan');
+            Route::get('/', [PengaduanController::class, 'index'])->name('pengaduan');
             Route::post('/store', [PengaduanController::class, 'store'])->name('pengaduan.store');
-            Route::get('/pengaduan/{id}/history', [PengaduanController::class, 'show'])->name('pengaduan.history');
+            Route::get('/history', [PengaduanController::class, 'show'])->name('pengaduan.history');
         });
-
 
         Route::prefix('umkm')->group(function () {
             Route::get('/', [UmkmController::class, 'index'])->name('umkm');
@@ -208,7 +207,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/{id}/reject', [AprrovePengaduan::class, 'reject'])->name('pengaduan.reject');
         });
         Route::prefix('/pengajuan-umkm')->group(function () {
-            Route::get('/', [ApproveUmkm::class, 'index'])->name('admin.pengaduan');
+            Route::get('/', [ApproveUmkm::class, 'index'])->name('admin.pengajuan');
             Route::post('/umkm/approve/{id}', [ApproveUmkm::class, 'approve'])->name('umkm.approve');
             Route::post('/umkm/reject/{id}', [ApproveUmkm::class, 'reject'])->name('umkm.reject');
         });
