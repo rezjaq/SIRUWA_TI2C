@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Warga;
 
 use App\Http\Controllers\Controller;
+use App\Models\formSurat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,26 +12,60 @@ class PengajuanSuratController extends Controller
 
     public function suratTetap()
     {
-        $breadcrumb = (object) [
+        $breadcrumb = [
             'title' => 'Pengajuan Surat',
-            'list' => ['Home', 'Pengajuan Surat'] // Example breadcrumb list
+            'list' => [
+                [
+                    'label' => 'Surat',
+                    'dropdown' => true,
+                    'links' => [
+                        ['url' => route('warga.Warga.index'), 'label' => 'List Data Warga'],
+                        ['url' => route('warga.Warga.create'), 'label' => 'Tambah Warga'],
+                        ['url' => route('warga.Warga.edit'), 'label' => 'Vertifikasi Data Warga']
+                    ]
+                ],
+                ['label' => 'List Data Warga', 'url' => route('warga.Warga.index')]
+            ]
         ];
 
-        // Mengambil data pengguna yang sudah login
-        $user = Auth::user();
+        $formSurat = formSurat::all();
 
-        return view('warga.pengajuan_surat.surat', ['breadcrumb' => $breadcrumb, 'user' => $user]);
+        return view('warga.pengajuan_surat.surat', compact('breadcrumb', 'formSurat'));
     }
 
-
-    public function suratPindah()
+    public function previewForm($id)
     {
-        $breadcrumb = (object) [
-            'title' => 'Pengajuan Surat',
+        $breadcrumb = [
+            'title' => 'Priview Surat',
+            'list' => [
+                [
+                    'label' => 'Surat',
+                    'dropdown' => true,
+                    'links' => [
+                        ['url' => route('warga.Warga.index'), 'label' => 'List Data Warga'],
+                        ['url' => route('warga.Warga.create'), 'label' => 'Tambah Warga'],
+                        ['url' => route('warga.Warga.edit'), 'label' => 'Vertifikasi Data Warga']
+                    ]
+                ],
+                ['label' => 'List Data Warga', 'url' => route('warga.Warga.index')]
+            ]
         ];
 
-        $user = Auth::user();
-
-        return view('warga.pengajuan_surat.surat-pindah', ['breadcrumb' => $breadcrumb, 'user' => $user]);
+        $formSurat = FormSurat::findOrFail($id);
+        // Implementasi tampilan priview formulir surat
+        return view('warga.pengajuan_surat.priview', compact('breadcrumb','formSurat'));
     }
+
+
+
+    // public function suratPindah()
+    // {
+    //     $breadcrumb = (object) [
+    //         'title' => 'Pengajuan Surat',
+    //     ];
+
+    //     $user = Auth::user();
+
+    //     return view('warga.pengajuan_surat.surat-pindah', ['breadcrumb' => $breadcrumb, 'user' => $user]);
+    // }
 }

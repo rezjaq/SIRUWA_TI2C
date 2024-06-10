@@ -80,8 +80,7 @@
     .table th {
             background-color: #03774A;
             color: #fff;
-        
-
+    }
     /* Tambahkan gaya khusus untuk membuat tabel responsif di perangkat seluler */
     @media (max-width: 575.98px) {
         .table-responsive {

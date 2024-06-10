@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\RW;
 
 use App\Http\Controllers\Controller;
+use App\Models\formSurat;
 use App\Models\Surat;
 use App\Models\Warga;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class SuratController extends Controller
@@ -37,6 +39,29 @@ class SuratController extends Controller
             ->addIndexColumn()
             ->addColumn('aksi', function ($surat) {
                 return '<form class="d-inline-block" method="POST" action="' . route('rw.surat.destroy', $surat->id_surat) . '">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" style="width: 40px; height: 40px; margin-right: 5px;" onclick="return confirm(\'Apakah Anda Yakin Menghapus Data Ini? \');"><i class="fas fa-trash-alt"></i></button></form>';
+            })
+            ->rawColumns(['aksi'])
+            ->make(true);
+    }
+
+    public function listForm()
+    {
+        $formSurat = formSurat::select('id', 'judul', 'deskripsi');
+
+        return DataTables::of($formSurat)
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($formSurat) {
+                return '
+                <a href="' . route('rw.surat.editForm', $formSurat->id) . '" class="btn btn-warning btn-sm" style="width: 40px; height: 40px; margin-right: 5px;">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <form class="d-inline-block" method="POST" action="' . route('rw.surat.deleteForm', $formSurat->id) . '">
+                    ' . csrf_field() . method_field('DELETE') . '
+                    <button type="submit" class="btn btn-danger btn-sm" style="width: 40px; height: 40px; margin-right: 5px;" onclick="return confirm(\'Apakah Anda Yakin Menghapus Data Ini?\');">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </form>
+            ';
             })
             ->rawColumns(['aksi'])
             ->make(true);
@@ -79,6 +104,99 @@ class SuratController extends Controller
         }
     }
 
+    public function createForm()
+    {
+        $breadcrumb = (object) [
+            'title' => 'Menu Form Surat',
+        ];
+        $activeMenu = 'pengajuan_surat';
+
+        return view('rw.form_surat.create', compact('breadcrumb', 'activeMenu'));
+    }
+
+    public function storeForm(Request $request)
+    {
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'file_path' => 'required|file|mimes:pdf,doc,docx',
+        ]);
+
+        // Handle the file upload
+        $originalFileName = $request->file('file_path')->getClientOriginalName();
+        $path = $request->file('file_path')->storeAs('form_surat_files', $originalFileName, 'public');
+
+        formSurat::create([
+            'judul' => $request->judul,
+            'deskripsi' => $request->deskripsi,
+            'file_path' => $path,
+        ]);
+
+        return redirect()->route('rw.surat.index')->with('success', 'Formulir surat berhasil ditambahkan');
+    }
+
+
+    public function editForm($id)
+    {
+        $formSurat = formSurat::findOrFail($id);
+        $breadcrumb = (object) [
+            'title' => 'Edit Form Surat',
+        ];
+        $activeMenu = 'pengajuan_surat';
+
+        return view('rw.form_surat.edit', compact('formSurat', 'breadcrumb', 'activeMenu'));
+    }
+
+    public function updateForm(Request $request, $id)
+    {
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'file_path' => 'nullable|file|mimes:pdf,doc,docx',
+        ]);
+
+        $formSurat = formSurat::findOrFail($id);
+
+        // Handle the file upload if there is a new file
+        if ($request->hasFile('file_path')) {
+            // Delete the old file
+            if ($formSurat->file_path) {
+                Storage::disk('public')->delete($formSurat->file_path);
+            }
+
+            // Store the new file
+            $originalFileName = $request->file('file_path')->getClientOriginalName();
+            $path = $request->file('file_path')->storeAs('form_surat_files', $originalFileName, 'public');
+        } else {
+            // Keep the existing file path if no new file is uploaded
+            $path = $formSurat->file_path;
+        }
+
+        $formSurat->update([
+            'judul' => $request->judul,
+            'deskripsi' => $request->deskripsi,
+            'file_path' => $path,
+        ]);
+
+        return redirect()->route('rw.surat.index')->with('success', 'Formulir surat berhasil diperbarui');
+    }
+
+
+    public function deleteForm($id)
+    {
+        $formSurat = formSurat::findOrFail($id);
+
+        // Delete the file if exists
+        if ($formSurat->file_path) {
+            Storage::disk('public')->delete($formSurat->file_path);
+        }
+
+        $formSurat->delete();
+
+        return redirect()->back()->with('success', 'Surat berhasil dihapus.');
+    }
+
+
 
     public function destroy($id)
     {
@@ -87,6 +205,4 @@ class SuratController extends Controller
 
         return redirect()->back()->with('success', 'Surat berhasil dihapus.');
     }
-
-
 }
