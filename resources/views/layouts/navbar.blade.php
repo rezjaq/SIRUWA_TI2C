@@ -13,7 +13,10 @@
                     <li class="nav-item">
                         <a class="nav-link {{ Request::routeIs('dashboard-warga') ? 'active' : '' }}" aria-current="page" href="{{ route('dashboard-warga') }}">Beranda</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::routeIs('warga-tetap') ? 'active' : '' }}" aria-current="page" href="{{ route('warga-tetap') }}">Surat</a>
+                    </li>
+                    {{-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle {{ Request::routeIs('warga-tetap') || Request::routeIs('warga-pindah') ? 'active' : '' }}" href="#" id="pengajuanDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Pengajuan Surat
                         </a>
@@ -21,7 +24,7 @@
                             <li><a class="dropdown-item" href="{{ route('warga-tetap') }}">Surat Warga Tetap</a></li>
                             <li><a class="dropdown-item" href="{{ route('warga-pindah') }}">Surat Warga Pindahan</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" {{ Request::routeIs('warga.Warga.index') || Request::routeIs('warga.keluarga.index') ? 'active' : '' }}" href="#" id="dataWargaDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
