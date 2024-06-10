@@ -1,48 +1,45 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DokumentasiController;
+use App\Http\Controllers\EventsController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\RegistrasiWargaController as RegistrasiWarga;
+use App\Http\Controllers\RT\AprovePengaduanRT as AprovePengaduanRT;
 use App\Http\Controllers\RT\DashboardController as RTDashboardController;
-use App\Http\Controllers\Warga\DashboardWargaController as DashboardWargaController;
-use App\Http\Controllers\Warga\PengajuanSuratController as PengajuanSuratController;
+use App\Http\Controllers\RT\KeluargaController as RTKeluargaController;
+use App\Http\Controllers\RT\RTVerifikasiKeluarga as RTverifikasiKeluarga;
+use App\Http\Controllers\RT\RTVerifikasiWarga as RTverifikasiWarga;
+use App\Http\Controllers\RT\SuratController as SuratRT;
+use App\Http\Controllers\RT\VerifikasiWargaPindah as RTverifikasiWargaPindah;
+use App\Http\Controllers\RT\WargaController as RTWargaController;
+use App\Http\Controllers\RT\WargaPindah as RtWargaPindah;
+use App\Http\Controllers\RW\ApproveUmkm;
+use App\Http\Controllers\RW\AprrovePengaduan;
+use App\Http\Controllers\RW\BansosController as BansosRW;
+use App\Http\Controllers\RW\DashboardRwController as RwDashboardController;
+use App\Http\Controllers\RW\DataRT as DataRT;
+use App\Http\Controllers\RW\KegiatanController as RwKegiatanController;
+use App\Http\Controllers\RW\KeluargaController as RwKeluargaController;
+use App\Http\Controllers\RW\PengumumanController as RwPengumumanController;
+use App\Http\Controllers\RW\SuratController as SuratRW;
+use App\Http\Controllers\RW\Verifikasi as RWverifikasi;
+use App\Http\Controllers\RW\VerifikasiKeluarga as RWverifikasiKeluarga;
+use App\Http\Controllers\RW\VerifikasiWargaPindah as verifikasiWargaPindah;
+use App\Http\Controllers\RW\WargaController as RwWargaController;
+use App\Http\Controllers\RW\WargaPindah as RwWargaPindah;
+use App\Http\Controllers\WargaPindah as WargaPindah;
+use App\Http\Controllers\Warga\BansosController as BansosWarga;
 use App\Http\Controllers\Warga\BantuanSosial as BantuanSosialController;
-use App\Http\Controllers\Warga\DataDiriController as DataDiriController;
-use App\Http\Controllers\Warga\umkm as UmkmController;
+use App\Http\Controllers\Warga\DashboardWargaController as DashboardWargaController;
 use App\Http\Controllers\Warga\DataKeluargaController as WargaDataKeluargaController;
 use App\Http\Controllers\Warga\DataWargaController as WargaDataWargaController;
 use App\Http\Controllers\Warga\PengaduanController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\KegiatanController;
-use App\Http\Controllers\RW\DashboardRwController as RwDashboardController;
-use App\Http\Controllers\RW\PengumumanController as RwPengumumanController;
-use App\Http\Controllers\RW\KegiatanController as RwKegiatanController;
-use App\Http\Controllers\RW\KeluargaController as RwKeluargaController;
-use App\Http\Controllers\RW\WargaController as RwWargaController;
-use App\Http\Controllers\RW\WargaPindah as RwWargaPindah;
-use App\Http\Controllers\RT\WargaPindah as RtWargaPindah;
-use App\Http\Controllers\WargaPindah as WargaPindah;
-use App\Http\Controllers\SuratController;
-use App\Http\Controllers\RegistrasiWargaController as RegistrasiWarga;
-use App\Http\Controllers\RW\AprrovePengaduan;
-use App\Http\Controllers\RT\KeluargaController as RTKeluargaController;
-use App\Http\Controllers\RT\WargaController as RTWargaController;
-use App\Http\Controllers\RW\ApproveUmkm;
-use App\Http\Controllers\RW\Verifikasi as RWverifikasi;
-use App\Http\Controllers\RW\VerifikasiKeluarga as RWverifikasiKeluarga;
-use App\Http\Controllers\RT\RTVerifikasiWarga as RTverifikasiWarga;
-use App\Http\Controllers\RT\RTVerifikasiKeluarga as RTverifikasiKeluarga;
-use App\Http\Controllers\RW\VerifikasiWargaPindah as verifikasiWargaPindah;
-use App\Http\Controllers\RT\VerifikasiWargaPindah as RTverifikasiWargaPindah;
-use App\Http\Controllers\RT\AprovePengaduanRT as AprovePengaduanRT;
-use App\Http\Controllers\BeritaController;
-use App\Http\Controllers\EventsController;
-use App\Http\Controllers\DokumentasiController;
-use App\Http\Controllers\Warga\BansosController as BansosWarga;
-use App\Http\Controllers\RW\BansosController as BansosRW;
-use App\Http\Controllers\RW\SuratController as SuratRW;
-use App\Http\Controllers\RT\SuratController as SuratRT;
-use App\Http\Controllers\RW\DataRT as DataRT;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Warga\PengajuanSuratController as PengajuanSuratController;
+use App\Http\Controllers\Warga\umkm as UmkmController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,8 +50,7 @@ use Illuminate\Support\Facades\Auth;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/
-
+ */
 
 //login
 Route::get('login', [AuthController::class, 'index'])->name('login');
@@ -125,8 +121,8 @@ Route::group(['middleware' => ['auth']], function () {
         });
 
         Route::get('/bansos', [BantuanSosialController::class, 'index'])->name('bansos');
+        Route::get('/profil', [ProfilController::class, 'index'])->name('profil');
     });
-
 
     // Rute untuk RW
     Route::group(['middleware' => ['cek_login:RW']], function () {
@@ -140,7 +136,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/RW/marital-status-spread', [RwDashboardController::class, 'maritalStatusSpread'])->name('rw.maritalStatusSpread');
         Route::get('/RW/bansos-submission-spread', [RwDashboardController::class, 'bansosSubmissionSpread'])->name('rw.bansosSubmissionSpread');
         Route::get('/RW/bansos-rejected-spread', [RwDashboardController::class, 'bansosRejectedSpread'])->name('rw.bansosRejectedSpread');
-
 
         Route::prefix('/pengumuman')->group(function () {
             Route::get('/', [RwPengumumanController::class, 'index'])->name('pengumuman');
@@ -361,7 +356,6 @@ Route::group(['middleware' => ['auth']], function () {
     });
 });
 
-
 // -- Digunakan jika menggunakan password enkripsi.
 // Route::group(['middleware' => 'auth'], function () {
 //     Route::group(['middleware' => ['cek_login:RW']], function () {
@@ -375,8 +369,6 @@ Route::group(['middleware' => ['auth']], function () {
 //     });
 // });
 
-
-
 // Route::get('/berita', function () {
 //     return view('berita.berita');
 // });
@@ -388,7 +380,6 @@ Route::get('/berita/{id}', [HomeController::class, 'beritaShow'])->name('berita.
 //menampilkan berita untuk page after login
 Route::get('/berita-lainnya', [DashboardWargaController::class, 'beritaLainnya'])->name('berita_lainnya');
 Route::get('/berita/{id}', [DashboardWargaController::class, 'beritaShow'])->name('berita.show');
-
 
 // Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
 // Route::get('/detail-berita', [BeritaController::class, 'detail'])->name('detail-berita');
