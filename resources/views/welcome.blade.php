@@ -23,7 +23,7 @@
             font-size: 16px !important;
             border-radius: 5px !important;
             cursor: pointer !important;
-            margin-right: 10px !important; 
+            margin-right: 10px !important;
         }
 
         .btn-cancel,
@@ -35,7 +35,7 @@
             font-size: 16px !important;
             border-radius: 5px !important;
             cursor: pointer !important;
-            margin-left: 10px !important; 
+            margin-left: 10px !important;
         }
 
         .btn-login:hover,
@@ -98,6 +98,17 @@
     color: #343a40;
 }
 
+.profile{
+    margin-left: 15%;
+    font-size: 3vw;
+    color: white;
+}
+
+.profile-link {
+    color: inherit;
+    text-decoration: none;
+}
+
     </style>
 </head>
 <body>
@@ -148,7 +159,7 @@
                             <li><a class="dropdown-item" href="{{ route('daftar-penerima-bansos') }}">Daftar Penerima Bansos</a></li> --}}
                         </ul>
                     </li>
-                    
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle {{ Request::routeIs('pengaduan.*') ? 'active' : '' }}" href="#" id="pengaduanDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pengaduan Warga</a>
                         <ul class="dropdown-menu" aria-labelledby="pengaduanDropdown">
@@ -156,7 +167,7 @@
                             <li><a class="dropdown-item {{ Request::routeIs('pengaduan.history') ? 'active' : '' }}" href="{{ route('pengaduan.history') }}">List Pengaduan</a></li>
                         </ul>
                     </li>
-                    
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle {{ Request::routeIs('pengajuan-umkm*') ? 'active' : '' }}" href="#" id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             UMKM
@@ -167,8 +178,13 @@
                         </ul>
                     </li>
                 </ul>
-                <div class="d-flex">
-                    <a href="{{ route('logout') }}" class="btn btn-custom">Logout</a>
+                <div class="d-flex align-items-center">
+                    <a href="{{ route('logout') }}" class="btn btn-custom me-3">Logout</a>
+                    <div class="profile">
+                        <a href="{{ route('profil') }}" class="d-flex align-items-center profile-link">
+                            <i class="fas fa-user-circle"></i>
+                        </a>
+                    </div>
                 </div>
             @else
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -233,7 +249,7 @@
                             <li><a class="dropdown-item check-login" href="{{ route('pengaduan') }}">Ajukan Pengaduan</a></li>
                             <li><a class="dropdown-item check-login" href="{{ route('pengaduan.history') }}">List Pengaduan</a></li>
                         </ul>
-                    </div>                   
+                    </div>
                     <div class="program-ikon dropdown">
                         <a href="#" class="dropdown-toggle text-decoration-none" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="{{ asset('assets/icon/4.png') }}" alt="UMKM Warga">
@@ -246,8 +262,8 @@
                     </div>
                     <a href="{{ route('bansos') }}" class="program-ikon check-login" aria-label="Bantuan Sosial">
                         <img src="{{ asset('assets/icon/5.png') }}" alt="Bantuan Sosial">
-                        <div class="program-title">Bantuan Sosial</div> 
-                        
+                        <div class="program-title">Bantuan Sosial</div>
+
                     </a>
                     <a href="{{ route('warga.bansos.create') }}" class="program-ikon check-login" aria-label="Pengajuan Bansos">
                         <img src="{{ asset('assets/icon/bansos.png') }}" alt="Pengajuan Bansos">
@@ -282,9 +298,9 @@
                 <h2 class="fw-bold">Berita Terbaru Wilayah RW. 02</h2>
             </div>
 
-            <div class="row gy-4 justify-content-center"> 
+            <div class="row gy-4 justify-content-center">
                 @foreach ($pengumuman as $item)
-                <div class="col-lg-3"> 
+                <div class="col-lg-3">
                     <div class="card border-0 shadow-sm" onclick="location.href='{{ route('berita.show', $item->id_pengumuman) }}'">
                         @if ($item->foto)
                             <img src="{{ asset('storage/' . $item->foto) }}" class="card-img-top img-fluid mb-3" alt="{{ $item->judul }}" style="width: 100%; height: 200px; object-fit: cover;">
@@ -341,7 +357,7 @@
     {{-- Kegiatan --}}
 
 
-    
+
     {{-- dokumentasi --}}
         <br>
         <section id="foto" class="section-foto parallax">
@@ -352,7 +368,7 @@
                         <h5 class="fw-bold text-white">Dokumentasi Wilayah RW 02</h5>
                     </div>
                 </div>
-        
+
                 <div class="row g-3">
                     <div class="col-lg-3 col-md-6 col-6">
                         <a class="image-link" href="{{asset('assets/img/kerja bakti.jpg')}}">
@@ -427,28 +443,28 @@
                         <h5 class="font-inter fw-bold mb-4">Kontak</h5>
                         <ul class="nav flex-column">
                             <li class="nav-item mb-2">
-                                <a href="mailto:katosi.onggojoyo@gmail.com" class="nav-link p-0 text-muted"> 
-                                    <span class="fa fa-envelope"></span> 
+                                <a href="mailto:katosi.onggojoyo@gmail.com" class="nav-link p-0 text-muted">
+                                    <span class="fa fa-envelope"></span>
                                     <span class="icon-text">katosi.onggojoyo@gmail.com</span>
                                 </a>
                             </li>
                             <li class="nav-item mb-2">
                                 <a href="tel:0822222222222" class="nav-link p-0 text-muted">
-                                    <span class="fas fa-phone fa-flip-horizontal"></span> 
+                                    <span class="fas fa-phone fa-flip-horizontal"></span>
                                     <span class="icon-text">082222222222</span>
                                 </a>
                             </li>
 
                             <li class="nav-item mb-2">
                                 <a href="https://maps.app.goo.gl/GQnGXpcnKqJPHJsd9?g_st=ico" class="nav-link p-0 text-muted">
-                                    <span class="fas fa-map-marker-alt"></span> 
+                                    <span class="fas fa-map-marker-alt"></span>
                                     <span class="icon-text">RW. 02 Kelurahan Candirenggo Kecamatan Singosari, Kabupaten Malang, Jawa Timur</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
-                    
-                   
+
+
                 </div>
             </footer>
         </div>
@@ -461,7 +477,7 @@
         </footer>
     {{-- footer --}}
 
-    
+
     {{-- src navbar scroll --}}
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -539,8 +555,8 @@
             });
         });
     </script>
-    
-    
+
+
     {{-- src kegiatan --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -775,7 +791,7 @@
 
     <script src="{{ asset('assets/js/check-login.js') }}"></script>
     <script src="{{ asset('assets/js/navbar.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
