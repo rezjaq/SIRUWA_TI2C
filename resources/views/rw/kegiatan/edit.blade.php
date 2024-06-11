@@ -61,9 +61,17 @@
                     <div class="form-group row">
                         <label for="foto" class="col-sm-2 col-form-label">Foto</label>
                         <div class="col-sm-10">
-                            <input type="file" class="form-control-file" id="foto" name="foto">
+                            <input type="file" class="form-control-file" id="foto" name="foto" accept="image/*" onchange="previewFoto(event)">
+                            <small class="form-text text-muted">Unggah gambar dalam format .jpg, .jpeg, atau .png</small>
+                            <!-- Menampilkan foto yang sudah ada jika ada -->
+                            <div class="mt-2" id="foto-image-preview" style="max-width: 300px;">
+                                @if($kegiatan->foto)
+                                    <img src="{{ Storage::url($kegiatan->foto) }}" alt="Foto Pengumuman">
+                                @endif
+                            </div>
                         </div>
                     </div>
+                    
                     <div class="form-group row">
                         <label for="status_kegiatan" class="col-sm-2 col-form-label">Status Kegiatan</label>
                         <div class="col-sm-10">
@@ -156,3 +164,23 @@
 </style>
 @endpush
 
+@push('js')
+    <script>
+        function previewFoto(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('foto-image-preview');
+                if (output.querySelector('img')) {
+                    output.querySelector('img').src = reader.result;
+                } else {
+                    var image = document.createElement('img');
+                    image.src = reader.result;
+                    image.alt = "Foto Pengumuman";
+                    image.classList.add('img-thumbnail');
+                    output.appendChild(image);
+                }
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+@endpush

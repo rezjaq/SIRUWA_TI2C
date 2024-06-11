@@ -55,13 +55,13 @@
                 </div>
             </div>
             <div class="form-group mb-3">
-                <label for="">Foto KTP:</label>
+                <label class="fw-bold">Foto KTP:</label>
                 @if($warga->ktp)
                     <div class="text-center">
-                        <img src="{{ asset('storage/ktp_images/' . basename($warga->ktp)) }}" alt="Foto KTP" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
+                        <img src="{{ asset('storage/' . $warga->ktp) }}" alt="Foto KTP" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
                     </div>
                 @else
-                    <p class="text-center text-muted">Foto KTP tidak tersedia.</p>
+                    <p class="text-center">Foto KTP tidak tersedia.</p>
                 @endif
             </div>
         </div>

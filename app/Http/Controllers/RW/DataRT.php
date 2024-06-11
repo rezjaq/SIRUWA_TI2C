@@ -19,7 +19,7 @@ class DataRT extends Controller
             'title' => 'Mengelola RT'
         ];
 
-        $activeMenu = 'Data RT';
+        $activeMenu = 'DataRT';
 
         // Menampilkan hanya warga dengan level RT
         $wargas = Warga::where('level', 'RT')->get();
@@ -77,7 +77,7 @@ class DataRT extends Controller
 
         return redirect()->route('DataRT.index')->with('success', 'Data RT berhasil ditambahkan.');
     }
-    
+
     public function removeRT($nik)
     {
         $warga = Warga::findOrFail($nik);

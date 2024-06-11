@@ -117,6 +117,28 @@
             order: 3;
         }
     }
+
+    @media (min-width: 768px) {
+        .dataTables_wrapper .dataTables_length,
+        .dataTables_wrapper .dataTables_filter {
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .dataTables_wrapper .dataTables_length select {
+            margin-left: 0;
+        }
+
+        .dataTables_wrapper .dataTables_filter input {
+            width: auto;
+            margin-left: 5px;
+            margin-top: 0;
+        }
+
+        .dataTables_wrapper .dataTables_filter label {
+            margin-left: 10px;
+        }
+    }
 </style>
 @endpush
 

@@ -74,8 +74,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/warga', [DashboardWargaController::class, 'index'])->name('dashboard-warga');
         Route::prefix('pengajuan_surat')->group(function () {
             Route::get('/surat-tetap', [PengajuanSuratController::class, 'suratTetap'])->name('warga-tetap');
-            Route::get('/download-surat', [PengajuanSuratController::class, 'downloadSurat'])->name('download.surat');
-            Route::get('/surat-pindah', [PengajuanSuratController::class, 'suratPindah'])->name('warga-pindah');
+            Route::get('/{id}/preview', [PengajuanSuratController::class, 'previewForm'])->name('warga.form_surat.preview');
+            // Route::get('/surat-pindah', [PengajuanSuratController::class, 'suratPindah'])->name('warga-pindah');
         });
 
         Route::prefix('/bansos')->middleware('auth')->group(function () {
@@ -198,11 +198,13 @@ Route::group(['middleware' => ['auth']], function () {
         });
         Route::prefix('/Pengaduann')->group(function () {
             Route::get('/', [AprrovePengaduan::class, 'index'])->name('admin.pengaduan');
+            Route::get('/pengaduan/{id}', [AprrovePengaduan::class, 'detail'])->name('admin.pengaduan.detail');
             Route::post('/{id}/approve', [AprrovePengaduan::class, 'approve'])->name('pengaduan.approve');
             Route::post('/{id}/reject', [AprrovePengaduan::class, 'reject'])->name('pengaduan.reject');
         });
         Route::prefix('/pengajuan-umkm')->group(function () {
             Route::get('/', [ApproveUmkm::class, 'index'])->name('admin.pengajuan');
+            Route::get('/pengajuan/{id}', [ApproveUmkm::class, 'detail'])->name('admin.pengajuan.detail');
             Route::post('/umkm/approve/{id}', [ApproveUmkm::class, 'approve'])->name('umkm.approve');
             Route::post('/umkm/reject/{id}', [ApproveUmkm::class, 'reject'])->name('umkm.reject');
         });
@@ -235,8 +237,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::prefix('/SuratRW')->group(function () {
             Route::get('/', [SuratRW::class, 'index'])->name('rw.surat.index');
             Route::post('/list', [SuratRW::class, 'list'])->name('rw.surat.list');
+            Route::post('/listForm', [SuratRW::class, 'listForm'])->name('rw.surat.listForm');
             Route::get('/create', [SuratRW::class, 'create'])->name('rw.surat.create');
             Route::post('/store', [SuratRW::class, 'store'])->name('rw.surat.store');
+            Route::get('/createForm', [SuratRW::class, 'createForm'])->name('rw.surat.createForm');
+            Route::post('/storeForm', [SuratRW::class, 'storeForm'])->name('rw.surat.storeForm');
+            Route::get('/{id}/edit', [SuratRW::class, 'editForm'])->name('rw.surat.editForm');
+            Route::post('/{id}/update', [SuratRW::class, 'updateForm'])->name('rw.surat.updateForm');
+            Route::delete('/{id}/delete', [SuratRW::class, 'deleteForm'])->name('rw.surat.deleteForm');
             Route::delete('/{id}', [SuratRW::class, 'destroy'])->name('rw.surat.destroy');
         });
         Route::prefix('/DataRT')->group(function () {

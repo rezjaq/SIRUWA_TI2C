@@ -30,7 +30,8 @@ class WargaController extends Controller
     public function list()
     {
         $warga = Warga::select('nik', 'nama', 'jenis_kelamin', 'tanggal_lahir', 'alamat', 'no_telepon', 'agama', 'statusKawin', 'pekerjaan', 'no_rt')
-            ->where('status', 'disetujui');;
+            ->where('status', 'disetujui');
+        ;
 
         return DataTables::of($warga)
             ->addIndexColumn()
@@ -198,7 +199,7 @@ class WargaController extends Controller
         // Save AKTE if available
         $aktePath = null;
         if ($request->hasFile('akte')) {
-            $aktePath = $request->file('akte')->store('public/akte_images');
+            $aktePath = $request->file('akte')->store('public/  ');
             $aktePath = str_replace('public/', '', $aktePath);
         }
 

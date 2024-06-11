@@ -15,51 +15,6 @@ class WargaSeeder extends Seeder
         //sebagai contoh user yang digunakan untuk login
         $data = [
             [
-                'nik' => '111111',
-                'nama' => 'Sukijan',
-                'password' => '123456',
-                'level' => 'RW',
-                'jenis_kelamin' => 'Laki-laki',
-                'tanggal_lahir' => '1990-01-01',
-                'alamat' => 'paiton',
-                'no_telepon' => '081234567890',
-                'agama' => 'Islam',
-                'statusKawin' => 'kawin',
-                'pekerjaan' => 'Wiraswasta',
-                'no_rt' => '3',
-                'id_keluarga' => null, // ID Keluarga yang terkait
-            ],
-            [
-                'nik' => '222222',
-                'nama' => 'Soebandi',
-                'password' => '123456',
-                'level' => 'RT',
-                'jenis_kelamin' => 'Laki-laki',
-                'tanggal_lahir' => '1990-01-01',
-                'alamat' => 'paiton',
-                'no_telepon' => '081234567890',
-                'agama' => 'Islam',
-                'statusKawin' => 'kawin',
-                'pekerjaan' => 'Guru',
-                'no_rt' => '3',
-                'id_keluarga' => null, // ID Keluarga yang terkait
-            ],
-            [
-                'nik' => '333333',
-                'nama' => 'Bimantara',
-                'password' => '123456',
-                'level' => 'warga',
-                'jenis_kelamin' => 'Laki-laki',
-                'tanggal_lahir' => '1990-01-01',
-                'alamat' => 'paiton',
-                'no_telepon' => '081234567890',
-                'agama' => 'Islam',
-                'statusKawin' => 'Belum kawin',
-                'pekerjaan' => 'Mahasiswa',
-                'no_rt' => '3',
-                'id_keluarga' => null, // ID Keluarga yang terkait
-            ],
-            [
                 'nik' => '3525025606910001',
                 'nama' => 'ERNAWATI',
                 'password' => '123456',

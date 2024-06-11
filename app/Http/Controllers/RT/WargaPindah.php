@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\WargaPindahMasuk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class WargaPindah extends Controller
@@ -91,13 +92,13 @@ class WargaPindah extends Controller
         // Simpan foto KTP jika diunggah
         $fotoKtpPath = null;
         if ($request->hasFile('foto_ktp')) {
-            $fotoKtpPath = $request->file('foto_ktp')->store('foto_ktp');
+            $fotoKtpPath = $request->file('foto_ktp')->store('public/foto_ktp');
         }
 
         // Simpan foto surat pindah jika diunggah
         $fotoSuratPindahPath = null;
         if ($request->hasFile('foto_surat_pindah')) {
-            $fotoSuratPindahPath = $request->file('foto_surat_pindah')->store('foto_surat_pindah');
+            $fotoSuratPindahPath = $request->file('foto_surat_pindah')->store('public/foto_surat_pindah');
         }
 
         // Simpan data warga baru
@@ -114,8 +115,6 @@ class WargaPindah extends Controller
             'alamat_asal' => $request->alamat_asal,
             'tanggal_pindah' => $request->tanggal_pindah,
             'no_rt' => $request->no_rt,
-            'alamat_asal' => $request->alamat_asal,
-            'tanggal_pindah' => $request->tanggal_pindah,
             'foto_ktp' => $fotoKtpPath,
             'foto_surat_pindah' => $fotoSuratPindahPath,
             'status' => 'Selesai',
@@ -123,6 +122,7 @@ class WargaPindah extends Controller
 
         return redirect()->route('rt.WargaPindah.index')->with('success', 'Warga berhasil ditambahkan.');
     }
+
 
     public function show($id_wargaPindahMasuk)
     {
@@ -167,38 +167,52 @@ class WargaPindah extends Controller
             'no_rt' => 'required',
             'alamat_asal' => 'required',
             'tanggal_pindah' => 'required',
+            'foto_ktp' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto_surat_pindah' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        // Simpan foto akte jika ada
-        $fotoKtpPath = null;
+        // Simpan foto KTP jika ada
         if ($request->hasFile('foto_ktp')) {
-            $fotoKtpPath = $request->file('foto_ktp')->store('foto_ktp');
+            // Hapus foto KTP lama jika ada
+            if ($warga->foto_ktp) {
+                Storage::delete($warga->foto_ktp);
+            }
+            $fotoKtpPath = $request->file('foto_ktp')->store('public/foto_ktp');
+        } else {
+            $fotoKtpPath = $warga->foto_ktp;
         }
 
         // Simpan foto surat pindah jika ada
-        $fotoSuratPindahPath = null;
         if ($request->hasFile('foto_surat_pindah')) {
-            $fotoSuratPindahPath = $request->file('foto_surat_pindah')->store('foto_surat_pindah');
+            // Hapus foto surat pindah lama jika ada
+            if ($warga->foto_surat_pindah) {
+                Storage::delete($warga->foto_surat_pindah);
+            }
+            $fotoSuratPindahPath = $request->file('foto_surat_pindah')->store('public/foto_surat_pindah');
+        } else {
+            $fotoSuratPindahPath = $warga->foto_surat_pindah;
         }
 
         // Update data warga pindah
-        $warga->nama = $request->nama;
-        $warga->jenis_kelamin = $request->jenis_kelamin;
-        $warga->tanggal_lahir = $request->tanggal_lahir;
-        $warga->alamat = $request->alamat;
-        $warga->agama = $request->agama;
-        $warga->statusKawin = $request->statusKawin;
-        $warga->pekerjaan = $request->pekerjaan;
-        $warga->no_rt = $request->no_rt;
-        $warga->alamat_asal = $request->alamat_asal;
-        $warga->tanggal_pindah = $request->tanggal_pindah;
-        $warga->foto_ktp = $fotoKtpPath ? $fotoKtpPath : $warga->foto_ktp; // Tetapkan nilai sebelumnya jika tidak ada perubahan
-        $warga->foto_surat_pindah = $fotoSuratPindahPath ? $fotoSuratPindahPath : $warga->foto_surat_pindah; // Tetapkan nilai sebelumnya jika tidak ada perubahan
-        $warga->save();
+        $warga->update([
+            'nama' => $request->nama,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'alamat' => $request->alamat,
+            'agama' => $request->agama,
+            'statusKawin' => $request->statusKawin,
+            'pekerjaan' => $request->pekerjaan,
+            'no_rt' => $request->no_rt,
+            'alamat_asal' => $request->alamat_asal,
+            'tanggal_pindah' => $request->tanggal_pindah,
+            'foto_ktp' => $fotoKtpPath,
+            'foto_surat_pindah' => $fotoSuratPindahPath,
+        ]);
 
         // Redirect ke halaman daftar warga pindah dengan pesan sukses
         return redirect()->route('rt.WargaPindah.index')->with('success', 'Warga pindah berhasil diperbarui.');
     }
+
 
     public function destroy($id_wargaPindahMasuk)
     {

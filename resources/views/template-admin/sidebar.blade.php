@@ -1,11 +1,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item {{ $activeMenu == 'dashboard' ? 'active' : '' }}">
-
-            {{-- <a href="{{ url('/RT') }}" class="nav-link {{ ($activeMenu == 'dashboard') ? 'active' : '' }}"> --}}
-
-            <a href="{{ url('/RW') }}" class="nav-link">
-
+            <a href="{{ url('/RW') }}" class="nav-link ">
                 <span class="menu-title">Dashboard</span>
                 <i class="mdi mdi-home menu-icon"></i>
             </a>

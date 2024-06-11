@@ -19,7 +19,7 @@ class WargaPindah extends Controller
             'title' => 'Mengelola Warga Pindahan'
         ];
 
-        $activeMenu = 'Warga Pindah';
+        $activeMenu = 'WargaPindah';
 
         $wargas = WargaPindahMasuk::all();
 
@@ -61,14 +61,16 @@ class WargaPindah extends Controller
         $breadcrumb = (object) [
             'title' => 'Tambah Warga Pindahan',
         ];
-        $activeMenu = 'warga pindah';
+        $activeMenu = 'wargaPindah';
+        $wargas = new WargaPindahMasuk();
 
-        return view('rw.warga_pindah.create', compact('breadcrumb', 'activeMenu'));
+        return view('rw.warga_pindah.create', compact('breadcrumb', 'activeMenu', 'wargas'));
     }
+
 
     public function store(Request $request)
     {
-        // Validasi input
+        // Validate input
         $request->validate([
             'nik' => 'required|unique:warga_pindah_masuk,nik|digits:16',
             'nama' => 'required',
@@ -84,19 +86,21 @@ class WargaPindah extends Controller
             'foto_surat_pindah' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        // Simpan foto KTP jika diunggah
+        // Save KTP photo if uploaded
         $fotoKtpPath = null;
         if ($request->hasFile('foto_ktp')) {
-            $fotoKtpPath = $request->file('foto_ktp')->store('foto_ktp');
+            $fotoKtpPath = $request->file('foto_ktp')->store('public/foto_ktp');
+            $fotoKtpPath = str_replace('public/', '', $fotoKtpPath);
         }
 
-        // Simpan foto surat pindah jika diunggah
+        // Save Surat Pindah photo if uploaded
         $fotoSuratPindahPath = null;
         if ($request->hasFile('foto_surat_pindah')) {
-            $fotoSuratPindahPath = $request->file('foto_surat_pindah')->store('foto_surat_pindah');
+            $fotoSuratPindahPath = $request->file('foto_surat_pindah')->store('public/foto_surat_pindah');
+            $fotoSuratPindahPath = str_replace('public/', '', $fotoSuratPindahPath);
         }
 
-        // Simpan data warga baru
+        // Save new resident data
         $warga = WargaPindahMasuk::create([
             'nik' => $request->nik,
             'nama' => $request->nama,
@@ -110,8 +114,6 @@ class WargaPindah extends Controller
             'alamat_asal' => $request->alamat_asal,
             'tanggal_pindah' => $request->tanggal_pindah,
             'no_rt' => $request->no_rt,
-            'alamat_asal' => $request->alamat_asal,
-            'tanggal_pindah' => $request->tanggal_pindah,
             'foto_ktp' => $fotoKtpPath,
             'foto_surat_pindah' => $fotoSuratPindahPath,
             'status' => 'Selesai',
@@ -120,6 +122,7 @@ class WargaPindah extends Controller
         return redirect()->route('WargaPindah.index')->with('success', 'Warga berhasil ditambahkan.');
     }
 
+
     public function show($id_wargaPindahMasuk)
     {
         $breadcrumb = (object) [
@@ -127,7 +130,7 @@ class WargaPindah extends Controller
             'list' => ['Home', 'Warga pindah', 'Detail']
         ];
 
-        $activeMenu = 'Warga Pindah';
+        $activeMenu = 'WargaPindah';
 
         $warga = WargaPindahMasuk::where('status', 'Selesai')->findOrFail($id_wargaPindahMasuk);
 
@@ -140,7 +143,7 @@ class WargaPindah extends Controller
             'title' => 'Edit Warga',
             'list' => ['Home', 'Warga', 'Edit']
         ];
-        $activeMenu = 'Warga Pindah';
+        $activeMenu = 'WargaPindah';
 
         $warga = WargaPindahMasuk::findOrFail($id_wargaPindahMasuk);
 

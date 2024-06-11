@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="card">
-        <div class="card-header d-flex align-items-center justify-content-between">
+        <div class="card-header d-flex align-items-center justify-content-between" style="background-color: #03774A;">
             <div>
                 <a href="{{ route('rt.WargaPindah.index') }}" class="btn btn-sm btn-light me-2">
                     <i class="fas fa-arrow-left"></i>
@@ -99,19 +99,74 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <!-- Tambahkan input fields untuk foto akte dan foto surat pindah -->
+                        <!-- Foto KTP -->
                         <div class="form-group mb-3">
-                            <label class="fw-bold">Foto KTP:</label>
-                            <input type="file" name="foto_ktp" class="form-control">
+                            <label for="foto_ktp" class="fw-bold">Foto KTP:</label>
+                            <input type="file" name="foto_ktp" id="foto_ktp" class="form-control" accept="image/*" onchange="previewFotoKTP(event)">
+                            <small class="form-text text-muted">Unggah gambar dalam format .jpg, .jpeg, atau .png</small>
+                            <div class="mt-2" id="ktp-image-preview">
+                                @if(isset($warga->foto_ktp))
+                                    <img id="ktp-image" src="{{ Storage::url($warga->foto_ktp) }}" class="img-thumbnail">
+                                @endif
+                            </div>
                         </div>
+                    
+                        <!-- Foto Surat Pindah -->
                         <div class="form-group mb-3">
-                            <label class="fw-bold">Foto Surat Pindah:</label>
-                            <input type="file" name="foto_surat_pindah" class="form-control">
+                            <label for="foto_surat_pindah" class="fw-bold">Foto Surat Pindah:</label>
+                            <input type="file" name="foto_surat_pindah" id="foto_surat_pindah" class="form-control" accept="image/*" onchange="previewFotoSuratPindah(event)">
+                            <small class="form-text text-muted">Unggah gambar dalam format .jpg, .jpeg, atau .png</small>
+                            <div class="mt-2" id="surat-pindah-image-preview">
+                                @if(isset($warga->foto_surat_pindah))
+                                    <img id="surat-pindah-image" src="{{ Storage::url($warga->foto_surat_pindah) }}" class="img-thumbnail">
+                                @endif
+                            </div>
                         </div>
                     </div>
+                    
                 </div>
                 <button type="submit" class="btn btn-primary">Update</button>
             </form>
         </div>
     </div>
 @endsection
+
+@push('js')
+<script>
+    function previewFotoKTP(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('ktp-image');
+            if (output) {
+                output.src = reader.result;
+            } else {
+                var imagePreview = document.getElementById('ktp-image-preview');
+                output = document.createElement('img');
+                output.id = 'ktp-image';
+                output.src = reader.result;
+                output.classList.add('img-thumbnail');
+                imagePreview.appendChild(output);
+            }
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function previewFotoSuratPindah(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('surat-pindah-image');
+            if (output) {
+                output.src = reader.result;
+            } else {
+                var imagePreview = document.getElementById('surat-pindah-image-preview');
+                output = document.createElement('img');
+                output.id = 'surat-pindah-image';
+                output.src = reader.result;
+                output.classList.add('img-thumbnail');
+                imagePreview.appendChild(output);
+            }
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+@endpush

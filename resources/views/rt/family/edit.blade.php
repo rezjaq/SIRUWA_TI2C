@@ -50,15 +50,20 @@
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="form-group  mb-3">
-                        <label for="kk" class="text-muted fw-bold">KK</label>
-                        <input type="file" name="kk" class="form-control">
-                        @if ($keluarga->kk)
-                        <img src="{{ asset('storage/kk_images/' . basename($keluarga->kk)) }}" alt="KK" width="100">
-                        @endif
-                        @error('kk')
-                        <div class="text-danger">{{ $message }}</div>
-                        @enderror
+                    <div class="form-group row mb-3"> <!-- Tambahkan class row di sini -->
+                        <label for="kk" class="col-sm-2 col-form-label text-muted fw-bold">Kartu Keluarga: </label>
+                        <div class="col-sm-6">
+                            <div class="input-group"> <!-- Tambahkan div input-group di sini -->
+                                <input type="file" class="form-control-file" id="kk" name="kk">
+        
+                            </div>
+                            @if ($keluarga->kk)
+                            <img src="{{ asset('storage/kk_images/' . basename($keluarga->kk)) }}" alt="Foto KK" class="img-fluid img-thumbnail mt-2">
+                            @endif
+                            @error('kk')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
                     <div class="form-group  mb-3">
                         <button type="submit" class="btn btn-primary-1" style="background-color: #03774A; width: 100%;">Submit</button>

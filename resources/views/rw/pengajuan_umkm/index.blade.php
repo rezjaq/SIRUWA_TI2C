@@ -1,26 +1,26 @@
 @extends('template-admin.template')
 
 @section('content')
-    <div class="card">
-        <div class="card-header d-flex align-items-center justify-content-between">
-            <div>
-                <h3 class="card-title d-inline-block text-white">Kelola Pengajuan UMKM Warga</h3>
-            </div>
+<div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <div>
+            <h3 class="card-title d-inline-block text-white">Kelola Pengajuan UMKM Warga</h3>
         </div>
-        <div class="card-body">
+    </div>
+    <div class="card-body">
+        <div class="row">
             @if(session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
                 </div>
             @endif
-            <table class="table table-striped">
+            <table class="table table-bordered">
                 <thead class="table-header">
-                    <tr style="color: white;">
+                    <tr>
+                        <th>No</th>
                         <th>Nama Warga</th>
-                        <th>Nama Usaha</th>
                         <th>Jenis Usaha</th>
                         <th>Alamat Usaha</th>
-                        <th>Foto</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -28,25 +28,13 @@
                 <tbody>
                     @foreach($usahaWarga as $usaha)
                         <tr>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $user->nama }}</td>
                             <td>{{ $usaha->nama_usaha }}</td>
                             <td>{{ $usaha->jenis_usaha }}</td>
                             <td>{{ $usaha->alamat_usaha }}</td>
-                            <td>{{ $usaha->foto }}</td>
-                            <td>{{ $usaha->status }}</td>
                             <td>
-                                @if($usaha->status == 'pending')
-                                <form action="{{ route('umkm.approve', ['id' => $usaha->id_usahaWarga]) }}" method="POST" style="display: inline-block;">
-                                    @csrf
-                                    <button type="submit" class="btn btn-success">Setujui</button>
-                                </form>
-                                <form action="{{ route('umkm.reject', ['id' => $usaha->id_usahaWarga]) }}" method="POST" style="display: inline-block;">
-                                    @csrf
-                                    <button type="submit" class="btn btn-danger">Tolak</button>
-                                </form>                                                       
-                                @else
-                                    {{ ucfirst($usaha->status) }}
-                                @endif
+                                <a href="{{ route('admin.pengajuan.detail', $usaha->id_usahaWarga) }}" class="btn btn-primary">Detail</a>
                             </td>
                         </tr>
                     @endforeach
@@ -54,87 +42,46 @@
             </table>
         </div>
     </div>
+</div>
 @endsection
 
 @push('css')
-<link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
 <style>
+    /* Custom CSS */
+    .card-header {
+        background-color: #03774A !important;
+        color: #fff !important;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.125) !important;
+    }
+
     .table-header {
-        background-color: #03774A;
-        color: #fff;
-        font-weight: bold;
+        background-color: #03774A !important;
+        color: #fff !important;
+    }
+
+    .btn-primary {
+        background-color: #03774A !important;
+        border-color: #03774A !important;
+    }
+
+    .btn-primary:hover {
+        background-color: #025C3A !important;
+        border-color: #025C3A !important;
+    }
+
+    .table th,
+    .table td {
+        vertical-align: middle !important;
     }
 
     .table-header th {
-        color: #fff;
+        color: #fff !important;
     }
 
-    .btn-outline-light {
-        border: 1px solid #fff;
-        color: #fff;
-        transition: all 0.3s ease;
-    }
-
-    .btn-outline-light:hover {
-        background-color: #fff;
-        color: #03774A;
-    }
-
-    .table-striped tbody tr:nth-of-type(odd) {
-        background-color: rgba(0, 0, 0, 0.05);
-    }
-
-    .card {
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        margin-top: 20px;
-    }
-
-    .card-header {
-        background-color: #03774A;
-        color: #fff;
-        border-radius: 10px 10px 0 0;
-        padding: 1rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .table th, .table td {
-        vertical-align: middle;
-    }
-
-    .table-hover tbody tr:hover {
-        background-color: #f1f1f1;
-    }
-
-    .alert {
-        margin-top: 1rem;
-    }
-
-    @media (max-width: 767.98px) {
-        .dataTables_wrapper .dataTables_length,
-        .dataTables_wrapper .dataTables_filter {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .dataTables_wrapper .dataTables_length select {
-            order: 2;
-            margin-left: auto;
-        }
-
-        .dataTables_wrapper .dataTables_filter input {
-            width: 100%;
-            margin-left: 0;
-            margin-top: 10px;
-            order: 1;
-        }
-
-        .dataTables_wrapper .dataTables_filter label {
-            order: 3;
-        }
+    .alert-success {
+        background-color: #D4EDDA !important;
+        border-color: #C3E6CB !important;
+        color: #155724 !important;
     }
 </style>
 @endpush

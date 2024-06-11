@@ -21,10 +21,7 @@
                         <th>Nama</th>
                         <th>Tempat</th>
                         <th>Tanggal</th>
-                        <th>Isi Pengaduan</th>
-                        <th>Foto</th>
-                        <th>Komentar</th>
-                        <th>Aksi</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,20 +31,8 @@
                             <td>{{ $aduan->nama }}</td>
                             <td>{{ $aduan->tempat }}</td>
                             <td>{{ $aduan->tanggal }}</td>
-                            <td>{{ $aduan->isi }}</td>
-                            <td><img src="{{ asset('storage/' . $aduan->foto) }}" alt="Foto Pengaduan" width="100"></td>
-                            <td>{{ $aduan->komentar }}</td>
                             <td>
-                                <form action="{{ route('pengaduan.approve', $aduan->id_aduan) }}" method="POST" style="display:inline-block;">
-                                    @csrf
-                                    <textarea name="komentar" rows="2" class="form-control mb-2" placeholder="Komentar" required></textarea>
-                                    <button type="submit" class="btn btn-success">Approve</button>
-                                </form>
-                                <form action="{{ route('pengaduan.reject', $aduan->id_aduan) }}" method="POST" style="display:inline-block;">
-                                    @csrf
-                                    <textarea name="komentar" rows="2" class="form-control mb-2" placeholder="Komentar" required></textarea>
-                                    <button type="submit" class="btn btn-danger">Reject</button>
-                                </form>
+                                <a href="{{ route('admin.pengaduan.detail', $aduan->id_aduan) }}" class="btn btn-primary">Detail</a>
                             </td>
                         </tr>
                     @endforeach
@@ -59,80 +44,42 @@
 @endsection
 
 @push('css')
-<link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
-<style>
-    .table-header {
-        background-color: #03774A;
-        color: #fff;
-        font-weight: bold;
-    }
-
-    .btn-outline-light {
-        border: 1px solid #fff;
-        color: #fff;
-        transition: all 0.3s ease;
-    }
-
-    .btn-outline-light:hover {
-        background-color: #fff;
-        color: #03774A;
-    }
-
-    .table-striped tbody tr:nth-of-type(odd) {
-        background-color: rgba(0, 0, 0, 0.05);
-    }
-
-    .card {
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        margin-top: 20px;
-    }
-
-    .card-header {
-        background-color: #03774A;
-        color: #fff;
-        border-radius: 10px 10px 0 0;
-        padding: 1rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .table th, .table td {
-        vertical-align: middle;
-    }
-
-    .table-hover tbody tr:hover {
-        background-color: #f1f1f1;
-    }
-
-    .alert {
-        margin-top: 1rem;
-    }
-
-    @media (max-width: 767.98px) {
-        .dataTables_wrapper .dataTables_length,
-        .dataTables_wrapper .dataTables_filter {
-            flex-direction: column;
-            align-items: flex-start;
+    <style>
+        /* Custom CSS */
+        .card-header {
+            background-color: #03774A !important;
+            color: #fff !important;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.125) !important;
         }
 
-        .dataTables_wrapper .dataTables_length select {
-            order: 2;
-            margin-left: auto;
+        .table-header {
+            background-color: #03774A !important;
+            color: #fff !important;
         }
 
-        .dataTables_wrapper .dataTables_filter input {
-            width: 100%;
-            margin-left: 0;
-            margin-top: 10px;
-            order: 1;
+        .btn-primary {
+            background-color: #03774A !important;
+            border-color: #03774A !important;
         }
 
-        .dataTables_wrapper .dataTables_filter label {
-            order: 3;
+        .btn-primary:hover {
+            background-color: #025C3A !important;
+            border-color: #025C3A !important;
         }
-    }
-</style>
+
+        .table th,
+        .table td {
+            vertical-align: middle !important;
+        }
+
+        .table-header th {
+            color: #fff !important;
+        }
+
+        .alert-success {
+            background-color: #D4EDDA !important;
+            border-color: #C3E6CB !important;
+            color: #155724 !important;
+        }
+    </style>
 @endpush

@@ -29,7 +29,7 @@ class AprrovePengaduan extends Controller
     {
         $aduan = Aduan::findOrFail($id);
         $aduan->status_aduan = 'approved';
-        $aduan->komentar = $request->input('komentar');
+        $aduan->komentar = $request->input('komentar'); // Gunakan 'komentar_approve'
         $aduan->save();
 
         return redirect()->route('admin.pengaduan')->with('success', 'Pengaduan telah disetujui.');
@@ -39,11 +39,27 @@ class AprrovePengaduan extends Controller
     {
         $aduan = Aduan::findOrFail($id);
         $aduan->status_aduan = 'rejected';
-        $aduan->komentar = $request->input('komentar');
+        $aduan->komentar = $request->input('komentar'); // Gunakan 'komentar_reject'
         $aduan->save();
 
         return redirect()->route('admin.pengaduan')->with('success', 'Pengaduan telah ditolak.');
     }
-}
 
+
+    public function detail($id)
+    {
+        $breadcrumb = (object) [
+            'title' => 'Menu Pengaduan Warga',
+        ];
+
+        $page = (object) [
+            'title' => 'Mengelola Pengaduan'
+        ];
+
+        $activeMenu = 'pengaduan';
+
+        $aduan = Aduan::findOrFail($id);
+        return view('rw.pengaduan.detail', compact('breadcrumb', 'page', 'activeMenu', 'aduan'));
+    }
+}
 
