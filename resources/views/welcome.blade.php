@@ -117,7 +117,6 @@
 </head>
 
 <body>
-
      {{-- navbar --}}
         <nav class="navbar navbar-expand-lg navbar-dark py-3 fixed-top">
             <div class="container">
@@ -134,10 +133,10 @@
                                 <a class="nav-link {{ Request::routeIs('dashboard-warga') ? 'active' : '' }}" aria-current="page" href="{{ route('dashboard-warga') }}">Beranda</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ Request::routeIs('warga-tetap') ? 'active' : '' }}" aria-current="page" href="{{ route('warga-tetap') }}">Surat</a>
+                                <a class="nav-link" {{ Request::routeIs('warga-tetap') ? 'active' : '' }}" aria-current="page" href="{{ route('warga-tetap') }}">Surat</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" {{ Request::routeIs('warga.Warga.index') || Request::routeIs('warga.keluarga.index') ? 'active' : '' }}" href="#" id="dataWargaDropdown" role="button"
+                                <a class="nav-link" {{ Request::routeIs('warga.Warga.index') || Request::routeIs('warga.keluarga.index') ? 'active' : '' }} href="#" id="dataWargaDropdown" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     Pengecekan Data
                                 </a>
@@ -148,7 +147,7 @@
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle {{ Request::routeIs('bansos.*') ? 'active' : '' }}" href="#" id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link  {{ Request::routeIs('bansos.*') ? 'active' : '' }}" href="#" id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Bantuan Sosial
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="bansosDropdown">
@@ -158,7 +157,7 @@
                             </li>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle {{ Request::routeIs('pengaduan.*') ? 'active' : '' }}" href="#" id="pengaduanDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pengaduan Warga</a>
+                                <a class="nav-link  {{ Request::routeIs('pengaduan.*') ? 'active' : '' }}" href="#" id="pengaduanDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pengaduan Warga</a>
                                 <ul class="dropdown-menu" aria-labelledby="pengaduanDropdown">
                                     <li><a class="dropdown-item {{ Request::routeIs('pengaduan') ? 'active' : '' }}" href="{{ route('pengaduan') }}">Ajukan Pengaduan</a></li>
                                     <li><a class="dropdown-item {{ Request::routeIs('pengaduan.history') ? 'active' : '' }}" href="{{ route('pengaduan.history') }}">List Pengaduan</a></li>
@@ -166,13 +165,13 @@
                             </li>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle {{ Request::routeIs('pengajuan-umkm*') ? 'active' : '' }}" href="#" id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link  {{ Request::routeIs('pengajuan-umkm*') ? 'active' : '' }}" href="#" id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     UMKM
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="bansosDropdown">
                                     <li><a class="dropdown-item" href="{{ route('umkm') }}">Status Pengajuan</a></li>
                                     <li><a class="dropdown-item" href="{{ route('umkm.show') }}">Macam Macam UMKM</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('umkm.create') }}">Pengajuan UMKM</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('pengajuan-umkm.create') }}">Pengajuan UMKM</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -256,7 +255,7 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <li><a class="dropdown-item" href="{{ route('umkm.show') }}">Status Pengajuan</a></li>
                             <li><a class="dropdown-item" href="{{ route('umkm') }}">Macam Macam UMKM</a></li>
-                            <li><a class="dropdown-item" href="{{ route('umkm.create') }}">Pengajuan UMKM</a></li>
+                            <li><a class="dropdown-item" href="{{ route('pengajuan-umkm.create') }}">Pengajuan UMKM</a></li>
                         </ul>
                     </div>
                     <a href="{{ route('bansos') }}" class="program-ikon check-login" aria-label="Bantuan Sosial">

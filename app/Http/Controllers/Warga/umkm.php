@@ -20,11 +20,11 @@ class umkm extends Controller
                     'dropdown' => true,
                     'links' => [
                         ['url' => route('umkm'), 'label' => 'Daftar UMKM Warga'],
-                        ['url' => route('umkm.create'), 'label' => 'Pengajuan UMKM'],
+                        ['url' => route('pengajuan-umkm.create'), 'label' => 'Pengajuan UMKM'],
                         ['url' => route('umkm.show'), 'label' => 'Pengajuan UMKM']
                     ]
                 ],
-                ['label' => 'UMKM Warga', 'url' => route('umkm.create')]
+                ['label' => 'UMKM Warga', 'url' => route('pengajuan-umkm.create')]
             ]
         ];
 
@@ -45,10 +45,10 @@ class umkm extends Controller
                     'dropdown' => true,
                     'links' => [
                         ['url' => route('umkm'), 'label' => 'Daftar UMKM Warga'],
-                        ['url' => route('umkm.create'), 'label' => 'Pengajuan UMKM']
+                        ['url' => route('pengajuan-umkm.create'), 'label' => 'Pengajuan UMKM']
                     ]
                 ],
-                ['label' => 'Pengajuan UMKM', 'url' => route('umkm.create')]
+                ['label' => 'Pengajuan UMKM', 'url' => route('pengajuan-umkm.create')]
             ]
         ];
 
@@ -99,10 +99,10 @@ class umkm extends Controller
                     'dropdown' => true,
                     'links' => [
                         ['url' => route('umkm'), 'label' => 'Daftar UMKM Warga'],
-                        ['url' => route('umkm.create'), 'label' => 'Pengajuan UMKM']
+                        ['url' => route('pengajuan-umkm.create'), 'label' => 'Pengajuan UMKM']
                     ]
                 ],
-                ['label' => 'List UMKM Anda', 'url' => route('umkm.create')]
+                ['label' => 'List UMKM Anda', 'url' => route('pengajuan-umkm.create')]
             ]
         ];
 
