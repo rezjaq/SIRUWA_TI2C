@@ -96,29 +96,29 @@
         margin-top: 1rem;
     }
 
-    @media (max-width: 767.98px) {
-        .dataTables_wrapper .dataTables_length,
-        .dataTables_wrapper .dataTables_filter {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .dataTables_wrapper .dataTables_length select {
-            order: 2;
-            margin-left: auto;
-        }
-
-        .dataTables_wrapper .dataTables_filter input {
-            width: 100%;
-            margin-left: 0;
-            margin-top: 10px;
-            order: 1;
-        }
-
-        .dataTables_wrapper .dataTables_filter label {
-            order: 3;
-        }
+    /* Gaya untuk desktop */
+@media (min-width: 768px) {
+    .container-fluid {
+        padding: 0 15px;
     }
+}
+
+/* Gaya untuk mobile */
+@media (max-width: 767.98px) {
+    .container-fluid {
+        padding: 0;
+    }
+
+    .card-header {
+        padding: 0.75rem 1rem;
+    }
+
+    .btn-outline-light {
+        padding: 0.375rem 0.75rem;
+        font-size: 0.875rem;
+    }
+}
+
 </style>
 @endpush
 

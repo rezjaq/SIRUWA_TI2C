@@ -69,7 +69,6 @@
                         <label class="fw-bold">Foto KTP:</label>
                         @if($warga->ktp)
                             <div class="text-center">
-                                <img src="{{ asset('storage/public/ktp_images/' . basename($warga->ktp)) }}" alt="Foto KTP" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
                                 <img src="{{ asset('storage/' . $warga->ktp) }}" alt="Foto KTP" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
                             </div>
                         @else

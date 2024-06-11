@@ -1,73 +1,98 @@
 @extends('template-admin.template')
 @section('content')
-    <div class="main-panel">
-        <div class="content-wrapper">
-            <div class="row">
-                <div class="col-lg-12 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <select id="data-type-selector" class="form-control w-auto">
-                                    <option value="warga">Sebaran Warga</option>
-                                    <option value="warga-pindahan">Sebaran Warga Pindahan</option>
-                                    <option value="keluarga">Sebaran Keluarga</option>
-                                </select>
-                            </div>
-                            <div id="chart-container"></div>
-                            <div id="total-container" class="mt-4">
-                                <h5>Total: <span id="total-count">0</span></h5>
-                            </div>
-                        </div>
+<div class="card">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="card-title">Sebaran Data</h4>
+                        <select id="data-type-selector" class="form-control w-auto">
+                            <option value="warga">Sebaran Warga</option>
+                            <option value="warga-pindahan">Sebaran Warga Pindahan</option>
+                            <option value="keluarga">Sebaran Keluarga</option>
+                        </select>
                     </div>
-                </div>
-            </div>
-            <div class="row mt-4">
-                <!-- Tambahkan div baru untuk diagram bar penerima bansos -->
-                <div class="col-lg-12 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <select id="bansos-type-selector" class="form-control w-auto">
-                                    <option value="penerima">Penerima Bansos</option>
-                                    <option value="pengajuan">Pengajuan Bansos</option>
-                                    <option value="ditolak">Bansos Ditolak</option>
-                                </select>
-                            </div>
-                            <div id="bansos-chart-container"></div>
-                            <div id="bansos-total-container" class="mt-4">
-                                <h5>Total: <span id="bansos-total-count">0</span></h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <select id="pie-data-type-selector" class="form-control w-auto">
-                                    <option value="gender">Penyebaran Jenis Kelamin</option>
-                                    <option value="age">Penyebaran Usia</option>
-                                    <option value="marital-status">Penyebaran Status Kawin</option>
-                                </select>
-                            </div>
-                            <div id="pie-chart-container"></div>
-                            <div id="pie-total-container" class="mt-4">
-                                <h5>Total: <span id="pie-total-count">0</span></h5>
-                            </div>
-                        </div>
+                    <div id="chart-container"></div>
+                    <div id="total-container" class="mt-4">
+                        <h5>Total: <span id="total-count">0</span></h5>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="row mt-4">
+        <!-- Tambahkan div baru untuk diagram bar penerima bansos -->
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="card-title">Penerima Bansos</h4>
+                        <select id="bansos-type-selector" class="form-control w-auto">
+                            <option value="penerima">Penerima Bansos</option>
+                            <option value="pengajuan">Pengajuan Bansos</option>
+                            <option value="ditolak">Bansos Ditolak</option>
+                        </select>
+                    </div>
+                    <div id="bansos-chart-container"></div>
+                    <div id="bansos-total-container" class="mt-4">
+                        <h5>Total: <span id="bansos-total-count">0</span></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="card-title">Penyebaran Data</h4>
+                        <select id="pie-data-type-selector" class="form-control w-auto">
+                            <option value="gender">Penyebaran Jenis Kelamin</option>
+                            <option value="age">Penyebaran Usia</option>
+                            <option value="marital-status">Penyebaran Status Kawin</option>
+                        </select>
+                    </div>
+                    <div id="pie-chart-container"></div>
+                    <div id="pie-total-container" class="mt-4">
+                        <h5>Total: <span id="pie-total-count">0</span></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
+
+
 
 @push('css')
     <style>
-        #chart-container, #pie-chart-container, #bansos-chart-container {
-            width: 100%;
-            height: 300px;
-        }
+      .card {
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.form-control {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Responsif untuk tampilan mobile */
+@media only screen and (max-width: 991px) {
+    .col-lg-6 {
+        margin-bottom: 20px;
+    }
+}
+
     </style>
 @endpush
 

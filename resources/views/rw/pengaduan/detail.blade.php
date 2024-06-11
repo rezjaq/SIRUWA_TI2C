@@ -41,7 +41,7 @@
                     @csrf
                     <div class="form-group">
                         <label class="fw-bold">Komentar untuk Approve:</label>
-                        <textarea name="komentar_approve" rows="2" class="form-control" placeholder="Komentar untuk Approve" required></textarea>
+                        <textarea name="komentar" rows="2" class="form-control" placeholder="Komentar untuk Approve" required></textarea>
                     </div>
                     <button type="submit" class="btn btn-success btn-block">Approve</button>
                 </form>
@@ -49,10 +49,10 @@
                     @csrf
                     <div class="form-group">
                         <label class="fw-bold">Komentar untuk Reject:</label>
-                        <textarea name="komentar_reject" rows="2" class="form-control" placeholder="Komentar untuk Reject" required></textarea>
+                        <textarea name="komentar" rows="2" class="form-control" placeholder="Komentar untuk Reject" required></textarea>
                     </div>
                     <button type="submit" class="btn btn-danger btn-block">Reject</button>
-                </form>
+                </form>                
             </div>
         </div>
     </div>

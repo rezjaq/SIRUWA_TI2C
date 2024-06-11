@@ -116,13 +116,28 @@
                         <div class="mb-3 row">
                             <label for="foto_ktp" class="col-sm-3 col-form-label">Foto KTP</label>
                             <div class="col-sm-9">
-                                <input type="file" class="form-control-file" id="foto_ktp" name="foto_ktp" accept="image/*">
+                                <input type="file" class="form-control-file" id="foto_ktp" name="foto_ktp" accept="image/*" onchange="previewKtp(event)">
+                                <div id="ktp-image-preview" class="mt-2">
+                                    @if ($wargas && $wargas->foto_ktp)
+                                        <img src="{{ asset('storage/' . $wargas->foto_ktp) }}" alt="Foto KTP" class="img-fluid img-thumbnail mt-2">
+                                    @else
+                                        <p class="text-center">Foto KTP tidak tersedia.</p>
+                                    @endif
+                                </div>
                             </div>
                         </div>
+                
                         <div class="mb-3 row">
-                            <label for="foto_surat_pindah" class="col-sm-3 col-form-label">Foto Surat</label>
+                            <label for="foto_surat_pindah" class="col-sm-3 col-form-label">Foto Surat Pindah</label>
                             <div class="col-sm-9">
-                                <input type="file" class="form-control-file" id="foto_surat_pindah" name="foto_surat_pindah" accept="image/*">
+                                <input type="file" class="form-control-file" id="foto_surat_pindah" name="foto_surat_pindah" accept="image/*" onchange="previewSuratPindah(event)">
+                                <div id="surat-pindah-image-preview" class="mt-2">
+                                    @if ($wargas && $wargas->foto_surat_pindah)
+                                        <img src="{{ asset('storage/' . $wargas->foto_surat_pindah) }}" alt="Foto Surat Pindah" class="img-fluid img-thumbnail mt-2">
+                                    @else
+                                        <p class="text-center">Foto Surat Pindah tidak tersedia.</p>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -214,6 +229,39 @@
             width: 100%;
         }
     </style>
+@endpush
+
+@push('js')
+<script>
+    function previewKtp(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('ktp-image-preview');
+            output.innerHTML = ''; // Remove existing preview
+            output.appendChild(createImageElement(reader.result));
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function previewSuratPindah(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('surat-pindah-image-preview');
+            output.innerHTML = ''; // Remove existing preview
+            output.appendChild(createImageElement(reader.result));
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function createImageElement(src) {
+        var img = document.createElement('img');
+        img.src = src;
+        img.classList.add('img-fluid', 'img-thumbnail');
+        img.style.maxWidth = '100%';
+        img.style.height = 'auto';
+        return img;
+    }
+</script>
 @endpush
 
 

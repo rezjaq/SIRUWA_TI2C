@@ -624,7 +624,7 @@
             title: 'Login Berhasil',
             text: successMessage,
             icon: 'success',
-            showConfirmButton: true,
+            showConfirmButton: false,
         }).then((result) => {
             if (showChangePassword) {
                 showChangePasswordAlert();

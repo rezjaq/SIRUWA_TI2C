@@ -6,7 +6,14 @@
             <div class="card-header d-flex justify-content-between align-items-center"
                 style="background-color: #03774A; color: #fff; border-radius: 10px 10px 0 0; padding: 1rem;">
                 <h5 class="mb-0">{{ $page->title }}</h5>
-                <div>
+                <div class="d-flex align-items-center">
+                    <div class="me-3">
+                        <label for="data-type-selector" class="form-label text-white mb-0 me-2">Filter:</label>
+                        <select id="data-type-selector" class="form-control w-auto d-inline-block">
+                            <option value="citizen.list">Warga Hidup</option>
+                            <option value="citizen.listDeceased">Warga Meninggal</option>
+                        </select>
+                    </div>
                     <a href="{{ route('citizen.create') }}" class="btn btn-outline-light">
                         <i class="fas fa-user-plus me-2"></i> Tambah Data Warga
                     </a>
@@ -19,13 +26,6 @@
                 @if (session('error'))
                     <div class="alert alert-danger">{{ session('error') }}</div>
                 @endif
-
-                <div class="d-flex mb-3">
-                    <select id="data-type-selector" class="form-control w-auto">
-                        <option value="citizen.list">Warga Hidup</option>
-                        <option value="citizen.listDeceased">Warga Meninggal</option>
-                    </select>
-                </div>
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped table-hover table-sm" id="table_warga">
                         <thead class="table-header">

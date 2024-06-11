@@ -20,7 +20,7 @@
         <div class="card-header d-flex align-items-center justify-content-between" style="background-color: #03774A;">
             <div class="card-header bg-custom text-white">
                 <h4 class="mb-0">
-                    <a href="{{ route('Warga.index') }}" class="btn btn-sm btn-light me-2">
+                    <a href="{{ route('DataRT.index') }}" class="btn btn-sm btn-light me-2">
                         <i class="fas fa-arrow-left"></i>
                     </a>
                     Form untuk menambahkan data RT

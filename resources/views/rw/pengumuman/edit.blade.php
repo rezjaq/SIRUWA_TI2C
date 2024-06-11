@@ -44,13 +44,19 @@
                     <div class="form-group row">
                         <label for="foto" class="col-sm-2 col-form-label">Foto</label>
                         <div class="col-sm-10">
+                            <!-- Menampilkan foto yang sudah ada jika ada -->
+                            <div class="mt-2" id="foto-image-preview" style="max-width: 300px;">
+                                @if($pengumuman->foto)
+                                    <img src="{{ Storage::url($pengumuman->foto) }}" alt="Foto Pengumuman">
+                                @endif
+                            </div>
+                            <!-- Input file untuk mengganti foto -->
                             <input type="file" class="form-control-file" id="foto" name="foto" accept="image/*" onchange="previewFoto(event)">
                             <small class="form-text text-muted">Unggah gambar dalam format .jpg, .jpeg, atau .png</small>
-                            <div class="mt-2" id="foto-image-preview">
-                                <!-- Pratinjau gambar akan ditampilkan di sini -->
-                            </div>
                         </div>
                     </div>
+                    
+                    
                     <div class="form-group row">
                         <label for="status_pengumuman" class="col-sm-2 col-form-label">Status Pengumuman</label>
                         <div class="col-sm-10">
@@ -150,19 +156,21 @@
         function previewFoto(event) {
             var reader = new FileReader();
             reader.onload = function() {
-                var output = document.getElementById('foto-image');
-                if (output) {
-                    output.src = reader.result;
+                var output = document.getElementById('foto-image-preview');
+                if (output.querySelector('img')) {
+                    output.querySelector('img').src = reader.result;
                 } else {
-                    var imagePreview = document.getElementById('foto-image-preview');
-                    output = document.createElement('img');
-                    output.id = 'foto-image';
-                    output.src = reader.result;
-                    output.classList.add('img-thumbnail');
-                    imagePreview.appendChild(output);
+                    var image = document.createElement('img');
+                    image.src = reader.result;
+                    image.alt = "Foto Pengumuman";
+                    image.classList.add('img-thumbnail'); // Menambah kelas img-thumbnail untuk gaya Bootstrap thumbnail
+                    image.style.maxWidth = "300px"; // Menetapkan lebar maksimum gambar
+                    image.style.height = "100%"; // Mengatur tinggi gambar agar tidak terlalu lebar
+                    output.appendChild(image);
                 }
             }
             reader.readAsDataURL(event.target.files[0]);
         }
     </script>
 @endpush
+
