@@ -114,15 +114,22 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="foto_ktp" class="col-sm-3 col-form-label">Foto KTP</label>
-                            <div class="col-sm-9">
-                                <input type="file" class="form-control-file" id="foto_ktp" name="foto_ktp" accept="image/*">
+                            <!-- Tambahkan input fields untuk foto akte dan foto surat pindah -->
+                            <div class="mb-3 row">
+                                <label for="foto_ktp" class="fw-bold">Foto KTP:</label>
+                                <input type="file" name="foto_ktp" id="foto_ktp" class="form-control" accept="image/*" onchange="previewFotoKTP(event)">
+                                <small class="form-text text-muted">Unggah gambar dalam format .jpg, .jpeg, atau .png</small>
+                                <div class="mt-2" id="ktp-image-preview">
+                                    <!-- Pratinjau gambar akan ditampilkan di sini -->
+                                </div>
                             </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="foto_surat_pindah" class="col-sm-3 col-form-label">Foto Surat</label>
-                            <div class="col-sm-9">
-                                <input type="file" class="form-control-file" id="foto_surat_pindah" name="foto_surat_pindah" accept="image/*">
+                            <div class="mb-3 row">
+                                <label for="foto_surat_pindah" class="fw-bold">Foto Surat Pindah:</label>
+                                <input type="file" name="foto_surat_pindah" id="foto_surat_pindah" class="form-control" accept="image/*" onchange="previewFotoSuratPindah(event)">
+                                <small class="form-text text-muted">Unggah gambar dalam format .jpg, .jpeg, atau .png</small>
+                                <div class="mt-2" id="surat-pindah-image-preview">
+                                    <!-- Pratinjau gambar akan ditampilkan di sini -->
+                                </div>
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -216,4 +223,42 @@
     </style>
 @endpush
 
+@push('js')
+<script>
+    function previewFotoKTP(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('ktp-image');
+            if (output) {
+                output.src = reader.result;
+            } else {
+                var imagePreview = document.getElementById('ktp-image-preview');
+                output = document.createElement('img');
+                output.id = 'ktp-image';
+                output.src = reader.result;
+                output.classList.add('img-thumbnail');
+                imagePreview.appendChild(output);
+            }
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
 
+    function previewFotoSuratPindah(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('surat-pindah-image');
+            if (output) {
+                output.src = reader.result;
+            } else {
+                var imagePreview = document.getElementById('surat-pindah-image-preview');
+                output = document.createElement('img');
+                output.id = 'surat-pindah-image';
+                output.src = reader.result;
+                output.classList.add('img-thumbnail');
+                imagePreview.appendChild(output);
+            }
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+@endpush

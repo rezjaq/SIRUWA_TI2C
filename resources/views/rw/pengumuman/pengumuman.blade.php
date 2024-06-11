@@ -4,10 +4,10 @@
 <div class="container-fluid">
     <div class="card mt-3">
         <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #03774A; color: #fff;">
-            <h5 class="mb-0">Mengelola Kegiatan Desa</h5>
+            <h5 class="mb-0">Mengelola Penguman</h5>
             <div>
                 <a href="{{ route('pengumuman.create') }}" class="btn btn-outline-light">
-                    <i class="fas fa-user-plus me-2"></i> Tambah Kegiatan Desa
+                    <i class="fas fa-user-plus me-2"></i> Tambah Pengumuman Desa
                 </a>
             </div>
         </div>

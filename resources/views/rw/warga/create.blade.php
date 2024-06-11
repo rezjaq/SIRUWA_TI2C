@@ -119,17 +119,25 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="akte" class="col-sm-3 col-form-label">Foto akte</label>
+                            <label for="akte" class="col-sm-3 col-form-label">Foto Akte</label>
                             <div class="col-sm-9">
-                                <input type="file" class="form-control-file" id="akte" name="akte" accept="image/*">
+                                <input type="file" class="form-control-file" id="akte" name="akte" accept="image/*" onchange="previewFotoAkte(event)">
+                                <small class="form-text text-muted">Unggah gambar dalam format .jpg, .jpeg, atau .png</small>
+                                <div class="mt-2" id="akte-image-preview">
+                                    <!-- Pratinjau gambar akan ditampilkan di sini -->
+                                </div>
                             </div>
                         </div>
-                        <div class="mb-3 row">
+                        <div class="form-group row">
                             <label for="ktp" class="col-sm-3 col-form-label">Foto KTP</label>
                             <div class="col-sm-9">
-                                <input type="file" class="form-control-file" id="ktp" name="ktp" accept="image/*">
+                                <input type="file" class="form-control-file" id="ktp" name="ktp" accept="image/*" onchange="previewFotoKTP(event)">
+                                <small class="form-text text-muted">Unggah gambar dalam format .jpg, .jpeg, atau .png</small>
+                                <div class="mt-2" id="ktp-image-preview">
+                                    <!-- Pratinjau gambar akan ditampilkan di sini -->
+                                </div>
                             </div>
-                        </div>
+                        </div>                        
                         <div class="mb-3 row">
                             <label for="id_keluarga" class="col-sm-3 col-form-label">Pilih Keluarga</label>
                             <div class="col-sm-9">
@@ -232,4 +240,43 @@
     </style>
 @endpush
 
+@push('js')
+<script>
+    function previewFotoAkte(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('akte-image');
+            if (output) {
+                output.src = reader.result;
+            } else {
+                var imagePreview = document.getElementById('akte-image-preview');
+                output = document.createElement('img');
+                output.id = 'akte-image';
+                output.src = reader.result;
+                output.classList.add('img-thumbnail');
+                imagePreview.appendChild(output);
+            }
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function previewFotoKTP(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('ktp-image');
+            if (output) {
+                output.src = reader.result;
+            } else {
+                var imagePreview = document.getElementById('ktp-image-preview');
+                output = document.createElement('img');
+                output.id = 'ktp-image';
+                output.src = reader.result;
+                output.classList.add('img-thumbnail');
+                imagePreview.appendChild(output);
+            }
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+@endpush
 

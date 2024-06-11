@@ -142,23 +142,32 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="akte" class="col-sm-2 col-form-label">Akte</label>
+                        <label for="akte" class="col-sm-2 col-form-label">Akte Kelahiran</label>
                         <div class="col-sm-10">
-                            <input type="file" class="form-control-file" id="akte" name="akte">
-                            @if ($warga->akte)
-                            <img src="{{ asset('storage/akte/' . basename($warga->akte)) }}" alt="Foto Akte"
-                                class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
-                            @endif
+                            <input type="file" class="form-control-file" id="akte" name="akte" onchange="previewAkte(event)">
+                            <div id="akte-image-preview" class="mt-2">
+                                <!-- Pratinjau gambar akan ditampilkan di sini -->
+                                @if($warga->akte)
+                                <img src="{{ asset('storage/akte_images/' . basename($warga->akte)) }}" alt="Foto AKTE" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
+                                @else
+                                <p class="text-center">Foto Akte Kelahiran tidak tersedia.</p>
+                                @endif
+                            </div>
                         </div>
                     </div>
+                    
                     <div class="form-group row">
                         <label for="ktp" class="col-sm-2 col-form-label">KTP</label>
                         <div class="col-sm-10">
-                            <input type="file" class="form-control-file" id="ktp" name="ktp">
-                            @if ($warga->ktp)
-                            <img src="{{ asset('storage/ktp_images/' . basename($warga->ktp)) }}" alt="Foto KTP"
-                                class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
-                            @endif
+                            <input type="file" class="form-control-file" id="ktp" name="ktp" onchange="previewKtp(event)">
+                            <div id="ktp-image-preview" class="mt-2">
+                                <!-- Pratinjau gambar akan ditampilkan di sini -->
+                                @if ($warga->ktp)
+                                <img src="{{ asset('storage/ktp_images/' . basename($warga->ktp)) }}" alt="Foto KTP" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
+                                @else
+                                <p class="text-center">Foto KTP tidak tersedia.</p>
+                                @endif
+                            </div>
                         </div>
                     </div>
                     <div class="form-group  mb-3">

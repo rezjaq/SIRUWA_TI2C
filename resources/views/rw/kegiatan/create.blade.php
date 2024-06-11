@@ -23,7 +23,7 @@
                 <a href="{{ route('kegiatan.index') }}" class="btn btn-sm btn-light me-2">
                     <i class="fas fa-arrow-left"></i>
                 </a>
-                Form untuk kegiatan desa
+                Form untuk menambah kegiatan desa
             </h4>
         </div>
     </div>
@@ -56,11 +56,14 @@
                             <label for="deskripsi" lass="col-sm-2 col-form-label">Deskripsi</label>
                             <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="foto" lass="col-sm-2 col-form-label">Foto</label>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="foto" name="foto" aria-describedby="inputGroupFileAddon" placeholder=" ">
-                                <label class="custom-file-label" for="foto"> </label>
+                        <div class="form-group row">
+                            <label for="foto" class="col-sm-2 col-form-label">Foto</label>
+                            <div class="col-sm-10">
+                                <input type="file" class="form-control-file" id="foto" name="foto" accept="image/*" onchange="previewFoto(event)">
+                                <small class="form-text text-muted">Unggah gambar dalam format .jpg, .jpeg, atau .png</small>
+                                <div class="mt-2" id="foto-image-preview">
+                                    <!-- Pratinjau gambar akan ditampilkan di sini -->
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -113,4 +116,27 @@
     border-color: #025d37;
 }
 </style>
+@endpush
+
+@push('js')
+<script>
+    function previewFoto(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('foto-image-preview');
+            output.innerHTML = ''; // Hapus pratinjau yang ada sebelumnya
+            output.appendChild(createImageElement(reader.result));
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function createImageElement(src) {
+        var img = document.createElement('img');
+        img.src = src;
+        img.classList.add('img-fluid', 'img-thumbnail');
+        img.style.maxWidth = '100%';
+        img.style.height = 'auto';
+        return img;
+    }
+</script>
 @endpush
