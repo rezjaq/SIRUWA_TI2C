@@ -14,88 +14,109 @@ class AuthController extends Controller
         $user = Auth::user();
 
         if ($user) {
-            if ($user->level == 'RW') {
-                return redirect()->intended('RW');
-            } elseif ($user->level == 'RT') {
-                return redirect()->intended('RT');
-            } elseif ($user->level == 'warga') {
-                return redirect()->intended('warga')->with('user', $user);
+            switch ($user->level) {
+                case 'RW':
+                    return redirect()->intended('RW');
+                case 'RT':
+                    return redirect()->intended('RT');
+                case 'warga':
+                    return redirect()->intended('warga')->with('user', $user);
+                default:
+                    return redirect()->intended('/');
             }
         }
+
         return view('login');
     }
 
-        public function proses_login(Request $request)
-{
-    $request->validate([
-        'nik' => 'required',
-        'password' => 'required'
-    ]);
+    public function proses_login(Request $request)
+    {
+        $request->validate([
+            'nik' => 'required',
+            'password' => 'required'
+        ]);
 
-    $user = Warga::where('nik', $request->nik)->first();
+        $user = Warga::where('nik', strtolower($request->nik))
+            ->orWhere('nama', strtolower($request->nik))
+            ->first();
 
-    if ($user) {
-        // Check if the password matches the non-hashed version
-        if ($request->password === $user->password) {
-            Auth::login($user);
+        if ($user) {
+            // Check if the password matches the non-hashed version
+            if ($request->password === $user->password) {
+                Auth::login($user);
 
-            session()->flash('success', 'Selamat datang, ' . $user->nama);
+                session()->flash('success', 'Selamat datang, ' . $user->nama);
 
-            if ($request->nik === $request->password) {
-                session(['change_password' => true]);
+                if ($request->nik === $request->password) {
+                    session(['change_password' => true]);
+                }
+
+                // Redirect based on user level
+                switch ($user->level) {
+                    case 'RW':
+                        return redirect()->intended('RW');
+                    case 'RT':
+                        return redirect()->intended('RT');
+                    case 'warga':
+                        return redirect()->intended('warga')->with('user', $user);
+                    default:
+                        return redirect()->intended('/');
+                }
+            } else {
+                // Specific error message for non-hashed password mismatch
+                return redirect('login')
+                    ->withInput()
+                    ->withErrors(['login_gagal' => 'Password yang dimasukkan salah']);
             }
 
-            // Redirect based on user level
-            switch ($user->level) {
-                case 'RW':
-                    return redirect()->intended('RW');
-                case 'RT':
-                    return redirect()->intended('RT');
-                case 'warga':
-                    return redirect()->intended('warga')->with('user', $user);
-                default:
-                    return redirect()->intended('/');
+            // Check if the password matches the hashed version
+            if (Hash::check($request->password, $user->password)) {
+                Auth::login($user);
+
+                session()->flash('success', 'Selamat datang, ' . $user->nama);
+
+                if ($request->nik === $request->password) {
+                    session(['change_password' => true]);
+                }
+
+                // Redirect based on user level
+                switch ($user->level) {
+                    case 'RW':
+                        return redirect()->intended('RW');
+                    case 'RT':
+                        return redirect()->intended('RT');
+                    case 'warga':
+                        return redirect()->intended('warga')->with('user', $user);
+                    default:
+                        return redirect()->intended('/');
+                }
+            } else {
+                // General error message for login failure
+                return redirect('login')
+                    ->withInput()
+                    ->withErrors(['login_gagal' => 'Pastikan kembali username dan password yang dimasukkan sudah benar']);
             }
-        } else {
-            // Specific error message for non-hashed password mismatch
-            return redirect('login')
-                ->withInput()
-                ->withErrors(['login_gagal' => 'Password yang dimasukkan salah']);
         }
 
-        // Check if the password matches the hashed version
-        if (Hash::check($request->password, $user->password)) {
-            Auth::login($user);
-
-            session()->flash('success', 'Selamat datang, ' . $user->nama);
-
-            if ($request->nik === $request->password) {
-                session(['change_password' => true]);
-            }
-
-            // Redirect based on user level
-            switch ($user->level) {
-                case 'RW':
-                    return redirect()->intended('RW');
-                case 'RT':
-                    return redirect()->intended('RT');
-                case 'warga':
-                    return redirect()->intended('warga')->with('user', $user);
-                default:
-                    return redirect()->intended('/');
-            }
-        } else {
-            // General error message for login failure
-            return redirect('login')
-                ->withInput()
-                ->withErrors(['login_gagal' => 'Pastikan kembali username dan password yang dimasukkan sudah benar']);
-        }
+        return redirect('login')
+            ->withInput()
+            ->withErrors(['login_gagal' => 'Pastikan kembali username dan password yang dimasukkan sudah benar']);
     }
 
-    return redirect('login')
-        ->withInput()
-        ->withErrors(['login_gagal' => 'Pastikan kembali username dan password yang dimasukkan sudah benar']);
-}
+
+    private function redirectUserBasedOnLevel($user)
+    {
+        switch ($user->level) {
+            case 'RW':
+                return redirect()->intended('RW');
+            case 'RT':
+                return redirect()->intended('RT');
+            case 'warga':
+                return redirect()->intended('warga')->with('user', $user);
+            default:
+                return redirect()->intended('/');
+        }
+    }
 
 
     public function changePassword(Request $request)
