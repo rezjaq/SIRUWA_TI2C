@@ -4,6 +4,7 @@ namespace App\Http\Controllers\RW;
 
 use App\Http\Controllers\Controller;
 use App\Models\UsahaWarga;
+use App\Models\Warga;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,11 +22,11 @@ class ApproveUmkm extends Controller
 
         $activeMenu = 'pengajuan';
         $user = Auth::user();
-
+        $warga = Warga::all();
         // Ambil data UsahaWarga dengan status pending
         $usahaWarga = UsahaWarga::where('status', 'pending')->get();
 
-        return view('rw.pengajuan_umkm.index', compact('breadcrumb', 'page', 'activeMenu', 'usahaWarga', 'user'));
+        return view('rw.pengajuan_umkm.index', compact('breadcrumb', 'page', 'activeMenu', 'usahaWarga', 'user', 'warga'));
     }
     public function approve($id)
     {

@@ -77,10 +77,9 @@ class Verifikasi extends Controller
             if ($warga->status == 'disetujui' && $warga->verif == 'belum_terverifikasi') {
                 $warga->verif = 'tidak_terverifikasi';
             } elseif ($warga->status == 'belum_disetujui') {
-                $warga->status = 'tidak_disetujui';
+                $warga->delete();
             }
             $warga->save();
-            $warga->delete();
             return response()->json(['success' => 'Data warga telah ditolak.']);
         }
         return response()->json(['error' => 'Data warga tidak ditemukan.'], 404);

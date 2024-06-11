@@ -29,7 +29,7 @@
                     @foreach($usahaWarga as $usaha)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $user->nama }}</td>
+                            <td>{{ $usaha->warga->nama }}</td>
                             <td>{{ $usaha->nama_usaha }}</td>
                             <td>{{ $usaha->jenis_usaha }}</td>
                             <td>{{ $usaha->alamat_usaha }}</td>

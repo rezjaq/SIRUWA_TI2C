@@ -41,7 +41,7 @@
                             <td>{{ $form->judul }}</td>
                             <td>{{ $form->deskripsi }}</td>                           
                             <td class="text-center">
-                                <a href="{{ route('warga.form_surat.preview', $form->id) }}" class="btn btn-success">Lihat</a>
+                                {{-- <a href="{{ route('warga.form_surat.preview', $form->id) }}" class="btn btn-success">Lihat</a> --}}
                                 <a href="{{ asset('storage/' . $form->file_path) }}" class="btn btn-success" download>Unduh</a>
                             </td>
                         </tr>

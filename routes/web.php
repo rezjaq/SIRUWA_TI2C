@@ -74,7 +74,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/warga', [DashboardWargaController::class, 'index'])->name('dashboard-warga');
         Route::prefix('pengajuan_surat')->group(function () {
             Route::get('/surat-tetap', [PengajuanSuratController::class, 'suratTetap'])->name('warga-tetap');
-            Route::get('/{id}/preview', [PengajuanSuratController::class, 'previewForm'])->name('warga.form_surat.preview');
+            // Route::get('/{id}/preview', [PengajuanSuratController::class, 'previewForm'])->name('warga.form_surat.preview');
             // Route::get('/surat-pindah', [PengajuanSuratController::class, 'suratPindah'])->name('warga-pindah');
         });
 

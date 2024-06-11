@@ -21,7 +21,7 @@ class AprrovePengaduan extends Controller
         $activeMenu = 'pengaduan';
 
         // Ambil pengaduan yang telah disetujui atau ditolak
-        $aduans = Aduan::whereIn('status_aduan', ['approved', 'rejected'])->get();
+        $aduans = Aduan::whereIn('status_aduan', ['pending'])->get();
 
         return view('rw.pengaduan.index', compact('breadcrumb', 'page', 'activeMenu', 'aduans'));
     }

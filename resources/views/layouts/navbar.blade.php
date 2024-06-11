@@ -50,8 +50,8 @@
                             UMKM
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="bansosDropdown">
-                            <li><a class="dropdown-item" href="{{ route('umkm') }}">Status Pengajuan</a></li>
-                            <li><a class="dropdown-item" href="{{ route('umkm.show') }}">Macam Macam UMKM</a></li>
+                            <li><a class="dropdown-item" href="{{ route('umkm.show') }}">Status Pengajuan</a></li>
+                            <li><a class="dropdown-item" href="{{ route('umkm') }}">Macam Macam UMKM</a></li>
                             <li><a class="dropdown-item" href="{{ route('pengajuan-umkm.create') }}">Pengajuan UMKM</a></li>
                         </ul>
                     </li>
