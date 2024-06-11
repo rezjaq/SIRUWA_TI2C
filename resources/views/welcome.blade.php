@@ -118,122 +118,99 @@
 
 <body>
 
-    {{-- navbar --}}
-    <nav class="navbar navbar-expand-lg navbar-dark py-3 fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="{{ asset('assets/img/siruwa.png') }}" height="55" width="55" alt="">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
-                @auth
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::routeIs('dashboard-warga') ? 'active' : '' }}"
-                                aria-current="page" href="{{ route('dashboard-warga') }}">Beranda</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link {{ Request::routeIs('warga-tetap') || Request::routeIs('warga-pindah') ? 'active' : '' }}"
-                                href="#" id="pengajuanDropdown" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                Pengajuan Surat
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="pengajuanDropdown">
-                                <li><a class="dropdown-item" href="{{ route('warga-tetap') }}">Surat Warga Tetap</a></li>
-                                <li><a class="dropdown-item" href="{{ route('warga-pindah') }}">Surat Warga Pindahan</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link "
-                                {{ Request::routeIs('warga.Warga.index') || Request::routeIs('warga.keluarga.index') ? 'active' : '' }}"
-                                href="#" id="dataWargaDropdown" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                Pengecekan Data
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="dataWargaDropdown">
-                                <li><a class="dropdown-item" href="{{ route('warga.Warga.index') }}">Data Warga</a></li>
-                                <li><a class="dropdown-item" href="{{ route('warga.keluarga.index') }}">Data Keluarga</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link  {{ Request::routeIs('bansos.*') ? 'active' : '' }}" href="#"
-                                id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Bantuan Sosial
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="bansosDropdown">
-                                <li><a class="dropdown-item" href="{{ route('warga.bansos.create') }}">Pengajuan</a></li>
-                                <li><a class="dropdown-item" href="{{ route('warga.bansos.penerima') }}">Daftar Penerima
-                                        Bansos</a></li>
-                                {{-- <li><a class="dropdown-item" href="{{ route('pengajuan-bansos') }}">Pengajuan</a></li>
-                            <li><a class="dropdown-item" href="{{ route('daftar-penerima-bansos') }}">Daftar Penerima Bansos</a></li> --}}
-                            </ul>
-                        </li>
+     {{-- navbar --}}
+        <nav class="navbar navbar-expand-lg navbar-dark py-3 fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="{{ asset('assets/img/siruwa.png') }}" height="55" width="55" alt="">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+                    @auth
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::routeIs('dashboard-warga') ? 'active' : '' }}" aria-current="page" href="{{ route('dashboard-warga') }}">Beranda</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::routeIs('warga-tetap') ? 'active' : '' }}" aria-current="page" href="{{ route('warga-tetap') }}">Surat</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" {{ Request::routeIs('warga.Warga.index') || Request::routeIs('warga.keluarga.index') ? 'active' : '' }}" href="#" id="dataWargaDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Pengecekan Data
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dataWargaDropdown">
+                                    <li><a class="dropdown-item" href="{{ route('warga.Warga.index') }}">Data Warga</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('warga.keluarga.index') }}">Data Keluarga</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle {{ Request::routeIs('bansos.*') ? 'active' : '' }}" href="#" id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Bantuan Sosial
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="bansosDropdown">
+                                    <li><a class="dropdown-item" href="{{ route('warga.bansos.create') }}">Pengajuan</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('warga.bansos.penerima') }}">Daftar Penerima Bansos</a></li>
+                                </ul>
+                            </li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link  {{ Request::routeIs('pengaduan.*') ? 'active' : '' }}" href="#"
-                                id="pengaduanDropdown" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">Pengaduan Warga</a>
-                            <ul class="dropdown-menu" aria-labelledby="pengaduanDropdown">
-                                <li><a class="dropdown-item {{ Request::routeIs('pengaduan') ? 'active' : '' }}"
-                                        href="{{ route('pengaduan') }}">Ajukan Pengaduan</a></li>
-                                <li><a class="dropdown-item {{ Request::routeIs('pengaduan.history') ? 'active' : '' }}"
-                                        href="{{ route('pengaduan.history') }}">List Pengaduan</a></li>
-                            </ul>
-                        </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle {{ Request::routeIs('pengaduan.*') ? 'active' : '' }}" href="#" id="pengaduanDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pengaduan Warga</a>
+                                <ul class="dropdown-menu" aria-labelledby="pengaduanDropdown">
+                                    <li><a class="dropdown-item {{ Request::routeIs('pengaduan') ? 'active' : '' }}" href="{{ route('pengaduan') }}">Ajukan Pengaduan</a></li>
+                                    <li><a class="dropdown-item {{ Request::routeIs('pengaduan.history') ? 'active' : '' }}" href="{{ route('pengaduan.history') }}">List Pengaduan</a></li>
+                                </ul>
+                            </li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link  {{ Request::routeIs('pengajuan-umkm*') ? 'active' : '' }}" href="#"
-                                id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                UMKM
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="bansosDropdown">
-                                <li><a class="dropdown-item" href="{{ route('pengajuan-umkm') }}">Macam Macam UMKM</a>
-                                </li>
-                                <li><a class="dropdown-item" href="{{ route('pengajuan-umkm.create') }}">Pengajuan
-                                        UMKM</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <div class="d-flex align-items-center">
-                        <a href="{{ route('logout') }}" class="btn btn-custom me-3">Logout</a>
-                        <div class="profile">
-                            {{-- <a href="{{ route('profil') }}" class="d-flex align-items-center profile-link">
-                                <i class="fas fa-user-circle"></i>
-                            </a> --}}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle {{ Request::routeIs('pengajuan-umkm*') ? 'active' : '' }}" href="#" id="bansosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    UMKM
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="bansosDropdown">
+                                    <li><a class="dropdown-item" href="{{ route('umkm') }}">Status Pengajuan</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('umkm.show') }}">Macam Macam UMKM</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('umkm.create') }}">Pengajuan UMKM</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="d-flex align-items-center">
+                            <a href="{{ route('logout') }}" class="btn btn-custom me-3">Logout</a>
+                            <div class="profile">
+                                <a href="{{ route('profil') }}" class="d-flex align-items-center profile-link">
+                                    <i class="fas fa-user-circle"></i>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                @else
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Beranda</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#berita">Berita</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#upcoming-events">Kegiatan</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#foto">Dokumentasi</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('wargaPindah.create') }}">Warga Pindahan</a>
-                        </li>
-                    </ul>
-                    <div class="d-flex">
-                        <a href="{{ route('login') }}" class="btn btn-success">Login</a>
-                    </div>
-                @endauth
+                    @else
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Beranda</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#berita">Berita</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#upcoming-events">Kegiatan</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#foto">Dokumentasi</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('wargaPindah.create') }}">Warga Pindahan</a>
+                            </li>
+                        </ul>
+                        <div class="d-flex">
+                            <a href="{{ route('login') }}" class="btn btn-success">Login</a>
+                        </div>
+                    @endauth
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
     {{-- navbar --}}
+
 
 
 
@@ -249,80 +226,65 @@
     </section>
 
     {{-- program --}}
-    <section id="program" class="mt-4">
-        <div class="program-container fade-up">
-            <div class="program-baris-ikon">
-                <div class="program-ikon dropdown">
-                    <a href="#" class="dropdown-toggle text-decoration-none" id="dropdownMenuLink"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ asset('assets/icon/2.png') }}" alt="Pengajuan Surat">
-                        <div class="program-title">Pengajuan Surat</div>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item check-login" href="{{ route('warga-tetap') }}">Surat Warga
-                                Tetap</a></li>
-                        <li><a class="dropdown-item check-login" href="{{ route('warga-pindah') }}">Surat Warga
-                                Pindahan</a></li>
-                    </ul>
-                </div>
-                <div class="program-ikon dropdown">
-                    <a href="#" class="dropdown-toggle text-decoration-none" id="dropdownMenuLink"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ asset('assets/icon/3.png') }}" alt="Pengajuan Surat">
-                        <div class="program-title">Pengaduan Warga</div>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item check-login" href="{{ route('pengaduan') }}">Ajukan Pengaduan</a>
-                        </li>
-                        <li><a class="dropdown-item check-login" href="{{ route('pengaduan.history') }}">List
-                                Pengaduan</a></li>
-                    </ul>
-                </div>
-                <div class="program-ikon dropdown">
-                    <a href="#" class="dropdown-toggle text-decoration-none" id="dropdownMenuLink"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ asset('assets/icon/4.png') }}" alt="UMKM Warga">
-                        <div class="program-title">UMKM Warga</div>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item check-login" href="{{ route('pengajuan-umkm') }}">Macam-Macam
-                                UMKM</a></li>
-                        <li><a class="dropdown-item check-login"
-                                href="{{ route('pengajuan-umkm.create') }}">Pengajuan UMKM</a>
-                        </li>
-                    </ul>
-                </div>
-                <a href="{{ route('bansos') }}" class="program-ikon check-login" aria-label="Bantuan Sosial">
-                    <img src="{{ asset('assets/icon/5.png') }}" alt="Bantuan Sosial">
-                    <div class="program-title">Bantuan Sosial</div>
+        <section id="program" class="mt-4">
+            <div class="program-container fade-up">
+                <div class="program-baris-ikon">
+                    <div class="program-ikon dropdown">
+                        <a href="#" class="dropdown-toggle text-decoration-none" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{ asset('assets/icon/2.png') }}" alt="Pengajuan Surat">
+                            <div class="program-title">Pengajuan Surat</div>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item check-login" href="{{ route('warga-tetap') }}">Surat Warga Tetap</a></li>
+                        </ul>
+                    </div>
+                    <div class="program-ikon dropdown">
+                        <a href="#" class="dropdown-toggle text-decoration-none" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{ asset('assets/icon/3.png') }}" alt="Pengajuan Surat">
+                            <div class="program-title">Pengaduan Warga</div>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item check-login" href="{{ route('pengaduan') }}">Ajukan Pengaduan</a></li>
+                            <li><a class="dropdown-item check-login" href="{{ route('pengaduan.history') }}">List Pengaduan</a></li>
+                        </ul>
+                    </div>
+                    <div class="program-ikon dropdown">
+                        <a href="#" class="dropdown-toggle text-decoration-none" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{ asset('assets/icon/4.png') }}" alt="UMKM Warga">
+                            <div class="program-title">UMKM Warga</div>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="{{ route('umkm.show') }}">Status Pengajuan</a></li>
+                            <li><a class="dropdown-item" href="{{ route('umkm') }}">Macam Macam UMKM</a></li>
+                            <li><a class="dropdown-item" href="{{ route('umkm.create') }}">Pengajuan UMKM</a></li>
+                        </ul>
+                    </div>
+                    <a href="{{ route('bansos') }}" class="program-ikon check-login" aria-label="Bantuan Sosial">
+                        <img src="{{ asset('assets/icon/5.png') }}" alt="Bantuan Sosial">
+                        <div class="program-title">Bantuan Sosial</div>
 
-                </a>
-                <a href="{{ route('warga.bansos.create') }}" class="program-ikon check-login"
-                    aria-label="Pengajuan Bansos">
-                    <img src="{{ asset('assets/icon/bansos.png') }}" alt="Pengajuan Bansos">
-                    <div class="program-title">Pengajuan Bansos</div>
-                </a>
-                <a href="{{ route('warga.bansos.penerima') }}" class="program-ikon check-login"
-                    aria-label="Penerima Bansos">
-                    <img src="{{ asset('assets/icon/penerima.png') }}" alt="Penerima Bansos">
-                    <div class="program-title">Penerima Bansos</div>
-                </a>
-                <div class="program-ikon dropdown">
-                    <a href="#" class="dropdown-toggle text-decoration-none" id="dropdownMenuLink"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ asset('assets/icon/pengecekan.png') }}" alt="Pengecekan Data">
-                        <div class="program-title">Pengecekan Data</div>
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item check-login" href="{{ route('warga.Warga.index') }}">Data
-                                Warga</a></li>
-                        <li><a class="dropdown-item check-login" href="{{ route('warga.keluarga.index') }}">Data
-                                Kepala Keluarga</a></li>
-                    </ul>
+                    <a href="{{ route('warga.bansos.create') }}" class="program-ikon check-login" aria-label="Pengajuan Bansos">
+                        <img src="{{ asset('assets/icon/bansos.png') }}" alt="Pengajuan Bansos">
+                        <div class="program-title">Pengajuan Bansos</div>
+                    </a>
+                    <a href="{{ route('warga.bansos.penerima') }}" class="program-ikon check-login" aria-label="Penerima Bansos">
+                        <img src="{{ asset('assets/icon/penerima.png') }}" alt="Penerima Bansos">
+                        <div class="program-title">Penerima Bansos</div>
+                    </a>
+                    <div class="program-ikon dropdown">
+                        <a href="#" class="dropdown-toggle text-decoration-none" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{ asset('assets/icon/pengecekan.png') }}" alt="Pengecekan Data">
+                            <div class="program-title">Pengecekan Data</div>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item check-login" href="{{ route('warga.Warga.index') }}">Data Warga</a></li>
+                            <li><a class="dropdown-item check-login" href="{{ route('warga.keluarga.index') }}">Data Kepala Keluarga</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
     {{-- program --}}
 
     <br><br><br><br>

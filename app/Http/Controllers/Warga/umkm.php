@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\UsahaWarga;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class umkm extends Controller
 {
@@ -18,15 +19,20 @@ class umkm extends Controller
                     'label' => 'UMKM Warga',
                     'dropdown' => true,
                     'links' => [
-                        ['url' => route('pengajuan-umkm'), 'label' => 'Daftar UMKM Warga'],
-                        ['url' => route('pengajuan-umkm.create'), 'label' => 'Pengajuan UMKM'],
-                    ],
+                        ['url' => route('umkm'), 'label' => 'Daftar UMKM Warga'],
+                        ['url' => route('umkm.create'), 'label' => 'Pengajuan UMKM'],
+                        ['url' => route('umkm.show'), 'label' => 'Pengajuan UMKM']
+                    ]
                 ],
-                ['label' => 'UMKM Warga', 'url' => route('pengajuan-umkm.create')],
-            ],
+                ['label' => 'UMKM Warga', 'url' => route('umkm.create')]
+            ]
         ];
 
-        return view('warga.umkm.umkm', ['breadcrumb' => $breadcrumb]);
+        $user = Auth::user();
+        $usahaWarga = UsahaWarga::where('status', 'approved')
+            ->get();
+
+        return view('warga.umkm.umkm', ['breadcrumb' => $breadcrumb, 'usahaWarga' => $usahaWarga]);
     }
 
     public function create()
@@ -38,12 +44,12 @@ class umkm extends Controller
                     'label' => 'UMKM',
                     'dropdown' => true,
                     'links' => [
-                        ['url' => route('pengajuan-umkm'), 'label' => 'Daftar UMKM Warga'],
-                        ['url' => route('pengajuan-umkm.create'), 'label' => 'Pengajuan UMKM'],
-                    ],
+                        ['url' => route('umkm'), 'label' => 'Daftar UMKM Warga'],
+                        ['url' => route('umkm.create'), 'label' => 'Pengajuan UMKM']
+                    ]
                 ],
-                ['label' => 'Pengajuan UMKM', 'url' => route('pengajuan-umkm.create')],
-            ],
+                ['label' => 'Pengajuan UMKM', 'url' => route('umkm.create')]
+            ]
         ];
 
         $user = Auth::user();
@@ -92,19 +98,39 @@ class umkm extends Controller
                     'label' => 'UMKM Warga',
                     'dropdown' => true,
                     'links' => [
-                        ['url' => route('pengajuan-umkm'), 'label' => 'Daftar UMKM Warga'],
-                        ['url' => route('pengajuan-umkm.create'), 'label' => 'Pengajuan UMKM'],
-                    ],
+                        ['url' => route('umkm'), 'label' => 'Daftar UMKM Warga'],
+                        ['url' => route('umkm.create'), 'label' => 'Pengajuan UMKM']
+                    ]
                 ],
-                ['label' => 'List UMKM Warga', 'url' => route('pengajuan-umkm.create')],
-            ],
+                ['label' => 'List UMKM Anda', 'url' => route('umkm.create')]
+            ]
         ];
 
-        // kasih notifikasi jika sudah di approve
-        $usahaWarga = UsahaWarga::where('status', 'approved')
+        $user = Auth::user();
+        $usahaWarga = UsahaWarga::where('nik_warga', $user->nik)
+            ->whereIn('status', ['approved', 'rejected'])
             ->get();
 
-        return view('warga.umkm.umkm', ['breadcrumb' => $breadcrumb, 'usahaWarga' => $usahaWarga]);
+        return view('warga.umkm.show', ['breadcrumb' => $breadcrumb, 'usahaWarga' => $usahaWarga]);
+    }
+
+    public function destroy($id_ushaWarga)
+    {
+        $usahaWarga = UsahaWarga::findOrFail($id_ushaWarga);
+
+        // Check if the authenticated user is the owner
+        if ($usahaWarga->nik_warga != Auth::user()->nik) {
+            return redirect()->route('pengajuan-umkm')->with('error', 'Anda tidak memiliki hak untuk menghapus pengajuan ini.');
+        }
+
+        // Delete the photo from storage if exists
+        if ($usahaWarga->foto) {
+            Storage::delete('public/' . $usahaWarga->foto);
+        }
+
+        $usahaWarga->delete();
+
+        return redirect()->route('pengajuan-umkm')->with('success', 'Pengajuan UMKM berhasil dihapus.');
     }
 
 }

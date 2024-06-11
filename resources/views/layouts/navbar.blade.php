@@ -50,6 +50,7 @@
                                     Bansos</a></li>
                         </ul>
                     </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link  {{ Request::routeIs('pengaduan') || Request::routeIs('pengaduan.*') ? 'active' : '' }}"
                             href="#" id="pengaduanDropdown" role="button" data-bs-toggle="dropdown"
@@ -67,6 +68,14 @@
                             UMKM
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="bansosDropdown">
+                            <li><a class="dropdown-item" href="{{ route('umkm.show') }}">Status Pengajuan</a></li>
+                            <li><a class="dropdown-item" href="{{ route('umkm') }}">Macam Macam UMKM</a></li>
+                            <li><a class="dropdown-item" href="{{ route('umkm.create') }}">Pengajuan UMKM</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <a href="{{ route('logout') }}" class="btn btn-custom me-3">Logout</a>
                             <li><a class="dropdown-item" href="{{ route('pengajuan-umkm') }}">Macam Macam UMKM</a></li>
                             <li><a class="dropdown-item" href="{{ route('pengajuan-umkm.create') }}">Pengajuan UMKM</a>
                             </li>
@@ -95,6 +104,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#foto">Dokumentasi</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('wargaPindah.create') }}">Warga Pindahan</a>
+                    </li>
                 </ul>
                 <div class="d-flex">
                     <a href="{{ route('login') }}" class="btn btn-success">Login</a>
@@ -103,6 +115,7 @@
         </div>
     </div>
 </nav>
+
 {{-- navbar --}}
 <style>
     .profile {
