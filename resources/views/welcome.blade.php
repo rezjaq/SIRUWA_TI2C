@@ -240,7 +240,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <li><a class="dropdown-item check-login" href="{{ route('warga-tetap') }}">Surat Warga Tetap</a></li>
-                            <li><a class="dropdown-item check-login" href="{{ route('warga-pindah') }}">Surat Warga Pindahan</a></li>
+                            {{-- <li><a class="dropdown-item check-login" href="{{ route('warga-pindah') }}">Surat Warga Pindahan</a></li> --}}
                         </ul>
                     </div>
                     <div class="program-ikon dropdown">
