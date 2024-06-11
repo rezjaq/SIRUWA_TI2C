@@ -338,7 +338,7 @@
                             <div class="card">
                                 @if ($item->foto)
                                     <div class="card-img">
-                                        <img src="{{ asset('storage/public/' . $item->foto) }}"
+                                        <img src="{{ asset('storage/' . $item->foto) }}"
                                             alt="{{ $item->nama_kegiatan }}"
                                             style="width: 100%; height: 200px; object-fit: cover;">
                                     </div>
