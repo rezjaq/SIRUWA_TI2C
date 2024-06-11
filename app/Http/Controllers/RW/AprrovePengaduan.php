@@ -20,10 +20,12 @@ class AprrovePengaduan extends Controller
 
         $activeMenu = 'pengaduan';
 
-        $aduans = Aduan::where('status_aduan', 'pending')->get();
+        // Ambil pengaduan yang telah disetujui atau ditolak
+        $aduans = Aduan::whereIn('status_aduan', ['approved', 'rejected'])->get();
 
         return view('rw.pengaduan.index', compact('breadcrumb', 'page', 'activeMenu', 'aduans'));
     }
+
 
     public function approve(Request $request, $id)
     {
@@ -60,6 +62,14 @@ class AprrovePengaduan extends Controller
 
         $aduan = Aduan::findOrFail($id);
         return view('rw.pengaduan.detail', compact('breadcrumb', 'page', 'activeMenu', 'aduan'));
+    }
+
+    public function delete($id)
+    {
+        $aduan = Aduan::findOrFail($id);
+        $aduan->delete();
+
+        return redirect()->route('admin.pengaduan')->with('success', 'Pengaduan telah dihapus.');
     }
 }
 

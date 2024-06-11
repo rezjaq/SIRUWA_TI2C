@@ -84,9 +84,6 @@ class umkm extends Controller
         return redirect()->route('pengajuan-umkm')->with('success', 'Pengajuan UMKM berhasil dikirim tunggu vertifikasi dari pihak Ketua RW');
     }
 
-
-
-
     public function show()
     {
         $breadcrumb = [

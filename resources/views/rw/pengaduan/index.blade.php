@@ -33,6 +33,11 @@
                             <td>{{ $aduan->tanggal }}</td>
                             <td>
                                 <a href="{{ route('admin.pengaduan.detail', $aduan->id_aduan) }}" class="btn btn-primary">Detail</a>
+                                <form action="{{ route('admin.pengaduan.delete', $aduan->id_aduan) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus pengaduan ini?')">Delete</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
@@ -65,6 +70,16 @@
         .btn-primary:hover {
             background-color: #025C3A !important;
             border-color: #025C3A !important;
+        }
+
+        .btn-danger {
+            background-color: #DC3545 !important;
+            border-color: #DC3545 !important;
+        }
+
+        .btn-danger:hover {
+            background-color: #C82333 !important;
+            border-color: #C82333 !important;
         }
 
         .table th,

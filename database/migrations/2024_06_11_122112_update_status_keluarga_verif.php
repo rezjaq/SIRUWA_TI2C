@@ -5,8 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -17,9 +16,9 @@ return new class extends Migration
             ->whereNotNull('status') // Pilih baris yang kolom 'status' tidak null
             ->whereNotNull('verif')  // Pilih baris yang kolom 'verif' tidak null
             ->update([
-                'status' => 'disetujui',
-                'verif' => 'diverifikasi',
-            ]);
+                    'status' => 'disetujui',
+                    'verif' => 'diverifikasi',
+                ]);
     }
 
     /**
@@ -27,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('keluarga', function (Blueprint $table) {
-            //
-        });
+        //
     }
 };

@@ -201,6 +201,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/pengaduan/{id}', [AprrovePengaduan::class, 'detail'])->name('admin.pengaduan.detail');
             Route::post('/{id}/approve', [AprrovePengaduan::class, 'approve'])->name('pengaduan.approve');
             Route::post('/{id}/reject', [AprrovePengaduan::class, 'reject'])->name('pengaduan.reject');
+            Route::delete('/pengaduan/delete/{id}', [AprrovePengaduan::class, 'delete'])->name('admin.pengaduan.delete');
         });
         Route::prefix('/pengajuan-umkm')->group(function () {
             Route::get('/', [ApproveUmkm::class, 'index'])->name('admin.pengajuan');
