@@ -99,10 +99,13 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::prefix('umkm')->group(function () {
             Route::get('/', [UmkmController::class, 'index'])->name('umkm');
-            Route::get('/pengajuan-umkm', [UmkmController::class, 'show'])->name('pengajuan-umkm');
+            // Route::get('/pengajuan-umkm', [UmkmController::class, 'show'])->name('pengajuan-umkm');
             Route::get('/umkm/create', [UmkmController::class, 'create'])->name('umkm.create');
             Route::post('/umkm/store', [UmkmController::class, 'store'])->name('umkm.store');
+            Route::delete('/umkm/{id}', [UmkmController::class, 'destroy'])->name('umkm.destroy');
+            Route::get('/show', [UmkmController::class, 'show'])->name('umkm.show');
         });
+
 
         // ->middleware('auth')
         Route::prefix('/data-keluarga')->middleware('auth')->group(function () {
