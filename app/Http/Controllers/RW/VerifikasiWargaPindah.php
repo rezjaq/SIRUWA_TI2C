@@ -39,7 +39,7 @@ class VerifikasiWargaPindah extends Controller
             'tanggal_pindah',
 
         )
-            ->where('status','Proses'); // tambahkan kondisi untuk status 'Proses'
+            ->where('status', 'Proses'); // tambahkan kondisi untuk status 'Proses'
 
         return DataTables::of($warga)
             ->addIndexColumn()

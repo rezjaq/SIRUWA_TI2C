@@ -67,7 +67,7 @@
                         <label class="fw-bold">Foto Akte:</label>
                         @if($warga->foto_ktp)
                             <div class="text-center">
-                                <img src="{{ asset('storage/foto_ktp/' . basename($warga->foto_ktp)) }}" alt="Foto KTP" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
+                                <img src="{{ asset('storage/' . basename($warga->foto_ktp)) }}" alt="Foto KTP" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
                             </div>
                         @else
                             <p class="text-center">Foto KTP tidak tersedia.</p>
@@ -77,7 +77,7 @@
                         <label class="fw-bold">Foto Surat Pindah:</label>
                         @if($warga->foto_surat_pindah)
                             <div class="text-center">
-                                <img src="{{ asset('storage/foto_surat_pindah/' . basename($warga->foto_surat_pindah)) }}" alt="Foto Surat Pindah" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
+                                <img src="{{ asset('storage/' . basename($warga->foto_surat_pindah)) }}" alt="Foto Surat Pindah" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
                             </div>
                         @else
                             <p class="text-center">Foto Surat Pindah tidak tersedia.</p>

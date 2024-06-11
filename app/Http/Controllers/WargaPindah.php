@@ -49,12 +49,13 @@ class WargaPindah extends Controller
         $fotoKtpPath = null;
         if ($request->hasFile('foto_ktp')) {
             $fotoKtpPath = $request->file('foto_ktp')->store('public/foto_ktp');
+            $fotoKtpPath = str_replace('public/', '', $fotoKtpPath);
         }
 
-        // Simpan foto surat pindah jika diunggah
         $fotoSuratPindahPath = null;
         if ($request->hasFile('foto_surat_pindah')) {
             $fotoSuratPindahPath = $request->file('foto_surat_pindah')->store('public/foto_surat_pindah');
+            $fotoSuratPindahPath = str_replace('public/', '', $fotoSuratPindahPath);
         }
 
         // Simpan data warga baru
@@ -78,7 +79,9 @@ class WargaPindah extends Controller
             'status' => 'Proses',
         ]);
 
+
         return redirect()->route('wargaPindah.create')->with('success', 'Data berhasil ditambahkan tunggu konfirmasi oleh RT/RW setempat.');
     }
-    
+
+
 }

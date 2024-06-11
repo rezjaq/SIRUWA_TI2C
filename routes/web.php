@@ -106,7 +106,6 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/show', [UmkmController::class, 'show'])->name('umkm.show');
         });
 
-
         // ->middleware('auth')
         Route::prefix('/data-keluarga')->middleware('auth')->group(function () {
             Route::get('/', [WargaDataKeluargaController::class, 'index'])->name('warga.keluarga.index');
