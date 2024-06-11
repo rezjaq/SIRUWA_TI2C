@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sistem Informasi Rukun Warga</title>
     <link rel="shortcut icon" href="{{ asset('assets/icon/favicon.ico') }}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('assets/css/stylee.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
     <style>
         body {
-        background-color: #f5f5f5;
-        padding-top: 100px; 
-    }
+            background-color: #f5f5f5;
+            padding-top: 100px;
+        }
 
-    .navbar {
-        margin-bottom: 20px; 
-    }
+        .navbar {
+            margin-bottom: 20px;
+        }
     </style>
     @stack('css')
 </head>
+
 <body>
 
     <div class="container-scroller">
@@ -44,16 +47,16 @@
                 </div>
             </div>
         </section>
-        
+
         <!-- Footer -->
-        <div class="container-fluid p-0" style="height: 100px;"> 
+        <div class="container-fluid p-0" style="height: 100px;">
             @include('layouts.footer')
-          </div>
+        </div>
     </div>
 
     <!-- Scripts -->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const navbar = document.querySelector('.navbar');
             const isHomePage = window.location.pathname === '/'; // Adjust this if your home route is different
 
@@ -72,24 +75,32 @@
             window.addEventListener('scroll', checkScroll);
         });
     </script>
-    
+
     <script>
         function autoScrollDiv() {
             const container = document.querySelector('.carousel-container .row');
             let scrollAmount = 0;
             const scrollInterval = setInterval(function() {
                 if (scrollAmount < container.scrollWidth - container.clientWidth) {
-                    container.scrollBy({ left: 300, top: 0, behavior: 'smooth' });
+                    container.scrollBy({
+                        left: 300,
+                        top: 0,
+                        behavior: 'smooth'
+                    });
                     scrollAmount += 300;
                 } else {
-                    container.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
+                    container.scrollTo({
+                        left: 0,
+                        top: 0,
+                        behavior: 'smooth'
+                    });
                     scrollAmount = 0;
                 }
-            }, 5000); 
+            }, 5000);
         }
         document.addEventListener('DOMContentLoaded', autoScrollDiv);
     </script>
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const elements = document.querySelectorAll('.fade-up');
@@ -110,7 +121,7 @@
         });
     </script>
 
-    
+
 
     <!-- Scripts -->
     <script src="{{ asset('assets/js/breadcrumb.js') }}"></script>
@@ -118,8 +129,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
+
     <!-- Skrip JavaScript untuk aktivasi dropdown -->
     {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -135,7 +148,8 @@
             });
         });
     </script> --}}
-    
+
     @stack('js')
 </body>
+
 </html>

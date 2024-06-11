@@ -17,7 +17,9 @@
     <link rel="shortcut icon" href="{{ asset('asset/images/favicon.png') }}" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <!-- CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
 
     @stack('css')
 </head>
@@ -26,7 +28,7 @@
     <div class="container-scroller">
         @include('template-admin.header')
         <!-- partial -->
-        <div class="container-fluid page-body-wrapper">
+        <div class=" page-body-wrapper">
             @if (Auth::check())
                 @if (Auth::user()->level == 'RW')
                     @include('template-admin.sidebar')
@@ -62,7 +64,7 @@
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script src="{{ asset('asset/js/off-canvas.js') }}"></script>
-    <script src="{{ asset('asset/js/misc.js') }}"></script>
+    {{-- <script src="{{ asset('asset/js/misc.js') }}"></script> --}}
     <script src="{{ asset('asset/js/settings.js') }}"></script>
     <script src="{{ asset('asset/js/todolist.js') }}"></script>
     <script src="{{ asset('asset/js/jquery.cookie.js') }}"></script>
@@ -70,7 +72,7 @@
     <!-- Custom js for this page -->
     <script src="{{ asset('asset/js/dashboard.js') }}"></script>
     <!-- JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- End custom js for this page -->
     @stack('js')
