@@ -19,8 +19,8 @@ return new class extends Migration
         });
 
         // Ubah semua verif yang sudah ada menjadi 'diverifikasi'
-        DB::table('keluarga')->update(['verif' => 'diverifikasi']);
-        DB::table('keluarga')->update(['status' => 'disetujui']);
+        // DB::table('keluarga')->update(['verif' => 'diverifikasi']);
+        // DB::table('keluarga')->update(['status' => 'disetujui']);
     }
 
     /**
