@@ -100,7 +100,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::prefix('umkm')->group(function () {
             Route::get('/', [UmkmController::class, 'index'])->name('umkm');
             Route::get('/pengajuan-umkm', [UmkmController::class, 'show'])->name('pengajuan-umkm');
-            Route::get('/umkm/create', [UmkmController::class, 'create'])->name('umkm.create');
+            Route::get('/umkm/create', [UmkmController::class, 'create'])->name('pengajuan-umkm.create');
             Route::post('/umkm/store', [UmkmController::class, 'store'])->name('umkm.store');
         });
 

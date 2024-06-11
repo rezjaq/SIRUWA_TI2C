@@ -19,10 +19,10 @@ class PengaduanController extends Controller
                     'dropdown' => true,
                     'links' => [
                         ['url' => route('pengaduan'), 'label' => 'Form Pengaduan'],
-                    ]
+                    ],
                 ],
-                ['label' => 'Form Pengaduan', 'url' => route('pengaduan')]
-            ]
+                ['label' => 'Form Pengaduan', 'url' => route('pengaduan')],
+            ],
         ];
 
         $user = Auth::user();
@@ -67,12 +67,11 @@ class PengaduanController extends Controller
                     'dropdown' => true,
                     'links' => [
                         ['url' => route('pengaduan.history'), 'label' => 'List Pengaduan'],
-                    ]
+                    ],
                 ],
                 ['label' => 'List Pengaduan', 'url' => route('pengaduan.history')],
-            ]
+            ],
         ];
-
 
         $pengaduans = Aduan::latest()->get();
 
