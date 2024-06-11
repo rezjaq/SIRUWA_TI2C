@@ -61,7 +61,11 @@
                     <div class="form-group row">
                         <label for="foto" class="col-sm-2 col-form-label">Foto</label>
                         <div class="col-sm-10">
-                            <input type="file" class="form-control-file" id="foto" name="foto">
+                            <input type="file" class="form-control-file" id="foto" name="foto" accept="image/*" onchange="previewFoto(event)">
+                            <small class="form-text text-muted">Unggah gambar dalam format .jpg, .jpeg, atau .png</small>
+                            <div class="mt-2" id="foto-image-preview">
+                                <!-- Pratinjau gambar akan ditampilkan di sini -->
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -156,3 +160,24 @@
 </style>
 @endpush
 
+@push('js')
+    <script>
+        function previewFoto(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('foto-image');
+                if (output) {
+                    output.src = reader.result;
+                } else {
+                    var imagePreview = document.getElementById('foto-image-preview');
+                    output = document.createElement('img');
+                    output.id = 'foto-image';
+                    output.src = reader.result;
+                    output.classList.add('img-thumbnail');
+                    imagePreview.appendChild(output);
+                }
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+@endpush

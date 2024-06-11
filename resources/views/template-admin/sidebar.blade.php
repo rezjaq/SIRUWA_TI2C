@@ -1,9 +1,6 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item">
-
-            {{-- <a href="{{ url('/RT') }}" class="nav-link {{ ($activeMenu == 'dashboard') ? 'active' : '' }}"> --}}
-
             <a href="{{ url('/RW') }}" class="nav-link {{ ($activeMenu == 'dashboard') ? 'active' : '' }}">
 
                 <span class="menu-title">Dashboard</span>
@@ -11,7 +8,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ url('/DataRT') }}" class="nav-link {{ ($activeMenu == 'Data RT') ? 'active' : '' }}">
+            <a href="{{ url('/DataRT') }}" class="nav-link {{ ($activeMenu == 'DataRT') ? 'active' : '' }}">
                 <span class="menu-title">Data RT</span>
                 <i class="mdi mdi-account-multiple menu-icon"></i>
             </a>
@@ -29,7 +26,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ url('/Warga_Pindah') }}" class="nav-link {{ ($activeMenu == 'Warga Pindah') ? 'active' : '' }}">
+            <a href="{{ url('/Warga_Pindah') }}" class="nav-link {{ ($activeMenu == 'WargaPindah') ? 'active' : '' }}">
                 <span class="menu-title">warga Pindah</span>
                 <i class="mdi mdi-credit-card-multiple menu-icon"></i>
             </a>

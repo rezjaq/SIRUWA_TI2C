@@ -44,4 +44,20 @@ class ApproveUmkm extends Controller
 
         return redirect()->route('admin.pengajuan')->with('success', 'Pengajuan UMKM berhasil ditolak.');
     }
+
+    public function detail($id)
+    {
+        $breadcrumb = (object) [
+            'title' => 'Menu UMKM Warga',
+        ];
+
+        $page = (object) [
+            'title' => 'Mengelola UMKM'
+        ];
+
+        $activeMenu = 'umkm';
+        $user = Auth::user();
+        $usahaWarga = UsahaWarga::findOrFail($id);
+        return view('rw.pengajuan_umkm.detail', compact('breadcrumb', 'page', 'activeMenu', 'usahaWarga', 'user'));
+    }
 }

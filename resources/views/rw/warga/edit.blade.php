@@ -103,15 +103,17 @@
                             <input type="text" class="form-control" id="level" name="level" value="{{ $warga->level }}">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="id_keluarga">Keluarga</label>
-                        <select name="id_keluarga" id="id_keluarga" class="form-control">
-                            @foreach($keluargas as $keluarga)
-                            <option value="{{ $keluarga->id_keluarga }}" {{ $warga->id_keluarga == $keluarga->id_keluarga ? 'selected' : '' }}>
-                                {{ $keluarga->nama_kepala_keluarga }}
-                            </option>
-                            @endforeach
-                        </select>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="id_keluarga">Keluarga</label>
+                        <div class="col-sm-10">
+                            <select name="id_keluarga" id="id_keluarga" class="form-control">
+                                @foreach($keluargas as $keluarga)
+                                <option value="{{ $keluarga->id_keluarga }}" {{ $warga->id_keluarga == $keluarga->id_keluarga ? 'selected' : '' }}>
+                                    {{ $keluarga->nama_kepala_keluarga }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <!-- Input untuk status -->
                     <div class="form-group row">
@@ -142,28 +144,35 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="akte" class="col-sm-2 col-form-label">Akte</label>
-                        <div class="form-group mb-3">
-                            <label class="fw-bold">Foto Akte:</label>
-                            @if($warga->akte)
-                                <div class="text-center">
-                                    <img src="{{ asset('storage/' . $warga->akte) }}" alt="Foto Akte" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
-                                </div>
-                            @else
+                        <label for="akte" class="col-sm-2 col-form-label">Akte Kelahiran</label>
+                        <div class="col-sm-10">
+                            <input type="file" class="form-control-file" id="akte" name="akte" onchange="previewAkte(event)">
+                            <div id="akte-image-preview" class="mt-2">
+                                <!-- Pratinjau gambar akan ditampilkan di sini -->
+                                @if($warga->akte)
+                                <img src="{{ asset('storage/akte_images/' . basename($warga->akte)) }}" alt="Foto AKTE" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
+                                @else
                                 <p class="text-center">Foto Akte Kelahiran tidak tersedia.</p>
-                            @endif
+                                @endif
+                            </div>
                         </div>
                     </div>
+                    
                     <div class="form-group row">
                         <label for="ktp" class="col-sm-2 col-form-label">KTP</label>
                         <div class="col-sm-10">
-                            <input type="file" class="form-control-file" id="ktp" name="ktp">
-                            @if ($warga->ktp)
-                            <img src="{{ asset('storage/ktp_images/' . basename($warga->ktp)) }}" alt="Foto KTP"
-                                class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
-                            @endif
+                            <input type="file" class="form-control-file" id="ktp" name="ktp" onchange="previewKtp(event)">
+                            <div id="ktp-image-preview" class="mt-2">
+                                <!-- Pratinjau gambar akan ditampilkan di sini -->
+                                @if ($warga->ktp)
+                                <img src="{{ asset('storage/ktp_images/' . basename($warga->ktp)) }}" alt="Foto KTP" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">
+                                @else
+                                <p class="text-center">Foto KTP tidak tersedia.</p>
+                                @endif
+                            </div>
                         </div>
                     </div>
+                    
                     <div class="form-group  mb-3">
                         <button type="submit" class="btn btn-primary-1" style="background-color: #03774A; width: 100%;">Submit</button>
                     </div>
@@ -247,3 +256,35 @@
 </style>
 @endpush
 
+@push('js')
+<script>
+    function previewAkte(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('akte-image-preview');
+            output.innerHTML = ''; // Hapus pratinjau yang ada sebelumnya
+            output.appendChild(createImageElement(reader.result));
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function previewKtp(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('ktp-image-preview');
+            output.innerHTML = ''; // Hapus pratinjau yang ada sebelumnya
+            output.appendChild(createImageElement(reader.result));
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function createImageElement(src) {
+        var img = document.createElement('img');
+        img.src = src;
+        img.classList.add('img-fluid', 'img-thumbnail');
+        img.style.maxWidth = '100%';
+        img.style.height = 'auto';
+        return img;
+    }
+</script>
+@endpush

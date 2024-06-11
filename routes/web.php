@@ -198,11 +198,13 @@ Route::group(['middleware' => ['auth']], function () {
         });
         Route::prefix('/Pengaduann')->group(function () {
             Route::get('/', [AprrovePengaduan::class, 'index'])->name('admin.pengaduan');
+            Route::get('/pengaduan/{id}', [AprrovePengaduan::class, 'detail'])->name('admin.pengaduan.detail');
             Route::post('/{id}/approve', [AprrovePengaduan::class, 'approve'])->name('pengaduan.approve');
             Route::post('/{id}/reject', [AprrovePengaduan::class, 'reject'])->name('pengaduan.reject');
         });
         Route::prefix('/pengajuan-umkm')->group(function () {
             Route::get('/', [ApproveUmkm::class, 'index'])->name('admin.pengajuan');
+            Route::get('/pengajuan/{id}', [ApproveUmkm::class, 'detail'])->name('admin.pengajuan.detail');
             Route::post('/umkm/approve/{id}', [ApproveUmkm::class, 'approve'])->name('umkm.approve');
             Route::post('/umkm/reject/{id}', [ApproveUmkm::class, 'reject'])->name('umkm.reject');
         });

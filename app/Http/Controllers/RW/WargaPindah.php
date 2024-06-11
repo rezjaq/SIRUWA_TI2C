@@ -19,7 +19,7 @@ class WargaPindah extends Controller
             'title' => 'Mengelola Warga Pindahan'
         ];
 
-        $activeMenu = 'Warga Pindah';
+        $activeMenu = 'WargaPindah';
 
         $wargas = WargaPindahMasuk::all();
 
@@ -61,7 +61,7 @@ class WargaPindah extends Controller
         $breadcrumb = (object) [
             'title' => 'Tambah Warga Pindahan',
         ];
-        $activeMenu = 'warga pindah';
+        $activeMenu = 'wargaPindah';
 
         return view('rw.warga_pindah.create', compact('breadcrumb', 'activeMenu'));
     }
@@ -127,7 +127,7 @@ class WargaPindah extends Controller
             'list' => ['Home', 'Warga pindah', 'Detail']
         ];
 
-        $activeMenu = 'Warga Pindah';
+        $activeMenu = 'WargaPindah';
 
         $warga = WargaPindahMasuk::where('status', 'Selesai')->findOrFail($id_wargaPindahMasuk);
 
@@ -140,7 +140,7 @@ class WargaPindah extends Controller
             'title' => 'Edit Warga',
             'list' => ['Home', 'Warga', 'Edit']
         ];
-        $activeMenu = 'Warga Pindah';
+        $activeMenu = 'WargaPindah';
 
         $warga = WargaPindahMasuk::findOrFail($id_wargaPindahMasuk);
 

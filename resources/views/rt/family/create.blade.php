@@ -72,8 +72,11 @@
                     <div class="mb-3 row">
                         <label for="kk" class="col-form-label col-md-3">Kartu Keluarga (KK)</label>
                         <div class="col-md-9">
-                            <input type="file" class="form-control-file @error('kk') is-invalid @enderror" id="kk" name="kk" accept=".jpg,.jpeg,.png">
+                            <input type="file" class="form-control-file @error('kk') is-invalid @enderror" id="kk" name="kk" accept=".jpg,.jpeg,.png" onchange="previewKKImage(event)">
                             <small class="form-text text-muted">Unggah gambar KK dalam format .jpg, .jpeg, atau .png</small>
+                            <div class="mt-2" id="kk-image-preview">
+                                <!-- Pratinjau gambar akan ditampilkan di sini -->
+                            </div>
                             @error('kk')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -122,4 +125,26 @@
     border-color: #025d37;
 }
 </style>
+@endpush
+
+@push('js')
+    <script>
+        function previewKKImage(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('kk-image');
+                if (output) {
+                    output.src = reader.result;
+                } else {
+                    var imagePreview = document.getElementById('kk-image-preview');
+                    output = document.createElement('img');
+                    output.id = 'kk-image';
+                    output.src = reader.result;
+                    output.classList.add('img-thumbnail');
+                    imagePreview.appendChild(output);
+                }
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
 @endpush

@@ -44,6 +44,20 @@ class AprrovePengaduan extends Controller
 
         return redirect()->route('admin.pengaduan')->with('success', 'Pengaduan telah ditolak.');
     }
+
+    public function detail($id)
+    {
+        $breadcrumb = (object) [
+            'title' => 'Menu Pengaduan Warga',
+        ];
+
+        $page = (object) [
+            'title' => 'Mengelola Pengaduan'
+        ];
+
+        $activeMenu = 'pengaduan';
+
+        $aduan = Aduan::findOrFail($id);
+        return view('rw.pengaduan.detail', compact('breadcrumb', 'page', 'activeMenu', 'aduan'));
+    }
 }
-
-

@@ -1,14 +1,15 @@
 @extends('template-admin.template')
 
 @section('content')
-<div class="card card-outline card-primary">
-    <div class="card-header bg-gradient-primary d-flex justify-content-between align-items-center">
-        <h3 class="card-title">Detail Pengaju Bansos</h3>
-        <div class="card-tools">
-            <!-- Tombol untuk kembali ke daftar -->
-            <a href="{{ route('RW.bansos.ranked-scores') }}" class="btn btn-secondary btn-sm">
-                <i class="fas fa-arrow-left"></i> Kembali
-            </a>
+<div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between" style="background-color: #03774A;">
+        <div class="card-header bg-custom text-white">
+            <h4 class="mb-0">
+                <a href="{{ route('RW.bansos.ranked-scores') }}" class="btn btn-sm btn-light me-2">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                Detail Pengajuan Bansos
+            </h4>
         </div>
     </div>
     <div class="card-body">
@@ -102,19 +103,36 @@
 
 @push('css')
     <style>
+        .bg-custom {
+            background-color: #03774A !important;
+        }
+
         .card-header {
             border-bottom: none;
             border-radius: 10px 10px 0 0;
         }
+
+        .card-tools .btn {
+            color: #fff;
+            border-radius: 5px;
+        }
+
+        .card-tools .btn:hover {
+            color: #fff;
+        }
+
         .table th,
         .table td {
             border: 1px solid #dee2e6;
-            color: #555; 
+            color: #555;
         }
+
         .table thead th {
             border-top: none;
-            background-color: #f4f4f4; 
-            color: #333; 
+            background-color: #f4f4f4;
+            color: #333;
+            font-weight: bold; /* Menjadikan teks tebal */
         }
     </style>
 @endpush
+
