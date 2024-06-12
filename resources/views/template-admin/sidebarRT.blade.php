@@ -56,11 +56,11 @@
                 <i class="mdi mdi-account menu-icon"></i>
             </a>
         </li>
-        <li class="nav-item {{ $activeMenu == 'pengaduan' ? 'active' : '' }}">
+        {{-- <li class="nav-item {{ $activeMenu == 'pengaduan' ? 'active' : '' }}">
             <a href="{{ url('/PengaduanRT') }}" class="nav-link">
                 <span class="menu-title">Pengaduan</span>
                 <i class="mdi mdi-account menu-icon"></i>
             </a>
-        </li>
+        </li> --}}
     </ul>
 </nav>

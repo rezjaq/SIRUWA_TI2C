@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class WargaSeeder extends Seeder
 {
-    /**
+    /**sp
      * Run the database seeds.
      */
     public function run(): void
@@ -1790,8 +1790,8 @@ class WargaSeeder extends Seeder
                 'no_rt' => '6',
                 'id_keluarga' => '3525021006160003', // ID Keluarga yang terkait
             ],
-           
-                //data RT & anggota keluarganya
+
+            //data RT & anggota keluarganya
             [
                 'nik' => '3525020208670023',
                 'nama' => 'MUHAMMAD SAID',
@@ -2019,7 +2019,7 @@ class WargaSeeder extends Seeder
                 'no_rt' => '6',
                 'id_keluarga' => '3525021911089253', // ID Keluarga yang terkait
             ]
-            ];
+        ];
         DB::table('warga')->insert($data);
     }
 }
