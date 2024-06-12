@@ -62,15 +62,8 @@ class AuthController extends Controller
                     default:
                         return redirect()->intended('/');
                 }
-            } else {
-                // Specific error message for non-hashed password mismatch
-                return redirect('login')
-                    ->withInput()
-                    ->withErrors(['login_gagal' => 'Password yang dimasukkan salah']);
-            }
-
-            // Check if the password matches the hashed version
-            if (Hash::check($request->password, $user->password)) {
+            } elseif (Hash::check($request->password, $user->password)) {
+                // Check if the password matches the hashed version
                 Auth::login($user);
 
                 session()->flash('success', 'Selamat datang, ' . $user->nama);
@@ -102,6 +95,7 @@ class AuthController extends Controller
             ->withInput()
             ->withErrors(['login_gagal' => 'Pastikan kembali username dan password yang dimasukkan sudah benar']);
     }
+
 
 
     private function redirectUserBasedOnLevel($user)

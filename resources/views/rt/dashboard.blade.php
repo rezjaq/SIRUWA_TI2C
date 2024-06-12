@@ -34,8 +34,7 @@
                             <h5 class="card-title mb-0">Jumlah Keluarga</h5>
                         </div>
                         <div class="card-body">
-                            <p class="card-text">Jumlah keluarga di RT ini: <span
-                                    class="fw-bold">{{ $jumlahKeluarga }}</span></p>
+                            <p class="card-text">Jumlah keluarga di RT ini: <span class="fw-bold">{{ $jumlahKeluarga }}</span></p>
                         </div>
                     </div>
                 </div>
@@ -46,8 +45,7 @@
                             <h5 class="card-title mb-0">Jumlah Warga Pindahan</h5>
                         </div>
                         <div class="card-body">
-                            <p class="card-text">Jumlah warga pindahan di RT ini: <span
-                                    class="fw-bold">{{ $jumlahWargaPindahanMasuk }}</span></p>
+                            <p class="card-text">Jumlah warga pindahan di RT ini: <span class="fw-bold">{{ $jumlahWargaPindahanMasuk }}</span></p>
                         </div>
                     </div>
                 </div>
@@ -55,14 +53,13 @@
                 <div class="col-lg-6 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-between mb-3">
                                 <select id="pie-data-type-selector" class="form-control w-auto">
                                     <option value="gender">Penyebaran Jenis Kelamin</option>
                                     <option value="age">Penyebaran Usia</option>
                                     <option value="marital-status">Penyebaran Status Kawin</option>
                                 </select>
                             </div>
-                            <!-- Tempat untuk menampilkan diagram pie -->
                             <div id="pie-chart-container"></div>
                             <div id="pie-total-container" class="mt-4">
                                 <h5>Total: <span id="pie-total-count">0</span></h5>
@@ -141,11 +138,8 @@
 
         .col-lg-8 {
             max-width: 800px;
-            /* Menentukan lebar maksimum */
             width: 100%;
-            /* Mengisi ruang yang tersedia */
             margin: auto;
-            /* Memposisikan form di tengah */
         }
 
         .btn-primary-1 {
@@ -153,6 +147,12 @@
             border-color: #03774A;
             color: white;
             width: 100%;
+        }
+
+        /* Tambahan agar responsif */
+        #pie-chart-container {
+            max-width: 100%;
+            height: auto;
         }
     </style>
 @endpush
@@ -192,7 +192,19 @@
                             series: chartData,
                             chart: {
                                 type: 'pie',
-                                height: 300
+                                height: 'auto',
+                                width: '100%',
+                                responsive: [{
+                                    breakpoint: 768,
+                                    options: {
+                                        chart: {
+                                            width: '100%'
+                                        },
+                                        legend: {
+                                            position: 'bottom'
+                                        }
+                                    }
+                                }]
                             },
                             labels: categories,
                             title: {
