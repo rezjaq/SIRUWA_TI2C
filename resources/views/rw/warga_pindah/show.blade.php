@@ -64,7 +64,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group mb-3">
-                        <label class="fw-bold">Foto Akte:</label>
+                        <label class="fw-bold">Foto KTP:</label>
                         @if($warga->foto_ktp)
                             <div class="text-center">
                                 <img src="{{ asset('storage/foto_ktp/' . basename($warga->foto_ktp)) }}" alt="Foto KTP" class="img-fluid img-thumbnail" style="max-width: 100%; height: auto;">

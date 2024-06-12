@@ -25,6 +25,7 @@
                                     <th scope="col">Jenis Kelamin</th>
                                     <th scope="col">Alamat</th>
                                     <th scope="col">Nomor RT</th>
+                                    <th scope="col">Skor</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,6 +36,7 @@
                                     <td>{{ $penerima->warga->jenis_kelamin }}</td>
                                     <td>{{ $penerima->warga->alamat }}</td>
                                     <td>{{ $penerima->warga->no_rt }}</td>
+                                    <td>{{ $penerima->score }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

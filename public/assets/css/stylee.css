@@ -9,6 +9,12 @@
     transform: translateY(0);
 }
 
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+}
+.nav-item.dropdown .dropdown-toggle::after {
+    display: none;
+}
 
 body {
     font-family: 'Arial', sans-serif; /* Modern, clean font */
